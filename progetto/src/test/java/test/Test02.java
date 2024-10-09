@@ -7,12 +7,9 @@ import configuration.JpaConfig;
 import eccezioni.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
-import entity.dao.ServizioDAO;
 import entity.dao.TrenoDAO;
-import entity.servizi.Servizio;
 import entity.treno.Treno;
 import fabbriche.FabbricaKargoModelz;
-import fabbriche.FabbricaServizi;
 import utility.Assemblatore;
 
 public class Test02 {
