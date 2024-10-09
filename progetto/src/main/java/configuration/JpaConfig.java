@@ -10,6 +10,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import entity.dao.TrenoDAO;
+import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.dao.ServizioDAO;
 
@@ -83,6 +84,12 @@ public class JpaConfig {
     @Bean(name="servizioDAO")
     public ServizioDAO getServizioDAO() {
     	ServizioDAO dao = new ServizioDAO();
+        return dao;
+    }
+    
+    @Bean(name="userDAO")
+    public UserDAO getUserDAO() {
+    	UserDAO dao = new UserDAO();
         return dao;
     }
 
