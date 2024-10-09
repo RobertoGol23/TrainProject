@@ -42,14 +42,7 @@ public class Test02 {
 			Treno trenoKM = builderKM.costruisciTreno(sigla);
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);
-
-
-            // NON SI AGGIUNGONO COSÌ!
-            FabbricaServizi fabbricaServizi = new FabbricaServizi();
-            ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-            servizioDAO.salvaServizio(fabbricaServizi.creaTemperatura());
-
-		          
+       
 
 			context.close();
 			
