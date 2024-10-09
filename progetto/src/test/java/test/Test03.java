@@ -10,7 +10,6 @@ import entity.classi_astratte.TrenoBuilder;
 import entity.classi_astratte.Vagone;
 import entity.dao.ServizioDAO;
 import entity.dao.TrenoDAO;
-import entity.servizi.Servizio;
 import entity.treno.Treno;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaServizi;
@@ -32,8 +31,6 @@ public class Test03 {
 		 * update di un treno
          * 
 		 */
-
-
 
 
         String sigla = "hprp";
