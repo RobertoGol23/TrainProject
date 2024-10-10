@@ -10,6 +10,8 @@ import entity.classi_astratte.TrenoBuilder;
 import entity.classi_astratte.Vagone;
 import entity.dao.ServizioDAO;
 import entity.dao.TrenoDAO;
+import entity.dao.VagoneDAO;
+import entity.servizi.Servizio;
 import entity.treno.Treno;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaServizi;
@@ -48,6 +50,8 @@ public class Test03 {
             // AGGIUNTA DI UN SERVIZIO
             FabbricaServizi fabbricaServizi = new FabbricaServizi();
             ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+            
+            VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
 
             // CANCELLAZIONE DI UN SERVIZIO  ->
             servizioDAO.eliminaServizioByName("bagno");
@@ -60,11 +64,17 @@ public class Test03 {
 
             // AGGIUNTA DI UN SERVIZIO AD UN VAGONE
             Vagone vagoneKM = trenoKM.getVagone(indexVagone);
+            Servizio s = servizioDAO.getServizioByName("bagno");
             //ERRORE: non va creato il servizio, va detto al DB di darcene uno!!
-            vagoneKM.addServizio(servizioDAO.getServizioByName("bagno"));
-
+            //vagoneKM.addServizio(servizioDAO.getServizioByName("bagno"));
+            vagoneKM.addServizio(s);
+            
+            
             trenoKM.setVagone(indexVagone, vagoneKM);
-
+            
+            //TODO non mette il vagone nella tabella vagone passeggeri
+            vagoneDAO.updateVagone(vagoneKM);
+            servizioDAO.updateServizio(s);
             trenoDAO.updateTreno(trenoKM);
 
 
