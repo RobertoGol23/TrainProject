@@ -1,8 +1,7 @@
 package entity.dao;
 
+import entity.classi_astratte.vagoni_astratti.Vagone;
 import jakarta.persistence.EntityManager;
-
-import entity.classi_astratte.Vagone;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 

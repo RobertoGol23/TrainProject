@@ -18,7 +18,6 @@ public class Test04 {
 		 * 
 		 */
 		
-		 // PROVA PROVA SA SA AAAAAAAA
 		
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 	

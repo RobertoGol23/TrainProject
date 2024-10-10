@@ -5,8 +5,8 @@ import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
 import eccezioni.SiglaTrenoException;
-import entity.classi_astratte.FabbricaVagoni;
-import entity.classi_astratte.TrenoBuilder;
+import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
+import entity.classi_astratte.fabbrica_and_builder.TrenoBuilder;
 import entity.dao.TrenoDAO;
 import entity.treno.Treno;
 import fabbriche.FabbricaKargoModelz;

@@ -3,9 +3,9 @@ package fabbriche;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import entity.classi_astratte.FabbricaVagoni;
-import entity.classi_astratte.Locomotiva;
-import entity.classi_astratte.Vagone;
+import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
+import entity.classi_astratte.vagoni_astratti.Locomotiva;
+import entity.classi_astratte.vagoni_astratti.Vagone;
 
 public class FabbricaKargoModelz extends FabbricaVagoni {
 
