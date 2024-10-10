@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:progetto/src/main/java/entity/treno/Locomotiva.java
 package entity.treno;
-========
-package entity.classi_astratte.vagoni_astratti;
->>>>>>>> main:progetto/src/main/java/entity/classi_astratte/vagoni_astratti/Locomotiva.java
+
 
 import entity.classi_astratte.Vagone;
 import jakarta.persistence.Column;

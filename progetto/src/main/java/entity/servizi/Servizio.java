@@ -3,9 +3,8 @@ package entity.servizi;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import entity.classi_astratte.vagoni_astratti.Vagone;
-
+import entity.classi_astratte.Vagone;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

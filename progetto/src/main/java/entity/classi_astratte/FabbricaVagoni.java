@@ -1,7 +1,4 @@
-package entity.classi_astratte.fabbrica_and_builder;
-
-import entity.classi_astratte.vagoni_astratti.Locomotiva;
-import entity.classi_astratte.vagoni_astratti.Vagone;
+package entity.classi_astratte;
 
 import entity.treno.Locomotiva;
 

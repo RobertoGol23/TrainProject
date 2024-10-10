@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:progetto/src/main/java/entity/treno/VagoneCargo.java
 package entity.treno;
-========
-package entity.classi_astratte.vagoni_astratti;
->>>>>>>> main:progetto/src/main/java/entity/classi_astratte/vagoni_astratti/VagoneCargo.java
 
 import entity.classi_astratte.Vagone;
 import jakarta.persistence.Column;
@@ -13,13 +9,8 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 @Entity
-<<<<<<<< HEAD:progetto/src/main/java/entity/treno/VagoneCargo.java
 public class VagoneCargo extends Vagone{ //pensare se si puo' levare abstract per il dao
-========
-@Table(name = "Vagoni Cargo")
-public abstract class VagoneCargo extends Vagone{ //pensare se si puo' levare abstract per il dao
->>>>>>>> main:progetto/src/main/java/entity/classi_astratte/vagoni_astratti/VagoneCargo.java
-
+	
 	@Column(name="peso_massimo_trasportabile", nullable = false, unique = false)
 	private Double pesoMassimoTrasportabile;
 	

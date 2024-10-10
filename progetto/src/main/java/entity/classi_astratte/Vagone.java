@@ -1,4 +1,4 @@
-package entity.classi_astratte.vagoni_astratti;
+package entity.classi_astratte;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +34,7 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	private Double prezzo;
 
 	@ManyToMany(mappedBy = "listaVagoniS", fetch = FetchType.EAGER) // Indica che la relazione è gestita dall'altra entità (Servizio)
-    private List<Servizio> listaServizi;
+    private List<Servizio> listaServizi = new ArrayList<Servizio>();
 
 	@ManyToMany(mappedBy = "listaVagoni") // Indica che la relazione è gestita dall'altra entità (Treno)
 	private List<Treno> listaTreni;
@@ -82,19 +82,20 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	}
 	
 	public Double getPrezzo() {
-//		Double prezzoTot = 0.0; 
-//		for(Servizio s: listaServizi) {
-//			prezzoTot = prezzoTot + s.getPrezzoS();
-//		}
-//		if(prezzoTot != 0.0) {
-//			return prezzo + prezzoTot; 
-//		}else {
-//			return prezzo;
-//		}
-		return prezzo;
+		Double prezzoTot = 0.0; 
+		for(Servizio s: listaServizi) {
+			prezzoTot = prezzoTot + s.getPrezzoS();
+		}
+		if(prezzoTot != 0.0) {
+			return prezzo + prezzoTot; 
+		}else {
+			return prezzo;
+		}
+
 	}
 	
 	public void addServizio(Servizio s) {
+		
 		if(!listaServizi.contains(s)) {
 			listaServizi.add(s);
 			s.aggiungiVagone(this);
@@ -125,16 +126,12 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 		return listaServizi;
 	}
 
-	public void setListaServizi(List<Servizio> listaServizi) {
-		
-		FabbricaServizi fs = new FabbricaServizi();
-		Servizio s = fs.creaTemperatura();
-		
-		listaServizi.add(s);
-		
-		this.listaServizi = listaServizi;
-	}
-	
+//	public void setListaServizi() {
+//		
+//		this.listaServizi = new ArrayList<Servizio>();
+//
+//	}
+//	
 	
 	
 }
