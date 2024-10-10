@@ -24,8 +24,8 @@ public class Test01 {
 		FabbricaVagoni fabbricaRG = new FabbricaRegionalGain();
 		TrenoBuilder builderRG = new Assemblatore(fabbricaRG);
 
-		FabbricaVagoni fabbricaXFF = new FabbricaXFurryFast();
-		TrenoBuilder builderXFF = new Assemblatore(fabbricaXFF);
+		FabbricaVagoni fabbricaFF = new FabbricaXFurryFast();
+		TrenoBuilder builderFF = new Assemblatore(fabbricaFF);
 
 
 		/*				TEST 01
@@ -46,41 +46,41 @@ public class Test01 {
 			VagoneDAO vagoneInterfaceDAO = context.getBean(VagoneDAO.class);
 
 
-			Treno trenoKM = builderKM.costruisciTreno(sigla);
+			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
-			Treno trenoRG = builderRG.costruisciTreno(sigla);
+			Treno trenoRG = builderRG.costruisciTreno("Treno Passeggeri RG",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
-			Treno trenoXFF = builderXFF.costruisciTreno(sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoXFF.getLocomotiva());
-			for (Vagone vagone : trenoXFF.getListaVagoni()){
+			Treno trenoFF = builderFF.costruisciTreno("Treno Passeggeri FF",sigla);
+			vagoneInterfaceDAO.salvaVagone(trenoFF.getLocomotiva());
+			for (Vagone vagone : trenoFF.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
             
 			sigla = "hcc";
 
-			trenoKM = builderKM.costruisciTreno(sigla);
+			trenoKM = builderKM.costruisciTreno("Treno Cargo KM",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
-			trenoRG = builderRG.costruisciTreno(sigla);
+			trenoRG = builderRG.costruisciTreno("Treno Cargo RG",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
-			trenoXFF = builderXFF.costruisciTreno(sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoXFF.getLocomotiva());
-			for (Vagone vagone : trenoXFF.getListaVagoni()){
+			trenoFF = builderFF.costruisciTreno("Treno Cargo F",sigla);
+			vagoneInterfaceDAO.salvaVagone(trenoFF.getLocomotiva());
+			for (Vagone vagone : trenoFF.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 

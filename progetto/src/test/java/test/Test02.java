@@ -26,9 +26,6 @@ public class Test02 {
 		 * 
 		 */
 
-
-
-
         String sigla = "hprp";
 		try
 		{
@@ -36,7 +33,7 @@ public class Test02 {
 			
 
 
-			Treno trenoKM = builderKM.costruisciTreno(sigla);
+			Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla);
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);
        

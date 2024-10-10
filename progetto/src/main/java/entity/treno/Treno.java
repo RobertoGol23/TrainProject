@@ -25,6 +25,9 @@ public class Treno {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id_treno;
 	
+	@Column(name="nomeTreno", nullable = false, unique = false)
+	private String nomeTreno;
+	
 	@Column(name="marca", nullable = false, unique = false)
 	private String marca;
 	
@@ -46,8 +49,9 @@ public class Treno {
 	private Treno() {} //costruttore vuoto
 	
 	// Costruttore privato della classe Treno, richiamato soltanto dal suo metodo statico
-	private Treno(Vagone locomotiva, ArrayList<Vagone> listaVagoni, String marca)
+	private Treno(String nomeTreno, Vagone locomotiva, ArrayList<Vagone> listaVagoni, String marca)
 	{
+		this.setNomeTreno(nomeTreno);
 		this.setLocomotiva(locomotiva);
 		this.setListaVagoni(listaVagoni);
 		this.setMarca(marca);
@@ -56,10 +60,18 @@ public class Treno {
 	
 	
 	// Metodo statico per creare l'istanza treno a partire dalla locomotiva e lista vagoni
-	public static Treno creaTreno(Vagone locomotiva,ArrayList<Vagone> listaVagoni, String marca)
+	public static Treno creaTreno(String nomeTreno,Vagone locomotiva,ArrayList<Vagone> listaVagoni, String marca)
 	{
-		Treno treno = new Treno(locomotiva, listaVagoni, marca);
+		Treno treno = new Treno(nomeTreno,locomotiva, listaVagoni, marca);
 		return treno;
+	}
+	
+	public String getNomeTreno() {
+		return nomeTreno;
+	}
+
+	public void setNomeTreno(String nomeTreno) {
+		this.nomeTreno = nomeTreno;
 	}
 
 	public void setMarca(String marca) {
