@@ -13,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 
@@ -60,6 +59,7 @@ public class Treno {
 	
 	
 	// Metodo statico per creare l'istanza treno a partire dalla locomotiva e lista vagoni
+
 	public static Treno creaTreno(String nomeTreno,Vagone locomotiva,ArrayList<Vagone> listaVagoni, String marca)
 	{
 		Treno treno = new Treno(nomeTreno,locomotiva, listaVagoni, marca);
@@ -82,8 +82,16 @@ public class Treno {
 		return marca;
 	}
 	
-	public Vagone getLocomotiva() {
-		return locomotiva;
+	public Locomotiva getLocomotiva() {
+		return (Locomotiva)listaVagoni.get(0);
+	}
+
+	public Locomotiva getLocomotivaInCoda(){
+		Vagone locomotivaInCoda = listaVagoni.get(listaVagoni.size());
+		if(locomotivaInCoda.getClass() == Locomotiva.class){
+			return (Locomotiva)locomotivaInCoda;
+		}
+		return null;
 	}
 
 	public void setLocomotiva(Vagone locomotiva) {
@@ -94,10 +102,9 @@ public class Treno {
 		return getListaVagoni().get(index);
 	}
 
-	public void setVagone(int index, Vagone vagone) {
-		getListaVagoni().set(index, vagone);
+	public void setVagone(int index, Vagone vagone){
+		listaVagoni.set(index, vagone);
 	}
-	
 
 	public List<Vagone> getListaVagoni() {
 		return listaVagoni;

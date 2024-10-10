@@ -4,9 +4,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
-import eccezioni.SiglaTrenoException;
-import entity.classi_astratte.TrenoBuilder;
+import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
+import entity.classi_astratte.TrenoBuilder;
 import entity.dao.TrenoDAO;
 import entity.treno.Treno;
 import fabbriche.FabbricaKargoModelz;
@@ -25,19 +25,17 @@ public class Test02 {
 		 * 
 		 * 
 		 */
-
         String sigla = "hprp";
 		try
 		{
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-			
-
+		
 
 			Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla);
+
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);
        
-
 			context.close();
 			
 		}

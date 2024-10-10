@@ -3,11 +3,7 @@ package entity.treno;
 
 import entity.classi_astratte.Vagone;
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
-
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 
 
 @Entity

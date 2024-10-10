@@ -16,7 +16,6 @@ import jakarta.persistence.InheritanceType;
 
 import entity.servizi.Servizio;
 import entity.treno.Treno;
-import fabbriche.FabbricaServizi;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

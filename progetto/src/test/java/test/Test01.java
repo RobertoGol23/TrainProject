@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
-import eccezioni.SiglaTrenoException;
+import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
 import entity.classi_astratte.Vagone;
@@ -37,8 +37,7 @@ public class Test01 {
 
 
 
-
-        String sigla = "hprp";
+        String sigla = "hprpp";
 		try
 		{
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
@@ -46,21 +45,27 @@ public class Test01 {
 			VagoneDAO vagoneInterfaceDAO = context.getBean(VagoneDAO.class);
 
 
+
 			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
+
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
+
 			Treno trenoRG = builderRG.costruisciTreno("Treno Passeggeri RG",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
+
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
+
 			Treno trenoFF = builderFF.costruisciTreno("Treno Passeggeri FF",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoFF.getLocomotiva());
 			for (Vagone vagone : trenoFF.getListaVagoni()){
+
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
             
@@ -68,15 +73,19 @@ public class Test01 {
 
 			trenoKM = builderKM.costruisciTreno("Treno Cargo KM",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
+
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
+
 			trenoRG = builderRG.costruisciTreno("Treno Cargo RG",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
+
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
+
 
 			trenoFF = builderFF.costruisciTreno("Treno Cargo F",sigla);
 			vagoneInterfaceDAO.salvaVagone(trenoFF.getLocomotiva());

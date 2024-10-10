@@ -2,18 +2,9 @@ package entity.classi_astratte;
 
 import java.util.ArrayList;
 
-import eccezioni.ControlloEccezioni;
-import eccezioni.IncoerenzaVagoniException;
-import eccezioni.LocomotivaInMezzoException;
-import eccezioni.LocomotivaNonInTestaException;
-import eccezioni.RistoranteNonInMezzoException;
-import eccezioni.SiglaTrenoException;
-import eccezioni.TroppiRistorantiException;
-import eccezioni.TroppoPesoException;
-import eccezioni.VagoneNonValidoException;
-import entity.classi_astratte.Vagone;
-import entity.treno.Locomotiva;
+import eccezioni.eccezioniSigla.*;
 import entity.treno.Treno;
+import entity.treno.Locomotiva;
 
 public abstract class TrenoBuilder {
 	
@@ -22,7 +13,6 @@ public abstract class TrenoBuilder {
 		//System.out.println("Sigla interna: " + sigla.toString());
 		
 		ArrayList<Vagone> listaVagoni = new ArrayList<Vagone>();
-		Locomotiva locomotiva; 
 		
 		int contaR = 0;
 		int contaP = 0;
@@ -34,14 +24,8 @@ public abstract class TrenoBuilder {
 			throw new LocomotivaNonInTestaException(sigla, "Errore: locomotiva non in testa");
 			//puo' lanciare una eccezione da gestire dove viene chiamato il metodo
 		}
-		else
-		{
-			locomotiva = this.getLocomotiva();
-			sommapeso = sommapeso + locomotiva.getPeso();
-			//System.out.println("Locomotiva: " + locomotiva.toString());
-		}
 		
-		
+		listaVagoni.add(getLocomotiva());
 		
 		for(int i = 1; i < sigla.length(); i++) {
 			
@@ -72,7 +56,7 @@ public abstract class TrenoBuilder {
 				}
 				else
 				{
-					if(!ControlloEccezioni.controllaRistoranteCentrale(sigla))
+					if(!controllaRistoranteCentrale(sigla))
 					{
 						throw new RistoranteNonInMezzoException(sigla,"Errore: ristorante non in posizione centrale");
 					}
@@ -102,7 +86,7 @@ public abstract class TrenoBuilder {
 				listaVagoni.add(getVagoneCargo());
 				break;
 			default:
-				throw new VagoneNonValidoException(sigla,"Errore: vagone non valido",i);
+				throw new StringaNonValidaException(sigla, "Errore: carattere non valido");
 			}
 		}
 		
@@ -114,12 +98,14 @@ public abstract class TrenoBuilder {
 		for(Vagone v: listaVagoni) {
 			sommapeso = sommapeso + v.getPeso();
 		}
+
+		Locomotiva locomotiva = (Locomotiva)listaVagoni.get(0);
 		if(sommapeso > locomotiva.getPesoTrainabile()) {
 			throw new TroppoPesoException(sigla, "sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
 		}
 
-		Treno t= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno KargoModelz");
-		
+
+		Treno t= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno KargoModelz");		
 		return t;
 	}
 	
@@ -127,5 +113,38 @@ public abstract class TrenoBuilder {
 	protected abstract Vagone getVagonePasseggeri();
 	protected abstract Vagone getVagoneCargo();
 	protected abstract Vagone getVagoneRistorante();
+
+
+
+
+
+
+
+
+	public static Boolean controllaRistoranteCentrale(String sigla)
+	{
+		Boolean flag = false;
+		
+		if((sigla.length()%2)==0) //pari,  A A A R(3) R(4) A A A
+		{
+			int posizione1 = sigla.length()/2;
+			int posizione2 = posizione1-1;
+			if(sigla.charAt(posizione1) == 'r' || sigla.charAt(posizione1) == 'R'
+				|| sigla.charAt(posizione2) == 'r' || sigla.charAt(posizione2) == 'R')
+			{
+				flag = true;
+			}
+		}
+		else // A A A A R(4) A A A A
+		{
+			int posizione = (sigla.length()-1)/2;
+			if(sigla.charAt(posizione) == 'r' || sigla.charAt(posizione) == 'R')
+			{
+				flag = true;
+			}
+		}
+		
+		return flag;
+	}
 	
 }
