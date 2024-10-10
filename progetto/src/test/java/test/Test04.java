@@ -41,7 +41,8 @@ public class Test04 {
 		User fungo = new User("Fungo", "Porcino", "fungo.porcino@gmail.com", "1313");
 		User cotoletta = new User("Cotoletta", "Dorata", "cotoletta.dorata@gmail.com", "nini");
 		User pupazzo = new User("Pupazzo", "DiNeve", "pupazzo.dineve@gmail.com", "2323");
-		
+		User ensdrong = new User("Letsgosky", "Ecosichesifa", "ensdrongo.letsgosky@gmail.com", "1234");
+
 		UserDAO userDAO = context.getBean(UserDAO.class);
 		
 		
