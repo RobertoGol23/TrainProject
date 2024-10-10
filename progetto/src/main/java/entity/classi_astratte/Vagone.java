@@ -9,6 +9,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -31,7 +32,7 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	@Column(name = "prezzo", nullable = false, unique = false)
 	private Double prezzo;
 
-	@ManyToMany(mappedBy = "listaVagoni") // Indica che la relazione è gestita dall'altra entità (Servizio)
+	@ManyToMany(mappedBy = "listaVagoniS", fetch = FetchType.EAGER) // Indica che la relazione è gestita dall'altra entità (Servizio)
     private List<Servizio> listaServizi;
 
 	@ManyToMany(mappedBy = "listaVagoni") // Indica che la relazione è gestita dall'altra entità (Treno)
@@ -81,7 +82,10 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	}
 	
 	public void addServizio(Servizio s) {
-		listaServizi.add(s);
+		if(!listaServizi.contains(s)) {
+			listaServizi.add(s);
+			s.aggiungiVagone(this);
+		}
 	}
 	
 	public void deleteServizio(Servizio s) {
