@@ -1,4 +1,4 @@
-package entity.classi_astratte;
+package entity.classi_astratte.fabbrica_and_builder;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,8 @@ import eccezioni.SiglaTrenoException;
 import eccezioni.TroppiRistorantiException;
 import eccezioni.TroppoPesoException;
 import eccezioni.VagoneNonValidoException;
+import entity.classi_astratte.vagoni_astratti.Locomotiva;
+import entity.classi_astratte.vagoni_astratti.Vagone;
 import entity.treno.Treno;
 
 public abstract class TrenoBuilder {
