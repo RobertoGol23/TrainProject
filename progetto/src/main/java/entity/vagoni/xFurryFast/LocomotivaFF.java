@@ -1,6 +1,6 @@
 package entity.vagoni.xFurryFast;
 
-import entity.classi_astratte.Locomotiva;
+import entity.classi_astratte.vagoni_astratti.Locomotiva;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 

@@ -1,7 +1,6 @@
 package entity.vagoni.KargoModelz;
 
-import entity.classi_astratte.VagoneCargo;
-
+import entity.classi_astratte.vagoni_astratti.VagoneCargo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
