@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import eccezioni.eccezioniSigla.*;
 import entity.treno.Treno;
+import entity.user.User;
 import entity.treno.Locomotiva;
 
 public abstract class TrenoBuilder {
 	
-	public Treno costruisciTreno(String nomeTreno, String sigla) throws SiglaTrenoException{
+	public Treno costruisciTreno(String nomeTreno, String sigla, User utente) throws SiglaTrenoException{
 		
 		//System.out.println("Sigla interna: " + sigla.toString());
 		
@@ -105,7 +106,7 @@ public abstract class TrenoBuilder {
 		}
 
 
-		Treno t= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno KargoModelz");		
+		Treno t= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno KargoModelz", utente);		
 		return t;
 	}
 	
