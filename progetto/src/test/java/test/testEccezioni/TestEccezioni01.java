@@ -44,7 +44,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("TEST 1: \n");
-			builderKM.costruisciTreno(sigla1_IncoerenzaVagoni);
+			builderKM.costruisciTreno("Test 1",sigla1_IncoerenzaVagoni);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -54,7 +54,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("TEST 1.2: \n");
-			builderKM.costruisciTreno(sigla1_IncoerenzaVagoni);
+			builderKM.costruisciTreno("Test 1.2",sigla1_IncoerenzaVagoni);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -64,7 +64,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("TEST 2: \n");
-			builderKM.costruisciTreno(sigla1_IncoerenzaVagoni2);
+			builderKM.costruisciTreno("Test 2",sigla1_IncoerenzaVagoni2);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -74,7 +74,7 @@ public class TestEccezioni01 {
 		
 		try {
 			System.out.println("TEST 3: \n");
-			builderKM.costruisciTreno(sigla2_LocomotivaNonInTesta);
+			builderKM.costruisciTreno("Test 3",sigla2_LocomotivaNonInTesta);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -84,7 +84,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("TEST 4: \n");
-			builderKM.costruisciTreno(sigla3_LocomotivaInMezzo);
+			builderKM.costruisciTreno("Test 4",sigla3_LocomotivaInMezzo);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -94,7 +94,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("TEST 5: \n");
-			builderKM.costruisciTreno(sigla4_RistoranteNonInMezzo);
+			builderKM.costruisciTreno("Test 5",sigla4_RistoranteNonInMezzo);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -104,7 +104,7 @@ public class TestEccezioni01 {
 			
 		try {
 			System.out.println("TEST 6: \n");
-			builderKM.costruisciTreno(sigla5_StringaNonValida);
+			builderKM.costruisciTreno("Test 6",sigla5_StringaNonValida);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -114,7 +114,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("TEST 7: \n");
-			builderKM.costruisciTreno(sigla6_TroppeLocomotive);
+			builderKM.costruisciTreno("Test 7",sigla6_TroppeLocomotive);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -124,7 +124,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("TEST 8: \n");
-			builderKM.costruisciTreno(sigla7_TroppiRistoranti);
+			builderKM.costruisciTreno("Test 8",sigla7_TroppiRistoranti);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -134,7 +134,7 @@ public class TestEccezioni01 {
 			
 		try {
 			System.out.println("TEST 9: \n");
-			builderKM.costruisciTreno(sigla8_TroppoPeso);
+			builderKM.costruisciTreno("Test 9",sigla8_TroppoPeso);
 		}
 		catch(SiglaTrenoException e){
 			String message = e.getMessage();
@@ -146,7 +146,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("\nTEST SPAZIO NEL MEZZO: \n");
-			Treno treno = builderKM.costruisciTreno("h p"); // SPAZIO nel mezzo
+			Treno treno = builderKM.costruisciTreno("Test","h p"); // SPAZIO nel mezzo
 			System.out.println("numero vagoni: " + treno.getListaVagoni().size());
 		}
 		catch(SiglaTrenoException e){
@@ -157,7 +157,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("\nTEST SPAZIO ALLA FINE: \n");
-			Treno treno = builderKM.costruisciTreno("hp "); //SPAZIO alla fine
+			Treno treno = builderKM.costruisciTreno("Test","hp "); //SPAZIO alla fine
 			System.out.println("numero vagoni: " + treno.getListaVagoni().size());
 		}
 		catch(SiglaTrenoException e){
@@ -168,7 +168,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("\nTEST CARATTERE SPECIALE: \n");
-			Treno treno = builderKM.costruisciTreno("hp*"); //caratteri speciali
+			Treno treno = builderKM.costruisciTreno("Test","hp*"); //caratteri speciali
 			System.out.println("numero vagoni: " + treno.getListaVagoni().size());
 		}
 		catch(SiglaTrenoException e){
@@ -179,7 +179,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("\nTEST STRINAGA CON SPAZIO: \n");
-			Treno treno = builderKM.costruisciTreno(" "); //stringa con spazio
+			Treno treno = builderKM.costruisciTreno("Test"," "); //stringa con spazio
 			System.out.println("numero vagoni: " + treno.getListaVagoni().size());
 		}
 		catch(SiglaTrenoException e){
@@ -190,7 +190,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("\nTEST VUOTA: \n");
-			Treno treno = builderKM.costruisciTreno(" "); //stringa vuota
+			Treno treno = builderKM.costruisciTreno("Test"," "); //stringa vuota
 			System.out.println("numero vagoni: " + treno.getListaVagoni().size());
 		}
 		catch(SiglaTrenoException e){
@@ -201,7 +201,7 @@ public class TestEccezioni01 {
 
 		try {
 			System.out.println("\nCARATTERE MAIUSCOLO: \n");
-			Treno treno = builderKM.costruisciTreno("Hp"); //stringa vuota
+			Treno treno = builderKM.costruisciTreno("Test","Hp"); //stringa vuota
 			System.out.println("numero vagoni: " + treno.getListaVagoni().size());
 		}
 		catch(SiglaTrenoException e){

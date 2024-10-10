@@ -8,7 +8,7 @@ import entity.treno.Locomotiva;
 
 public abstract class TrenoBuilder {
 	
-	public Treno costruisciTreno(String sigla) throws SiglaTrenoException{
+	public Treno costruisciTreno(String nomeTreno, String sigla) throws SiglaTrenoException{
 		
 		//System.out.println("Sigla interna: " + sigla.toString());
 		
@@ -104,8 +104,8 @@ public abstract class TrenoBuilder {
 			throw new TroppoPesoException(sigla, "sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
 		}
 
-		Treno t= Treno.creaTreno(listaVagoni, "null"); //null = marca
-		
+
+		Treno t= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno KargoModelz");		
 		return t;
 	}
 	
