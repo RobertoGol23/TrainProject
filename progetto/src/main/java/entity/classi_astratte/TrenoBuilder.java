@@ -25,7 +25,7 @@ public abstract class TrenoBuilder {
 			//puo' lanciare una eccezione da gestire dove viene chiamato il metodo
 		}
 		
-		
+		listaVagoni.add(getLocomotiva());
 		
 		for(int i = 1; i < sigla.length(); i++) {
 			
@@ -113,6 +113,12 @@ public abstract class TrenoBuilder {
 	protected abstract Vagone getVagonePasseggeri();
 	protected abstract Vagone getVagoneCargo();
 	protected abstract Vagone getVagoneRistorante();
+
+
+
+
+
+
 
 
 	public static Boolean controllaRistoranteCentrale(String sigla)

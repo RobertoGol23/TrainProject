@@ -34,13 +34,10 @@ public class Test02 {
 		{
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 			
-
-
 			Treno trenoKM = builderKM.costruisciTreno(sigla);
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);
        
-
 			context.close();
 			
 		}
