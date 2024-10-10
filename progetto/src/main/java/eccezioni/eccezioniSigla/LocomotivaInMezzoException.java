@@ -1,9 +1,11 @@
-package eccezioni;
+package eccezioni.eccezioniSigla;
 
 @SuppressWarnings("serial")
-public class VagoneNonValidoException extends SiglaTrenoException {
+public class LocomotivaInMezzoException extends SiglaTrenoException{
+
+	// Controlla se ci sono locomotive in mezzo al vagone
 	private int posizione;
-	public VagoneNonValidoException(String sigla, String messaggio, int posizione) {
+	public LocomotivaInMezzoException(String sigla, String messaggio, int posizione) {
 		super(sigla, messaggio);
 		this.posizione = posizione;
 	}

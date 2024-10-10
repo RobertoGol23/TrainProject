@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
-import eccezioni.SiglaTrenoException;
+import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
 import entity.classi_astratte.fabbrica_and_builder.TrenoBuilder;
 import entity.classi_astratte.vagoni_astratti.Vagone;
