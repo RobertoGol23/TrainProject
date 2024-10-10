@@ -39,8 +39,6 @@ public class Treno {
 		)
 	private List<Vagone> listaVagoni;
 
-
-	// TODO: GESTIRE PIU DI UNA LOCOMOTIVA
 	@Transient //non viene aggiunto alla tabella 
 	private Vagone locomotiva;
 	

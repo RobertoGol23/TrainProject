@@ -30,7 +30,7 @@ public class JpaConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/Hibernate_db");
         dataSource.setUsername("root");
-        dataSource.setPassword("M1c0ll3g0_"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
+        dataSource.setPassword("Mauro01"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
         return dataSource;
     }
 
@@ -42,7 +42,7 @@ public class JpaConfig {
         // JDBC
         factoryBean.setDataSource(dataSource());
         // impostare il luogo dove si trovano le entity con il mapping
-        factoryBean.setPackagesToScan("entity.*"); //     TODO: POTENZIALE ERRORE
+        factoryBean.setPackagesToScan("entity.*"); //   
 
         // imposta il dialogo tra JPA e hibernate
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();

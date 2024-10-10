@@ -6,9 +6,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import entity.servizi.Servizio;
 
 
-// TODO: da rivedere, forse va messo un unico seeder al posto dei singoli bean
-// TODO: non sono prototype, potrebbe essere un ERRORE
-
 public class FabbricaServizi {
 
 	AbstractApplicationContext contextServizi = new ClassPathXmlApplicationContext("Servizi.xml");	

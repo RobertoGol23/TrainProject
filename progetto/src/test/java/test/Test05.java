@@ -27,7 +27,7 @@ public class Test05 {
 
 		/*				TEST 05
 		 * caricamento nel db di un treno con i rispettivi vagoni e nome
-		 * inserimento di un servizio al database
+		 * inserimento di un SERVIZIO al database
 		 * aggiunta di un servizio ad un vagone
          * update di un treno
          * 
@@ -57,15 +57,24 @@ public class Test05 {
             FabbricaServizi fabbricaServizi = new FabbricaServizi();
             ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
 
+
+			// TODO: quando fai i test potrebbe dare erroe!!!!!!!!!!!!!!!!
+			
+			// RIMOZIONE DI UN SERVIZIO 
+			// servizioDAO.eliminaServizioByName("bagno");
+
             // INSERIMENTO DI UN SERVIZIO
             servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
             
+
             int indexVagone = 1;
 
             // AGGIUNTA DI UN SERVIZIO AD UN VAGONE
+
             Vagone vagoneKM = trenoKM.getVagone(indexVagone);
             //ERRORE: non va creato il servizio, va detto al DB di darcene uno!!
             Servizio s = servizioDAO.getServizioByName("bagno");
+
             //vagoneKM.addServizio(servizioDAO.getServizioByName("bagno"));
             vagoneKM.addServizio(s);
              
