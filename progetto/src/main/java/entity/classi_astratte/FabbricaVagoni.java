@@ -1,5 +1,7 @@
 package entity.classi_astratte;
 
+import entity.treno.Locomotiva;
+
 public abstract class FabbricaVagoni {
 
 	public abstract Locomotiva creaLocomotiva();

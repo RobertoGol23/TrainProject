@@ -15,6 +15,7 @@ import jakarta.persistence.InheritanceType;
 
 import entity.servizi.Servizio;
 import entity.treno.Treno;
+import fabbriche.FabbricaServizi;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -57,27 +58,39 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	}
 
 	public Double getPeso() {
-		Double pesoTot = 0.0;
-		for(Servizio s: listaServizi) {
-			pesoTot = pesoTot + s.getPesoS();
-		}
-		if(pesoTot != 0.0) {
-			return peso + pesoTot; 
-		}else {
-			return peso;
-		}
+//		Double pesoTot = 0.0;
+//		for(Servizio s: listaServizi) {
+//			pesoTot = pesoTot + s.getPesoS();
+//		}
+//		if(pesoTot != 0.0) {
+//			return peso + pesoTot; 
+//		}else {
+//			return peso;
+//		}
+		return peso;
+	}
+	
+	public void setPeso(Double peso)
+	{
+		this.peso = peso;
+	}
+	
+	public void setPrezzo(Double prezzo)
+	{
+		this.prezzo = prezzo;
 	}
 	
 	public Double getPrezzo() {
-		Double prezzoTot = 0.0; 
-		for(Servizio s: listaServizi) {
-			prezzoTot = prezzoTot + s.getPrezzoS();
-		}
-		if(prezzoTot != 0.0) {
-			return prezzo + prezzoTot; 
-		}else {
-			return prezzo;
-		}
+//		Double prezzoTot = 0.0; 
+//		for(Servizio s: listaServizi) {
+//			prezzoTot = prezzoTot + s.getPrezzoS();
+//		}
+//		if(prezzoTot != 0.0) {
+//			return prezzo + prezzoTot; 
+//		}else {
+//			return prezzo;
+//		}
+		return prezzo;
 	}
 	
 	public void addServizio(Servizio s) {
@@ -107,6 +120,18 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	{
 		return listaServizi;
 	}
+
+	public void setListaServizi(List<Servizio> listaServizi) {
+		
+		FabbricaServizi fs = new FabbricaServizi();
+		Servizio s = fs.creaTemperatura();
+		
+		listaServizi.add(s);
+		
+		this.listaServizi = listaServizi;
+	}
+	
+	
 	
 }
 

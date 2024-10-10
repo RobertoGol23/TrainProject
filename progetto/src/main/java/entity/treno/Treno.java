@@ -19,7 +19,7 @@ import entity.classi_astratte.Vagone;
 
 
 @Entity
-@Table(name="Treni")
+//@Table(name="Treni")
 public class Treno {
 
 	@Id

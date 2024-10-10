@@ -2,9 +2,9 @@ package utility;
 
 
 import entity.classi_astratte.FabbricaVagoni;
-import entity.classi_astratte.Locomotiva;
 import entity.classi_astratte.TrenoBuilder;
 import entity.classi_astratte.Vagone;
+import entity.treno.Locomotiva;
 
 public class Assemblatore extends TrenoBuilder {
 
