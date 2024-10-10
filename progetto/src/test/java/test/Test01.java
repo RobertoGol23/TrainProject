@@ -46,19 +46,19 @@ public class Test01 {
 
 
 			Treno trenoKM = builderKM.costruisciTreno(sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
+			//vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
 			Treno trenoRG = builderRG.costruisciTreno(sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
+			//vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
 			Treno trenoXFF = builderXFF.costruisciTreno(sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoXFF.getLocomotiva());
+			//vagoneInterfaceDAO.salvaVagone(trenoXFF.getLocomotiva());
 			for (Vagone vagone : trenoXFF.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
@@ -66,19 +66,19 @@ public class Test01 {
 			sigla = "hcc";
 
 			trenoKM = builderKM.costruisciTreno(sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
+			//vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
 			trenoRG = builderRG.costruisciTreno(sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
+			//vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
 			trenoXFF = builderXFF.costruisciTreno(sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoXFF.getLocomotiva());
+			//vagoneInterfaceDAO.salvaVagone(trenoXFF.getLocomotiva());
 			for (Vagone vagone : trenoXFF.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
