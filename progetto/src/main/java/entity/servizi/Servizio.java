@@ -3,9 +3,11 @@ package entity.servizi;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.classi_astratte.vagoni_astratti.Vagone;
+import entity.classi_astratte.Vagone;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -29,13 +31,13 @@ public class Servizio { //da creare xml per inserire i dati dei servizi direttam
 	private Double prezzoS;
 
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
         name = "servizi_utilizzati", // Nome della tabella di join
         joinColumns = @JoinColumn(name = "nome"), // Colonna della chiave esterna per Servizio 
         inverseJoinColumns = @JoinColumn(name = "id_vagone") // Colonna della chiave esterna per Vagone
     )
-    private List<Vagone> listaVagoni = new ArrayList<>();
+    private List<Vagone> listaVagoniS = new ArrayList<>();
 
 	
 	public Servizio(String nome, Double pesoS, Double prezzoS)
@@ -69,6 +71,13 @@ public class Servizio { //da creare xml per inserire i dati dei servizi direttam
 
 	public void setPrezzoS(Double prezzoS) {
 		this.prezzoS = prezzoS;
+	}
+	
+	public void aggiungiVagone(Vagone v) {
+		if(!listaVagoniS.contains(v)) {
+			listaVagoniS.add(v);
+			v.addServizio(this);
+		}
 	}
 	
 }

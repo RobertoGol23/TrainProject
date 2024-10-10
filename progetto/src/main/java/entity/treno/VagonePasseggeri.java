@@ -1,13 +1,12 @@
-package entity.classi_astratte.vagoni_astratti;
+package entity.treno;
 
+import entity.classi_astratte.Vagone;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
-import jakarta.persistence.Table;
-
 @Entity
-@Table(name = "Vagoni Passeggeri")
-public abstract class VagonePasseggeri extends Vagone{ //pensare se si puo' levare abstract per il dao
+public class VagonePasseggeri extends Vagone{ //pensare se si puo' levare abstract per il dao
+
 	
 	@Column(name="posti_a_sedere", nullable = false, unique = false)
 	private int postiASedere;

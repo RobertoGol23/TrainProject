@@ -1,18 +1,10 @@
-package entity.classi_astratte.fabbrica_and_builder;
+package entity.classi_astratte;
 
 import java.util.ArrayList;
 
-import eccezioni.eccezioniSigla.IncoerenzaVagoniException;
-import eccezioni.eccezioniSigla.LocomotivaInMezzoException;
-import eccezioni.eccezioniSigla.LocomotivaNonInTestaException;
-import eccezioni.eccezioniSigla.RistoranteNonInMezzoException;
-import eccezioni.eccezioniSigla.SiglaTrenoException;
-import eccezioni.eccezioniSigla.StringaNonValidaException;
-import eccezioni.eccezioniSigla.TroppiRistorantiException;
-import eccezioni.eccezioniSigla.TroppoPesoException;
-import entity.classi_astratte.vagoni_astratti.Locomotiva;
-import entity.classi_astratte.vagoni_astratti.Vagone;
+import eccezioni.eccezioniSigla.*;
 import entity.treno.Treno;
+import entity.treno.Locomotiva;
 
 public abstract class TrenoBuilder {
 	
@@ -32,11 +24,6 @@ public abstract class TrenoBuilder {
 			throw new LocomotivaNonInTestaException(sigla, "Errore: locomotiva non in testa");
 			//puo' lanciare una eccezione da gestire dove viene chiamato il metodo
 		}
-		else
-		{ // aggiungo la locomotiva in testa
-			listaVagoni.add(this.getLocomotiva());
-			//System.out.println("Locomotiva: " + locomotiva.toString());
-		}
 		
 		
 		
@@ -46,7 +33,7 @@ public abstract class TrenoBuilder {
 			switch(c) {
 			
 			case 'h':
-				if(i != (sigla.length()-1)) // poichè può essere aggiunta solo alla fine
+				if(i != (sigla.length()-1))
 				{
 					throw new LocomotivaInMezzoException(sigla, "Errore: locomotiva in mezzo al treno", i);
 				}
@@ -94,12 +81,12 @@ public abstract class TrenoBuilder {
 				contaC++;
 				// se ci sono altri vagoni oltre al tipo Cargo, errore
 				if(contaR != 0 || contaP != 0){
-					throw new IncoerenzaVagoniException(sigla, "se c'è un vagone cargo non possono esserci un vagone ristorante o passeggeri");
+					throw new IncoerenzaVagoniException(sigla, "se c'è un vagone carg non possono esserci un vagone ristorante o passeggeri");
 				} 
 				listaVagoni.add(getVagoneCargo());
 				break;
 			default:
-				throw new StringaNonValidaException(sigla, "Errore: stringa non valida.");
+				throw new StringaNonValidaException(sigla, "Errore: carattere non valido");
 			}
 		}
 		
@@ -117,7 +104,7 @@ public abstract class TrenoBuilder {
 			throw new TroppoPesoException(sigla, "sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
 		}
 
-		Treno t= Treno.creaTreno(locomotiva, listaVagoni, "null");
+		Treno t= Treno.creaTreno(listaVagoni, "null"); //null = marca
 		
 		return t;
 	}
@@ -126,14 +113,9 @@ public abstract class TrenoBuilder {
 	protected abstract Vagone getVagonePasseggeri();
 	protected abstract Vagone getVagoneCargo();
 	protected abstract Vagone getVagoneRistorante();
-	
 
 
-
-
-
-
-	private static Boolean controllaRistoranteCentrale(String sigla)
+	public static Boolean controllaRistoranteCentrale(String sigla)
 	{
 		Boolean flag = false;
 		
@@ -158,4 +140,5 @@ public abstract class TrenoBuilder {
 		
 		return flag;
 	}
+	
 }

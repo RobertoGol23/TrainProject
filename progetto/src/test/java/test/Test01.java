@@ -5,9 +5,9 @@ import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
-import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
-import entity.classi_astratte.fabbrica_and_builder.TrenoBuilder;
-import entity.classi_astratte.vagoni_astratti.Vagone;
+import entity.classi_astratte.FabbricaVagoni;
+import entity.classi_astratte.TrenoBuilder;
+import entity.classi_astratte.Vagone;
 import entity.dao.VagoneDAO;
 import entity.treno.Treno;
 import fabbriche.FabbricaKargoModelz;
@@ -34,7 +34,6 @@ public class Test01 {
 		 * 
 		 * 
 		 */
-
 
 
 

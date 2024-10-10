@@ -1,8 +1,8 @@
 package test.testEccezioni;
 
 import eccezioni.eccezioniSigla.SiglaTrenoException;
-import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
-import entity.classi_astratte.fabbrica_and_builder.TrenoBuilder;
+import entity.classi_astratte.FabbricaVagoni;
+import entity.classi_astratte.TrenoBuilder;
 import entity.treno.Treno;
 import fabbriche.FabbricaKargoModelz;
 import utility.Assemblatore;
@@ -198,6 +198,18 @@ public class TestEccezioni01 {
 			System.out.println(message);
 			System.out.println(e.getSuggerimento());
 		}
+
+		try {
+			System.out.println("\nCARATTERE MAIUSCOLO: \n");
+			Treno treno = builderKM.costruisciTreno("Hp"); //stringa vuota
+			System.out.println("numero vagoni: " + treno.getListaVagoni().size());
+		}
+		catch(SiglaTrenoException e){
+			String message = e.getMessage();
+			System.out.println(message);
+			System.out.println(e.getSuggerimento());
+		}
+
 
 	}
 }

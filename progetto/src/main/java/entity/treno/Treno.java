@@ -3,7 +3,7 @@ package entity.treno;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.classi_astratte.vagoni_astratti.Vagone;
+import entity.classi_astratte.Vagone;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -13,12 +13,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 
 @Entity
-@Table(name="Treni")
+//@Table(name="Treni")
 public class Treno {
 
 	@Id
@@ -46,9 +45,8 @@ public class Treno {
 	private Treno() {} //costruttore vuoto
 	
 	// Costruttore privato della classe Treno, richiamato soltanto dal suo metodo statico
-	private Treno(Vagone locomotiva, ArrayList<Vagone> listaVagoni, String marca)
+	private Treno(ArrayList<Vagone> listaVagoni, String marca)
 	{
-		this.setLocomotiva(locomotiva);
 		this.setListaVagoni(listaVagoni);
 		this.setMarca(marca);
 		listaVagoni = new ArrayList<Vagone>();
@@ -56,9 +54,9 @@ public class Treno {
 	
 	
 	// Metodo statico per creare l'istanza treno a partire dalla locomotiva e lista vagoni
-	public static Treno creaTreno(Vagone locomotiva,ArrayList<Vagone> listaVagoni, String marca)
+	public static Treno creaTreno(ArrayList<Vagone> listaVagoni, String marca)
 	{
-		Treno treno = new Treno(locomotiva, listaVagoni, marca);
+		Treno treno = new Treno(listaVagoni, marca);
 		return treno;
 	}
 
@@ -70,8 +68,16 @@ public class Treno {
 		return marca;
 	}
 	
-	public Vagone getLocomotiva() {
-		return locomotiva;
+	public Locomotiva getLocomotiva() {
+		return (Locomotiva)listaVagoni.get(0);
+	}
+
+	public Locomotiva getLocomotivaInCoda(){
+		Vagone locomotivaInCoda = listaVagoni.get(listaVagoni.size());
+		if(locomotivaInCoda.getClass() == Locomotiva.class){
+			return (Locomotiva)locomotivaInCoda;
+		}
+		return null;
 	}
 
 	public void setLocomotiva(Vagone locomotiva) {
@@ -82,10 +88,9 @@ public class Treno {
 		return getListaVagoni().get(index);
 	}
 
-	public void setVagone(int index, Vagone vagone) {
-		getListaVagoni().set(index, vagone);
+	public void setVagone(int index, Vagone vagone){
+		listaVagoni.set(index, vagone);
 	}
-	
 
 	public List<Vagone> getListaVagoni() {
 		return listaVagoni;

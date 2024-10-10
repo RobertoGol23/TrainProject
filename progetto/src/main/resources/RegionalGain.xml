@@ -22,33 +22,33 @@
 	<!-- 	<context:component-scan base-package="figure" /> -->
 	
 	
-	<bean name="locomotivaRGL96" class="entity.vagoni.RegionalGain.LocomotivaRG" scope="prototype">
- 		<!-- <constructor-arg name="id" value="RGL96"></constructor-arg> -->
- 		<constructor-arg name="peso" value="101.0"></constructor-arg>
- 		<constructor-arg name="prezzo" value="9600000"></constructor-arg>
-		<constructor-arg name="pesoTrainabile" value="250.0"></constructor-arg>
+	<bean name="locomotivaRGL96" class="entity.treno.Locomotiva" lazy-init="true" scope="prototype">
+ 		<!-- <property name="id" value="RGL96"></property> -->
+ 		<property name="peso" value="101.0"></property>
+ 		<property name="prezzo" value="9600000"></property>
+		<property name="pesoTrainabile" value="250.0"></property>
 	</bean>
 	
-	<bean name="vagoneRGC96" class="entity.vagoni.RegionalGain.VagoneCargoRG" scope="prototype">
- 		<!-- <constructor-arg name="id" value="RGC96"></constructor-arg> -->
- 		<constructor-arg name="peso" value="15.0"></constructor-arg>
- 		<constructor-arg name="prezzo" value="3500000"></constructor-arg>
-		<constructor-arg name="pesoMassimoTrasportabile" value="5.0"></constructor-arg> 
+	<bean name="vagoneRGC96" class="entity.treno.VagoneCargo" lazy-init="true" scope="prototype">
+ 		<!-- <property name="id" value="RGC96"></property> -->
+ 		<property name="peso" value="15.0"></property>
+ 		<property name="prezzo" value="3500000"></property>
+		<property name="pesoMassimoTrasportabile" value="5.0"></property> 
 <!-- 		aggiungere poi il controllo per considerare il peso totale come peso+pesoMassimoTrasportabile -->
 	</bean>
 	
-	<bean name="vagoneRGP96" class="entity.vagoni.RegionalGain.VagonePasseggeriRG" scope="prototype">
-<!--  		<constructor-arg name="id" value="RGP96"></constructor-arg>
- --> 		<constructor-arg name="peso" value="30.0"></constructor-arg>
- 		<constructor-arg name="prezzo" value="1400000"></constructor-arg>
-		<constructor-arg name="postiASedere" value="50"></constructor-arg>
+	<bean name="vagoneRGP96" class="entity.treno.VagonePasseggeri" lazy-init="true" scope="prototype">
+<!--  		<property name="id" value="RGP96"></property>
+ --> 		<property name="peso" value="30.0"></property>
+ 		<property name="prezzo" value="1400000"></property>
+		<property name="postiASedere" value="50"></property>
 	</bean>
 
-	<bean name="vagoneRGR96" class="entity.vagoni.RegionalGain.VagoneRistoranteRG" scope="prototype">
- 		<!-- <constructor-arg name="id" value="RGR96"></constructor-arg> -->
- 		<constructor-arg name="peso" value="20.0"></constructor-arg>
- 		<constructor-arg name="prezzo" value="1400000"></constructor-arg>
-		<constructor-arg name="coperti" value="30"></constructor-arg>
+	<bean name="vagoneRGR96" class="entity.treno.VagoneRistorante" lazy-init="true" scope="prototype">
+ 		<!-- <property name="id" value="RGR96"></property> -->
+ 		<property name="peso" value="20.0"></property>
+ 		<property name="prezzo" value="1400000"></property>
+		<property name="coperti" value="30"></property>
 	</bean>
 </beans>
 
