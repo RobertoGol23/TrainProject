@@ -1,14 +1,12 @@
-package entity.classi_astratte.vagoni_astratti;
+package entity.treno;
 
+import entity.classi_astratte.Vagone;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
-import jakarta.persistence.Table;
-
 @Entity
-@Table(name = "Vagoni Cargo")
-public abstract class VagoneCargo extends Vagone{ //pensare se si puo' levare abstract per il dao
-
+public class VagoneCargo extends Vagone{ //pensare se si puo' levare abstract per il dao
+	
 	@Column(name="peso_massimo_trasportabile", nullable = false, unique = false)
 	private Double pesoMassimoTrasportabile;
 	
