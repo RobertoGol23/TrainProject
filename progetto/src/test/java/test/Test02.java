@@ -8,7 +8,9 @@ import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
 import entity.dao.TrenoDAO;
+import entity.dao.UserDAO;
 import entity.treno.Treno;
+import entity.user.User;
 import fabbriche.FabbricaKargoModelz;
 import utility.Assemblatore;
 
@@ -25,13 +27,18 @@ public class Test02 {
 		 * 
 		 * 
 		 */
+		
+		
         String sigla = "hprp";
 		try
 		{
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 		
-
-			Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla);
+			User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04");
+			UserDAO userDAO = context.getBean(UserDAO.class);
+			userDAO.salvaUser(mazza);
+			
+			Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla,mazza);
 
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);

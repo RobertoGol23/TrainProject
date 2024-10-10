@@ -10,9 +10,11 @@ import entity.classi_astratte.TrenoBuilder;
 import entity.classi_astratte.Vagone;
 import entity.dao.ServizioDAO;
 import entity.dao.TrenoDAO;
+import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.servizi.Servizio;
 import entity.treno.Treno;
+import entity.user.User;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaServizi;
 import utility.Assemblatore;
@@ -40,7 +42,11 @@ public class Test03 {
 		{
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 
-			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla);
+			User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04");
+			UserDAO userDAO = context.getBean(UserDAO.class);
+			userDAO.salvaUser(mazza);
+			
+			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla,mazza);
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);
 
