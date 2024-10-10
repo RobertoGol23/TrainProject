@@ -25,7 +25,6 @@
  		<property name="pesoS" value="0.5"></property>
  		<property name="prezzoS" value="2200.0"></property>
 	</bean>
-	
 
 	<bean name="cinema" class="entity.servizi.Servizio" scope="prototype">
  		<property name="pesoS" value="0.3"></property>

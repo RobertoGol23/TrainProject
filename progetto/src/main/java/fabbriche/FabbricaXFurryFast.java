@@ -3,18 +3,22 @@ package fabbriche;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
-import entity.classi_astratte.vagoni_astratti.Locomotiva;
-import entity.classi_astratte.vagoni_astratti.Vagone;
+import entity.classi_astratte.FabbricaVagoni;
+import entity.classi_astratte.Vagone;
+import entity.treno.Locomotiva;
 
 public class FabbricaXFurryFast extends FabbricaVagoni {
 
-	AbstractApplicationContext contextFactoryxFurryFast = new ClassPathXmlApplicationContext("xFurryFast.xml");
+	AbstractApplicationContext contextFactoryKargoModelz;
 	
 	@Override
 	public Locomotiva creaLocomotiva() {
 		
-		Locomotiva locomotiva = (Locomotiva) contextFactoryxFurryFast.getBean("locomotivaFFL15");
+		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("xFurryFast.xml");
+		
+		Locomotiva locomotiva = (Locomotiva) contextFactoryKargoModelz.getBean("locomotivaFFL15");
+		
+		contextFactoryKargoModelz.close();
 		
 		return locomotiva;
 	}
@@ -22,7 +26,11 @@ public class FabbricaXFurryFast extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagoneCargo() {
 		
-		Vagone vagoneC = (Vagone) contextFactoryxFurryFast.getBean("vagoneFFC15");
+		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("xFurryFast.xml");
+		
+		Vagone vagoneC = (Vagone) contextFactoryKargoModelz.getBean("vagoneFFC15");
+		
+		contextFactoryKargoModelz.close();
 		
 		return vagoneC;
 	}
@@ -30,7 +38,11 @@ public class FabbricaXFurryFast extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagonePasseggeri() {
 		
-		Vagone vagoneP = (Vagone) contextFactoryxFurryFast.getBean("vagoneFFP15");
+		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("xFurryFast.xml");
+		
+		Vagone vagoneP = (Vagone) contextFactoryKargoModelz.getBean("vagoneFFP15");
+		
+		contextFactoryKargoModelz.close();
 		
 		return vagoneP;
 		
@@ -39,7 +51,11 @@ public class FabbricaXFurryFast extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagoneRistorante() {
 		
-		Vagone vagoneR = (Vagone) contextFactoryxFurryFast.getBean("vagoneFFR15");
+		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("xFurryFast.xml");
+		
+		Vagone vagoneR = (Vagone) contextFactoryKargoModelz.getBean("vagoneFFR15");
+		
+		contextFactoryKargoModelz.close();
 		
 		return vagoneR;
 	}

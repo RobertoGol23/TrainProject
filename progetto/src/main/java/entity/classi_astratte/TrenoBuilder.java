@@ -1,4 +1,4 @@
-package entity.classi_astratte.fabbrica_and_builder;
+package entity.classi_astratte;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ import eccezioni.SiglaTrenoException;
 import eccezioni.TroppiRistorantiException;
 import eccezioni.TroppoPesoException;
 import eccezioni.VagoneNonValidoException;
-import entity.classi_astratte.vagoni_astratti.Locomotiva;
-import entity.classi_astratte.vagoni_astratti.Vagone;
+import entity.classi_astratte.Vagone;
+import entity.treno.Locomotiva;
 import entity.treno.Treno;
 
 public abstract class TrenoBuilder {
@@ -118,7 +118,7 @@ public abstract class TrenoBuilder {
 			throw new TroppoPesoException(sigla, "sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
 		}
 
-		Treno t= Treno.creaTreno(locomotiva, listaVagoni, "null");
+		Treno t= Treno.creaTreno(locomotiva, listaVagoni, "Treno KargoModelz");
 		
 		return t;
 	}
