@@ -19,32 +19,32 @@
 
 	default-destroy-method="destroyMethod">
 
-	<bean name="locomotivaKML2000" class="entity.treno.Locomotiva" lazy-init="true" scope="prototype">
-	<!-- <property name="id" value="KML2000"></property> -->
- 		<property name="peso" value="101.0"></property>
- 		<property name="prezzo" value="200000000"></property>
-		<property name="pesoTrainabile" value="500.0"></property>
+	<bean name="locomotivaKML2000" class="entity.vagoni.KargoModelz.LocomotivaKM" scope="prototype">
+	<!-- <constructor-arg name="id" value="KML2000"></constructor-arg> -->
+ 		<constructor-arg name="peso" value="101.0"></constructor-arg>
+ 		<constructor-arg name="prezzo" value="200000000"></constructor-arg>
+		<constructor-arg name="pesoTrainabile" value="500.0"></constructor-arg>
 	</bean>
 	
-	<bean name="vagoneKMC2000" class="entity.treno.VagoneCargo" lazy-init="true" scope="prototype">
- 		<!-- <property name="id" value="KMC2000"></property> -->
- 		<property name="peso" value="15.0"></property>
- 		<property name="prezzo" value="3500000"></property>
-		<property name="pesoMassimoTrasportabile" value="5.0"></property> 
+	<bean name="vagoneKMC2000" class="entity.vagoni.KargoModelz.VagoneCargoKM" scope="prototype">
+ 		<!-- <constructor-arg name="id" value="KMC2000"></constructor-arg> -->
+ 		<constructor-arg name="peso" value="15.0"></constructor-arg>
+ 		<constructor-arg name="prezzo" value="3500000"></constructor-arg>
+		<constructor-arg name="pesoMassimoTrasportabile" value="5.0"></constructor-arg> 
 	</bean>
 	
-	<bean name="vagoneKMP2000" class="entity.treno.VagonePasseggeri" lazy-init="true" scope="prototype">
- 		<!-- <property name="id" value="KMP2000"></property> -->
- 		<property name="peso" value="30.0"></property>
- 		<property name="prezzo" value="1400000"></property>
-		<property name="postiASedere" value="50"></property>
+	<bean name="vagoneKMP2000" class="entity.vagoni.KargoModelz.VagonePasseggeriKM" scope="prototype">
+ 		<!-- <constructor-arg name="id" value="KMP2000"></constructor-arg> -->
+ 		<constructor-arg name="peso" value="30.0"></constructor-arg>
+ 		<constructor-arg name="prezzo" value="1400000"></constructor-arg>
+		<constructor-arg name="postiASedere" value="50"></constructor-arg>
 	</bean>
 
-	<bean name="vagoneKMR2000" class="entity.treno.VagoneRistorante" lazy-init="true" scope="prototype">
- 		<!-- <property name="id" value="KMR2000"></property> -->
- 		<property name="peso" value="10.0"></property>
- 		<property name="prezzo" value="1400000"></property>
-		<property name="coperti" value="30"></property>
+	<bean name="vagoneKMR2000" class="entity.vagoni.KargoModelz.VagoneRistoranteKM" scope="prototype">
+ 		<!-- <constructor-arg name="id" value="KMR2000"></constructor-arg> -->
+ 		<constructor-arg name="peso" value="10.0"></constructor-arg>
+ 		<constructor-arg name="prezzo" value="1400000"></constructor-arg>
+		<constructor-arg name="coperti" value="30"></constructor-arg>
 	</bean>
 </beans>
 

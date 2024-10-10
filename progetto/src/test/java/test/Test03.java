@@ -4,13 +4,12 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
-import eccezioni.SiglaTrenoException;
-import entity.classi_astratte.TrenoBuilder;
-import entity.classi_astratte.FabbricaVagoni;
-import entity.classi_astratte.Vagone;
+import eccezioni.eccezioniSigla.SiglaTrenoException;
+import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
+import entity.classi_astratte.fabbrica_and_builder.TrenoBuilder;
+import entity.classi_astratte.vagoni_astratti.Vagone;
 import entity.dao.ServizioDAO;
 import entity.dao.TrenoDAO;
-import entity.servizi.Servizio;
 import entity.treno.Treno;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaServizi;
@@ -49,7 +48,6 @@ public class Test03 {
             // AGGIUNTA DI UN SERVIZIO
             FabbricaServizi fabbricaServizi = new FabbricaServizi();
             ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-           
 
             // CANCELLAZIONE DI UN SERVIZIO  ->
             servizioDAO.eliminaServizioByName("bagno");
@@ -58,18 +56,12 @@ public class Test03 {
             servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
 
             
-            int indexVagone = 1;
+            int indexVagone = 0;
 
             // AGGIUNTA DI UN SERVIZIO AD UN VAGONE
             Vagone vagoneKM = trenoKM.getVagone(indexVagone);
             //ERRORE: non va creato il servizio, va detto al DB di darcene uno!!
-            Servizio s = servizioDAO.getServizioByName("bagno");
-            //vagoneKM.addServizio(servizioDAO.getServizioByName("bagno"));
-            vagoneKM.addServizio(s);
-            
-            System.out.println("Servizio: "+s.toString());
-            
-            servizioDAO.updateServizio(s);
+            vagoneKM.addServizio(servizioDAO.getServizioByName("bagno"));
 
             trenoKM.setVagone(indexVagone, vagoneKM);
 

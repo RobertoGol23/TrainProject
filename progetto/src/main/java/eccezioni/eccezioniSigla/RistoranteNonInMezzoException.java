@@ -1,4 +1,4 @@
-package eccezioni;
+package eccezioni.eccezioniSigla;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,6 @@ public class RistoranteNonInMezzoException extends SiglaTrenoException
 	{	
 		super(sigla,messaggio);
 	}
-
 	
 	@SuppressWarnings({ "null", "unchecked" })
 	public String getSuggerimento() {
@@ -28,8 +27,6 @@ public class RistoranteNonInMezzoException extends SiglaTrenoException
 			int index = siglaVecchia.indexOf('r');
 			siglaVecchia.remove(index);
 		}
-
-		//System.out.println("Sigla vecchia: " + siglaVecchia);
 
 		
 		if(((siglaVecchia.size()+1)%2)==0) // h c _ c c

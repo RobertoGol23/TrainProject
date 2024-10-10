@@ -1,9 +1,6 @@
-package entity.treno;
+package entity.classi_astratte.vagoni_astratti;
 
-
-import entity.classi_astratte.Vagone;
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.Inheritance;
@@ -11,7 +8,8 @@ import jakarta.persistence.InheritanceType;
 
 
 @Entity
-public class Locomotiva extends Vagone{ //pensare se si puo' levare abstract per il dao
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Locomotiva extends Vagone{ //pensare se si puo' levare abstract per il dao
 
 	@Column(name = "peso_trainabile", nullable = false, unique = false)
 	private Double pesoTrainabile;	

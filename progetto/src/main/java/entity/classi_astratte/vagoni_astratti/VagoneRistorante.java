@@ -1,16 +1,13 @@
-package entity.treno;
+package entity.classi_astratte.vagoni_astratti;
 
-import entity.classi_astratte.Vagone;
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+
 import jakarta.persistence.Table;
 
 @Entity
-
-public class VagoneRistorante extends Vagone{ //pensare se si puo' levare abstract per il dao
+@Table(name = "Vagoni Ristorante")
+public abstract class VagoneRistorante extends Vagone{ //pensare se si puo' levare abstract per il dao
 
 	@Column(name="coperti", nullable = false, unique = false)
 	private int coperti;
@@ -22,9 +19,6 @@ public class VagoneRistorante extends Vagone{ //pensare se si puo' levare abstra
 		this.coperti = coperti;
 	}
 	
-	public void setCoperti(int coperti) {
-		this.coperti = coperti;
-	}
 
 	@Override
 	public String toString()

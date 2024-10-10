@@ -22,33 +22,33 @@
 <!-- 	<context:component-scan base-package="figure" /> -->
 	
 	
-	<bean name="locomotivaFFL15" class="entity.treno.Locomotiva" lazy-init="true" scope="prototype">
- 		<!-- <property name="id" value="FFL15"></property> -->
- 		<property name="peso" value="101.0"></property>
- 		<property name="prezzo" value="1500000"></property>
-		<property name="pesoTrainabile" value="350.0"></property>
+	<bean name="locomotivaFFL15" class="entity.vagoni.xFurryFast.LocomotivaFF" scope="prototype">
+ 		<!-- <constructor-arg name="id" value="FFL15"></constructor-arg> -->
+ 		<constructor-arg name="peso" value="101.0"></constructor-arg>
+ 		<constructor-arg name="prezzo" value="1500000"></constructor-arg>
+		<constructor-arg name="pesoTrainabile" value="350.0"></constructor-arg>
 	</bean>
 	
-	<bean name="vagoneFFC15" class="entity.treno.VagoneCargo" lazy-init="true" scope="prototype">
- 		<!-- <property name="id" value="FFC15"></property> -->
- 		<property name="peso" value="15.0"></property>
- 		<property name="prezzo" value="3500000"></property>
-		<property name="pesoMassimoTrasportabile" value="5.0"></property> 
+	<bean name="vagoneFFC15" class="entity.vagoni.xFurryFast.VagoneCargoFF" scope="prototype">
+ 		<!-- <constructor-arg name="id" value="FFC15"></constructor-arg> -->
+ 		<constructor-arg name="peso" value="15.0"></constructor-arg>
+ 		<constructor-arg name="prezzo" value="3500000"></constructor-arg>
+		<constructor-arg name="pesoMassimoTrasportabile" value="5.0"></constructor-arg> 
 <!-- 		aggiungere poi il controllo per considerare il peso totale come peso+pesoMassimoTrasportabile -->
 	</bean>
 	
-	<bean name="vagoneFFP15" class="entity.treno.VagonePasseggeri" lazy-init="true" scope="prototype">
- 		<!-- <property name="id" value="FFP15"></property> -->
- 		<property name="peso" value="30.0"></property>
- 		<property name="prezzo" value="1400000"></property>
-		<property name="postiASedere" value="50"></property>
+	<bean name="vagoneFFP15" class="entity.vagoni.xFurryFast.VagonePasseggeriFF" scope="prototype">
+ 		<!-- <constructor-arg name="id" value="FFP15"></constructor-arg> -->
+ 		<constructor-arg name="peso" value="30.0"></constructor-arg>
+ 		<constructor-arg name="prezzo" value="1400000"></constructor-arg>
+		<constructor-arg name="postiASedere" value="50"></constructor-arg>
 	</bean>
 
-	<bean name="vagoneFFR15" class="entity.treno.VagoneRistorante" lazy-init="true" scope="prototype">
- 		<!-- <property name="id" value="FFR15"></property> -->
- 		<property name="peso" value="30.0"></property>
- 		<property name="prezzo" value="1400000"></property>
-		<property name="coperti" value="30"></property>
+	<bean name="vagoneFFR15" class="entity.vagoni.xFurryFast.VagoneRistoranteFF" scope="prototype">
+ 		<!-- <constructor-arg name="id" value="FFR15"></constructor-arg> -->
+ 		<constructor-arg name="peso" value="30.0"></constructor-arg>
+ 		<constructor-arg name="prezzo" value="1400000"></constructor-arg>
+		<constructor-arg name="coperti" value="30"></constructor-arg>
 	</bean>
 </beans>
 

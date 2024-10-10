@@ -3,7 +3,7 @@ package entity.treno;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.classi_astratte.Vagone;
+import entity.classi_astratte.vagoni_astratti.Vagone;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -18,7 +18,7 @@ import jakarta.persistence.Transient;
 
 
 @Entity
-//@Table(name="Treni")
+@Table(name="Treni")
 public class Treno {
 
 	@Id

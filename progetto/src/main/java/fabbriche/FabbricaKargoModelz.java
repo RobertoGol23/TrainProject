@@ -3,22 +3,28 @@ package fabbriche;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import entity.classi_astratte.FabbricaVagoni;
-import entity.classi_astratte.Vagone;
-import entity.treno.Locomotiva;
+import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
+import entity.classi_astratte.vagoni_astratti.Locomotiva;
+import entity.classi_astratte.vagoni_astratti.Vagone;
 
 public class FabbricaKargoModelz extends FabbricaVagoni {
 
-	AbstractApplicationContext contextFactoryKargoModelz;
+	// TODO: il context va chiuso in qualche modo, un'idea può essere quella di passarglielo come paramentro e poi chiudere il contex nel builder una volta creato il treno
+
+	
+	/* private AbstractApplicationContext contextFactoryKargoModelz;
+
+	public FabbricaKargoModelz() {
+		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("applicationContextKargoModelz.xml");
+	} */
+
+
+	AbstractApplicationContext contextFactoryKargoModelz = new ClassPathXmlApplicationContext("KargoModelz.xml");
 	
 	@Override
 	public Locomotiva creaLocomotiva() {
 		
-		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("KargoModelz.xml");
-		
 		Locomotiva locomotiva = (Locomotiva) contextFactoryKargoModelz.getBean("locomotivaKML2000");
-		
-		contextFactoryKargoModelz.close();
 		
 		return locomotiva;
 	}
@@ -26,11 +32,7 @@ public class FabbricaKargoModelz extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagoneCargo() {
 		
-		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("KargoModelz.xml");
-		
 		Vagone vagoneC = (Vagone) contextFactoryKargoModelz.getBean("vagoneKMC2000");
-		
-		contextFactoryKargoModelz.close();
 		
 		return vagoneC;
 	}
@@ -38,11 +40,7 @@ public class FabbricaKargoModelz extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagonePasseggeri() {
 		
-		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("KargoModelz.xml");
-		
 		Vagone vagoneP = (Vagone) contextFactoryKargoModelz.getBean("vagoneKMP2000");
-		
-		contextFactoryKargoModelz.close();
 		
 		return vagoneP;
 		
@@ -51,11 +49,7 @@ public class FabbricaKargoModelz extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagoneRistorante() {
 		
-		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("KargoModelz.xml");
-		
 		Vagone vagoneR = (Vagone) contextFactoryKargoModelz.getBean("vagoneKMR2000");
-		
-		contextFactoryKargoModelz.close();
 		
 		return vagoneR;
 	}

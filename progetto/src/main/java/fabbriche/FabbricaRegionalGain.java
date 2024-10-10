@@ -3,22 +3,18 @@ package fabbriche;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import entity.classi_astratte.FabbricaVagoni;
-import entity.classi_astratte.Vagone;
-import entity.treno.Locomotiva;
+import entity.classi_astratte.fabbrica_and_builder.FabbricaVagoni;
+import entity.classi_astratte.vagoni_astratti.Locomotiva;
+import entity.classi_astratte.vagoni_astratti.Vagone;
 
 public class FabbricaRegionalGain extends FabbricaVagoni {
 
-	AbstractApplicationContext contextFactoryKargoModelz;
+	AbstractApplicationContext contextFactoryRegionalGain = new ClassPathXmlApplicationContext("RegionalGain.xml");
 	
 	@Override
 	public Locomotiva creaLocomotiva() {
 		
-		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("RegionalGain.xml");
-		
-		Locomotiva locomotiva = (Locomotiva) contextFactoryKargoModelz.getBean("locomotivaRGL96");
-		
-		contextFactoryKargoModelz.close();
+		Locomotiva locomotiva = (Locomotiva) contextFactoryRegionalGain.getBean("locomotivaRGL96");
 		
 		return locomotiva;
 	}
@@ -26,11 +22,7 @@ public class FabbricaRegionalGain extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagoneCargo() {
 		
-		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("RegionalGain.xml");
-		
-		Vagone vagoneC = (Vagone) contextFactoryKargoModelz.getBean("vagoneRGC96");
-		
-		contextFactoryKargoModelz.close();
+		Vagone vagoneC = (Vagone) contextFactoryRegionalGain.getBean("vagoneRGC96");
 		
 		return vagoneC;
 	}
@@ -38,11 +30,7 @@ public class FabbricaRegionalGain extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagonePasseggeri() {
 		
-		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("RegionalGain.xml");
-		
-		Vagone vagoneP = (Vagone) contextFactoryKargoModelz.getBean("vagoneRGP96");
-		
-		contextFactoryKargoModelz.close();
+		Vagone vagoneP = (Vagone) contextFactoryRegionalGain.getBean("vagoneRGP96");
 		
 		return vagoneP;
 		
@@ -51,11 +39,7 @@ public class FabbricaRegionalGain extends FabbricaVagoni {
 	@Override
 	public Vagone creaVagoneRistorante() {
 		
-		contextFactoryKargoModelz = new ClassPathXmlApplicationContext("RegionalGain.xml");
-		
-		Vagone vagoneR = (Vagone) contextFactoryKargoModelz.getBean("vagoneRGR96");
-		
-		contextFactoryKargoModelz.close();
+		Vagone vagoneR = (Vagone) contextFactoryRegionalGain.getBean("vagoneRGR96");
 		
 		return vagoneR;
 	}
