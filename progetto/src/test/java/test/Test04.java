@@ -12,7 +12,7 @@ public class Test04 {
 		
 
 		/*				TEST 04
-		 * caricamento nel db di uno user
+		 * caricamento nel db di piu user
 		 * 
 		 * 
 		 * 

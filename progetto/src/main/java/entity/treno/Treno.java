@@ -3,6 +3,7 @@ package entity.treno;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.classi_astratte.vagoni_astratti.Vagone;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -14,8 +15,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-
-import entity.classi_astratte.Vagone;
 
 
 @Entity
