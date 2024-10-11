@@ -14,9 +14,6 @@ import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.dao.VotoDAO;
 import entity.dao.ServizioDAO;
-import entity.user.UserService;
-
-
 import jakarta.persistence.EntityManagerFactory;
 
 import javax.sql.DataSource;
@@ -99,12 +96,6 @@ public class JpaConfig {
     @Bean(name="votoDAO")
     public VotoDAO getVotoDAO() {
     	VotoDAO dao = new VotoDAO();
-        return dao;
-    }
-
-    @Bean(name="userService")
-    public UserService getUserService() {
-    	UserService dao = new UserService();
         return dao;
     }
 

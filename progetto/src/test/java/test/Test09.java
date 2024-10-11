@@ -8,7 +8,6 @@ import org.springframework.context.support.AbstractApplicationContext;
 import configuration.JpaConfig;
 import entity.dao.UserDAO;
 import entity.user.User;
-import entity.user.UserService;
 
 public class Test09 {
     public static void main(String[] args) {
@@ -30,8 +29,8 @@ public class Test09 {
 		userDAO.salvaUser(mazza2);
 		
 			
-		UserService userService = context.getBean(UserService.class);
-		List<User> listUser = userService.findUserByName("Salvatore");
+		userDAO = context.getBean(UserDAO.class);
+		List<User> listUser = userDAO.findUserByName("Salvatore");
 
 		System.out.println("UTENTI TROVATI: \n" + listUser);
 
