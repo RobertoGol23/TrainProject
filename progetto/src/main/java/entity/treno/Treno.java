@@ -58,10 +58,9 @@ public class Treno {
 	private Treno() {} //costruttore vuoto
 	
 	// Costruttore privato della classe Treno, richiamato soltanto dal suo metodo statico
-	private Treno(String nomeTreno, Vagone locomotiva, ArrayList<Vagone> listaVagoni, String marca, User utente)
+	private Treno(String nomeTreno, ArrayList<Vagone> listaVagoni, String marca, User utente)
 	{
 		this.setNomeTreno(nomeTreno);
-		this.setLocomotiva(locomotiva);
 		this.setListaVagoni(listaVagoni);
 		this.setMarca(marca);
 		this.setUtente(utente);
@@ -71,9 +70,9 @@ public class Treno {
 	
 	// Metodo statico per creare l'istanza treno a partire dalla locomotiva e lista vagoni
 
-	public static Treno creaTreno(String nomeTreno,Vagone locomotiva,ArrayList<Vagone> listaVagoni, String marca, User utente)
+	public static Treno creaTreno(String nomeTreno, ArrayList<Vagone> listaVagoni, String marca, User utente)
 	{
-		Treno treno = new Treno(nomeTreno,locomotiva, listaVagoni, marca, utente);
+		Treno treno = new Treno(nomeTreno, listaVagoni, marca, utente);
 		return treno;
 	}
 	
@@ -144,7 +143,7 @@ public class Treno {
 			vagoni += vagone.toString();
 		}
 		
-		return "Locomotiva: " + getLocomotiva() + "\nListaVagoni:\n" + vagoni;
+		return "ListaVagoni:" + vagoni;
 	}
 	
 }
