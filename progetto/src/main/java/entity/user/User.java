@@ -11,6 +11,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 import entity.treno.Treno;
+import entity.votazioni.Voto;
 
 
 @Entity
@@ -35,6 +36,9 @@ public class User {
 	// One-to-Many: una persona può avere molti treni
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Treno> treni;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Voto> voti;
 	
 	public User() {}
 	

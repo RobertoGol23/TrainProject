@@ -58,16 +58,15 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	}
 
 	public Double getPeso() {
-//		Double pesoTot = 0.0;
-//		for(Servizio s: listaServizi) {
-//			pesoTot = pesoTot + s.getPesoS();
-//		}
-//		if(pesoTot != 0.0) {
-//			return peso + pesoTot; 
-//		}else {
-//			return peso;
-//		}
-		return peso;
+		Double pesoTot = 0.0;
+		for(Servizio s: listaServizi) {
+			pesoTot = pesoTot + s.getPesoS();
+		}
+		if(pesoTot != 0.0) {
+			return peso + pesoTot; 
+		}else {
+			return peso;
+		}
 	}
 	
 	public void setPeso(Double peso)
