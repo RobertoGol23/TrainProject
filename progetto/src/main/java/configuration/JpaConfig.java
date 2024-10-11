@@ -15,9 +15,6 @@ import entity.dao.VagoneDAO;
 import entity.dao.VotoDAO;
 import entity.dao.AcquistoDAO;
 import entity.dao.ServizioDAO;
-import entity.user.UserService;
-
-
 import jakarta.persistence.EntityManagerFactory;
 
 import javax.sql.DataSource;
@@ -103,11 +100,6 @@ public class JpaConfig {
         return dao;
     }
 
-    @Bean(name="userService")
-    public UserService getUserService() {
-    	UserService dao = new UserService();
-        return dao;
-    }
     
     @Bean(name="acquistoDAO")
     public AcquistoDAO getAcquistoDAO() {

@@ -11,6 +11,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,7 +37,7 @@ public class Treno {
 	private String marca;
 	
    // @OneToMany(mappedBy = "treno", cascade = CascadeType.ALL, orphanRemoval = true)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "treno_vagoni", // Nome della tabella di join
 			joinColumns = @JoinColumn(name = "id_treno"), // Colonna della chiave esterna per Treno
