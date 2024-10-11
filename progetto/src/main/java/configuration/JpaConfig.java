@@ -13,6 +13,7 @@ import entity.dao.TrenoDAO;
 import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.dao.ServizioDAO;
+import entity.user.UserService;
 
 
 import jakarta.persistence.EntityManagerFactory;
@@ -30,7 +31,7 @@ public class JpaConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/Hibernate_db");
         dataSource.setUsername("root");
-        dataSource.setPassword("46U34%ubsIp2"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
+        dataSource.setPassword("Mauro01"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
         return dataSource;
     }
 
@@ -68,6 +69,7 @@ public class JpaConfig {
     }
 
     /*------- DAO --------*/
+//TODO: forse questi bean vanno messi prototype???
 
      @Bean(name="trenoDAO")
     public TrenoDAO getTrenoDao() {
@@ -90,6 +92,12 @@ public class JpaConfig {
     @Bean(name="userDAO")
     public UserDAO getUserDAO() {
     	UserDAO dao = new UserDAO();
+        return dao;
+    }
+
+    @Bean(name="userService")
+    public UserService getUserService() {
+    	UserService dao = new UserService();
         return dao;
     }
 
