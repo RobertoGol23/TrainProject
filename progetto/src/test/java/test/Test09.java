@@ -31,7 +31,7 @@ public class Test09 {
 		
 			
 		UserService userService = context.getBean(UserService.class);
-		List<User> listUser = userService.findUserByName("Salvatore");
+		List<User> listUser = userService.findUserByName("Salvo");
 
 		System.out.println("UTENTI TROVATI: \n" + listUser);
 

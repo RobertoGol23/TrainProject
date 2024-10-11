@@ -1,8 +1,7 @@
 package entity.acquisto;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
+import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
+import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
 import entity.classi_astratte.Vagone;
 import entity.treno.Treno;
 import entity.user.User;
@@ -14,8 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "acquisti")
@@ -41,14 +38,13 @@ public class Acquisto {
     // Costruttori, Getter e Setter
     public Acquisto() {}
 
-    public Acquisto(User user, Treno treno, String data) {
-    	Double prezzo = 0.0;
-    	for(Vagone v : treno.getListaVagoni()) {
-    		prezzo = v.getPrezzo();
-    	}
-    	if(user.getWallet() < prezzo) {
-    		//TODO implementare l'eccezione
-    		return;
+    public Acquisto(User user, Treno treno, String data) throws SoldiNonSufficientiException {
+    	
+    	Double costoTreno = treno.getPrezzoTotaleTreno();
+    	Double wallet = user.getWallet();
+    	
+    	if(wallet < costoTreno) {
+    		throw new SoldiNonSufficientiException(wallet, costoTreno, "Errore: soldi non sufficienti");
     	}
         this.user = user;
         this.treno = treno;

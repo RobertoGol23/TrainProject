@@ -1,4 +1,4 @@
-package eccezioni.eccezioniSigla;
+package eccezioni.eccezioniGeneriche;
 
 @SuppressWarnings("serial")
 public class MarcaNonValidaException extends Exception {
@@ -12,6 +12,6 @@ public class MarcaNonValidaException extends Exception {
 	}
 
 	public String getSuggerimento() {
-		return "Stringa utilizzata " + marca + "\nCaratteri validi: h (locomotiva), r (ristorante), p (passeggeri), c (cargo)";
+		return "Numero marca inserita: " + marca + ". Inserisci una marca con numero esistente";
 	}
 }

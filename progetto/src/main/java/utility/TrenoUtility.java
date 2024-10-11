@@ -2,10 +2,10 @@ package utility;
 
 import java.util.ArrayList;
 
+import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniSigla.IncoerenzaVagoniException;
 import eccezioni.eccezioniSigla.LocomotivaInMezzoException;
 import eccezioni.eccezioniSigla.LocomotivaNonInTestaException;
-import eccezioni.eccezioniSigla.MarcaNonValidaException;
 import eccezioni.eccezioniSigla.RistoranteNonInMezzoException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import eccezioni.eccezioniSigla.StringaNonValidaException;
