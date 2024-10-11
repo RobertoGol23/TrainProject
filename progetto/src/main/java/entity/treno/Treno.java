@@ -3,6 +3,8 @@ package entity.treno;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.user.User;
+
 import entity.classi_astratte.Vagone;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 
 
@@ -39,6 +42,12 @@ public class Treno {
 		)
 	private List<Vagone> listaVagoni;
 
+	// Molti treni sono associati a una sola persona
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+	
+	
 	@Transient //non viene aggiunto alla tabella 
 	private Vagone locomotiva;
 	
@@ -46,24 +55,34 @@ public class Treno {
 	private Treno() {} //costruttore vuoto
 	
 	// Costruttore privato della classe Treno, richiamato soltanto dal suo metodo statico
-	private Treno(String nomeTreno, Vagone locomotiva, ArrayList<Vagone> listaVagoni, String marca)
+	private Treno(String nomeTreno, Vagone locomotiva, ArrayList<Vagone> listaVagoni, String marca, User utente)
 	{
 		this.setNomeTreno(nomeTreno);
 		this.setLocomotiva(locomotiva);
 		this.setListaVagoni(listaVagoni);
 		this.setMarca(marca);
+		this.setUtente(utente);
 		listaVagoni = new ArrayList<Vagone>();
 	}
 	
 	
 	// Metodo statico per creare l'istanza treno a partire dalla locomotiva e lista vagoni
 
-	public static Treno creaTreno(String nomeTreno,Vagone locomotiva,ArrayList<Vagone> listaVagoni, String marca)
+	public static Treno creaTreno(String nomeTreno,Vagone locomotiva,ArrayList<Vagone> listaVagoni, String marca, User utente)
 	{
-		Treno treno = new Treno(nomeTreno,locomotiva, listaVagoni, marca);
+		Treno treno = new Treno(nomeTreno,locomotiva, listaVagoni, marca, utente);
 		return treno;
 	}
 	
+	
+	public User getUtente() {
+		return user;
+	}
+
+	public void setUtente(User utente) {
+		this.user = utente;
+	}
+
 	public String getNomeTreno() {
 		return nomeTreno;
 	}

@@ -8,8 +8,11 @@ import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
 import entity.classi_astratte.Vagone;
+import entity.dao.TrenoDAO;
+import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.treno.Treno;
+import entity.user.User;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaRegionalGain;
 import fabbriche.FabbricaXFurryFast;
@@ -36,34 +39,33 @@ public class Test01 {
 		 */
 
 
-
         String sigla = "hprpp";
 		try
 		{
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 			
 			VagoneDAO vagoneInterfaceDAO = context.getBean(VagoneDAO.class);
+			
+			User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04");
+			UserDAO userDAO = context.getBean(UserDAO.class);
+			userDAO.salvaUser(mazza);
 
 
-
-			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
+			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla,mazza, 3);
 
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
 
-			Treno trenoRG = builderRG.costruisciTreno("Treno Passeggeri RG",sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
+			Treno trenoRG = builderRG.costruisciTreno("Treno Passeggeri RG",sigla,mazza, 2);
 
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
 
-			Treno trenoFF = builderFF.costruisciTreno("Treno Passeggeri FF",sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoFF.getLocomotiva());
+			Treno trenoFF = builderFF.costruisciTreno("Treno Passeggeri FF",sigla,mazza, 1);
 			for (Vagone vagone : trenoFF.getListaVagoni()){
 
 				vagoneInterfaceDAO.salvaVagone(vagone);
@@ -71,36 +73,23 @@ public class Test01 {
             
 			sigla = "hcc";
 
-			trenoKM = builderKM.costruisciTreno("Treno Cargo KM",sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoKM.getLocomotiva());
+			trenoKM = builderKM.costruisciTreno("Treno Cargo KM",sigla,mazza, 3);
 
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
-
-			trenoRG = builderRG.costruisciTreno("Treno Cargo RG",sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoRG.getLocomotiva());
+			trenoRG = builderRG.costruisciTreno("Treno Cargo RG",sigla,mazza, 2);
 
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
-
-			trenoFF = builderFF.costruisciTreno("Treno Cargo F",sigla);
-			vagoneInterfaceDAO.salvaVagone(trenoFF.getLocomotiva());
+			trenoFF = builderFF.costruisciTreno("Treno Cargo F",sigla,mazza, 1);
 			for (Vagone vagone : trenoFF.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
-
-
 			
-			
-
-			
-
-            
-
 			context.close();
 			
 		}

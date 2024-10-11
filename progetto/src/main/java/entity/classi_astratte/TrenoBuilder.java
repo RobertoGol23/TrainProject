@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import eccezioni.eccezioniSigla.*;
 import entity.treno.Treno;
+import entity.user.User;
 import entity.treno.Locomotiva;
 
 public abstract class TrenoBuilder {
 	
-	public Treno costruisciTreno(String nomeTreno, String sigla) throws SiglaTrenoException{
+	public Treno costruisciTreno(String nomeTreno, String sigla, User utente, int marca) throws SiglaTrenoException{
 		
 		//System.out.println("Sigla interna: " + sigla.toString());
 		
@@ -104,9 +105,22 @@ public abstract class TrenoBuilder {
 			throw new TroppoPesoException(sigla, "sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
 		}
 
-
-		Treno t= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno KargoModelz");		
-		return t;
+		switch(marca) { //switch per la marca dei treni
+		case 1:
+			Treno xFurryFast= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno xFurryFast", utente);
+			return xFurryFast;
+			
+		case 2:
+			Treno kargoModelz= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno KargoModelz", utente);
+			return kargoModelz;
+			
+		case 3:
+			Treno regionalGain= Treno.creaTreno(nomeTreno,locomotiva, listaVagoni, "Treno RegionalGain", utente);
+			return regionalGain;
+			
+		default:
+			throw new StringaNonValidaException(sigla, "Errore: marca non valida");
+		}
 	}
 	
 	protected abstract Locomotiva getLocomotiva();
