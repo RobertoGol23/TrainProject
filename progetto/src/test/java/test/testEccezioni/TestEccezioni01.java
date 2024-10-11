@@ -43,7 +43,7 @@ public class TestEccezioni01 {
 			TrenoBuilder builderKM = new Assemblatore(fabbricaKM);
 
 			
-			User userTest = new User("Test","Test", "test.mazza@gmail.com", "Test123");
+			User userTest = new User("Test","Test", "test.mazza@gmail.com", "Test123", 0.0);
 			
 
 		try {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import entity.user.User;
 import entity.votazioni.Voto;
+import entity.acquisto.Acquisto;
 import entity.classi_astratte.Vagone;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -50,6 +51,10 @@ public class Treno {
     
     @OneToMany(mappedBy = "treno", cascade = CascadeType.ALL) //voti per il treno
     private List<Voto> voti = new ArrayList<Voto>();
+    
+    @OneToMany(mappedBy = "treno", cascade = CascadeType.ALL)
+    private List<Acquisto> acquisti = new ArrayList<Acquisto>();
+
 	
 	@Transient //non viene aggiunto alla tabella 
 	private Vagone locomotiva;
