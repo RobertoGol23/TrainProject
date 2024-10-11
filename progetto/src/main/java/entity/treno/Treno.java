@@ -134,6 +134,16 @@ public class Treno {
 		return listaVagoni;
 	}
 
+	public Double getPrezzoTotaleTreno()
+	{
+		Double prezzo = 0.0;
+		for(Vagone v : this.getListaVagoni()) {
+			prezzo = v.getPrezzo();
+		}
+		return prezzo;
+	}
+		
+	
 	public void setListaVagoni(ArrayList<Vagone> listaVagoni) {
 		this.listaVagoni = listaVagoni;
 	}
