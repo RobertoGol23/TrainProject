@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.user.User;
-
+import entity.votazioni.Voto;
 import entity.classi_astratte.Vagone;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 
@@ -46,7 +47,9 @@ public class Treno {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
-	
+    
+    @OneToMany(mappedBy = "treno", cascade = CascadeType.ALL) //voti per il treno
+    private List<Voto> voti = new ArrayList<Voto>();
 	
 	@Transient //non viene aggiunto alla tabella 
 	private Vagone locomotiva;
@@ -143,7 +146,5 @@ public class Treno {
 		
 		return "Locomotiva: " + getLocomotiva() + "\nListaVagoni:\n" + vagoni;
 	}
-	
-	
 	
 }

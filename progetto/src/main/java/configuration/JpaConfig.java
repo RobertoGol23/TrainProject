@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import entity.dao.TrenoDAO;
 import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
+import entity.dao.VotoDAO;
 import entity.dao.ServizioDAO;
 
 
@@ -92,6 +93,10 @@ public class JpaConfig {
     	UserDAO dao = new UserDAO();
         return dao;
     }
-
+    @Bean(name="votoDAO")
+    public VotoDAO getVotoDAO() {
+    	VotoDAO dao = new VotoDAO();
+        return dao;
+    }
 }
 
