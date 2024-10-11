@@ -42,11 +42,11 @@ public class Test03 {
 		{
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 
-			User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04");
+			User mano = new User("Salvo","Mano", "salvo.mano@gmail.com", "Danzacudur0_04", 0.0);
 			UserDAO userDAO = context.getBean(UserDAO.class);
-			userDAO.salvaUser(mazza);
+			userDAO.salvaUser(mano);
 			
-			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla,mazza, 3);
+			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla, mano, 3);
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);
 

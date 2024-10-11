@@ -13,6 +13,7 @@ import entity.dao.TrenoDAO;
 import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.dao.VotoDAO;
+import entity.dao.AcquistoDAO;
 import entity.dao.ServizioDAO;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -29,7 +30,7 @@ public class JpaConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/Hibernate_db");
         dataSource.setUsername("root");
-        dataSource.setPassword("Mauro01"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
+        dataSource.setPassword("M1c0ll3g0_"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
         return dataSource;
     }
 
@@ -96,6 +97,13 @@ public class JpaConfig {
     @Bean(name="votoDAO")
     public VotoDAO getVotoDAO() {
     	VotoDAO dao = new VotoDAO();
+        return dao;
+    }
+
+    
+    @Bean(name="acquistoDAO")
+    public AcquistoDAO getAcquistoDAO() {
+    	AcquistoDAO dao = new AcquistoDAO();
         return dao;
     }
 

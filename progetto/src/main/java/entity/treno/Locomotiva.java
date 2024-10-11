@@ -30,6 +30,6 @@ public class Locomotiva extends Vagone{ //pensare se si puo' levare abstract per
 	@Override
 	public String toString()
 	{
-		return super.toString() + "\nPeso trainabile: " + getPesoTrainabile();
+		return super.toString() + "	Peso trainabile: " + getPesoTrainabile() +"\n";
 	}
 }

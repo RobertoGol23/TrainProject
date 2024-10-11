@@ -8,8 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import entity.acquisto.Acquisto;
 import entity.treno.Treno;
 import entity.votazioni.Voto;
 
@@ -33,21 +35,29 @@ public class User {
 	@Column(name = "password", nullable = false, unique = false)
 	private String password;
 	
+	@Column(name = "wallet", nullable = false, unique = false)
+	private Double wallet;
+	
+	
 	// One-to-Many: una persona può avere molti treni
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Treno> treni;
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) 
     private List<Voto> voti;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Acquisto> acquisti = new ArrayList<Acquisto>();
 	
 	public User() {}
 	
-	public User(String nome, String cognome, String email, String password) {
+	public User(String nome, String cognome, String email, String password, Double wallet) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
-	}
+		this.wallet = wallet;
+		}
 	
 	//public List<Treno> getTreni() {
 	//	return treni;
@@ -93,9 +103,20 @@ public class User {
 		return id_user;
 	}
 
+	public Double getWallet() {
+		return wallet;
+	}
+
+	public void setWallet(Double wallet) {
+		this.wallet = wallet;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id_user=" + id_user + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + "]";
+		return "User [id_user=" + id_user + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email
+				+ ", password=" + password + ", wallet=" + wallet + "]";
 	}
+
+	
 	
 }
