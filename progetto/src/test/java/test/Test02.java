@@ -38,7 +38,7 @@ public class Test02 {
 			UserDAO userDAO = context.getBean(UserDAO.class);
 			userDAO.salvaUser(mazza);
 			
-			Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla,mazza);
+			Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla,mazza, 3);
 
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);

@@ -46,13 +46,13 @@ public class User {
 		this.password = password;
 	}
 	
-	public List<Treno> getTreni() {
-		return treni;
-	}
+	//public List<Treno> getTreni() {
+	//	return treni;
+	//}
 
-	public void setTreni(List<Treno> treni) {
-		this.treni = treni;
-	}
+	//public void setTreni(List<Treno> treni) {
+	//	this.treni = treni;
+	//}
 
 	public String getNome() {
 		return nome;

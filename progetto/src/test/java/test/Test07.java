@@ -23,9 +23,10 @@ public class Test07 {
         
         FabbricaVagoni fabbricaKM= new FabbricaKargoModelz();
 		TrenoBuilder builderKM = new Assemblatore(fabbricaKM);
+		
 
 
-		/*				TEST 05
+		/*				TEST 07
 		 * caricamento nel db di un treno con i rispettivi vagoni e nome
 		 * inserimento di un SERVIZIO al database
 		 * aggiunta di un servizio ad un vagone
@@ -46,7 +47,7 @@ public class Test07 {
 			UserDAO userDAO = context.getBean(UserDAO.class);
 			userDAO.salvaUser(mazza);
 			
-			Treno trenoKM = builderKM.costruisciTreno(nomeTreno,sigla, mazza);
+			Treno trenoKM = builderKM.costruisciTreno(nomeTreno,sigla, mazza, 3);
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);
 
