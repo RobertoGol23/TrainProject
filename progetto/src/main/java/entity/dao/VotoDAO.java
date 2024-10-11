@@ -28,7 +28,7 @@ public class VotoDAO {
 	    }
 
 	    @Transactional
-	    public void updateVoto(Voto persona) {
-	        em.merge(persona);
+	    public void updateVoto(Voto voto) {
+	        em.merge(voto);
 	    }
 }

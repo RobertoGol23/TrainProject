@@ -19,7 +19,7 @@ public class Test00 {
 			FabbricaVagoni fabbricaFF= new FabbricaXFurryFast();
 			TrenoBuilder builderFF = new Assemblatore(fabbricaFF);
 			
-			User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234");
+			User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234", 0.0);
 			
 			Treno t = builderFF.costruisciTreno("Treno della speranza", sigla, pippo, 1);
 			System.out.println("Treno\n" + t.toString());

@@ -21,13 +21,13 @@ public class Test09 {
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);			
 			
 			
-		User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04");
+		User mano = new User("Salvo","Mano", "salvo.mano@gmail.com", "Danzacudur0_04", 0.0);
 		UserDAO userDAO = context.getBean(UserDAO.class);
-		userDAO.salvaUser(mazza);
+		userDAO.salvaUser(mano);
 
-		User mazza2 = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04");
+		User fungo = new User("Fungo", "Porcino", "fungo.porcino@gmail.com", "1313", 991234.0);
 		userDAO = context.getBean(UserDAO.class);
-		userDAO.salvaUser(mazza2);
+		userDAO.salvaUser(fungo);
 		
 			
 		UserService userService = context.getBean(UserService.class);
