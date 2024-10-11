@@ -36,7 +36,7 @@ public class Test11 {
 
             String sigla="hrp";
 
-            User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04");
+            User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04",100.0);
             UserDAO userDAO = context.getBean(UserDAO.class);
             userDAO.salvaUser(mazza);
                 
