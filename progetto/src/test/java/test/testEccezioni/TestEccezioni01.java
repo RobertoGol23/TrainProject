@@ -3,7 +3,6 @@ package test.testEccezioni;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
-import entity.dao.UserDAO;
 import entity.treno.Treno;
 import entity.user.User;
 import fabbriche.FabbricaKargoModelz;

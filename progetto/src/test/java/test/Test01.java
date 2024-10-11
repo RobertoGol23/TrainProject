@@ -8,7 +8,6 @@ import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
 import entity.classi_astratte.Vagone;
-import entity.dao.TrenoDAO;
 import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.treno.Treno;
