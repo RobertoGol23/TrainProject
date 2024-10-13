@@ -1,35 +1,30 @@
-package test;
+package test.testVoti;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
-import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
-import eccezioni.eccezioniSigla.SiglaTrenoException;
-import entity.acquisto.Acquisto;
+import eccezioni.eccezioniSigla.*;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
-import entity.dao.AcquistoDAO;
 import entity.dao.TrenoDAO;
 import entity.dao.UserDAO;
+import entity.dao.VotoDAO;
 import entity.treno.Treno;
 import entity.user.User;
-import fabbriche.FabbricaKargoModelz;
+import entity.votazioni.Voto;
 import fabbriche.FabbricaXFurryFast;
 import utility.Assemblatore;
 
-public class Test10 {
+public class Test08 {
 
 	public static void main(String[] args) {
 		
 		FabbricaVagoni fabbricaFF= new FabbricaXFurryFast();
 		TrenoBuilder builderFF = new Assemblatore(fabbricaFF);
 		
-        FabbricaVagoni fabbricaKM= new FabbricaKargoModelz();
-		TrenoBuilder builderKM = new Assemblatore(fabbricaKM);
-		
-		/*				TEST 10
-		 * prova di acquisto di due treni da due user
+		/*				TEST 08
+		 * caricamento dei voti per un treno nel db
 		 * 
 		 * 
 		 * 
@@ -37,23 +32,17 @@ public class Test10 {
 
         String sigla = "hprp";
         try {
-        	
-        	try
-        	{
-        		
-        	
         	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         	
-        	User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234", 0.1);
-        	User pipetta = new User("Pipetta", "Soffio", "pipetta.soffio@gmail.com", "uiop", 10000000.0);
+        	User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234", 0.0);
+        	User pipetta = new User("Pipetta", "Soffio", "pipetta.soffio@gmail.com", "uiop", 0.0);
         	
         	Treno trenoFF = builderFF.costruisciTreno("Treno Cargo Passeggeri",sigla,pippo, 1);
-        	Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla,pipetta, 2);
         	
-        	Acquisto primo = new Acquisto(pipetta, trenoFF, "11/09/2001");
-        	Acquisto secondo = new Acquisto(pippo, trenoKM, "11/09/2001");
+            Voto pippoVoto = new Voto(5, pippo, trenoFF);
+            Voto pipettaVoto = new Voto(10, pipetta, trenoFF);
 			
-        	AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class); 
+            VotoDAO votoDAO = context.getBean(VotoDAO.class); 
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         	UserDAO userDAO = context.getBean(UserDAO.class);
 
@@ -61,24 +50,15 @@ public class Test10 {
         	userDAO.salvaUser(pippo);
         	userDAO.salvaUser(pipetta);
         	trenoDAO.salvaTreno(trenoFF);
-        	trenoDAO.salvaTreno(trenoKM);
-        	acquistoDAO.salvaAcquisto(primo);
-        	acquistoDAO.salvaAcquisto(secondo);
-    
-        	
+        	votoDAO.salvaVoto(pippoVoto);
+        	votoDAO.salvaVoto(pipettaVoto);
+
         	context.close();
-        	}
-        	catch(SoldiNonSufficientiException e)
-        	{
-        		System.out.println(e.getMessage()+e.getSuggerimento());
-        	}
 
         }catch(SiglaTrenoException e) {
         	String message = e.getMessage();
 			System.out.println(message);
 			System.out.println(e.getSuggerimento());
         }
-
 	}
-
 }

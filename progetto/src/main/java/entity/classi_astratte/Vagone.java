@@ -57,6 +57,10 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 		this.listaServizi = listaServizi; //da inizializzare
 	}
 
+	public Long getId() {
+		return id_vagone;
+	}
+
 	public Double getPeso() {
 		Double pesoTot = 0.0;
 		for(Servizio s: listaServizi) {

@@ -1,4 +1,4 @@
-package test;
+package test.testTrenieServizi;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;

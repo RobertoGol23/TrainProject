@@ -1,4 +1,4 @@
-package test;
+package test.testTrenieServizi;
 
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;

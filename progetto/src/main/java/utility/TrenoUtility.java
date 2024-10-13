@@ -17,10 +17,7 @@ import entity.treno.Treno;
 
 public class TrenoUtility {
 
-	public TrenoUtility() {
-		
-	}
-
+	// Ritorna la marca del treno in base al numero di marca
 	public String getMarcaByInt(int numeroMarca) throws Exception
 	{
 		String marca = "";
@@ -44,8 +41,9 @@ public class TrenoUtility {
 		
 		return marca;
 	}
-	
-	public void controllaSigla(String sigla) throws SiglaTrenoException
+
+	// Controlla che la sigla del treno sia valida ritornando true, altrimenti lancia un'eccezione
+	public boolean controllaSigla(String sigla) throws SiglaTrenoException
 	{
 		int contaR = 0;
 		int contaP = 0;
@@ -113,7 +111,7 @@ public class TrenoUtility {
 			throw new IncoerenzaVagoniException(sigla, "se c'è un vagone ristorante devono esserci altri vagoni di tipo passeggeri. Attualmente ci sono: " + contaP + " vagoni passeggeri e " + contaR + " vagoni ristorante");
 		}
 
-		//return true;
+		return true;
 	}
 	
 	public static Boolean controllaRistoranteCentrale(String sigla)
@@ -142,13 +140,8 @@ public class TrenoUtility {
 		return flag;
 	}
 	
-	/**
-	 * Metodo che controlla la 
-	 * @param sigla
-	 * @param listaVagoni
-	 * @throws SiglaTrenoException
-	 */
-	public void controllaPeso(String sigla,ArrayList<Vagone> listaVagoni) throws SiglaTrenoException
+
+	public void controllaPesoTrainabile(String sigla, ArrayList<Vagone> listaVagoni) throws SiglaTrenoException
 	{
 		double sommapeso = 0.0;
 		for(Vagone v: listaVagoni) {
@@ -161,4 +154,55 @@ public class TrenoUtility {
 		}
 		
 	}
+
+	private char findTipo(String tipo){
+		switch(tipo){
+			case "Locomotiva": 
+				return 'h';
+			case "VagonePasseggeri":
+				return 'p';
+			case "VagoneRistorante":
+				return 'r';
+			case "VagoneCarro":
+				return 'c';
+			default:
+				return ' ';
+		}
+	}
+	
+	// Dato un treno, ritorna la sigla del treno
+	public String getSigla(Treno treno){
+        String sigla = "";
+        for (int i=0; i<treno.getListaVagoni().size(); i++) {
+			sigla = sigla + findTipo(treno.getVagone(i).getTipo());   
+        }
+        return sigla;
+    }
+
+	public String getSiglaRimozione(Treno treno, int index){
+		String sigla = "";
+		for(int i = 0; i < treno.getListaVagoni().size(); i++){
+			if(i != index){
+				sigla = sigla + findTipo(treno.getVagone(i).getTipo());
+			}
+		}
+		return sigla;
+	}
+
+	public String getSiglaAggiunta(Treno treno, int index, Vagone vagone){
+		
+		String sigla = "";
+		for(int i = 0; i < treno.getListaVagoni().size(); i++){
+			if(i == index){
+				sigla = sigla + findTipo(vagone.getTipo());
+			}
+			sigla = sigla + findTipo(treno.getVagone(i).getTipo());	
+		}
+		return sigla;
+	}
+
+
+	
+
+
 }

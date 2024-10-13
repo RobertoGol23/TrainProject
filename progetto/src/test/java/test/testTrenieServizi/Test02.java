@@ -1,4 +1,4 @@
-package test;
+package test.testTrenieServizi;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -12,28 +12,22 @@ import entity.dao.UserDAO;
 import entity.treno.Treno;
 import entity.user.User;
 import fabbriche.FabbricaKargoModelz;
-import fabbriche.FabbricaRegionalGain;
 import utility.Assemblatore;
 
-public class Test06 {
+public class Test02 {
     public static void main(String[] args) {
         
-        /*				TEST 06
-         *  Test creazione piu' treni
-         *
-         *
-         *
-         *
-         */
-    	 
         FabbricaVagoni fabbricaKM= new FabbricaKargoModelz();
 		TrenoBuilder builderKM = new Assemblatore(fabbricaKM);
+
+
+		/*				TEST 02
+		 * caricamento nel db di un treno con i rispettivi vagoni
+		 * 
+		 * 
+		 * 
+		 */
 		
-		FabbricaVagoni fabbricaRG= new FabbricaRegionalGain();
-		TrenoBuilder builderRG = new Assemblatore(fabbricaRG);
-		
-		FabbricaVagoni fabbricaFF= new FabbricaKargoModelz();
-		TrenoBuilder builderFF = new Assemblatore(fabbricaFF);
 		
         String sigla = "hprp";
 		try
@@ -45,13 +39,9 @@ public class Test06 {
 			userDAO.salvaUser(mazza);
 			
 			Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla,mazza, 3);
-			Treno trenoRG = builderRG.costruisciTreno("Treno Cargo Passeggeri",sigla,mazza, 2);
-			Treno trenoFF = builderFF.costruisciTreno("Treno Cargo Passeggeri",sigla,mazza, 1);
 
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             trenoDAO.salvaTreno(trenoKM);
-            trenoDAO.salvaTreno(trenoRG);
-            trenoDAO.salvaTreno(trenoFF);
        
 			context.close();
 			
@@ -64,4 +54,5 @@ public class Test06 {
 		}
 				
 	}
+
 }

@@ -1,20 +1,20 @@
 package entity.dao;
 
 import jakarta.persistence.EntityManager;
-import entity.classi_astratte.Vagone;
+import entity.servizi.Servizio;
 import entity.treno.Locomotiva;
 import entity.treno.Treno;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
+import utility.TrenoUtility;
 
 import java.util.*;
 
-import org.hibernate.criterion.Restrictions;
+import eccezioni.eccezioniSigla.SiglaTrenoException;
+
 
 public class TrenoDAO {
 	
@@ -27,14 +27,14 @@ public class TrenoDAO {
 	    }
 
 	    @Transactional
-	    public void eliminaTrenoById(int id) {
+	    public void eliminaTrenoById(Long id) {
 	    	Treno treno = getTrenoById(id);
 	        if (treno != null) {
 	            em.remove(treno);
 	        }
 	    }
 
-	    public Treno getTrenoById(int id) {
+	    public Treno getTrenoById(Long id) {
 	        return em.find(Treno.class, id);
 	    }
 
@@ -43,12 +43,13 @@ public class TrenoDAO {
 	        em.merge(treno);
 	    }
 
+
 		/* ------ CRITERIA ------- */
 
 
-	// FUNZIONA MA NON STAMPA
+	// FUNZIONA MA NON STAMPA BENE
 	@Transactional
-	public List<Treno> findTrenoByName(String nome) {
+	public List<Treno> getTrenoByName(String nome) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
 
@@ -61,45 +62,45 @@ public class TrenoDAO {
 	}
 
     @Transactional
-    public List<Treno> findTrenoByMarca(String marca) {
+    public List<Treno> getTrenoByMarca(int marca) {
+		String marcaString = "" + marca;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
 
         Root<Treno> root = cq.from(Treno.class);
-
-        cq.select(root).where(cb.equal(root.get("marca"), marca));
+	
+        cq.select(root).where(cb.equal(root.get("marca"), marcaString));
         // è possibile anche fare select(root.get("nome attributo"))
 
         return em.createQuery(cq).getResultList();
     } 
 
 
+	@Transactional
+	public boolean eliminaVagoneByIndex(Treno treno, int index) {
 
+		TrenoUtility trenoUtility = new TrenoUtility();
 
+		try{
+			boolean bool = trenoUtility.controllaSigla(trenoUtility.getSiglaRimozione(treno, index));
+			if(bool){
+				treno.deleteVagone(index);
+				
+				em.merge(treno);
+			}
+		return bool;
+		}
+		catch(SiglaTrenoException e)
+		{
+			System.out.println("Errore: " + e.getMessage());
+		}
 
-	/* @Transactional
-	public List<Treno> findTreniByPesoTrasportabile(double pesoMin) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
-		
-		// Creare la radice per Locomotiva
-		Root<Locomotiva> locomotivaRoot = cq.from(Locomotiva.class);
-
-		// Join con Treno
-		Join<Locomotiva, Treno> trenoJoin = locomotivaRoot.join("id_vagone"); // Assicurati che "treno" sia il nome corretto della proprietà
-
-		// Aggiungi la restrizione
-		cq.select(trenoJoin).where(cb.gt(locomotivaRoot.get("pesoTrasportabile"), pesoMin));
-
-		// Esegui la query
-		return em.createQuery(cq).getResultList();
-	} */
-
-
+		return false; 
+	}
 
 	// VA MA NON SI FA COSÌ
 	@Transactional
-    public List<Treno> findTreniByPesoTrasportabile(double pesoMin) {
+    public List<Treno> getTreniByPesoTrasportabile(double pesoMin) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
 
@@ -120,6 +121,23 @@ public class TrenoDAO {
 		return listaFinale;
     }
 
+	@Transactional
+	public boolean addServizio(Treno treno, int index, String servizio){
+
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Servizio> cq = cb.createQuery(Servizio.class);
+
+        Root<Servizio> root_servizio = cq.from(Servizio.class);
+
+		cq.select(root_servizio);
+		List<Servizio> result = em.createQuery(cq).getResultList();
+		
+		treno.getListaVagoni().get(index).addServizio(result.get(0));
+		
+		em.merge(treno);
+
+		return false; 
+	}
 
 	
 

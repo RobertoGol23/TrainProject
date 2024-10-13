@@ -82,6 +82,13 @@ public class Treno {
 		return treno;
 	}
 	
+	public Long getId() {
+		return id_treno;
+	}
+
+	public String getNome(){
+		return nomeTreno;
+	}
 	
 	public User getUtente() {
 		return user;
@@ -89,10 +96,6 @@ public class Treno {
 
 	public void setUtente(User utente) {
 		this.user = utente;
-	}
-
-	public String getNomeTreno() {
-		return nomeTreno;
 	}
 
 	public void setNomeTreno(String nomeTreno) {
@@ -143,7 +146,10 @@ public class Treno {
 		}
 		return prezzo;
 	}
-		
+	
+	public void deleteVagone(int index) {
+		listaVagoni.remove(index);
+	}
 	
 	public void setListaVagoni(ArrayList<Vagone> listaVagoni) {
 		this.listaVagoni = listaVagoni;
