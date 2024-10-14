@@ -1,6 +1,11 @@
 package entity.acquisto;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+
+import configuration.JpaConfig;
 import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
+import entity.dao.UserDAO;
 import entity.treno.Treno;
 import entity.user.User;
 import jakarta.persistence.Column;
@@ -44,6 +49,15 @@ public class Acquisto {
     	if(wallet < costoTreno) {
     		throw new SoldiNonSufficientiException(wallet, costoTreno, "Errore: soldi non sufficienti");
     	}
+    	
+    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    	
+    	user.setWallet(wallet-costoTreno);
+    	UserDAO userDao = context.getBean(UserDAO.class);
+    	
+    	userDao.updateUser(user);
+    	context.close();
+    	
         this.user = user;
         this.treno = treno;
         this.dataAcquisto = data;
