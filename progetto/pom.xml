@@ -37,9 +37,8 @@
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
-        <version>6.1.6</version> <!-- Controlla per la versione più recente -->
+        <version>6.1.6</version>
     </dependency>
-    
 
     <dependency>
         <groupId>org.hibernate.orm</groupId>
@@ -56,7 +55,7 @@
     <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
-        <version>8.0.33</version> <!-- Mantieni solo una versione -->
+        <version>8.0.33</version>
     </dependency>
 
     <dependency>
@@ -98,7 +97,6 @@
         <version>5.6.12.Final</version>
     </dependency>
 
-    <!-- Aggiungi Jakarta Persistence -->
     <dependency>
         <groupId>jakarta.persistence</groupId>
         <artifactId>jakarta.persistence-api</artifactId>
@@ -106,10 +104,10 @@
     </dependency>
     
     <dependency>
-    <groupId>org.antlr</groupId>
-    <artifactId>antlr4-runtime</artifactId>
-    <version>4.9.3</version> <!-- Assicurati che sia la versione corretta -->
-</dependency>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-runtime</artifactId>
+        <version>4.9.3</version>
+    </dependency>
 
 </dependencies>
 
@@ -140,6 +138,9 @@
         <configuration>
           <source>17</source>
           <target>17</target>
+          <compilerArgs>
+            <arg>-parameters</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
     </plugins>

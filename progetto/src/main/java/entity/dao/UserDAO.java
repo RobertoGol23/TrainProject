@@ -75,6 +75,14 @@ public class UserDAO {
         }
         return user;
     }
-
+    
+    @Transactional
+    public List<User> getAllUsers() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> root = cq.from(User.class);
+        cq.select(root);
+        return em.createQuery(cq).getResultList();
+    }
 
 }
