@@ -10,9 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "voti")
+@Table(name = "voti", uniqueConstraints = { //impedisce di avere nella tabella altri campi con chiavi uguali
+	    @UniqueConstraint(columnNames = {"user_id", "treno_id"})
+	    })
 public class Voto {
 
     @Id
