@@ -44,7 +44,7 @@ public class Test10 {
         	
         	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         	
-        	User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234", 0.1);
+        	User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234", 1400000.0);
         	User pipetta = new User("Pipetta", "Soffio", "pipetta.soffio@gmail.com", "uiop", 10000000.0);
         	
         	Treno trenoFF = builderFF.costruisciTreno("Treno Cargo Passeggeri",sigla,pippo, 1);
