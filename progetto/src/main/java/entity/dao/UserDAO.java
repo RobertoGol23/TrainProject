@@ -5,6 +5,7 @@ package entity.dao;
 import entity.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
@@ -12,7 +13,11 @@ import jakarta.persistence.criteria.CriteriaQuery;
 
 import java.util.*;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class UserDAO {
+	
 	@PersistenceContext
     private EntityManager em;
 
@@ -53,6 +58,22 @@ public class UserDAO {
         
 
         return results;
+    }
+    
+    @Transactional
+    public User findUserByEmailAndPassword(String email, String password) {
+        String query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password";
+        TypedQuery<User> typedQuery = em.createQuery(query, User.class);
+        typedQuery.setParameter("email", email);
+        typedQuery.setParameter("password", password);
+
+        User user = null;
+        try {
+            user = typedQuery.getSingleResult();
+        } catch (Exception e) {
+            System.out.print("non esiste il tizio oh");
+        }
+        return user;
     }
 
 
