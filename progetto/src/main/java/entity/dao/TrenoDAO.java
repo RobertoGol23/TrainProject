@@ -126,7 +126,7 @@ public class TrenoDAO {
     }
 
 	@Transactional
-	public boolean addServizio(Treno treno, int index, String servizio){
+	public boolean addServizio(Long id_treno, int id_vagone, String servizio){
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Servizio> cq = cb.createQuery(Servizio.class);
@@ -136,9 +136,10 @@ public class TrenoDAO {
 		cq.select(root_servizio);
 		List<Servizio> result = em.createQuery(cq).getResultList();
 		
-		treno.getListaVagoni().get(index).addServizio(result.get(0));
-	
+		Treno treno = getTrenoById(id_treno);
 		
+		treno.getListaVagoni().get(id_vagone).addServizio(result.get(0));
+	
 		em.merge(treno);
 		
 		
