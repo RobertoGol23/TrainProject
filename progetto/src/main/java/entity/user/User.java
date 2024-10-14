@@ -14,6 +14,7 @@ import java.util.List;
 import entity.acquisto.Acquisto;
 import entity.treno.Treno;
 import entity.votazioni.Voto;
+import jakarta.validation.constraints.Email;
 
 
 @Entity
@@ -29,7 +30,8 @@ public class User {
 	@Column(name = "cognome", nullable = false, unique = false)
 	private String cognome;
 	
-	@Column(name = "email", nullable = false, unique = false)
+	@Column(name = "email", nullable = false, unique = true)
+	@Email(message = "Email non valida")
 	private String email;
 	
 	@Column(name = "password", nullable = false, unique = false)
