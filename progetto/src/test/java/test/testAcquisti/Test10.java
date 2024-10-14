@@ -44,8 +44,12 @@ public class Test10 {
         	
         	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         	
-        	User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234", 1400000.0);
+        	User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234", 1500000.0);
         	User pipetta = new User("Pipetta", "Soffio", "pipetta.soffio@gmail.com", "uiop", 10000000.0);
+        	
+        	UserDAO userDAO = context.getBean(UserDAO.class);
+        	userDAO.salvaUser(pippo);
+        	userDAO.salvaUser(pipetta);
         	
         	Treno trenoFF = builderFF.costruisciTreno("Treno Cargo Passeggeri",sigla,pippo, 1);
         	Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla,pipetta, 2);
@@ -55,11 +59,10 @@ public class Test10 {
 			
         	AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class); 
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-        	UserDAO userDAO = context.getBean(UserDAO.class);
+        	
 
         	
-        	userDAO.salvaUser(pippo);
-        	userDAO.salvaUser(pipetta);
+        	
         	trenoDAO.salvaTreno(trenoFF);
         	trenoDAO.salvaTreno(trenoKM);
         	acquistoDAO.salvaAcquisto(primo);

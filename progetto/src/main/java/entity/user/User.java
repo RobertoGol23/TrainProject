@@ -115,7 +115,7 @@ public class User {
 	public void setWallet(Double wallet) {
 		this.wallet = wallet;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "User [id_user=" + id_user + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email
