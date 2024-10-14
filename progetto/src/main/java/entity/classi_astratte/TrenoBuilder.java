@@ -45,12 +45,12 @@ public abstract class TrenoBuilder {
 			}
 		}
 
-		trenoUtility.controllaPeso(sigla, listaVagoni);
+		trenoUtility.controllaPesoTrainabile(sigla, listaVagoni);
 		
 		String marca = "";
 		try
 		{
-			marca = trenoUtility.getMarcaByInt(1);
+			marca = trenoUtility.getMarcaByInt(numeroMarca);
 			return Treno.creaTreno(nomeTreno, listaVagoni, marca, utente);
 		}
 		catch (Exception e)

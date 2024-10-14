@@ -22,14 +22,14 @@ public class UserDAO {
     }
 
     @Transactional
-    public void eliminaUserById(int id) {
+    public void eliminaUserById(Long id) {
     	User user = getUserById(id);
         if (user != null) {
             em.remove(user);
         }
     }
 
-    public User getUserById(int id) {
+    public User getUserById(Long id) {
         return em.find(User.class, id);
     }
 
@@ -40,7 +40,7 @@ public class UserDAO {
 
 
     @Transactional
-    public List<User> findUserByName(String nome) {
+    public List<User> getUserByName(String nome) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
 
@@ -54,4 +54,6 @@ public class UserDAO {
 
         return results;
     }
+
+
 }

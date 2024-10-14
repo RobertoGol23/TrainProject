@@ -1,4 +1,4 @@
-package test;
+package test.testQuery;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class Test09 {
 		
 			
 		userDAO = context.getBean(UserDAO.class);
-		List<User> listUser = userDAO.findUserByName("Salvatore");
+		List<User> listUser = userDAO.getUserByName("Salvatore");
 
 		System.out.println("UTENTI TROVATI: \n" + listUser);
 

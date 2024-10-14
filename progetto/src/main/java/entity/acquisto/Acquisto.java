@@ -1,8 +1,6 @@
 package entity.acquisto;
 
-import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
-import entity.classi_astratte.Vagone;
 import entity.treno.Treno;
 import entity.user.User;
 import jakarta.persistence.Column;

@@ -13,17 +13,9 @@ public class VagoneDAO {
     @Transactional
     public void salvaVagone(Vagone vagone) {
         em.persist(vagone);
-    }
+    }  
 
-    @Transactional
-    public void eliminaVagoneById(int id) {
-    	Vagone vagone = getVagoneById(id);
-        if (vagone != null) {
-            em.remove(vagone);
-        }
-    }
-
-    public Vagone getVagoneById(int id) {
+    public Vagone getVagoneById(Long id) {
         return em.find(Vagone.class, id);
     }
 

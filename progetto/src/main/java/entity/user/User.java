@@ -39,8 +39,9 @@ public class User {
 	private Double wallet;
 	
 	
+	//TODO: Modificare in many-to-many ???
 	// One-to-Many: una persona può avere molti treni
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
     private List<Treno> treni;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) 
@@ -66,6 +67,10 @@ public class User {
 	//public void setTreni(List<Treno> treni) {
 	//	this.treni = treni;
 	//}
+
+	public Long getId_User() {
+		return id_user;
+	}
 
 	public String getNome() {
 		return nome;

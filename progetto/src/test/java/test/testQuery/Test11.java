@@ -1,4 +1,4 @@
-package test;
+package test.testQuery;
 
 import java.util.List;
 
@@ -36,7 +36,8 @@ public class Test11 {
 
             String sigla="hrp";
 
-            User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04",100.0);
+            User mazza = new User("Salvatore","Mazza", "salvatore.mazza@gmail.com", "Danzacudur0_04", 2000.0);
+
             UserDAO userDAO = context.getBean(UserDAO.class);
             userDAO.salvaUser(mazza);
                 
@@ -57,7 +58,7 @@ public class Test11 {
             // Query che ritorna una lista di treni con una determinata Marca
             String marca = "Treno KargoModelz";      
         
-         //   List<Treno> listaTreniByMarca = trenoDAO.findTrenoByMarca(marca);
+         //   List<Treno> listaTreniByMarca = trenoDAO.getTrenoByMarca(marca);
 
          //   System.out.println("TRENI TROVATI BY MARCA: " + marca + "\n" + listaTreniByMarca);
 
@@ -67,7 +68,7 @@ public class Test11 {
             // Query che ritorna una lista di treni tramite il suo Nome
             String nome = "Treno Passeggeri xFF";
 
-          //  List<Treno> listaTreniByName2 = trenoDAO.findTrenoByName(nome);
+          //  List<Treno> listaTreniByName2 = trenoDAO.getTrenoByName(nome);
 
           //  System.out.println("TRENI TROVATI BY NAME: " + nome + "\n" + listaTreniByName2);
 
@@ -77,7 +78,7 @@ public class Test11 {
             // Query che ritorna una lista di treni che possano trasportare ALMENO tot peso
             double pesoMin = 1000.0;
 
-            List<Treno> listaTreniByPesoTrasportabile = trenoDAO.findTreniByPesoTrasportabile(pesoMin);
+            List<Treno> listaTreniByPesoTrasportabile = trenoDAO.getTreniByPesoTrasportabile(pesoMin);
 
             System.out.println("TRENI TROVATI BY PESOTRASPORTABILE: " + pesoMin + "\n" + listaTreniByPesoTrasportabile);
 
