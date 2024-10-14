@@ -14,6 +14,7 @@ import entity.treno.Treno;
 import entity.user.User;
 import entity.votazioni.Voto;
 import fabbriche.FabbricaXFurryFast;
+import jakarta.persistence.PersistenceException;
 import utility.Assemblatore;
 
 public class Test08 {
@@ -41,6 +42,7 @@ public class Test08 {
         	
             Voto pippoVoto = new Voto(5, pippo, trenoFF);
             Voto pipettaVoto = new Voto(10, pipetta, trenoFF);
+            Voto pippoVoto2 = new Voto(5, pippo, trenoFF);
 			
             VotoDAO votoDAO = context.getBean(VotoDAO.class); 
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
@@ -52,6 +54,14 @@ public class Test08 {
         	trenoDAO.salvaTreno(trenoFF);
         	votoDAO.salvaVoto(pippoVoto);
         	votoDAO.salvaVoto(pipettaVoto);
+        	try {
+        	    // Codice per salvare il voto
+        		votoDAO.salvaVoto(pippoVoto2); //si spacca perche' si inserisce due volte la chiave pippo trenoFF
+        	} catch (PersistenceException e) {
+        	    // Gestisci il caso in cui l'utente ha già votato quel treno
+        	    System.out.println("L'utente ha già votato questo treno");
+        	}
+        	
 
         	context.close();
 
