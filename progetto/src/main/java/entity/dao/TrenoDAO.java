@@ -128,11 +128,6 @@ public class TrenoDAO {
 	@Transactional
 	public boolean addServizio(Treno treno, int index, String servizio){
 
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-		VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
-		ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-		TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Servizio> cq = cb.createQuery(Servizio.class);
 
@@ -142,14 +137,10 @@ public class TrenoDAO {
 		List<Servizio> result = em.createQuery(cq).getResultList();
 		
 		treno.getListaVagoni().get(index).addServizio(result.get(0));
+	
 		
-		vagoneDAO.updateVagone(treno.getListaVagoni().get(index));
-        servizioDAO.updateServizio(result.get(0));
-        trenoDAO.updateTreno(treno);
+		em.merge(treno);
 		
-		System.out.println("cacacacac");
-		
-		context.close();
 		
 		return false;
 	}
