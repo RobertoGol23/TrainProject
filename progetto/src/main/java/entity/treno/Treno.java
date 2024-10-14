@@ -147,6 +147,15 @@ public class Treno {
 		return prezzo;
 	}
 	
+	public Double getPesoTotaleTreno()
+	{
+		Double peso = 0.0;
+		for(Vagone v : this.getListaVagoni()) {
+			peso = v.getPeso();
+		}
+		return peso;
+	}
+	
 	public void deleteVagone(int index) {
 		listaVagoni.remove(index);
 	}
