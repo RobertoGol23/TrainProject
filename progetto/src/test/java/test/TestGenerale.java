@@ -86,10 +86,10 @@ public class TestGenerale {
 
            
                          
-           /*  // 4.0 - RIMOZIONE SERVIZIO 
+            // 4.0 - RIMOZIONE SERVIZIO 
             System.out.println("4.0 - RIMOZIONE SERVIZIO");
             ServizioDAO servizioDAO0= context.getBean(ServizioDAO.class);
-            servizioDAO0.eliminaServizioByName("bagno"); */
+            servizioDAO0.eliminaServizioByName("bagno");
 
             // 4.1 - CREAZIONE SERVIZIO : CHECKED
             System.out.println("4.1 - CREAZIONE SERVIZIO");
@@ -102,10 +102,10 @@ public class TestGenerale {
             servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
 
 
-            // 4.3 - ASSEGNAZIONE SERVIZIO (ad un vagone) : 
-           // System.out.println("4.3 - ASSEGNAZIONE SERVIZIO");
-           // trenoDAO.addServizio(trenoKM, 1, "bagno");
-                        //dsadsa
+             // 4.3 - ASSEGNAZIONE SERVIZIO (ad un vagone) :  DA ERRORE
+             //System.out.println("4.3 - ASSEGNAZIONE SERVIZIO");
+             //trenoDAO.addServizio(trenoKM, 1, "bagno");
+             
 
             // ACQUISTO DI UN TRENO
             // TODO: controllo da fare
