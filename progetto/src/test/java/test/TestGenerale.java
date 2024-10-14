@@ -103,8 +103,8 @@ public class TestGenerale {
 
 
              // 4.3 - ASSEGNAZIONE SERVIZIO (ad un vagone) :  DA ERRORE
-             //System.out.println("4.3 - ASSEGNAZIONE SERVIZIO");
-             //trenoDAO.addServizio(trenoKM, 1, "bagno");
+             System.out.println("4.3 - ASSEGNAZIONE SERVIZIO");
+             trenoDAO.addServizio((long) 1, 1, "bagno");
              
 
             // ACQUISTO DI UN TRENO
