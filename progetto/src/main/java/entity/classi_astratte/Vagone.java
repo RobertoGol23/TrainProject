@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,7 +36,7 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	@ManyToMany(mappedBy = "listaVagoniS", fetch = FetchType.EAGER) // Indica che la relazione è gestita dall'altra entità (Servizio)
     private List<Servizio> listaServizi = new ArrayList<Servizio>();
 
-	@ManyToMany(mappedBy = "listaVagoni") // Indica che la relazione è gestita dall'altra entità (Treno)
+	@ManyToMany(mappedBy = "listaVagoni", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Indica che la relazione è gestita dall'altra entità (Treno)
 	private List<Treno> listaTreni;
 	
 	
