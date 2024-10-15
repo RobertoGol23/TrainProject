@@ -10,10 +10,13 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 
 import java.util.*;
 
 import org.springframework.stereotype.Repository;
+
+import eccezioni.eccezioniGeneriche.UtenteNonTrovatoException;
 
 @Repository
 public class UserDAO {
@@ -60,20 +63,62 @@ public class UserDAO {
         return results;
     }
     
-    //da fare con le criteria
+    /**
+     * Metodo che cerca e restituisce uno user sul db tramite la chiave primaria email
+     * @param email
+     * @return user, utente se è stato trovato sul db
+     */
     @Transactional
+    public User getUserByEmail(String email) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+
+        Root<User> root = cq.from(User.class);
+
+        cq.select(root).where(cb.equal(root.get("email"), email));
+        
+        User user = null;
+    	try
+        {
+    		TypedQuery<User> typedQuery = em.createQuery(cq);
+        	user = typedQuery.getSingleResult();
+        }
+        catch(UtenteNonTrovatoException e)
+        {
+        	System.out.println(e.message());
+        }
+
+        return user;
+    }
+    
+    /**
+     * Metodo che cerca sul db la coppia utente e password 
+     * @param email
+     * @param password
+     * @return user, utente se è stato trovato sul db
+     */
     public User findUserByEmailAndPassword(String email, String password) {
-        String query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password";
-        TypedQuery<User> typedQuery = em.createQuery(query, User.class);
-        typedQuery.setParameter("email", email);
-        typedQuery.setParameter("password", password);
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+        Root<User> userRoot = criteriaQuery.from(User.class);
+
+        // Aggiungi le condizioni per email e password
+        Predicate emailPredicate = criteriaBuilder.equal(userRoot.get("email"), email);
+        Predicate passwordPredicate = criteriaBuilder.equal(userRoot.get("password"), password);
+        criteriaQuery.select(userRoot).where(criteriaBuilder.and(emailPredicate, passwordPredicate));
 
         User user = null;
-        try {
-            user = typedQuery.getSingleResult();
-        } catch (Exception e) {
-            System.out.print("non esiste il tizio oh");
+        
+        try
+        {
+        	TypedQuery<User> typedQuery = em.createQuery(criteriaQuery);
+        	user = typedQuery.getSingleResult();
         }
+        catch(UtenteNonTrovatoException e)
+        {
+        	System.out.println(e.message());
+        }
+		
         return user;
     }
     

@@ -38,12 +38,24 @@ public class UserController {
     // Salva un nuovo utente registrato
     @Transactional
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user) {
+    public String registerUser(@ModelAttribute("user") User user, HttpSession session) {
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
-        userDAO.salvaUser(user);
+    	
+    	if(userDAO.getUserByEmail(user.getEmail())==null)
+    	{
+    		userDAO.salvaUser(user);
+    	}
+    	else
+    	{
+    		session.setAttribute("email", user.getEmail());
+    		session.setAttribute("nome", user.getNome());
+    		session.setAttribute("cognome", user.getCognome());
+    		session.setAttribute("errorMessage", "Utente già registrato. <br>Cambia e-mail o fai l'accesso se sei tu!");
+    	}
+        
         context.close();
-        return "redirect:/users/login"; // Dopo la registrazione, reindirizza al login
+        return "redirect:/users/register"; // Dopo la registrazione, reindirizza al login
     }
     
     // Mostra il form di login
@@ -54,7 +66,7 @@ public class UserController {
 
     // Esegue il login
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model/*, RedirectAttributes redirectAttributes*/, HttpSession session) {
+    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
     	User user = userDAO.findUserByEmailAndPassword(email, password); // Non è più necessario creare il contesto qui

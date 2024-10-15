@@ -23,7 +23,7 @@
             margin: 10px 0 5px;
         }
         input {
-            width: 100%;
+            width: 94%;
             padding: 10px;
             margin-bottom: 10px;
             border: none;
@@ -40,6 +40,9 @@
         button:hover {
             background-color: #79c7e3;
         }
+        a {
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -48,19 +51,65 @@
 
     <form action="register" method="POST">
         <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" required>
+	     <%
+		    String nome = (String) session.getAttribute("nome");
+			if (nome != null && !nome.isEmpty())
+			{
+				%><input type="text" id="nome" value="<%= nome %>" name="nome" required><%
+				/*TODO da decommentare dopo i test session.removeAttribute("nome"); */
+			}
+			else
+			{
+				%><input type="text" id="nome" placeholder="Inserisci qui il tuo nome" name="nome" required><%
+			}  
+		%>
+	        
 
         <label for="cognome">Cognome</label>
-        <input type="text" id="cognome" name="cognome" required>
+        <%
+		    String cognome = (String) session.getAttribute("cognome");
+			if (cognome != null && !cognome.isEmpty())
+			{
+				%><input type="text" id="cognome" value="<%= cognome %>" name="cognome" required><%
+				/*TODO da decommentare dopo i test session.removeAttribute("cognome"); */
+			}
+			else
+			{
+				%><input type="text" id="cognome" placeholder="Inserisci qui il tuo cognome" name="cognome" required><%
+			}  
+		%>
+
 
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <%
+		    String email = (String) session.getAttribute("email");
+			if (email != null && !email.isEmpty())
+			{
+				%><input type="email" id="email" value="<%= email %>" name="email" required><%
+						/*TODO da decommentare dopo i test session.removeAttribute("email"); */
+			}
+			else
+			{
+				%><input type="email" id="email" placeholder="Inserisci qui la tua email" name="email" required><%
+			}  
+		%>
 
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" placeholder="Inserisci qui la tua password" name="password" required>
 
         <button type="submit">Registrati</button>
     </form>
+    
+    <%
+	    String errorMessage = (String) session.getAttribute("errorMessage");
+        session.removeAttribute("errorMessage");
+	    if (errorMessage != null && !errorMessage.isEmpty())
+	    {
+			%>
+        	<p style="color: red"><%= errorMessage %></p>
+			<%
+	    }
+	%>
 
     <p>Hai già un account? <a href="login">Login</a></p>
 
