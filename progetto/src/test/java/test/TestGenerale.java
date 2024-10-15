@@ -1,5 +1,7 @@
 package test;
 
+import java.util.ArrayList;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
@@ -75,14 +77,22 @@ public class TestGenerale {
             trenoDAO.eliminaTrenoById(trenoFF.getId());
 
 
-            // 3.1 - RIMOZIONE DI UN VAGONE : CHECKED
+            
+            //int id_treno = 2; //id treno in uso per i test
+            
+            // 3.1 - RIMOZIONE DI VAGONI : CHECKED
             System.out.println(("3.1 - RIMOZIONE VAGONE"));
 
-            trenoDAO.eliminaVagoneByIndex(trenoRG, 2); //con 1-2- va , con 0-3 non deve andare
-            System.out.println(trenoRG);
+            ArrayList<Integer> listaId = new ArrayList<Integer>();
+            listaId.add(2);
+            
+            trenoDAO.eliminaVagoni((long)1, listaId); //con 1-2- va , con 0-3 non deve andare
+            //System.out.println(trenoRG);
 
+            // 3.2 - AGGIUNTA DI VAGONI
+            System.out.println(("3.2 - AGGIUNTA DI VAGONE"));
 
-            // TODO: 3.2 MODIFICA DI UN VAGONE
+            // TODO: 3.3 MODIFICA DI UN VAGONE
 
            
                          
@@ -104,7 +114,7 @@ public class TestGenerale {
 
              // 4.3 - ASSEGNAZIONE SERVIZIO (ad un vagone) :  DA ERRORE
              System.out.println("4.3 - ASSEGNAZIONE SERVIZIO");
-             trenoDAO.addServizio((long) 1, 1, "bagno");
+             trenoDAO.addServizio((long)1, 1, "bagno");
              
 
             // ACQUISTO DI UN TRENO
@@ -125,7 +135,7 @@ public class TestGenerale {
 
             // user by name
             System.out.println("\n\n1. USER BY NAME");
-            System.out.println(userDAO.getUserByName("Salvino"));
+            //System.out.println(userDAO.getUserByName("Salvino"));
 
             // --- QUERY USER --- 
 

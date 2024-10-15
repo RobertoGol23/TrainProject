@@ -25,24 +25,8 @@ public abstract class TrenoBuilder {
 		for(int i = 1; i < sigla.length(); i++) {
 			
 			char c = sigla.charAt(i);
-			switch(c) {
+			listaVagoni.add(getVagoneByType(c));
 			
-			case 'h':
-				listaVagoni.add(getLocomotiva());
-				break;
-				
-			case 'r':
-				listaVagoni.add(getVagoneRistorante());
-				break;
-				
-			case 'p':
-				listaVagoni.add(getVagonePasseggeri());
-				break;
-				
-			case 'c':
-				listaVagoni.add(getVagoneCargo());
-				break;
-			}
 		}
 
 		trenoUtility.controllaPesoTrainabile(sigla, listaVagoni);
@@ -60,6 +44,37 @@ public abstract class TrenoBuilder {
 		
 		return null;
 			
+	}
+	
+	/**
+	 * Metodo che prende in input un carattere e restituisce il vagone generato in base al tipo
+	 * Metodo utilizzato nella crazione del treno e nella creazione dei vagoni singoli
+	 * @param c
+	 * @return vagone
+	 */
+	public Vagone getVagoneByType(char c)
+	{
+		Vagone vagone = null;
+		
+		switch(c) {
+		
+		case 'h':
+			vagone = getLocomotiva();
+			break;
+			
+		case 'r':
+			vagone = getVagoneRistorante();
+			break;
+			
+		case 'p':
+			vagone = getVagonePasseggeri();
+			break;
+			
+		case 'c':
+			vagone = (getVagoneCargo());
+			break;
+		}
+		return vagone;
 	}
 	
 	protected abstract Locomotiva getLocomotiva();

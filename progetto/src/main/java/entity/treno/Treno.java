@@ -81,6 +81,7 @@ public class Treno {
 		Treno treno = new Treno(nomeTreno, listaVagoni, marca, utente);
 		return treno;
 	}
+
 	
 	public Long getId() {
 		return id_treno;
@@ -134,10 +135,18 @@ public class Treno {
 		listaVagoni.set(index, vagone);
 	}
 
+	public void addVagone (int index, Vagone vagone){
+		listaVagoni.add(index, vagone);
+	}
+	
 	public List<Vagone> getListaVagoni() {
-		return listaVagoni;
+		return this.listaVagoni;
 	}
 
+	public ArrayList<Vagone> getArrayListaVagoni() {
+		return (ArrayList<Vagone>) this.listaVagoni;
+	}
+	
 	public Double getPrezzoTotaleTreno()
 	{
 		Double prezzo = 0.0;
