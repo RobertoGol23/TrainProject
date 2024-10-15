@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import configuration.JpaConfig;
 import jakarta.servlet.http.HttpSession;
-
+import jakarta.transaction.Transactional;
 import entity.dao.UserDAO;
 import entity.user.User;
 
@@ -31,13 +31,14 @@ public class UserController {
     }
     
     // Salva un nuovo utente registrato
+    @Transactional
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user) {
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
         userDAO.salvaUser(user);
         context.close();
-        return "redirect:/login"; // Dopo la registrazione, reindirizza al login
+        return "redirect:/users/login"; // Dopo la registrazione, reindirizza al login
     }
     
     // Mostra il form di login
@@ -80,7 +81,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Termina la sessione
-        return "redirect:/login"; // Reindirizza al login
+        return "redirect:/users/login"; // Reindirizza al login
     }
     
     // Endpoint per ottenere tutti gli utenti

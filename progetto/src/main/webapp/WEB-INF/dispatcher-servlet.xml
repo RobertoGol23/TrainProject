@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/mvc
-                           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- Abilita le annotazioni MVC -->
-    <mvc:annotation-driven/>
+	<!-- Abilita le annotazioni MVC -->
+	<mvc:annotation-driven />
 
-    <!-- Definisci un InternalResourceViewResolver per la gestione delle viste -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
+	<!-- Definisci un InternalResourceViewResolver per la gestione delle viste -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
 
-    <!-- Definisci il bean per il tuo controller -->
-    <bean id="userController" class="controller.UserController"/>
+	<!-- Definisci il bean per il tuo controller -->
+	<bean id="userController" class="controller.UserController" />
 
-    <!-- Puoi definire altri controller e servizi qui -->
+	<!-- Puoi definire altri controller e servizi qui -->
 
 </beans>
