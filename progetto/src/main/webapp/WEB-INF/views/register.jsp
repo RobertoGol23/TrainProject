@@ -40,7 +40,7 @@
         button:hover {
             background-color: #79c7e3;
         }
-        a {
+        a{
             color: #ffffff;
         }
     </style>
