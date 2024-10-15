@@ -38,17 +38,18 @@ public class UserController {
     	if(userDAO.getUserByEmail(user.getEmail())==null)
     	{
     		userDAO.salvaUser(user);
+    		context.close();
+    		return "redirect:/users/login"; // Dopo la registrazione, reindirizza al login
     	}
     	else
     	{
     		session.setAttribute("email", user.getEmail());
     		session.setAttribute("nome", user.getNome());
     		session.setAttribute("cognome", user.getCognome());
-    		session.setAttribute("errorMessage", "Utente già registrato. <br>Cambia e-mail o fai l'accesso se sei tu!");
+    		session.setAttribute("errorMessage", "Email gia' presente. <br>Cambia e-mail o fai l'accesso se sei tu!");
+    		context.close();
+    		return "redirect:/users/register"; // Dopo la mancata registrazione, reindirizza di nuovo al register
     	}
-        
-        context.close();
-        return "redirect:/users/login"; // Dopo la registrazione, reindirizza al login
     }
     
     // Mostra il form di login
