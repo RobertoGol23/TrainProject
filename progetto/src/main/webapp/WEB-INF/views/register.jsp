@@ -59,9 +59,6 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
 
-        <label for="wallet">Wallet</label>
-        <input type="number" step="100" id="wallet" name="wallet" required>
-
         <button type="submit">Registrati</button>
     </form>
 
