@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Wallet Aggiornato</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,32 +16,24 @@
             color: #8a79c7;
         }
         .content {
-            background-color: #49456d;
+            margin-top: 20px;
             padding: 20px;
+            background-color: #49456d;
             border-radius: 10px;
         }
         a {
             color: #79c7e3;
-            text-decoration: none;
         }
     </style>
 </head>
 <body>
 
-    <h1>Benvenuto, ${user.nome}!</h1>
+    <h1>Wallet Aggiornato!</h1>
 
     <div class="content">
-        <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
+        <p>I tuoi fondi sono stati aggiunti con successo al tuo wallet.</p>
+        <a href="dashboard">Torna alla Dashboard</a>
     </div>
-    
-    <div class="form-container">
-        <h2>Aggiungi Fondi al Tuo Wallet</h2>
-        <form action="addFunds" method="get">
-            <button type="submit">Vai alla pagina di aggiunta fondi</button>
-        </form>
-    </div>
-
-    <a href="logout">Logout</a>
 
 </body>
 </html>
