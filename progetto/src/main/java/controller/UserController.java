@@ -6,6 +6,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import configuration.JpaConfig;
 import jakarta.servlet.http.HttpSession;
@@ -49,7 +50,7 @@ public class UserController {
 
     // Esegue il login
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
+    public String login(@RequestParam String email, @RequestParam String password, Model model/*, RedirectAttributes redirectAttributes*/, HttpSession session) {
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
     	User user = userDAO.findUserByEmailAndPassword(email, password); // Non è più necessario creare il contesto qui
@@ -59,8 +60,11 @@ public class UserController {
             session.setAttribute("user", user); // Imposta l'utente nella sessione
             return "redirect:/users/dashboard"; // Reindirizza a una pagina protetta dopo il login
         } else {
-            model.addAttribute("errorMessage", "Email o password non validi");
-            return "users/login"; // Torna alla pagina di login
+        	//model.addAttribute("errorMessage", "Email o password non validi");
+        	session.setAttribute("errorMessage", "Email o password non validi");
+        	session.setAttribute("user", email);
+        	//redirectAttributes.addFlashAttribute("errorMessage", "Email o password non validi");
+            return "redirect:/users/login"; // Torna alla pagina di login
         }
     }
     
