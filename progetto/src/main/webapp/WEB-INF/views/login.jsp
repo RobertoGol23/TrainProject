@@ -23,7 +23,7 @@
             margin: 10px 0 5px;
         }
         input {
-            width: 100%;
+            width: 94%;
             padding: 10px;
             margin-bottom: 10px;
             border: none;
