@@ -34,7 +34,7 @@
         <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
     </div>
 
-    <a href="/logout">Logout</a>
+    <a href="logout">Logout</a>
 
 </body>
 </html>

@@ -46,7 +46,7 @@
 
     <h1>Registrazione</h1>
 
-    <form action="${formAction}" method="POST">
+    <form action="register" method="POST">
         <label for="nome">Nome</label>
         <input type="text" id="nome" name="nome" required>
 
