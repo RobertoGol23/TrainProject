@@ -48,22 +48,35 @@
 
     <form action="login" method="POST">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
+        
+        <%
+		    String user = (String) session.getAttribute("user");
+			if (user != null && !user.isEmpty())
+			{
+				%><input type="email" id="email" value="<%= user %>" name="email" required><%
+				session.removeAttribute("user");
+			}
+			else
+			{
+				%><input type="email" id="email" placeholder="Inserisci qui il nome utente" name="email" required><%
+			}  
+		%>
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" placeholder="Inserisci qui la tua password" name="password" required>
 
         <button type="submit">Login</button>
     </form>
 
     <%
-    String errorMessage = (String) request.getAttribute("errorMessage");
-    if (errorMessage != null && !errorMessage.isEmpty()) {
-%>
-        <p style="color: red;"><%= errorMessage %></p>
-<%
-    }
-%>
+	    String errorMessage = (String) session.getAttribute("errorMessage");
+        session.removeAttribute("errorMessage");
+	    if (errorMessage != null && !errorMessage.isEmpty())
+	    {
+			%>
+        	<p style="color: red"><%= errorMessage %></p>
+			<%
+	    }
+	%>
 
     <p>Non hai un account? <a href="register">Registrati</a></p>
 

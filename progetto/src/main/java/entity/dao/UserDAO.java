@@ -60,6 +60,7 @@ public class UserDAO {
         return results;
     }
     
+    //da fare con le criteria
     @Transactional
     public User findUserByEmailAndPassword(String email, String password) {
         String query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password";
