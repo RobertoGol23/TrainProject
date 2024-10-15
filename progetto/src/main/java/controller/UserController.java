@@ -6,19 +6,12 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import configuration.JpaConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import entity.dao.UserDAO;
 import entity.user.User;
 
-import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -55,7 +48,7 @@ public class UserController {
     	}
         
         context.close();
-        return "redirect:/users/register"; // Dopo la registrazione, reindirizza al login
+        return "redirect:/users/login"; // Dopo la registrazione, reindirizza al login
     }
     
     // Mostra il form di login
@@ -143,41 +136,84 @@ public class UserController {
         }
     }
     
-    // Endpoint per ottenere tutti gli utenti
-    @GetMapping
-    public String listUsers(Model model) {
-        List<User> users = userDAO.getAllUsers();  //Supponendo che ci sia un metodo getAllUsers nel DAO
-        model.addAttribute("users", users);
-        return "users";  // Indica il nome della vista
+ // Mostra il form per modificare il profilo
+    @GetMapping("/editProfile")
+    public String showEditProfileForm(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/users/login"; // Se non è loggato, reindirizza al login
+        }
+
+        model.addAttribute("user", loggedInUser); // Popola il form con i dati dell'utente
+        return "editProfile"; // Nome della vista JSP per modificare il profilo
     }
 
-    // Endpoint per ottenere un utente per ID
-    @GetMapping("/{id}")
-    public String getUserById(@PathVariable("id") Long id, Model model) {
-        User user = userDAO.getUserById(id);
-        model.addAttribute("user", user);
-        return "userDetail";  // Indica la vista dei dettagli di un utente
+    // Gestisce l'aggiornamento del profilo utente
+    @Transactional
+    @PostMapping("/updateProfile")
+    public String updateProfile(@RequestParam String nome, 
+                                @RequestParam String cognome, 
+                                @RequestParam String email, 
+                                @RequestParam String password, 
+                                HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/users/login"; // Se non è loggato, reindirizza al login
+        }
+        
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    	UserDAO userDAO = context.getBean(UserDAO.class);
+    	
+        // Aggiorna i dati dell'utente
+        loggedInUser.setNome(nome);
+        loggedInUser.setCognome(cognome);
+        loggedInUser.setEmail(email);
+        loggedInUser.setPassword(password); // Assicurati che la password sia gestita correttamente (hashing)
+
+        // Salva le modifiche nel database
+        userDAO.updateUser(loggedInUser);
+
+        
+        context.close();
+        
+        
+        // Aggiorna l'utente nella sessione
+        session.setAttribute("user", loggedInUser);
+
+        return "redirect:/users/dashboard"; // Reindirizza alla dashboard dopo l'aggiornamento
+    }
+    
+ // Gestisce la cancellazione dell'utente
+    @Transactional
+    @PostMapping("/deleteUser")
+    public String deleteUser(HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/users/login"; // Se non è loggato, reindirizza al login
+        }
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    	UserDAO userDAO = context.getBean(UserDAO.class);
+        
+        // Cancella l'utente dal database
+        userDAO.deleteUser(loggedInUser);
+        
+        context.close();
+
+        // Termina la sessione
+        session.invalidate();
+
+        return "redirect:/users/accountDeleted"; // Reindirizza alla pagina di conferma
     }
 
-    // Endpoint per eliminare un utente
-    @PostMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
-        userDAO.eliminaUserById(id);
-        return "redirect:/users";
+    // Mostra la pagina di conferma cancellazione
+    @GetMapping("/accountDeleted")
+    public String showAccountDeletedPage() {
+        return "accountDeleted"; // Mostra la pagina JSP di conferma
     }
+    
 
-    // Endpoint per mostrare il form di modifica utente
-    @GetMapping("/edit/{id}")
-    public String showEditUserForm(@PathVariable("id") Long id, Model model) {
-        User user = userDAO.getUserById(id);
-        model.addAttribute("user", user);
-        return "editUser";  // Mostra la pagina di modifica dell'utente
-    }
-
-    // Endpoint per salvare le modifiche a un utente
-    @PostMapping("/edit")
-    public String updateUser(@ModelAttribute("user") User user) {
-        userDAO.updateUser(user);
-        return "redirect:/users";
-    }
 }

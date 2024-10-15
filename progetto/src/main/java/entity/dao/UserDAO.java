@@ -36,6 +36,11 @@ public class UserDAO {
             em.remove(user);
         }
     }
+    
+    @Transactional
+    public void deleteUser(User user) {
+        em.remove(em.contains(user) ? user : em.merge(user));
+    }
 
     public User getUserById(Long id) {
         return em.find(User.class, id);
@@ -72,23 +77,16 @@ public class UserDAO {
     public User getUserByEmail(String email) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
-
         Root<User> root = cq.from(User.class);
-
         cq.select(root).where(cb.equal(root.get("email"), email));
-        
-        User user = null;
-    	try
-        {
-    		TypedQuery<User> typedQuery = em.createQuery(cq);
-        	user = typedQuery.getSingleResult();
-        }
-        catch(UtenteNonTrovatoException e)
-        {
-        	System.out.println(e.message());
-        }
 
-        return user;
+        List<User> result = em.createQuery(cq).getResultList();
+
+        if (result.isEmpty()) {
+            return null; // Nessun utente trovato
+        } else {
+            return result.get(0); // Restituisci l'utente trovato
+        }
     }
     
     /**
