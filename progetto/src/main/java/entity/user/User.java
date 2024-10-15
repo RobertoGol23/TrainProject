@@ -37,8 +37,8 @@ public class User {
 	@Column(name = "password", nullable = false, unique = false)
 	private String password;
 	
-	@Column(name = "wallet", nullable = false, unique = false)
-	private Double wallet;
+	@Column(name = "wallet", nullable = true, unique = false)
+	private Double wallet = 0.0;
 	
 	
 	//TODO: Modificare in many-to-many ???
@@ -59,7 +59,15 @@ public class User {
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
-		this.wallet = wallet;
+		this.wallet = 0.0;
+		}
+	
+	public User(String nome, String cognome, String email, String password) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.password = password;
+		this.wallet = 0.0;
 		}
 	
 	//public List<Treno> getTreni() {

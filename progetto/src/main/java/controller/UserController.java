@@ -134,7 +134,7 @@ public class UserController {
     // Endpoint per ottenere tutti gli utenti
     @GetMapping
     public String listUsers(Model model) {
-        List<User> users = userDAO.getAllUsers();  // Supponendo che ci sia un metodo getAllUsers nel DAO
+        List<User> users = userDAO.getAllUsers();  //Supponendo che ci sia un metodo getAllUsers nel DAO
         model.addAttribute("users", users);
         return "users";  // Indica il nome della vista
     }
