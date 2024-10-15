@@ -45,26 +45,26 @@ public class Test01 {
 			
 			VagoneDAO vagoneInterfaceDAO = context.getBean(VagoneDAO.class);
 			
-			User mazza = new User("Salvo","Mano", "salvo.mano@gmail.com", "Danzacudur0_04", 0.0);
+			User mano = new User("Salvo","Mano", "salvo.mano@gmail.com", "Danzacudur0_04", 0.0);
 			UserDAO userDAO = context.getBean(UserDAO.class);
-			userDAO.salvaUser(mazza);
+			userDAO.salvaUser(mano);
 
 
-			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla,mazza, 3);
+			Treno trenoKM = builderKM.costruisciTreno("Treno Passeggeri KM",sigla,mano, 3);
 
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
 
-			Treno trenoRG = builderRG.costruisciTreno("Treno Passeggeri RG",sigla,mazza, 2);
+			Treno trenoRG = builderRG.costruisciTreno("Treno Passeggeri RG",sigla,mano, 2);
 
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
 
-			Treno trenoFF = builderFF.costruisciTreno("Treno Passeggeri FF",sigla,mazza, 1);
+			Treno trenoFF = builderFF.costruisciTreno("Treno Passeggeri FF",sigla,mano, 1);
 			for (Vagone vagone : trenoFF.getListaVagoni()){
 
 				vagoneInterfaceDAO.salvaVagone(vagone);
@@ -72,19 +72,19 @@ public class Test01 {
             
 			sigla = "hcc";
 
-			trenoKM = builderKM.costruisciTreno("Treno Cargo KM",sigla,mazza, 3);
+			trenoKM = builderKM.costruisciTreno("Treno Cargo KM",sigla,mano, 3);
 
 			for (Vagone vagone : trenoKM.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
-			trenoRG = builderRG.costruisciTreno("Treno Cargo RG",sigla,mazza, 2);
+			trenoRG = builderRG.costruisciTreno("Treno Cargo RG",sigla,mano, 2);
 
 			for (Vagone vagone : trenoRG.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}
 
-			trenoFF = builderFF.costruisciTreno("Treno Cargo F",sigla,mazza, 1);
+			trenoFF = builderFF.costruisciTreno("Treno Cargo F",sigla,mano, 1);
 			for (Vagone vagone : trenoFF.getListaVagoni()){
 				vagoneInterfaceDAO.salvaVagone(vagone);
 			}

@@ -13,6 +13,7 @@ import entity.treno.Treno;
 import entity.user.User;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaRegionalGain;
+import fabbriche.FabbricaXFurryFast;
 import utility.Assemblatore;
 
 public class Test06 {
@@ -32,7 +33,7 @@ public class Test06 {
 		FabbricaVagoni fabbricaRG= new FabbricaRegionalGain();
 		TrenoBuilder builderRG = new Assemblatore(fabbricaRG);
 		
-		FabbricaVagoni fabbricaFF= new FabbricaKargoModelz();
+		FabbricaVagoni fabbricaFF= new FabbricaXFurryFast();
 		TrenoBuilder builderFF = new Assemblatore(fabbricaFF);
 		
         String sigla = "hprp";
