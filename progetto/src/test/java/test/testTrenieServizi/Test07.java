@@ -32,8 +32,7 @@ public class Test07 {
 			
 			
 			ArrayList<Integer> listaId = new ArrayList<Integer>();
-	        listaId.add(1);
-	        listaId.add(2);
+	       
 			
 			
 			// 3.2 - AGGIUNTA DI VAGONI
@@ -49,6 +48,11 @@ public class Test07 {
 			{
 				// 3.1 - RIMOZIONE DI VAGONI : CHECKED
 		        System.out.println(("3.1 - RIMOZIONE VAGONE"));
+		        
+		        listaId.add(1);
+//		        listaId.add(2);
+//		        listaId.add(3);
+//		        listaId.add(4);
 
 		        trenoDAO.eliminaVagoni((long)id_treno, listaId); //con 1-2- va , con 0-3 non deve andare
 

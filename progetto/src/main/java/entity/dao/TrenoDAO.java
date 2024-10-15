@@ -7,23 +7,24 @@ import entity.classi_astratte.Vagone;
 import entity.servizi.Servizio;
 import entity.treno.Locomotiva;
 import entity.treno.Treno;
-import fabbriche.FabbricaKargoModelz;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import jakarta.transaction.Transactional;
 import utility.Assemblatore;
 import utility.TrenoUtility;
 
 import java.util.*;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
-
-import configuration.JpaConfig;
 import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
+import eccezioni.eccezioniSigla.TroppoPesoException;
 
 
 public class TrenoDAO {
@@ -149,23 +150,27 @@ public class TrenoDAO {
 				TrenoBuilder builder = new Assemblatore(fabbrica);
 				Vagone vagone;
 				
+				Double pesoVagoniAggiunti = 0.0;
+				
 				for(int id:idVagoni)
 				{
 					vagone = builder.getVagoneByType(siglaNuova.charAt(id));
+					pesoVagoniAggiunti = pesoVagoniAggiunti + vagone.getPeso();
 					treno.addVagone(id, vagone);
 				}
 				
-				ArrayList<Vagone> listaVagoni = treno.getArrayListaVagoni();
+				Double sommaPesoVagoni = getSommaPesoVagoni(id_treno);
+				List<Double> pesoTrainabile = getPesoTrainabileByTrenoId(id_treno);
+
 				
-				System.out.println("Lista vagoni: "+listaVagoni);
-				
-				// TODO fare controllo del peso, bisognerebbe fare una query per prendere
-				// la lista di vagoni e locomotiva e effettuare la somma di quei vagoni più quelli
-				// aggiunti. Questo servirebbe come controllo per evitare di caricare il treno sul db
-				// se poi non può essere mosso dalla locomotiva
-				//trenoUtility.controllaPesoTrainabile(siglaNuova, listaVagoni);
-			
-				em.merge(treno);
+				if(pesoTrainabile.get(0)>(pesoVagoniAggiunti+sommaPesoVagoni))
+				{
+					em.merge(treno);
+				}
+				else
+				{
+					throw new TroppoPesoException(siglaNuova, "Sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
+				}	
 			}
 		}
 		catch(Exception e)
@@ -176,7 +181,47 @@ public class TrenoDAO {
 		return true; 
 	}
 	
+	/**
+	 * Metodo che recupera l'attributo pesoTrainabile dalla locomotiva dato l'id del treno passato
+	 * @param idTreno
+	 * @return lista del pesoTrainabile delle locomotive del treno
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Double> getPesoTrainabileByTrenoId(Long idTreno) {
+	    String sql = "SELECT l.peso_trainabile " +
+	                 "FROM locomotiva l " +
+	                 "JOIN treno_vagoni tv ON l.id_vagone = tv.id_vagone " +
+	                 "WHERE tv.id_treno = :trenoId";
+
+	    Query query = em.createNativeQuery(sql);
+	    query.setParameter("trenoId", idTreno);
+
+
+	    return query.getResultList();
+	}
 	
+	
+	/**
+	 * Metodo che esegue una query SQL nativa per ottenere la somma dei pesi dei vagoni di un treno
+	 * @param trenoId L'id del treno
+	 * @return sommaPeso La somma dei pesi dei vagoni associati al treno
+	 */
+	public Double getSommaPesoVagoni(Long trenoId) {
+	    String sql = "SELECT "
+	    		 	+ "SUM(v.peso) "
+	    		 	+ "FROM "
+	    		 	+ " Vagone v "
+	    		 	+ "  JOIN treno_vagoni tv ON v.id_vagone = tv.id_vagone "
+	    		 	+ "WHERE "
+	    		 	+ "   tv.id_treno = :trenoId ";
+	    
+	    Query query = em.createNativeQuery(sql);
+	    query.setParameter("trenoId", trenoId);
+	
+	    return (Double) query.getSingleResult();
+	}
+
+
 	// VA MA NON SI FA COSÌ
 	@Transactional
     public List<Treno> getTreniByPesoTrasportabile(double pesoMin) {
@@ -216,7 +261,6 @@ public class TrenoDAO {
 		treno.getListaVagoni().get(id_vagone).addServizio(result.get(0));
 	
 		em.merge(treno);
-		
 		
 		return false;
 	}

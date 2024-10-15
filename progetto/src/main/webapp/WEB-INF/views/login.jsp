@@ -40,6 +40,9 @@
         button:hover {
             background-color: #79c7e3;
         }
+        a{
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>

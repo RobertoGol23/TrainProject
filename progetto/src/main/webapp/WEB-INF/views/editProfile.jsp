@@ -22,13 +22,18 @@
             width: 300px;
             margin: 0 auto;
         }
+        .dashboard {
+        	margin-top: 50px;
+            padding: 20px;
+            border-radius: 10px;
+        }
         label {
             display: block;
             margin-bottom: 10px;
             color: #79c7e3;
         }
         input {
-            width: 100%;
+            width: 94%;
             padding: 8px;
             margin-bottom: 10px;
             border-radius: 5px;
@@ -51,7 +56,9 @@
             text-decoration: none;
         }
         .delete-section {
-            margin-top: 20px;
+        	width: 300px;
+            margin: 0 auto;
+            margin-top: 250px;
             text-align: center;
         }
         .delete-section button {
@@ -65,7 +72,7 @@
 </head>
 <body>
 
-    <h1>Modifica Profilo</h1>
+    <h1 align="center">Modifica Profilo</h1>
 
     <div class="form-container">
         <form action="updateProfile" method="post">
@@ -83,7 +90,10 @@
 
             <button type="submit">Aggiorna Profilo</button>
         </form>
+        
+        
     </div>
+    
 
     <div class="delete-section">
         <h2>Elimina il tuo account</h2>
@@ -92,9 +102,8 @@
                 Cancella il mio account
             </button>
         </form>
-    </div>
-
-    <a href="dashboard">Torna alla Dashboard</a>
+	</div>
+    <div align="center" class="dashboard"><a href="dashboard">Torna alla Dashboard</a></div>
 
 </body>
 </html>
