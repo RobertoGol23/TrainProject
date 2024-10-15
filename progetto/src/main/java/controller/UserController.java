@@ -8,11 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import configuration.JpaConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import entity.dao.UserDAO;
 import entity.user.User;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -82,6 +86,45 @@ public class UserController {
     public String logout(HttpSession session) {
         session.invalidate(); // Termina la sessione
         return "redirect:/users/login"; // Reindirizza al login
+    }
+    
+    // Mostra il form per aggiungere fondi
+    @GetMapping("/addFunds")
+    public String showAddFundsForm(Model model) {
+        model.addAttribute("user", new User());
+        return "addFunds"; // Nome della vista JSP per aggiungere fondi
+    }
+
+    // Gestisce l'aggiunta di fondi al wallet
+    @PostMapping("/addFunds")
+    public String addFunds(@RequestParam double amount, HttpSession session, Model model) {
+    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    	UserDAO userDAO = context.getBean(UserDAO.class);
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            user.setWallet(user.getWallet() + amount); // Aggiungi fondi al wallet
+
+            // Salva l'utente aggiornato nel database
+            userDAO.updateUser(user); // Assicurati di avere questo metodo nel tuo DAO
+            context.close();
+            return "redirect:/users/walletUpdated"; // Reindirizza alla pagina di conferma
+        } else {
+        	context.close();
+            return "redirect:/users/login"; // Reindirizza al login se l'utente non è loggato
+        }
+    }
+
+    // Pagina di conferma dopo l'aggiornamento del wallet
+    @GetMapping("/walletUpdated")
+    public String walletUpdated(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "walletUpdated"; // Nome della vista JSP per il wallet aggiornato
+        } else {
+            return "redirect:/users/login"; // Reindirizza al login se non è loggato
+        }
     }
     
     // Endpoint per ottenere tutti gli utenti
