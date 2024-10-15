@@ -11,13 +11,23 @@ import eccezioni.eccezioniSigla.SiglaTrenoException;
 import eccezioni.eccezioniSigla.StringaNonValidaException;
 import eccezioni.eccezioniSigla.TroppiRistorantiException;
 import eccezioni.eccezioniSigla.TroppoPesoException;
+import entity.classi_astratte.FabbricaVagoni;
+import entity.classi_astratte.TrenoBuilder;
 import entity.classi_astratte.Vagone;
 import entity.treno.Locomotiva;
 import entity.treno.Treno;
+import fabbriche.FabbricaKargoModelz;
+import fabbriche.FabbricaRegionalGain;
+import fabbriche.FabbricaXFurryFast;
 
 public class TrenoUtility {
 
-	// Ritorna la marca del treno in base al numero di marca
+	/**
+	 * Restituisce la marca del treno in base al numero di marca
+	 * @param numeroMarca
+	 * @return marca
+	 * @throws Exception
+	 */
 	public String getMarcaByInt(int numeroMarca) throws Exception
 	{
 		String marca = "";
@@ -40,6 +50,64 @@ public class TrenoUtility {
 		}
 		
 		return marca;
+	}
+	
+	
+	/**
+	 * Metodo che restituisce una fabbrica in base al valore passato
+	 * @param id
+	 * @return
+	 */
+	public FabbricaVagoni getFabbricaById(int id)
+	{
+		FabbricaVagoni fabbrica = null;
+		
+		switch(id) { //switch per la marca dei treni
+		
+		case 1:
+			fabbrica = new FabbricaXFurryFast();
+			break;
+			
+		case 2:
+			fabbrica = new FabbricaRegionalGain();
+			break;
+			
+		case 3:
+			fabbrica = new FabbricaKargoModelz();
+			break;
+		}
+		
+		return fabbrica;
+	}
+		
+	/**
+	 * Restituisce l'id della marca dato il nome
+	 * @param marca
+	 * @return
+	 * @throws MarcaNonValidaException
+	 */
+	public int getIntByMarca(String marca) throws MarcaNonValidaException
+	{	
+		int id;
+		switch(marca) { //switch per la marca dei treni
+		
+		case "Treno xFurryFast":
+			id = 1;
+			break;
+			
+		case "Treno KargoModelz":
+			id = 2;
+			break;
+			
+		case "Treno RegionalGain":
+			id = 3;
+			break;
+			
+		default:
+			throw new MarcaNonValidaException(marca, "Errore: marca non valida");
+		}
+		
+		return id;
 	}
 
 	// Controlla che la sigla del treno sia valida ritornando true, altrimenti lancia un'eccezione
@@ -152,9 +220,10 @@ public class TrenoUtility {
 		if(sommapeso > locomotiva.getPesoTrainabile()) {
 			throw new TroppoPesoException(sigla, "sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
 		}
-		
 	}
 
+	
+	//Metodo che serve per ricreare la sigla dato un treno
 	private char findTipo(String tipo){
 		switch(tipo){
 			case "Locomotiva": 
@@ -179,28 +248,32 @@ public class TrenoUtility {
         return sigla;
     }
 
-	public String getSiglaRimozione(Treno treno, int index){
-		String sigla = "";
-		for(int i = 0; i < treno.getListaVagoni().size(); i++){
-			if(i != index){
-				sigla = sigla + findTipo(treno.getVagone(i).getTipo());
-			}
-		}
-		return sigla;
-	}
-
-	public String getSiglaAggiunta(Treno treno, int index, Vagone vagone){
+	
+	/**
+	 * Metodo che prende in input la lista dei vagoni e rimuove dalla sigla la lettera nella stessa posizione del vagone
+	 * @param listaId
+	 * @param sigla
+	 * @return siglaNuova, la nuova sigla con i vagoni rimossi
+	 */
+	public String riduciSigla(ArrayList<Integer> listaId, String sigla)
+	{
+		String siglaNuova = "";
+		char[] listaChar = sigla.toCharArray();
 		
-		String sigla = "";
-		for(int i = 0; i < treno.getListaVagoni().size(); i++){
-			if(i == index){
-				sigla = sigla + findTipo(vagone.getTipo());
-			}
-			sigla = sigla + findTipo(treno.getVagone(i).getTipo());	
+		for(int id:listaId)
+		{
+			listaChar[id] = ' ';
 		}
-		return sigla;
+		
+		for(char car:listaChar)
+		{
+			if(car != ' ')
+			siglaNuova += car;
+		}
+		
+		System.out.println("Sigla nuova: " + siglaNuova);
+		return siglaNuova;
 	}
-
 
 	
 
