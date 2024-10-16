@@ -17,6 +17,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "acquisti")
 public class Acquisto {
@@ -33,17 +35,18 @@ public class Acquisto {
     @JoinColumn(name = "treno_id", nullable = false)
     private Treno treno;
 
-    
     @Column(name = "data_acquisto", nullable = false)
-    private String dataAcquisto;
+    private Timestamp timestamp;
+    
+    
 
 
     // Costruttori, Getter e Setter
     public Acquisto() {}
 
     // TODO: togliere String data e mettere timestamp
-    public Acquisto(User user, Treno treno, String data) throws SoldiNonSufficientiException {
-    	
+    public Acquisto(User user, Treno treno) throws SoldiNonSufficientiException {
+    	timestamp = new Timestamp(System.currentTimeMillis());
     	Double costoTreno = treno.getPrezzoTotaleTreno();
     	Double wallet = user.getWallet();
     	
@@ -61,7 +64,6 @@ public class Acquisto {
     	
         this.user = user;
         this.treno = treno;
-        this.dataAcquisto = data;
     }
 
     // Getter e Setter
@@ -89,12 +91,12 @@ public class Acquisto {
         this.treno = treno;
     }
 
-    public String getDataAcquisto() {
-        return dataAcquisto;
+    public Timestamp getDataAcquisto() {
+        return timestamp;
     }
 
-    public void setDataAcquisto(String dataAcquisto) {
-        this.dataAcquisto = dataAcquisto;
+    public void setDataAcquisto(Timestamp dataAcquisto) {
+        this.timestamp = dataAcquisto;
     }
 
 }

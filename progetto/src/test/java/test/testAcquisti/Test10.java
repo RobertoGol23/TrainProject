@@ -65,10 +65,10 @@ public class Test10 {
 			pipetta.setWallet(14000000000.0);
 
 
-        	Acquisto primo = new Acquisto(pipetta, trenoFF, "11/09/2001");
+        	Acquisto primo = new Acquisto(pipetta, trenoFF);
 			acquistoDAO.salvaAcquisto(primo);
 
-        	Acquisto secondo = new Acquisto(pippo, trenoKM, "11/09/2001");
+        	Acquisto secondo = new Acquisto(pippo, trenoKM);
 			acquistoDAO.salvaAcquisto(secondo);
         	
 		

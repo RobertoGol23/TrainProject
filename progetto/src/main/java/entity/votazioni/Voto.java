@@ -20,7 +20,7 @@ public class Voto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //pensare se necessario
+    private Long id; //TODO: pensare se necessario
 
     @Column(nullable = false)
     private int punteggio;
