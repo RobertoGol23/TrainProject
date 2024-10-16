@@ -41,7 +41,7 @@ public class Test08 {
         	Treno trenoFF = builderFF.costruisciTreno("Treno Cargo Passeggeri",sigla,pippo, 1);
         	
             Voto pippoVoto = new Voto(5, pippo, trenoFF);
-            Voto pipettaVoto = new Voto(10, pipetta, trenoFF);
+            Voto pipettaVoto = new Voto(4, pipetta, trenoFF);
             Voto pippoVoto2 = new Voto(5, pippo, trenoFF);
 			
             VotoDAO votoDAO = context.getBean(VotoDAO.class); 

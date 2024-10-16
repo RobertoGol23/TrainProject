@@ -6,14 +6,19 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
+import entity.acquisto.Acquisto;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
+import entity.dao.AcquistoDAO;
 import entity.dao.ServizioDAO;
 import entity.dao.TrenoDAO;
 import entity.dao.UserDAO;
+import entity.dao.VotoDAO;
 import entity.treno.Treno;
 import entity.user.User;
+import entity.votazioni.Voto;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaRegionalGain;
 import fabbriche.FabbricaServizi;
@@ -81,10 +86,8 @@ public class TestGenerale {
             
             // 3.1 - RIMOZIONE DI VAGONI : CHECKED
             System.out.println(("3.1 - RIMOZIONE VAGONE"));
-
             ArrayList<Integer> listaId = new ArrayList<Integer>();
             listaId.add(2);
-            
             trenoDAO.eliminaVagoni((long)1, listaId); //con 1-2- va , con 0-3 non deve andare
             //System.out.println(trenoRG);
 
@@ -105,28 +108,57 @@ public class TestGenerale {
             FabbricaServizi fabbricaServizi = new FabbricaServizi();
             ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
 
-            // 4.2 - SALVATAGGIO DI UN SERVIZIO :  CHECKED 
-            // potenziale ERRORE!!! se c'è già un servizio con quel nome
+            //4.2 - SALVATAGGIO DI UN SERVIZIO :  CHECKED 
+            //potenziale ERRORE!!! se c'è già un servizio con quel nome
             System.out.println("4.2 - SALVATAGGIO SERVIZIO");
             servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
 
 
-             // 4.3 - ASSEGNAZIONE SERVIZIO (ad un vagone) :  DA ERRORE
-             System.out.println("4.3 - ASSEGNAZIONE SERVIZIO");
-             trenoDAO.addServizio((long)1, 1, "bagno");
+            // 4.3 - ASSEGNAZIONE SERVIZIO (ad un vagone) :  DA ERRORE
+            System.out.println("4.3 - ASSEGNAZIONE SERVIZIO");
+            trenoDAO.addServizio((long)1, 1, "bagno");
              
 
-            // ACQUISTO DI UN TRENO
-            // TODO: controllo da fare
+            // 5.0 - ACQUISTO DI UN TRENO - CHECKED
+            System.out.println("5.0 - ACQUISTO E SALVATAGGIO DI UN TRENO");
+            AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class);
+            user1.setWallet(1900000.0);
 
-            // VOTAZIONE TRENO
-            // TODO: controllo da fare
+            System.out.println("Salvataggio primo acquisto");
+            Acquisto primoAcquisto = new Acquisto(user1, trenoKM);
+            acquistoDAO.salvaAcquisto(primoAcquisto);
 
-            
+            /* System.out.println("Salvataggio secondo acquisto SENZA SOLDI");
+        	Acquisto secondoAcquisto = new Acquisto(user1, trenoKM, "21/09/2001");
+            acquistoDAO.salvaAcquisto(secondoAcquisto);  */
+
+
+            // 6.0 - VOTAZIONE TRENO - CHECKED
+            System.out.println("6.0 - VOTAZIONE TRENO");
+            Voto user1Voto = new Voto(5, user1, trenoKM);
+            VotoDAO votoDAO = context.getBean(VotoDAO.class);
+            votoDAO.salvaVoto(user1Voto);
+
+            // 6.1 - VOTAZIONE TRENO DALLO STESSO UTENTE - CHECKED
+          /*   System.out.println("6.1 - VOTAZIONE TRENO DALLO STESSO UTENTE");
+            Voto user1Voto2 = new Voto(5, user1, trenoKM);
+            votoDAO.salvaVoto(user1Voto2);  */
+
+            // 6.2 - VOTAZIONE TRENO valore sbagliato (casi: x < 0 || x > 10) - CHECKED
+           /* System.out.println("6.2 - VOTAZIONE TRENO valore sbagliato (casi: x < 0 || x > 10)");
+            Voto user1Voto3 = new Voto(11, user1, trenoKM);
+            votoDAO.salvaVoto(user1Voto3);
+
+            Voto user1Voto4 = new Voto(-2, user1, trenoKM);
+            votoDAO.salvaVoto(user1Voto4); */
+
+
             // RIMOZIONE DI UN UTENTE : CHECKED
-             User user2 = new User("User","Da rimuovere", "user.darimuovere@gmail.com", "Danzacudur0_04", 0.0);
-             userDAO.salvaUser(user2);
-             userDAO.eliminaUserById(user2.getId_User());
+            System.out.println("7.0 - RIMOZIONE DI UN UTENTE");
+            User user2 = new User("User","Da rimuovere", "user.darimuovere@gmail.com", "Danzacudur0_04", 0.0);
+            userDAO.salvaUser(user2);
+            userDAO.eliminaUserById(user2.getId_User());
+
 
              
 
@@ -137,6 +169,7 @@ public class TestGenerale {
             //System.out.println(userDAO.getUserByName("Salvino"));
 
             // --- QUERY USER --- 
+
 
 
             // --- QUERY TRENO --- 
@@ -153,6 +186,9 @@ public class TestGenerale {
             System.out.println("\n\n3. TRENO BY PESO TRASPORTABILE");
             System.out.println(trenoDAO.getTreniByPesoTrasportabile(500));
 
+            System.out.println(("\n\n4. GET MEDIA VOTI"));
+            System.out.println(trenoDAO.getVotazioneMedia(trenoKM));
+
             // --- QUERY TRENO --- 
 
 
@@ -167,6 +203,11 @@ public class TestGenerale {
 			System.out.println(message);
 			System.out.println(e.getSuggerimento());
 		}
+        catch(SoldiNonSufficientiException e){
+            System.out.println(e.getMessage()+e.getSuggerimento());       
+        }
+
+
 
 
 
