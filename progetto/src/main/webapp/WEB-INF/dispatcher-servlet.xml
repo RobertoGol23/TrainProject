@@ -17,7 +17,9 @@
 
 	<!-- Definisci il bean per il tuo controller -->
 	<bean id="userController" class="controller.UserController" />
-	<bean id="createTrainController" class="controller.CreateTrainController" />
+	<bean id="trainController" class="controller.TrainController" />
+	<bean id="genericController" class="controller.GenericController" />
+	<bean id="dashboardController" class="controller.DashboardController" />
 	<!-- Puoi definire altri controller e servizi qui -->
 
 </beans>

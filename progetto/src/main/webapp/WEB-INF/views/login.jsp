@@ -61,11 +61,12 @@
         <label for="email">Email</label>
         
         <%
-		    String user = (String) session.getAttribute("user");
-			if (user != null && !user.isEmpty())
+        
+		    String email = (String) session.getAttribute("email");
+			if (email != null && !email.isEmpty())
 			{
-				%><input type="email" id="email" value="<%= user %>" name="email" required><%
-				session.removeAttribute("user");
+				%><input type="email" id="email" value="<%= email %>" name="email" required><%
+				session.removeAttribute("email");
 			}
 			else
 			{
@@ -89,7 +90,7 @@
 	    }
 	%>
 
-    <p align="center">Non hai un account? <a href="register">Registrati</a></p>
+    <p align="center">Non hai un account? <a href="${pageContext.request.contextPath}/register">Registrati</a></p>
 
 </body>
 </html>
