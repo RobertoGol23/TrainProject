@@ -63,7 +63,7 @@
         <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
     </div>
 
-    <!-- Involucro flessibile per i due form container -->
+    <!-- Involucro flessibile per i form container -->
     <div class="form-wrapper">
         <div class="form-container">
             <h2>Aggiungi Fondi al Tuo Wallet</h2>
@@ -76,6 +76,14 @@
             <h2>Modifica il tuo Profilo</h2>
             <form action="editProfile" method="get">
                 <button type="submit">Modifica Profilo</button>
+            </form>
+        </div>
+
+        <!-- Nuovo pulsante per creare un treno -->
+        <div class="form-container">
+            <h2>Crea un Nuovo Treno</h2>
+            <form action="/train_bazar/createTrain" method="get">
+                <button type="submit">Crea Treno</button>
             </form>
         </div>
     </div>

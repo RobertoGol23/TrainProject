@@ -12,15 +12,21 @@
             background-color: #2e2b4f;
             color: #ffffff;
         }
+        h1 {
+            color: #8a79c7;
+        }
         form {
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
-            max-width: 400px;
+            width: 300px;
+            height: 200px;
+            margin: 0 auto;
         }
         label {
             display: block;
-            margin: 10px 0 5px;
+            margin-bottom: 10px;
+            color: #79c7e3;
         }
         input {
             width: 94%;
@@ -30,11 +36,13 @@
             border-radius: 5px;
         }
         button {
-            background-color: #8a79c7;
-            color: white;
+            width: 100%;
+            margin-top: 25px;
+            padding: 10px;
+            background-color: #79c7e3;
             border: none;
-            padding: 10px 20px;
             border-radius: 5px;
+            color: #2e2b4f;
             cursor: pointer;
         }
         button:hover {
@@ -47,7 +55,7 @@
 </head>
 <body>
 
-    <h1>Login</h1>
+    <h1 align="center">Login</h1>
 
     <form action="login" method="POST">
         <label for="email">Email</label>
@@ -81,7 +89,7 @@
 	    }
 	%>
 
-    <p>Non hai un account? <a href="register">Registrati</a></p>
+    <p align="center">Non hai un account? <a href="register">Registrati</a></p>
 
 </body>
 </html>
