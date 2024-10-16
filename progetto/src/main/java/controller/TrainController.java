@@ -36,6 +36,10 @@ public class TrainController {
     @GetMapping("/createTrain")
     public String mostraCreazioneTreno(HttpServletRequest request, Model model) {
 
+        if ((User) request.getSession().getAttribute("user") == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
         // Qui puoi aggiungere eventuali attributi al modello se necessario
         return "dashboard/train/createTrain"; // Nome della JSP da visualizzare
     }
@@ -83,6 +87,7 @@ public class TrainController {
                 trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
                 context.close();
                 
+
                 request.setAttribute("idTreno", nuovoTreno.getId());
                 
                 // Reindirizza alla pagina di modifica vagoni con l'ID del treno
@@ -134,11 +139,11 @@ public class TrainController {
 
         // Recupera il treno e il vagone dal database
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+       // TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
         ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
 
-        Treno treno = trenoDAO.getTrenoById(idTreno);
+    //    Treno treno = trenoDAO.getTrenoById(idTreno);
         Vagone vagone = vagoneDAO.getVagoneById(vagoneId);
         Servizio s = servizioDAO.getServizioByName(servizio);
         // Aggiungi il servizio al vagone selezionato

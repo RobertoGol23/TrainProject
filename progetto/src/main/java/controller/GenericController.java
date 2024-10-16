@@ -61,7 +61,7 @@ public class GenericController {
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
     	User user = userDAO.findUserByEmailAndPassword(email, password); // Non è più necessario creare il contesto qui
-        System.out.println("Entro nel login");
+
     	context.close();
     	if (user != null) {
             session.setAttribute("user", user); // Imposta l'utente nella sessione
