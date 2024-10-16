@@ -37,9 +37,16 @@ public class Voto {
     public Voto() {}
 
     public Voto(int punteggio, User user, Treno treno) {
-        this.punteggio = punteggio;
+        this.punteggio = inizializzaPunteggio(punteggio);
         this.user = user;
         this.treno = treno;
+    }
+
+    private int inizializzaPunteggio(int punteggio){
+        if (punteggio < 0 || punteggio > 5) {
+            throw new IllegalArgumentException("Il punteggio deve essere compreso tra 0 e 5.");
+        }
+        return punteggio;
     }
 
     // Getter e Setter
