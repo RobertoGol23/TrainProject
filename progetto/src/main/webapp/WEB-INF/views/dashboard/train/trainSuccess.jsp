@@ -50,7 +50,7 @@
 
     <div class="content">
         <p>Il tuo treno è stato creato con successo!</p>
-        <p>Puoi tornare alla <a href="users/dashboard">dashboard</a> o creare un altro treno.</p>
+        <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o creare un altro treno.</p>
         <form action="createTrain" method="get">
             <button type="submit">Crea un altro treno</button>
         </form>

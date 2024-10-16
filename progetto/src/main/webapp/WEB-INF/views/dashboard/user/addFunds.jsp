@@ -58,7 +58,7 @@
         </form>
     </div>
 
-    <a href="dashboard">Torna alla Dashboard</a>
+    <a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a>
 
 </body>
 </html>

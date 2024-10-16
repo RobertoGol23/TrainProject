@@ -75,7 +75,7 @@
     <h1 align="center">Modifica Profilo</h1>
 
     <div class="form-container">
-        <form action="updateProfile" method="post">
+        <form action="editProfile" method="post">
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" value="${user.nome}" required>
 
@@ -103,7 +103,7 @@
             </button>
         </form>
 	</div>
-    <div align="center" class="dashboard"><a href="dashboard">Torna alla Dashboard</a></div>
+    <div align="center" class="dashboard"><a href="/train-bazar/dashboard/home">Torna alla Dashboard</a></div>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>mio_esercizio</groupId>
-	<artifactId>my_esercizio</artifactId>
+	<artifactId>train-bazaar</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging> <!-- Indica che questo progetto genera un file WAR -->
 
@@ -80,13 +80,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 			<version>2.0.0</version>
@@ -97,14 +90,6 @@
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 			<version>2.0.0</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -130,13 +115,27 @@
 			<artifactId>antlr4-runtime</artifactId>
 			<version>4.9.3</version>
 		</dependency>
-		
-		<!-- Gestore delle transazioni -->
-    	<dependency>
-        	<groupId>org.springframework</groupId>
-        	<artifactId>spring-tx</artifactId>
-        	<version>6.1.6</version>
-    	</dependency>
+    	
+	    	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>4.0.1</version>
+	    <scope>provided</scope>
+	</dependency>
+	
+	<dependency>
+	    <groupId>javax.servlet.jsp</groupId>
+	    <artifactId>javax.servlet.jsp-api</artifactId>
+    <version>2.3.3</version>
+    <scope>provided</scope>
+</dependency>
+
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
+
 
 	</dependencies>
 
