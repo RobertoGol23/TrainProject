@@ -91,7 +91,7 @@ public class TrainController {
                 request.setAttribute("idTreno", nuovoTreno.getId());
                 
                 // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                return "redirect:/createTrain/modifyWagons?idTreno=" + nuovoTreno.getId(); //*?idTreno= + nuovoTreno.getId()*/; //da reindirizzare
+                return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
                 //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
             } else {
                 request.setAttribute("error", "Errore durante la creazione del treno.");
@@ -126,7 +126,7 @@ public class TrainController {
         model.addAttribute("servizi", servizi);
 
         context.close();
-        return "modifyWagons"; // Nome della JSP da visualizzare
+        return "dashboard/train/modifyWagons"; // Nome della JSP da visualizzare
     }
 
     @PostMapping("/addService")
@@ -150,14 +150,13 @@ public class TrainController {
         vagone.addServizio(s);      //il prezzo viene modificato in vagone
         //treno.setVagone(vagoneIndex, vagone);
         // Salva le modifiche nel database
-        vagoneDAO.updateVagone(vagone);//TODO porcamadonna
-        
+        vagoneDAO.updateVagone(vagone);
         servizioDAO.updateServizio(s);
-        //trenoDAO.updateTreno(treno);
+        
         
         context.close();
 
         request.setAttribute("message", "Servizio aggiunto con successo!");
-        return "redirect:/createTrain/modifyWagons?idTreno=" + idTreno;
+        return "dashboard/train/addServiceComplete";
     }
 }
