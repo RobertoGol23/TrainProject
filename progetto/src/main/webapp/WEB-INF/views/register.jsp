@@ -12,15 +12,21 @@
             background-color: #2e2b4f;
             color: #ffffff;
         }
+        h1 {
+            color: #8a79c7;
+        }
         form {
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
-            max-width: 400px;
+            width: 300px;
+            height: 350px;
+            margin: 0 auto;
         }
         label {
             display: block;
-            margin: 10px 0 5px;
+            margin-bottom: 10px;
+            color: #79c7e3;
         }
         input {
             width: 94%;
@@ -30,11 +36,13 @@
             border-radius: 5px;
         }
         button {
-            background-color: #8a79c7;
-            color: white;
+            width: 100%;
+            margin-top: 25px;
+            padding: 10px;
+            background-color: #79c7e3;
             border: none;
-            padding: 10px 20px;
             border-radius: 5px;
+            color: #2e2b4f;
             cursor: pointer;
         }
         button:hover {
@@ -47,7 +55,7 @@
 </head>
 <body>
 
-    <h1>Registrazione</h1>
+    <h1 align="center">Registrazione</h1>
 
     <form action="register" method="POST">
         <label for="nome">Nome</label>
@@ -80,7 +88,7 @@
 		%>
 
 
-        <label for="email">Email</label>
+        <label for="email">E-mail</label>
         <%
 		    String email = (String) session.getAttribute("email");
 			if (email != null && !email.isEmpty())
@@ -90,7 +98,7 @@
 			}
 			else
 			{
-				%><input type="email" id="email" placeholder="Inserisci qui la tua email" name="email" required><%
+				%><input type="email" id="email" placeholder="Inserisci qui la tua e-mail" name="email" required><%
 			}  
 		%>
 
@@ -111,7 +119,7 @@
 	    }
 	%>
 
-    <p>Hai già un account? <a href="login">Login</a></p>
+    <p align="center">Hai già un account? <a href="login">Login</a></p>
 
 </body>
 </html>
