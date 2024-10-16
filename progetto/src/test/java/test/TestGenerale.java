@@ -125,7 +125,7 @@ public class TestGenerale {
             user1.setWallet(1900000.0);
 
             System.out.println("Salvataggio primo acquisto");
-            Acquisto primoAcquisto = new Acquisto(user1, trenoKM, "11/09/2001");
+            Acquisto primoAcquisto = new Acquisto(user1, trenoKM);
             acquistoDAO.salvaAcquisto(primoAcquisto);
 
             /* System.out.println("Salvataggio secondo acquisto SENZA SOLDI");
@@ -185,6 +185,9 @@ public class TestGenerale {
             // treno by pesoTrasportabile
             System.out.println("\n\n3. TRENO BY PESO TRASPORTABILE");
             System.out.println(trenoDAO.getTreniByPesoTrasportabile(500));
+
+            System.out.println(("\n\n4. GET MEDIA VOTI"));
+            System.out.println(trenoDAO.getVotazioneMedia(trenoKM));
 
             // --- QUERY TRENO --- 
 

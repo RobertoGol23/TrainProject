@@ -68,15 +68,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.wallet = 0.0;
-		}
-	
-	//public List<Treno> getTreni() {
-	//	return treni;
-	//}
-
-	//public void setTreni(List<Treno> treni) {
-	//	this.treni = treni;
-	//}
+	}
 
 	public Long getId_User() {
 		return id_user;

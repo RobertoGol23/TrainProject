@@ -7,6 +7,7 @@ import entity.classi_astratte.Vagone;
 import entity.servizi.Servizio;
 import entity.treno.Locomotiva;
 import entity.treno.Treno;
+import entity.votazioni.Voto;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -260,6 +261,33 @@ public class TrenoDAO {
 		
 		return false;
 	}
+
+	@Transactional
+	public double getVotazioneMedia(Treno treno){
+		double result = 0.0;
+
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Voto> cq = cb.createQuery(Voto.class);
+
+        Root<Voto> root_voto = cq.from(Voto.class);
+
+		cq.select(root_voto).where(cb.equal(root_voto.get("treno"), treno));
+
+
+		// cq.select(VOTO).where(cb.equal(cq.select(root_treno).where), treno_id);
+
+		List<Voto> listaVoti = em.createQuery(cq).getResultList();
+
+		for(Voto voto : listaVoti){
+			result += voto.getPunteggio();
+		}
+
+		result = result/listaVoti.size();
+
+		return result;
+	}
+
+	
 
 	
 
