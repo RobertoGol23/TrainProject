@@ -56,7 +56,7 @@
 			if (nome != null && !nome.isEmpty())
 			{
 				%><input type="text" id="nome" value="<%= nome %>" name="nome" required><%
-				/*TODO da decommentare dopo i test session.removeAttribute("nome"); */
+				session.removeAttribute("nome");
 			}
 			else
 			{
@@ -71,7 +71,7 @@
 			if (cognome != null && !cognome.isEmpty())
 			{
 				%><input type="text" id="cognome" value="<%= cognome %>" name="cognome" required><%
-				/*TODO da decommentare dopo i test session.removeAttribute("cognome"); */
+				session.removeAttribute("cognome");
 			}
 			else
 			{
@@ -86,7 +86,7 @@
 			if (email != null && !email.isEmpty())
 			{
 				%><input type="email" id="email" value="<%= email %>" name="email" required><%
-						/*TODO da decommentare dopo i test session.removeAttribute("email"); */
+				session.removeAttribute("email");
 			}
 			else
 			{
