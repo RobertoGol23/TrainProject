@@ -42,7 +42,7 @@ public class Test03 {
 		{
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 
-			User mano = new User("Salvo","Mano", "salvo.mano@gmail.com", "Danzacudur0_04", 0.0);
+			User mano = new User("Salvo","Mano", "sal23vo.mano@gmail.com", "Danzacudur0_04", 0.0);
 			UserDAO userDAO = context.getBean(UserDAO.class);
 			userDAO.salvaUser(mano);
 			

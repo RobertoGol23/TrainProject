@@ -102,6 +102,8 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 		if(!listaServizi.contains(s)) {
 			listaServizi.add(s);
 			s.aggiungiVagone(this);
+			setPeso(getPeso()); // Ricalcola il peso e aggiorna
+	        setPrezzo(getPrezzo()); // Ricalcola il prezzo e aggiorna
 		}
 	}
 	
