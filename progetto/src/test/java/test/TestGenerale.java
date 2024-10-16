@@ -174,8 +174,8 @@ public class TestGenerale {
 
             // --- QUERY TRENO --- 
 
-            // treno by ID
-            System.out.println("\n\n1. TRENO BY ID");
+            // treno by Marca
+            System.out.println("\n\n1. TRENO BY MARCA");
             System.out.println(trenoDAO.getTrenoByMarca(1));
 
             // treno by name

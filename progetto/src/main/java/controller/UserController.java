@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import configuration.JpaConfig;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import entity.dao.UserDAO;
@@ -18,7 +19,9 @@ public class UserController {
     
     // Mostra la dashboard dopo il login
     @GetMapping("/dashboard")
-    public String showDashboard(Model model, HttpSession session) {
+    public String showDashboard(HttpServletRequest request, Model model) {
+
+        HttpSession session = request.getSession();
         User loggedInUser = (User) session.getAttribute("user");
 
         if (loggedInUser == null) {
@@ -35,11 +38,19 @@ public class UserController {
         session.invalidate(); // Termina la sessione
         return "redirect:/login"; // Reindirizza al login
     }
-    
-    // Mostra il form per aggiungere fondi
+      
     @GetMapping("/addFunds")
-    public String showAddFundsForm(Model model) {
-        model.addAttribute("user", new User());
+    public String showAddFundsForm(Model model, HttpSession session) {
+        
+        // Controlla se l'utente è autenticato
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            // Se non è loggato, reindirizza alla pagina di login
+            return "redirect:/login";  // Modifica l'URL secondo le tue necessità
+        }
+        
+        // Se l'utente è loggato, aggiungi l'attributo al modello
+        model.addAttribute("user", user);
         return "dashboard/user/addFunds"; // Nome della vista JSP per aggiungere fondi
     }
 
@@ -59,7 +70,7 @@ public class UserController {
             return "/dashboard/user/walletUpdated"; // Reindirizza alla pagina di conferma
         } else {
         	context.close();
-            return "/login"; // Reindirizza al login se l'utente non è loggato
+            return "redirect:/login"; // Reindirizza al login se l'utente non è loggato
         }
     }
 
@@ -71,7 +82,7 @@ public class UserController {
             model.addAttribute("user", user);
             return "walletUpdated"; // Nome della vista JSP per il wallet aggiornato
         } else {
-            return "login"; // Reindirizza al login se non è loggato
+            return "redirect:/login"; // Reindirizza al login se non è loggato
         }
     }
     
@@ -81,7 +92,7 @@ public class UserController {
         User loggedInUser = (User) session.getAttribute("user");
 
         if (loggedInUser == null) {
-            return "/login"; // Se non è loggato, reindirizza al login
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
         }
 
         model.addAttribute("user", loggedInUser); // Popola il form con i dati dell'utente
@@ -96,10 +107,11 @@ public class UserController {
                                 @RequestParam String email, 
                                 @RequestParam String password, 
                                 HttpSession session) {
+
         User loggedInUser = (User) session.getAttribute("user");
 
         if (loggedInUser == null) {
-            return "/login"; // Se non è loggato, reindirizza al login
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
         }
         
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
@@ -109,14 +121,12 @@ public class UserController {
         loggedInUser.setNome(nome);
         loggedInUser.setCognome(cognome);
         loggedInUser.setEmail(email);
-        loggedInUser.setPassword(password); // Assicurati che la password sia gestita correttamente (hashing)
+        loggedInUser.setPassword(password); //TODO: Assicurati che la password sia gestita correttamente (hashing)
 
         // Salva le modifiche nel database
         userDAO.updateUser(loggedInUser);
 
-        
         context.close();
-        
         
         // Aggiorna l'utente nella sessione
         session.setAttribute("user", loggedInUser);
@@ -127,25 +137,32 @@ public class UserController {
  // Gestisce la cancellazione dell'utente
     @Transactional
     @PostMapping("/deleteUser")
-    public String deleteUser(HttpSession session) {
+    public String deleteUser(HttpSession session, @RequestParam String password) {
         User loggedInUser = (User) session.getAttribute("user");
 
         if (loggedInUser == null) {
-            return "/login"; // Se non è loggato, reindirizza al login
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
         }
 
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
         
-        // Cancella l'utente dal database
-        userDAO.deleteUser(loggedInUser);
-        
         context.close();
 
-        // Termina la sessione
-        session.invalidate();
+        if(loggedInUser.getPassword().equals(password)){
+            // Cancella l'utente dal database
+            userDAO.deleteUser(loggedInUser);
 
-        return "dashboard/user/accountDeleted"; // Reindirizza alla pagina di conferma
+            // Termina la sessione
+            session.invalidate();
+            return "dashboard/user/accountDeleted"; // Reindirizza alla pagina di conferma
+        }
+        else{
+            session.setAttribute("errorMessage", "Password non valida");
+            return "/dashboard/user/editProfile";
+        }
+        
+        
     }
 
     // Mostra la pagina di conferma cancellazione
