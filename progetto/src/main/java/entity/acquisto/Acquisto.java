@@ -41,6 +41,7 @@ public class Acquisto {
     // Costruttori, Getter e Setter
     public Acquisto() {}
 
+    // TODO: togliere String data e mettere timestamp
     public Acquisto(User user, Treno treno, String data) throws SoldiNonSufficientiException {
     	
     	Double costoTreno = treno.getPrezzoTotaleTreno();
