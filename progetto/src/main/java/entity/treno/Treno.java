@@ -130,6 +130,8 @@ public class Treno {
 	public Vagone getVagone(int index){
 		return getListaVagoni().get(index);
 	}
+	
+	
 
 	public void setVagone(int index, Vagone vagone){
 		listaVagoni.set(index, vagone);
