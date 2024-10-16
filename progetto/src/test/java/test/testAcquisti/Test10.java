@@ -40,34 +40,38 @@ public class Test10 {
         	
         	try
         	{
-        		
-        	
+        		        	
         	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         	
-        	User pippo = new User("Pippo","Franco", "pippo.franco@gmail.com", "1234", 1500000.0);
-        	User pipetta = new User("Pipetta", "Soffio", "pipetta.soffio@gmail.com", "uiop", 10000000.0);
+        	User pippo = new User("Pippo","Franco", "pippo.franco2@gmail.com", "1234", 1500000.0);
+        	User pipetta = new User("Pipetta", "Soffio", "pipetta.soffio2@gmail.com", "uiop", 10000000.0);
         	
         	UserDAO userDAO = context.getBean(UserDAO.class);
         	userDAO.salvaUser(pippo);
         	userDAO.salvaUser(pipetta);
-        	
+			
         	Treno trenoFF = builderFF.costruisciTreno("Treno Cargo Passeggeri",sigla,pippo, 1);
         	Treno trenoKM = builderKM.costruisciTreno("Treno Cargo Passeggeri",sigla,pipetta, 2);
         	
-        	Acquisto primo = new Acquisto(pipetta, trenoFF, "11/09/2001");
-        	Acquisto secondo = new Acquisto(pippo, trenoKM, "11/09/2001");
-			
-        	AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class); 
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-        	
-
-        	
-        	
-        	trenoDAO.salvaTreno(trenoFF);
+			trenoDAO.salvaTreno(trenoFF);
         	trenoDAO.salvaTreno(trenoKM);
-        	acquistoDAO.salvaAcquisto(primo);
-        	acquistoDAO.salvaAcquisto(secondo);
-    
+
+
+			AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class); 
+
+			// fare il salvataggio subito dopo l'acquisto perchè altrimenti in caso di errore di un altro acquisto il salvataggio di 
+			// quelli effettuati correttamente non verrebbe effettuato
+			pipetta.setWallet(14000000000.0);
+
+
+        	Acquisto primo = new Acquisto(pipetta, trenoFF, "11/09/2001");
+			acquistoDAO.salvaAcquisto(primo);
+
+        	Acquisto secondo = new Acquisto(pippo, trenoKM, "11/09/2001");
+			acquistoDAO.salvaAcquisto(secondo);
+        	
+		
         	
         	context.close();
         	}
