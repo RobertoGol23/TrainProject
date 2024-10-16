@@ -85,9 +85,11 @@ public class TrainController {
                 TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
                 trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
                 context.close();
-
+                
+                request.setAttribute("idTreno", nuovoTreno.getId());
+                
                 // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                return "redirect:/createTrain/modifyWagons?idTreno=" + nuovoTreno.getId(); //da reindirizzare
+                return "dashboard/train/modifyWagons"/*?idTreno=" + nuovoTreno.getId()*/; //da reindirizzare
                 //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
             } else {
                 request.setAttribute("error", "Errore durante la creazione del treno.");
@@ -110,7 +112,8 @@ public class TrainController {
 
         if (treno == null) {
             model.addAttribute("errorMessage", "Nessun treno trovato con l'ID specificato.");
-            return "modifyWagons";
+            context.close();
+            return "dashboard/train/modifyWagons";
         }
 
         // Aggiungi il treno e i servizi al modello
