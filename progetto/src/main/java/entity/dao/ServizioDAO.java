@@ -1,8 +1,12 @@
 package entity.dao;
 
 import jakarta.persistence.EntityManager;
+
+import java.util.List;
+
 import entity.servizi.Servizio;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 public class ServizioDAO{
@@ -30,5 +34,12 @@ public class ServizioDAO{
 	    @Transactional
 	    public void updateServizio(Servizio servizio) {
 	        em.merge(servizio);
+	    }
+	    
+	    @Transactional
+	    public List<Servizio> trovaServiziDisponibili() {
+	        String queryStr = "SELECT s FROM Servizio s"; // Assuming Servizio is an entity class
+	        TypedQuery<Servizio> query = em.createQuery(queryStr, Servizio.class);
+	        return query.getResultList();
 	    }
 }

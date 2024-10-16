@@ -8,6 +8,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -21,7 +23,7 @@ import jakarta.persistence.ManyToMany;
 public class Servizio { //da creare xml per inserire i dati dei servizi direttamente
 	
 	@Id
-	@Column(name="nome", nullable = false, unique = false)
+	@Column(name="nome",nullable = false, unique = true)
 	private String nome;
 	
 	@Column(name = "pesoS", nullable = false, unique = false)
