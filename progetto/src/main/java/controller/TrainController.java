@@ -145,14 +145,13 @@ public class TrainController {
         vagone.addServizio(s);      //il prezzo viene modificato in vagone
         //treno.setVagone(vagoneIndex, vagone);
         // Salva le modifiche nel database
-        vagoneDAO.updateVagone(vagone);//TODO porcamadonna
-        
+        vagoneDAO.updateVagone(vagone);
         servizioDAO.updateServizio(s);
-        //trenoDAO.updateTreno(treno);
+        
         
         context.close();
 
         request.setAttribute("message", "Servizio aggiunto con successo!");
-        return "redirect:/createTrain/modifyWagons?idTreno=" + idTreno;
+        return "dashboard/train/addServiceComplete";
     }
 }
