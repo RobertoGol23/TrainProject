@@ -48,8 +48,8 @@
     <p>Il tuo account è stato cancellato con successo.</p>
     <p>Ci piacerebbe rivederti presto, ti invitiamo a iscriverti nuovamente.</p>
     
-    <form action="register" method="get">
-        <button type="submit">Torna al Login</button>
+    <form action="/train-baazar/register" method="get">
+        <button type="submit">Torna ad iscriverti</button>
     </form>
 
 </body>

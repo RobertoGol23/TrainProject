@@ -124,6 +124,12 @@ public class UserController {
         return "redirect:/dashboard/home"; // Reindirizza alla dashboard dopo l'aggiornamento
     }
     
+    // Mostra la pagina di conferma cancellazione
+    @GetMapping("/accountDeleted")
+    public String showAccountDeletedPage() {
+        return "dashboard/user/accountDeleted"; // Mostra la pagina JSP di conferma
+    }
+    
  // Gestisce la cancellazione dell'utente
     @Transactional
     @PostMapping("/deleteUser")
@@ -148,11 +154,6 @@ public class UserController {
         return "dashboard/user/accountDeleted"; // Reindirizza alla pagina di conferma
     }
 
-    // Mostra la pagina di conferma cancellazione
-    @GetMapping("/accountDeleted")
-    public String showAccountDeletedPage() {
-        return "dashboard/user/accountDeleted"; // Mostra la pagina JSP di conferma
-    }
-    
+   
 
 }

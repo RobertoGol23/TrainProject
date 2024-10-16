@@ -18,17 +18,14 @@ import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.Vagone;
 import entity.dao.ServizioDAO;
 import entity.dao.TrenoDAO;
-import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.servizi.Servizio;
 import entity.treno.Treno;
 import entity.user.User;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaRegionalGain;
-import fabbriche.FabbricaServizi;
 import fabbriche.FabbricaXFurryFast;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import utility.Assemblatore;
 
@@ -89,7 +86,7 @@ public class TrainController {
                 request.setAttribute("idTreno", nuovoTreno.getId());
                 
                 // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                return "dashboard/train/modifyWagons"/*?idTreno=" + nuovoTreno.getId()*/; //da reindirizzare
+                return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
                 //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
             } else {
                 request.setAttribute("error", "Errore durante la creazione del treno.");
@@ -124,7 +121,7 @@ public class TrainController {
         model.addAttribute("servizi", servizi);
 
         context.close();
-        return "modifyWagons"; // Nome della JSP da visualizzare
+        return "dashboard/train/modifyWagons"; // Nome della JSP da visualizzare
     }
 
     @PostMapping("/addService")
