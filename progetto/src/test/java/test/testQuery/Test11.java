@@ -56,7 +56,7 @@ public class Test11 {
 
 
             // Query che ritorna una lista di treni con una determinata Marca
-            String marca = "Treno KargoModelz";      
+         //   String marca = "Treno KargoModelz";      
         
          //   List<Treno> listaTreniByMarca = trenoDAO.getTrenoByMarca(marca);
 
@@ -66,7 +66,7 @@ public class Test11 {
 
 
             // Query che ritorna una lista di treni tramite il suo Nome
-            String nome = "Treno Passeggeri xFF";
+          //  String nome = "Treno Passeggeri xFF";
 
           //  List<Treno> listaTreniByName2 = trenoDAO.getTrenoByName(nome);
 

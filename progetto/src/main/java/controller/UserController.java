@@ -1,6 +1,5 @@
 package controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -17,9 +16,9 @@ import entity.user.User;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
+    /* @Autowired
     private UserDAO userDAO;
-
+ */
     // Mostra il form di registrazione
     @GetMapping("/register")
     public String showRegisterForm(Model model) {

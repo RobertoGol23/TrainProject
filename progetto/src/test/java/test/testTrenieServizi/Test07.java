@@ -60,8 +60,7 @@ public class Test07 {
 			}
 	         
 	        
-	        
-	        
+	        context.close();
 		}
 		catch(Exception e)
 		{
