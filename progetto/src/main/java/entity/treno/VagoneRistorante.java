@@ -5,7 +5,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity
-
 public class VagoneRistorante extends Vagone{ //pensare se si puo' levare abstract per il dao
 
 	@Column(name="coperti", nullable = false, unique = false)

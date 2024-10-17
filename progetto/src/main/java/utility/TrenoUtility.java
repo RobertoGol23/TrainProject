@@ -1,8 +1,10 @@
 package utility;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
+import eccezioni.eccezioniGeneriche.TroppoPesoException;
 import eccezioni.eccezioniSigla.IncoerenzaVagoniException;
 import eccezioni.eccezioniSigla.LocomotivaInMezzoException;
 import eccezioni.eccezioniSigla.LocomotivaNonInTestaException;
@@ -10,7 +12,6 @@ import eccezioni.eccezioniSigla.RistoranteNonInMezzoException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import eccezioni.eccezioniSigla.StringaNonValidaException;
 import eccezioni.eccezioniSigla.TroppiRistorantiException;
-import eccezioni.eccezioniSigla.TroppoPesoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.Vagone;
 import entity.treno.Locomotiva;
@@ -208,7 +209,7 @@ public class TrenoUtility {
 	}
 	
 
-	public void controllaPesoTrainabile(String sigla, ArrayList<Vagone> listaVagoni) throws SiglaTrenoException
+	public boolean controllaPesoTrainabile(String sigla, List<Vagone> listaVagoni) throws SiglaTrenoException
 	{
 		double sommapeso = 0.0;
 		for(Vagone v: listaVagoni) {
@@ -216,9 +217,11 @@ public class TrenoUtility {
 		}
 
 		Locomotiva locomotiva = (Locomotiva)listaVagoni.get(0);
+		System.out.println("\n\n PESO TOT: " + sommapeso + " PESO TRAINABILE: " + locomotiva.getPesoTrainabile() + "\n\n");
 		if(sommapeso > locomotiva.getPesoTrainabile()) {
-			throw new TroppoPesoException(sigla, "sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
+			throw new TroppoPesoException(sigla, "\n\nsono stati inseriti troppi vagoni, il peso trasportato supera quello trasportabile di: " + (sommapeso - locomotiva.getPesoTrainabile()) + " kg\n\n");
 		}
+		return true;
 	}
 
 	
@@ -270,7 +273,6 @@ public class TrenoUtility {
 			siglaNuova += car;
 		}
 		
-		System.out.println("Sigla nuova: " + siglaNuova);
 		return siglaNuova;
 	}
 

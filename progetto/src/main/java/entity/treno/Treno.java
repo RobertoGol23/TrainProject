@@ -81,7 +81,6 @@ public class Treno {
 		Treno treno = new Treno(nomeTreno, listaVagoni, marca, utente);
 		return treno;
 	}
-
 	
 	public Long getId() {
 		return id_treno;
@@ -130,8 +129,6 @@ public class Treno {
 	public Vagone getVagone(int index){
 		return getListaVagoni().get(index);
 	}
-	
-	
 
 	public void setVagone(int index, Vagone vagone){
 		listaVagoni.set(index, vagone);
@@ -141,6 +138,10 @@ public class Treno {
 		listaVagoni.add(index, vagone);
 	}
 	
+	public void deleteVagone(int index) {
+		listaVagoni.remove(index);
+	}
+
 	public List<Vagone> getListaVagoni() {
 		return this.listaVagoni;
 	}
@@ -166,10 +167,6 @@ public class Treno {
 			peso = peso + v.getPeso();
 		}
 		return peso;
-	}
-	
-	public void deleteVagone(int index) {
-		listaVagoni.remove(index);
 	}
 	
 	public void setListaVagoni(ArrayList<Vagone> listaVagoni) {
