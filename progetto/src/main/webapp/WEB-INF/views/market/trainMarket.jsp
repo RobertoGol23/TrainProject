@@ -49,9 +49,10 @@
 
 <h1>Market dei Treni</h1>
 
-<%
-    List<Treno> treni = (List<Treno>) request.getAttribute("treni");
+<% 
+List<Treno> treni = (List<Treno>) session.getAttribute("treni"); 
 %>
+
 <% if (treni != null && !treni.isEmpty()) { %>
     <% for (Treno treno : treni) { %>
         <div class="treno">
@@ -63,7 +64,7 @@
                 <p>Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> kg</p>
                 <p>Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> kg</p>
                 <p>Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
-                <form method="post" action="purchaseTrain">
+                <form method="get" action="purchaseTrain">
                     <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
                     <button type="submit">Acquista</button>
                 </form>
@@ -76,8 +77,8 @@
 
 <div class="pagination">
     <% 
-        Integer currentPage = (Integer) request.getAttribute("currentPage");
-        Integer totalPages = (Integer) request.getAttribute("totalPages");
+    	Integer currentPage = (Integer) session.getAttribute("currentPage");
+        Integer totalPages = (Integer) session.getAttribute("totalPages");
         
         if (currentPage == null) currentPage = 1;
         if (totalPages == null) totalPages = 1;

@@ -1,5 +1,7 @@
 package entity.dao;
 
+import java.util.List;
+
 import entity.acquisto.Acquisto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -31,4 +33,11 @@ public class AcquistoDAO {
 		public void updateAcquisto(Acquisto acquisto) {
 			em.merge(acquisto);
 		}
+		
+		// Aggiungi questo metodo per ottenere gli acquisti di un utente
+	    public List<Acquisto> getAcquistiByUserId(Long userId) {
+	        return em.createQuery("SELECT a FROM Acquisto a WHERE a.user.id = :userId", Acquisto.class)
+	                 .setParameter("userId", userId)
+	                 .getResultList();
+	    }
 }

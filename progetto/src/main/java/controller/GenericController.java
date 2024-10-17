@@ -48,13 +48,13 @@ public class GenericController {
     	}
     }
     
- // Mostra il form di login
+    //Mostra il form di login
     @GetMapping("/login")
     public String showLoginForm() {
         return "login"; // Nome della vista JSP per il login
     }
 
-    // Esegue il login
+    //Esegue il login
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
@@ -62,7 +62,8 @@ public class GenericController {
         
         try {
             // Controlla se l'utente esiste nel database
-            User user = userDAO.getUserByEmail(email);
+            User user = userDAO.getUserByEmail(email)
+;
             
             if (user != null) {
                 // Se l'utente esiste, controlla la password
@@ -87,7 +88,4 @@ public class GenericController {
             context.close();
         }
     }
-    
-    
-
 }
