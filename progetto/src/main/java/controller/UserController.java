@@ -11,7 +11,9 @@ import configuration.JpaConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import entity.acquisto.Acquisto;
 import entity.classi_astratte.Vagone;
+import entity.dao.AcquistoDAO;
 import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.treno.Treno;
@@ -223,6 +225,29 @@ public class UserController {
         context.close();
 
         return "dashboard/user/viewTrains"; // Nome della vista JSP per mostrare i treni
+    }
+    
+ // Aggiungi questo metodo nel tuo UserController
+    @GetMapping("/viewPurchasedTrains")
+    public String viewPurchasedTrains(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class);
+        
+        // Ottieni la lista degli acquisti per l'utente
+        List<Acquisto> acquisti = acquistoDAO.getAcquistiByUserId(loggedInUser.getId_user());
+
+        // Aggiungi la lista degli acquisti al modello
+        model.addAttribute("acquisti", acquisti);
+
+        context.close();
+
+        return "dashboard/user/viewPurchasedTrains"; // Nome della vista JSP per mostrare i treni acquistati
     }
 
 }

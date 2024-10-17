@@ -96,8 +96,14 @@
     </div>
     
     <div class="form-container">
-    	<h2>I Miei Treni</h2>
+    	<h2>I Miei Treni Creati</h2>
    		<form action="user/viewTrains" method="get">
+        	<button type="submit">Visualizza Treni</button>
+    	</form>
+	</div>
+	<div class="form-container">
+    	<h2>I Miei Treni Comprati</h2>
+   		<form action="user/viewPurchasedTrains" method="get">
         	<button type="submit">Visualizza Treni</button>
     	</form>
 	</div>
