@@ -5,9 +5,7 @@ import entity.user.User;
 import entity.acquisto.Acquisto;
 import entity.dao.AcquistoDAO;
 import entity.dao.TrenoDAO;
-import entity.dao.UserDAO;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -23,9 +21,6 @@ import java.util.List;
 
 @Controller
 public class MarketController {
-
-    @Autowired
-    private TrenoDAO trenoDAO; // DAO per recuperare i dati sui treni
 
     private static final int TRENTS_PER_PAGE = 10; // Numero di treni per pagina
 
@@ -48,6 +43,7 @@ public class MarketController {
         session.setAttribute("currentPage", page);
         session.setAttribute("totalPages", totalPages);
 
+        context.close();
         return "/market/trainMarket"; // Ritorna la JSP
     }
     
@@ -65,8 +61,10 @@ public class MarketController {
         if (treno != null) {
             // Salva il treno selezionato nella sessione
             session.setAttribute("treno", treno);
+            context.close();
             return "market/purchaseTrain"; // Visualizza la pagina JSP per conferma acquisto
         } else {
+            context.close();
             return "redirect:/trainMarket"; // Se il treno non esiste, torna al market
         }
     }

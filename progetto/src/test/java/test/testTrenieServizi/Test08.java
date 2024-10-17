@@ -5,7 +5,6 @@ import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
 import entity.dao.ServizioDAO;
-import fabbriche.FabbricaServizi;
 import utility.ServiziUtility;
 
 public class Test08 {
@@ -23,7 +22,6 @@ public class Test08 {
 		 */
 		
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-		FabbricaServizi fabbricaServizi = new FabbricaServizi();
 		ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
 		ServiziUtility su = new ServiziUtility();
 		su.aggiungiServiziAlDB(servizioDAO);
