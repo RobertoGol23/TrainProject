@@ -158,8 +158,7 @@ public class TrenoDAO {
 				}
 				
 				Double sommaPesoVagoni = getSommaPesoVagoni(id_treno);
-				List<Double> pesoTrainabile = getPesoTrainabileByTrenoId(id_treno);
-
+				List<Double> pesoTrainabile = getPesoTrainabileByTrenoId(id_treno);				
 				
 				if(pesoTrainabile.get(0)>(pesoVagoniAggiunti+sommaPesoVagoni))
 				{
