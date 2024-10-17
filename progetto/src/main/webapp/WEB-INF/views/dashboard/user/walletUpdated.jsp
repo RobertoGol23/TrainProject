@@ -32,7 +32,7 @@
 
     <div class="content">
         <p>I tuoi fondi sono stati aggiunti con successo al tuo wallet.</p>
-        <a href="/train-baazar/dashboard/home">Torna alla Dashboard</a>
+        <a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a>
     </div>
 
 </body>

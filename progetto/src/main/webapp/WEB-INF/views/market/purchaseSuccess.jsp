@@ -61,7 +61,7 @@
             <button type="submit" class="dashboard-btn">Vai alla Dashboard Personale</button>
         </form>
         
-        <form action="/trainMarket" method="get">
+        <form action="/train-bazaar/trainMarket" method="get">
             <button type="submit" class="market-btn">Compra altri Treni</button>
         </form>
     </div>
