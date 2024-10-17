@@ -15,7 +15,7 @@
             flex-direction: column;
             align-items: center;
         }
-        h1, h2 {
+        h1 {
             color: #8a79c7;
             text-align: center;
         }
@@ -24,21 +24,25 @@
             padding: 20px;
             border-radius: 10px;
             width: 300px;
-            margin-top: 20px;
-        }
-        .form-container label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
         }
         .form-container input, .form-container select {
-            width: 100%;
             padding: 10px;
             margin-bottom: 20px;
             border-radius: 5px;
             border: none;
-            background-color: #2e2b4f;
+            
             color: #ffffff;
+        }
+        select {
+        	width: 100%;
+        }
+        input {
+        	width: 93%;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #79c7e3;
         }
         .form-container button {
             width: 100%;
@@ -56,6 +60,9 @@
             color: red;
             margin-top: 20px;
             text-align: center;
+        }
+        a {
+            color: #79c7e3;
         }
     </style>
 </head>
@@ -82,7 +89,8 @@
             <button type="submit">Crea Treno</button>
         </form>
     </div>
-
+	<p align="center">Torna alla dashboard <a href="/train-baazar/dashboard/home"></a> </p>
+	
      <%
         String error = (String) request.getAttribute("error");
         if (error != null && !error.isEmpty()) {

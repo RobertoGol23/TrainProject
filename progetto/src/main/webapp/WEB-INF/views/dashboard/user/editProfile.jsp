@@ -171,7 +171,7 @@
 
     <!-- //TODO: Controllo password -->
 
-    <div align="center" class="dashboard"><a href="/train-bazar/dashboard/home">Torna alla Dashboard</a></div>
+    <div align="center" class="dashboard"><a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a></div>
 
 
 </body>
