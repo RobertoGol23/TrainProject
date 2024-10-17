@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,10 @@ import configuration.JpaConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import entity.classi_astratte.Vagone;
 import entity.dao.UserDAO;
+import entity.dao.VagoneDAO;
+import entity.treno.Treno;
 import entity.user.User;
 
 
@@ -171,6 +176,55 @@ public class UserController {
         
     }
 
-   
+ // Mostra i treni posseduti dall'utente
+    @GetMapping("/viewTrains")
+    public String viewUserTrains(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
 
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        UserDAO userDAO = context.getBean(UserDAO.class);
+        VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+
+        // Ottieni i treni dell'utente
+        List<Treno> userTrains = userDAO.getTrenoByUserId(loggedInUser.getId_user());
+
+        // Genera l'HTML per l'accordion
+        StringBuilder accordionHtml = new StringBuilder();
+
+        for (Treno train : userTrains) {
+            accordionHtml.append("<button class=\"accordion\">")
+                    .append(train.getNome())
+                    .append(train.getPesoTotaleTreno())
+                    .append(train.getPrezzoTotaleTreno())
+                    .append("</button>");
+            
+            // Recupera i vagoni per il treno
+            List<Vagone> vagoni = train.getListaVagoni(); // Supponendo tu abbia un metodo per recuperare i vagoni
+            accordionHtml.append("<div class=\"panel\"><table><thead><tr>")
+                    .append("<th>Vagone</th>")
+                    .append("<th>Peso (ton)</th>")
+                    .append("<th>Prezzo (€)</th>")
+                    .append("</tr></thead><tbody>");
+
+            for (Vagone v : vagoni) {
+                accordionHtml.append("<tr>")
+                        .append("<td>").append(v.getTipo()).append("</td>")
+                        .append("<td>").append(v.getPeso()).append("</td>")
+                        .append("<td>").append(v.getPrezzo()).append("</td>")
+                        .append("</tr>");
+            }
+            accordionHtml.append("</tbody></table></div>"); // Chiude il div del pannello
+        }
+
+        // Aggiungi l'HTML dell'accordion al modello
+        model.addAttribute("trainsTable", accordionHtml.toString());
+
+        context.close();
+
+        return "dashboard/user/viewTrains"; // Nome della vista JSP per mostrare i treni
+    }
 }
