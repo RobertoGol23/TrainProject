@@ -10,6 +10,7 @@ import entity.treno.Treno;
 import entity.votazioni.Voto;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -287,10 +288,27 @@ public class TrenoDAO {
 		return result;
 	}
 
+	// Restituisci la lista di tutti i treni
+	public List<Treno> getAllTrain() { 
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
+        
+        Root<Treno> root_treno = cq.from(Treno.class);
+        
+        cq.select(root_treno);
+        
+        List<Treno> treni = em.createQuery(cq).getResultList();
+        
+        return treni;
+    }
 	
-
-	
-
-	
+	public List<Treno> getTreniPaginated(int offset, int limit) {
+        String jpql = "SELECT t FROM Treno t";
+        TypedQuery<Treno> query = em.createQuery(jpql, Treno.class);
+        query.setFirstResult(offset); // Imposta l'offset
+        query.setMaxResults(limit); // Imposta il limite
+        return query.getResultList(); // Restituisce la lista dei treni
+    }
 
 }
