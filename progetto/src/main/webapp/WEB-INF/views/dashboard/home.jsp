@@ -86,6 +86,7 @@
                 <button type="submit">Crea Treno</button>
             </form>
         </div>
+        
         <div class="form-container">
             <h2>Crea un Nuovo Treno dinamico</h2>
             <form action="train/creaTrenoProva" method="get">
@@ -93,6 +94,14 @@
             </form>
         </div>
     </div>
+    
+    <div class="form-container">
+    	<h2>I Miei Treni</h2>
+   		<form action="user/viewTrains" method="get">
+        	<button type="submit">Visualizza Treni</button>
+    	</form>
+	</div>
+    
 
     <a href="/train-bazaar/login">Logout</a>
 

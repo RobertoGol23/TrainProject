@@ -2,6 +2,7 @@ package entity.dao;
 
 
 
+import entity.treno.Treno;
 import entity.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -128,5 +129,17 @@ public class UserDAO {
         cq.select(root);
         return em.createQuery(cq).getResultList();
     }
+    
+    @Transactional
+	public List<Treno> getTrenoByUserId(Long user_id){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
+
+		Root<Treno> root = cq.from(Treno.class);
+
+		cq.select(root).where(cb.equal(root.get("user").get("id"), user_id));
+
+		return em.createQuery(cq).getResultList();
+	}
 
 }

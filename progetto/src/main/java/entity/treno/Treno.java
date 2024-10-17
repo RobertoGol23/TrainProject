@@ -153,7 +153,7 @@ public class Treno {
 	{
 		Double prezzo = 0.0;
 		for(Vagone v : this.getListaVagoni()) {
-			prezzo = v.getPrezzo();
+			prezzo = prezzo + v.getPrezzo();
 		}
 		return prezzo;
 	}
@@ -162,7 +162,7 @@ public class Treno {
 	{
 		Double peso = 0.0;
 		for(Vagone v : this.getListaVagoni()) {
-			peso = v.getPeso();
+			peso = peso + v.getPeso();
 		}
 		return peso;
 	}
