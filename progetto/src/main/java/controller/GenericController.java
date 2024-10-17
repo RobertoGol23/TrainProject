@@ -36,7 +36,6 @@ public class GenericController {
     		userDAO.salvaUser(user);
     		context.close();
             return "redirect:/login";
-
     	}
     	else
     	{
@@ -60,17 +59,22 @@ public class GenericController {
     public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
-    	User user = userDAO.findUserByEmailAndPassword(email, password); // Non è più necessario creare il contesto qui
+    	//User user = userDAO.findUserByEmailAndPassword(email, password); // Non è più necessario creare il contesto qui
 
-    	context.close();
-    	if (user != null) {
-            session.setAttribute("user", user); // Imposta l'utente nella sessione
+    	
+    	
+    	if(userDAO.getUserByEmail(email)!=null)
+    	{
+    		User user = userDAO.getUserByEmail(email);
+    		session.setAttribute("user", user); // Imposta l'utente nella sessione
+    		context.close();
             return "redirect:/dashboard/home"; // Reindirizza a una pagina protetta dopo il login
-        } else {
-        	//model.addAttribute("errorMessage", "Email o password non validi");
+        }
+    	else
+        {
         	session.setAttribute("errorMessage", "Email o password non validi");
         	session.setAttribute("user", email);
-        	//redirectAttributes.addFlashAttribute("errorMessage", "Email o password non validi");
+        	context.close();
             return "redirect:/login"; // Torna alla pagina di login
         }
     }

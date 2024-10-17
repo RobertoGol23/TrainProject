@@ -85,7 +85,7 @@
 	    if (errorMessage != null && !errorMessage.isEmpty())
 	    {
 			%>
-        	<p style="color: red"><%= errorMessage %></p>
+        	<p align="center" style="color: red"><%= errorMessage %></p>
 			<%
 	    }
 	%>
