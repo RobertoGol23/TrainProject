@@ -36,7 +36,6 @@ public class GenericController {
     		userDAO.salvaUser(user);
     		context.close();
             return "redirect:/login";
-
     	}
     	else
     	{
@@ -49,32 +48,44 @@ public class GenericController {
     	}
     }
     
- // Mostra il form di login
+    //Mostra il form di login
     @GetMapping("/login")
     public String showLoginForm() {
         return "login"; // Nome della vista JSP per il login
     }
 
-    // Esegue il login
+    //Esegue il login
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
-    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-    	UserDAO userDAO = context.getBean(UserDAO.class);
-    	User user = userDAO.findUserByEmailAndPassword(email, password); // Non è più necessario creare il contesto qui
-
-    	context.close();
-    	if (user != null) {
-            session.setAttribute("user", user); // Imposta l'utente nella sessione
-            return "redirect:/dashboard/home"; // Reindirizza a una pagina protetta dopo il login
-        } else {
-        	//model.addAttribute("errorMessage", "Email o password non validi");
-        	session.setAttribute("errorMessage", "Email o password non validi");
-        	session.setAttribute("user", email);
-        	//redirectAttributes.addFlashAttribute("errorMessage", "Email o password non validi");
-            return "redirect:/login"; // Torna alla pagina di login
+    public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        UserDAO userDAO = context.getBean(UserDAO.class);
+        
+        try {
+            // Controlla se l'utente esiste nel database
+            User user = userDAO.getUserByEmail(email)
+;
+            
+            if (user != null) {
+                // Se l'utente esiste, controlla la password
+                if (userDAO.checkPasswordByUser(email, password)) {
+                    // Imposta l'utente nella sessione e reindirizza alla home
+                    session.setAttribute("user", user);
+                    return "redirect:/dashboard/home";
+                } else {
+                    // Password errata, imposta il messaggio di errore e torna al login
+                    session.setAttribute("errorMessage", "Password errata");
+                    session.setAttribute("email", email);
+                    return "redirect:/login";
+                }
+            } else {
+                // Utente non trovato, imposta il messaggio di errore e torna al login
+                session.setAttribute("errorMessage", "E-mail non valida. Utente non registrato con questa e-mail");
+                session.setAttribute("email", email);
+                return "redirect:/login";
+            }
+        } finally {
+            // Chiudi il contesto in ogni caso
+            context.close();
         }
     }
-    
-    
-
 }

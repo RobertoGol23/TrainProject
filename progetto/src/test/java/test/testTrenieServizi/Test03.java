@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.ServizioGiaPresenteException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
@@ -63,7 +64,11 @@ public class Test03 {
             servizioDAO.eliminaServizioByName("bagno");
 
             // INSERIMENTO DI UN SERVIZIO
-            servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
+            try {
+				servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
+			} catch (ServizioGiaPresenteException e) {
+				System.out.println(e.message());
+			}
 
             
             int indexVagone = 0;

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,12 @@ import configuration.JpaConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import entity.acquisto.Acquisto;
+import entity.classi_astratte.Vagone;
+import entity.dao.AcquistoDAO;
 import entity.dao.UserDAO;
+import entity.dao.VagoneDAO;
+import entity.treno.Treno;
 import entity.user.User;
 
 
@@ -171,6 +178,76 @@ public class UserController {
         
     }
 
-   
+ // // Mostra i treni posseduti dall'utente
+    @GetMapping("/viewTrains")
+    public String viewUserTrains(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        UserDAO userDAO = context.getBean(UserDAO.class);
+
+        // Ottieni i treni dell'utente
+        List<Treno> userTrains = userDAO.getTrenoByUserId(loggedInUser.getId_user());
+
+        // Genera l'HTML per la tabella
+        StringBuilder tableHtml = new StringBuilder();
+
+        tableHtml.append("<table><thead><tr>")
+                .append("<th>Nome Treno</th>")
+                .append("<th>Peso Totale (ton)</th>")
+                .append("<th>Prezzo Totale (€)</th>")
+                .append("<th>Dettagli</th>") // Colonna per i pulsanti
+                .append("</tr></thead><tbody>");
+
+        for (Treno train : userTrains) {
+            tableHtml.append("<tr>")
+                    .append("<td text-align='center'>").append(train.getNome()).append("</td>")
+                    .append("<td>").append(train.getPesoTotaleTreno()).append("</td>")
+                    .append("<td>").append(train.getPrezzoTotaleTreno()).append("</td>")
+                    .append("<td>")
+                    .append("<form action='/treni/dettagli' method='get'>") // Modulo con pulsante
+                    .append("<input type='hidden' name='trenoId' value='").append(train.getId()).append("' />")
+                    .append("<button type='submit'>Visualizza</button>")
+                    .append("</form>")
+                    .append("</td>")
+                    .append("</tr>");
+        }
+
+        tableHtml.append("</tbody></table>");
+
+        // Aggiungi l'HTML della tabella al modello
+        model.addAttribute("trainsTable", tableHtml.toString());
+
+        context.close();
+
+        return "dashboard/user/viewTrains"; // Nome della vista JSP per mostrare i treni
+    }
+    
+ // Aggiungi questo metodo nel tuo UserController
+    @GetMapping("/viewPurchasedTrains")
+    public String viewPurchasedTrains(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class);
+        
+        // Ottieni la lista degli acquisti per l'utente
+        List<Acquisto> acquisti = acquistoDAO.getAcquistiByUserId(loggedInUser.getId_user());
+
+        // Aggiungi la lista degli acquisti al modello
+        model.addAttribute("acquisti", acquisti);
+
+        context.close();
+
+        return "dashboard/user/viewPurchasedTrains"; // Nome della vista JSP per mostrare i treni acquistati
+    }
 
 }

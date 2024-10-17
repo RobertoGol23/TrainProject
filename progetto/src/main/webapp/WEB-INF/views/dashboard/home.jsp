@@ -81,12 +81,33 @@
 
         <!-- Nuovo pulsante per creare un treno -->
         <div class="form-container">
-            <h2>Crea un Nuovo Treno</h2>
+            <h2>Crea un Nuovo Treno con sigla</h2>
             <form action="train/createTrain" method="get">
                 <button type="submit">Crea Treno</button>
             </form>
         </div>
+        
+        <div class="form-container">
+            <h2>Crea un Nuovo Treno dinamico</h2>
+            <form action="train/creaTrenoProva" method="get">
+                <button type="submit">Crea Treno</button>
+            </form>
+        </div>
     </div>
+    
+    <div class="form-container">
+    	<h2>I Miei Treni Creati</h2>
+   		<form action="user/viewTrains" method="get">
+        	<button type="submit">Visualizza Treni</button>
+    	</form>
+	</div>
+	<div class="form-container">
+    	<h2>I Miei Treni Comprati</h2>
+   		<form action="user/viewPurchasedTrains" method="get">
+        	<button type="submit">Visualizza Treni</button>
+    	</form>
+	</div>
+    
 
     <a href="/train-bazaar/login">Logout</a>
 

@@ -2,6 +2,7 @@ package entity.dao;
 
 
 
+import entity.treno.Treno;
 import entity.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -89,6 +90,37 @@ public class UserDAO {
         }
     }
     
+    
+    /**
+     * Metodo che verifica se la password è corretta per un dato indirizzo email
+     * @param email l'email dell'utente
+     * @param password, la password da verificare
+     * @return true, se la password è corretta, false altrimenti
+     */
+    public boolean checkPasswordByUser(String email, String password) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+        Root<User> userRoot = criteriaQuery.from(User.class);
+
+        // Crea il predicate per filtrare l'utente tramite l'email
+        Predicate emailPredicate = criteriaBuilder.equal(userRoot.get("email"), email);
+        criteriaQuery.select(userRoot).where(emailPredicate);
+
+        // Esegui la query e metti il risultato in una lista
+        TypedQuery<User> typedQuery = em.createQuery(criteriaQuery);
+        List<User> result = typedQuery.getResultList(); // Utilizziamo getResultList per evitare eccezioni
+
+        // Controlla se la lista è vuota (nessun utente trovato)
+        if (result.isEmpty()) {
+            return false; // Nessun utente trovato
+        } else {
+            User user = result.get(0); // Prendi il primo utente trovato (email univoca)
+            // Verifica se la password è corretta
+            return user.getPassword().equals(password);
+        }
+    }
+    
+    
     /**
      * Metodo che cerca sul db la coppia utente e password 
      * @param email
@@ -128,5 +160,17 @@ public class UserDAO {
         cq.select(root);
         return em.createQuery(cq).getResultList();
     }
+    
+    @Transactional
+	public List<Treno> getTrenoByUserId(Long user_id){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
+
+		Root<Treno> root = cq.from(Treno.class);
+
+		cq.select(root).where(cb.equal(root.get("user").get("id"), user_id));
+
+		return em.createQuery(cq).getResultList();
+	}
 
 }

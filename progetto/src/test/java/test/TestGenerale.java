@@ -6,6 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.ServizioGiaPresenteException;
 import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.acquisto.Acquisto;
@@ -270,7 +271,9 @@ public class TestGenerale {
 		}
         catch(SoldiNonSufficientiException e){
             System.out.println(e.getMessage()+e.getSuggerimento());       
-        }
+        } catch (ServizioGiaPresenteException e) {
+        	System.out.println(e.message());
+		}
 
 
 

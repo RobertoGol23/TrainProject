@@ -20,6 +20,7 @@
 	<bean id="trainController" class="controller.TrainController" />
 	<bean id="genericController" class="controller.GenericController" />
 	<bean id="dashboardController" class="controller.DashboardController" />
+	<bean id="marketController" class="controller.MarketController" />
 	<!-- Puoi definire altri controller e servizi qui -->
 
 </beans>
