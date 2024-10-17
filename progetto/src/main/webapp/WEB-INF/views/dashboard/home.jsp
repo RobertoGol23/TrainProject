@@ -81,13 +81,13 @@
 
         <!-- Nuovo pulsante per creare un treno -->
         <div class="form-container">
-            <h2>Crea un Nuovo Treno</h2>
+            <h2>Crea un Nuovo Treno con sigla</h2>
             <form action="train/createTrain" method="get">
                 <button type="submit">Crea Treno</button>
             </form>
         </div>
         <div class="form-container">
-            <h2>Crea un Nuovo Treno Prova</h2>
+            <h2>Crea un Nuovo Treno dinamico</h2>
             <form action="train/creaTrenoProva" method="get">
                 <button type="submit">Crea Treno</button>
             </form>
