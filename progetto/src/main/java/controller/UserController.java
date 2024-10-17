@@ -12,10 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import entity.acquisto.Acquisto;
-import entity.classi_astratte.Vagone;
 import entity.dao.AcquistoDAO;
 import entity.dao.UserDAO;
-import entity.dao.VagoneDAO;
 import entity.treno.Treno;
 import entity.user.User;
 

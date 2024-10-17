@@ -2,7 +2,6 @@ package utility;
 
 import java.util.ArrayList;
 
-import eccezioni.eccezioniGeneriche.ServizioGiaPresenteException;
 import entity.dao.ServizioDAO;
 import entity.servizi.Servizio;
 import fabbriche.FabbricaServizi;
