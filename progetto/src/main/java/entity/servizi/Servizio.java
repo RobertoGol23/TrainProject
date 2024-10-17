@@ -12,12 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 
 // TODO creare un "seeder" che inserisce i dati dei servizi direttamente nel database
 // TODO: creare il bean relativo!!!1
 
 @Entity
+@Table(name = "Servizi")
 public class Servizio { //da creare xml per inserire i dati dei servizi direttamente
 	
 	@Id

@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "voti", uniqueConstraints = { //impedisce di avere nella tabella altri campi con chiavi uguali
+@Table(name = "Voti", uniqueConstraints = { //impedisce di avere nella tabella altri campi con chiavi uguali
 	    @UniqueConstraint(columnNames = {"user_id", "treno_id"})
 	    })
 public class Voto {

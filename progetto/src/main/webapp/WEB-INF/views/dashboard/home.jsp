@@ -109,7 +109,7 @@
 	</div>
     
 
-    <a href="/train-bazaar/login">Logout</a>
+    <a href="/logout">Logout</a>
 
 </body>
 </html>
