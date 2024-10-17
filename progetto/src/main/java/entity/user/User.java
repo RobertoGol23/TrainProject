@@ -70,10 +70,10 @@ public class User {
 		this.wallet = 0.0;
 	}
 
-	public Long getId_User() {
+	public Long getId_user() {
 		return id_user;
 	}
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -104,10 +104,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Long getId_user() {
-		return id_user;
 	}
 
 	public Double getWallet() {

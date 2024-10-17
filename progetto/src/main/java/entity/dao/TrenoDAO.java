@@ -21,7 +21,6 @@ import java.util.*;
 
 import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
-import eccezioni.eccezioniSigla.TroppoPesoException;
 
 
 public class TrenoDAO {
@@ -83,101 +82,6 @@ public class TrenoDAO {
         return em.createQuery(cq).getResultList();
     } 
 
-
-    /**
-     * Metodo che consente di rimuovere uno o più vagoni dato l'id di un treno, passandogli id da rimuovere
-     * Dal sito web l'utente selezionerà dalle checkbox i vagoni da rimuovere. Per evitare errori si può evitare di mettere la checkbox nella locomotiv,
-     * così non sarà possibile per l'utente rimuoverla e non sarà da gestire negli errori
-     * @param id_treno, id del treno da cui togliere i vagoni
-     * @param idVagoni, questa lista di id dei vagoni non rappresenta una raccolta di id dei vagoni presenti sul db. Quelli sono fissi.
-     * Gli id che saranno passati qui, saranno quelli scelti dall'utente dalla lista vagoni, quindi a seconda della disposizione sul sito
-     * @param siglaNuova
-     * @return un boleano che indica la riuscita dell'operazione
-     */
-	@Transactional
-	public boolean eliminaVagoni(Long id_treno, ArrayList<Integer> idVagoni) {
-
-		TrenoUtility trenoUtility = new TrenoUtility();
-		Treno treno = this.getTrenoById(id_treno);
-		String siglaNuova = trenoUtility.riduciSigla(idVagoni, trenoUtility.getSigla(treno));
-		
-		try
-		{
-			if(trenoUtility.controllaSigla(siglaNuova))
-			{
-				for(int id:idVagoni)
-				{
-					treno.getVagone(id);
-					treno.deleteVagone(id);
-				}
-				em.merge(treno);
-			}
-		}
-		catch(SiglaTrenoException e)
-		{
-			System.out.println("Errore: " + e.getMessage());
-		}
-		
-		return false; 
-	}
-
-	
-	/**
-     * Metodo che consente di aggiungere uno o più vagoni dato l'id di un treno, passandogli in input la nuova sigla e gli id
-     * con la posizione dei vagoni da aggiungere
-     * @param id_treno, id del treno a cui aggiungere i vagoni
-     * @param idVagoni, questa lista di id dei vagoni indica la posizione dei vagoni nuovi che vuoi aggiungere
-     * @param siglaNuova
-     * @return un boleano che indica la riuscita dell'operazione
-	 * @throws MarcaNonValidaException 
-     */																			   //01 2  3 45
-	@Transactional											   //   2,3				 HP(P)(P)PP
-	public boolean aggiungiVagoni(Long id_treno, ArrayList<Integer> idVagoni, String siglaNuova) throws Exception
-	{
-		TrenoUtility trenoUtility = new TrenoUtility();
-	
-		try
-		{
-			if(trenoUtility.controllaSigla(siglaNuova))
-			{
-				Treno treno = this.getTrenoById(id_treno);
-				int id_marca = trenoUtility.getIntByMarca(treno.getMarca());
-				
-				FabbricaVagoni fabbrica = trenoUtility.getFabbricaById(id_marca);
-				TrenoBuilder builder = new Assemblatore(fabbrica);
-				Vagone vagone;
-				
-				Double pesoVagoniAggiunti = 0.0;
-				
-				for(int id:idVagoni)
-				{
-					vagone = builder.getVagoneByType(siglaNuova.charAt(id));
-					pesoVagoniAggiunti = pesoVagoniAggiunti + vagone.getPeso();
-					treno.addVagone(id, vagone);
-				}
-				
-				Double sommaPesoVagoni = getSommaPesoVagoni(id_treno);
-				List<Double> pesoTrainabile = getPesoTrainabileByTrenoId(id_treno);
-
-				
-				if(pesoTrainabile.get(0)>(pesoVagoniAggiunti+sommaPesoVagoni))
-				{
-					em.merge(treno);
-				}
-				else
-				{
-					throw new TroppoPesoException(siglaNuova, "Sono stati inseriti troppi vagoni, il peso trasportabile e' minore");
-				}	
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println("Errore: " + e.getMessage());
-		}
-		
-		return true; 
-	}
-	
 	/**
 	 * Metodo che recupera l'attributo pesoTrainabile dalla locomotiva dato l'id del treno passato
 	 * @param idTreno
@@ -186,7 +90,7 @@ public class TrenoDAO {
 	@SuppressWarnings("unchecked")
 	public List<Double> getPesoTrainabileByTrenoId(Long idTreno) {
 	    String sql = "SELECT l.peso_trainabile " +
-	                 "FROM locomotiva l " +
+	                 "FROM Locomotiva l " +
 	                 "JOIN treno_vagoni tv ON l.id_vagone = tv.id_vagone " +
 	                 "WHERE tv.id_treno = :trenoId";
 
@@ -196,28 +100,6 @@ public class TrenoDAO {
 
 	    return query.getResultList();
 	}
-	
-	
-	/**
-	 * Metodo che esegue una query SQL nativa per ottenere la somma dei pesi dei vagoni di un treno
-	 * @param trenoId L'id del treno
-	 * @return sommaPeso La somma dei pesi dei vagoni associati al treno
-	 */
-	public Double getSommaPesoVagoni(Long trenoId) {
-	    String sql = "SELECT "
-	    		 	+ "SUM(v.peso) "
-	    		 	+ "FROM "
-	    		 	+ " Vagone v "
-	    		 	+ "  JOIN treno_vagoni tv ON v.id_vagone = tv.id_vagone "
-	    		 	+ "WHERE "
-	    		 	+ "   tv.id_treno = :trenoId ";
-	    
-	    Query query = em.createNativeQuery(sql);
-	    query.setParameter("trenoId", trenoId);
-	
-	    return (Double) query.getSingleResult();
-	}
-
 
 	// VA MA NON SI FA COSÌ
 	@Transactional
@@ -241,6 +123,131 @@ public class TrenoDAO {
 
 		return listaFinale;
     }
+
+	@Transactional
+	public List<Treno> getTrenoByUserId(Long user_id){
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
+
+		Root<Treno> root = cq.from(Treno.class);
+
+		cq.select(root).where(cb.equal(root.get("user").get("id"), user_id));
+
+		return em.createQuery(cq).getResultList();
+	}
+
+
+    /**
+     * Metodo che consente di rimuovere uno o più vagoni dato l'id di un treno, passandogli id da rimuovere
+     * Dal sito web l'utente selezionerà dalle checkbox i vagoni da rimuovere. Per evitare errori si può evitare di mettere la checkbox nella locomotiv,
+     * così non sarà possibile per l'utente rimuoverla e non sarà da gestire negli errori
+     * @param id_treno, id del treno da cui togliere i vagoni
+     * @param idVagoni, questa lista di id dei vagoni non rappresenta una raccolta di id dei vagoni presenti sul db. Quelli sono fissi.
+     * Gli id che saranno passati qui, saranno quelli scelti dall'utente dalla lista vagoni, quindi a seconda della disposizione sul sito
+     * @param siglaNuova
+     * @return un boleano che indica la riuscita dell'operazione
+     */
+	@Transactional
+	public boolean eliminaVagoni(Long id_treno, ArrayList<Integer> posVagoni) {
+
+		TrenoUtility trenoUtility = new TrenoUtility();
+		Treno treno = this.getTrenoById(id_treno);
+		String siglaNuova = trenoUtility.riduciSigla(posVagoni, trenoUtility.getSigla(treno));
+
+		try
+		{
+			if(trenoUtility.controllaSigla(siglaNuova)){
+				for(int i=posVagoni.size()-1; i >= 0; i--){
+					int pos = posVagoni.get(i);
+					treno.deleteVagone(pos);
+				}
+
+				em.merge(treno);
+				em.flush();
+			}
+		}
+		catch(SiglaTrenoException e)
+		{
+			System.out.println("Errore: " + e.getMessage());
+		}
+		
+		return false; 
+	}
+
+	
+	/**
+     * Metodo che consente di aggiungere uno o più vagoni dato l'id di un treno, passandogli in input la nuova sigla e gli id
+     * con la posizione dei vagoni da aggiungere
+     * @param id_treno, id del treno a cui aggiungere i vagoni
+     * @param idVagoni, questa lista di id dei vagoni indica la posizione dei vagoni nuovi che vuoi aggiungere
+     * @param siglaNuova
+     * @return un boleano che indica la riuscita dell'operazione
+	 * @throws MarcaNonValidaException 
+     */																			   
+	@Transactional
+	public boolean aggiungiVagoni(Long id_treno, ArrayList<Integer> posVagoni, String siglaNuova) throws Exception, SiglaTrenoException {
+		TrenoUtility trenoUtility = new TrenoUtility();
+		Treno treno = this.getTrenoById(id_treno);
+
+		// Controlla la lunghezza della sigla
+		if (siglaNuova.length() < trenoUtility.getSigla(treno).length()) {
+			return false; // Questo non causa un rollback automatico
+		}
+
+		if (trenoUtility.controllaSigla(siglaNuova)) {
+			int id_marca = trenoUtility.getIntByMarca(treno.getMarca());
+			FabbricaVagoni fabbrica = trenoUtility.getFabbricaById(id_marca);
+			TrenoBuilder builder = new Assemblatore(fabbrica);
+			Vagone vagone;
+
+			try {
+				for (int pos : posVagoni) {
+					if (pos > siglaNuova.length()) {
+						return false; // Questo non causa un rollback
+					}
+
+					vagone = builder.getVagoneByType(siglaNuova.charAt(pos));
+					treno.addVagone(pos, vagone);
+				}
+
+				// Controlla il peso trainabile
+				if (!trenoUtility.controllaPesoTrainabile(siglaNuova, treno.getListaVagoni())) {
+					return false; // Questo non causa un rollback
+				}
+
+				em.merge(treno);
+				em.flush();
+				return true;
+
+			} catch (Exception e) {
+				System.out.println("Errore durante l'aggiunta dei vagoni: " + e.getMessage());
+				throw e; // Lancia nuovamente l'eccezione per attivare il rollback
+			}
+		}
+
+		return false; 
+	}
+	
+	//TODO: controllare se serve ALLA FINE
+	/**
+	 * Metodo che esegue una query SQL nativa per ottenere la somma dei pesi dei vagoni di un treno
+	 * @param trenoId L'id del treno
+	 * @return sommaPeso La somma dei pesi dei vagoni associati al treno
+	 */
+	public Double getSommaPesoVagoni(Long trenoId) {
+	    String sql = "SELECT "
+	    		 	+ "SUM(v.peso) "
+	    		 	+ "FROM "
+	    		 	+ " Vagone v "
+	    		 	+ "  JOIN treno_vagoni tv ON v.id_vagone = tv.id_vagone "
+	    		 	+ "WHERE "
+	    		 	+ "   tv.id_treno = :trenoId ";
+	    
+	    Query query = em.createNativeQuery(sql);
+	    query.setParameter("trenoId", trenoId);
+	
+	    return (Double) query.getSingleResult();
+	}
 
 	@Transactional
 	public boolean addServizio(Long id_treno, int id_vagone, String servizio){
