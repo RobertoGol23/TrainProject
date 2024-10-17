@@ -186,6 +186,22 @@ public class Treno {
 	public void setListaVagoni(ArrayList<Vagone> listaVagoni) {
 		this.listaVagoni = listaVagoni;
 	}
+	
+	public int getPasseggeriTotali() {
+		int passeggeri = 0;
+		for(Vagone v : this.getListaVagoni()) {
+			if(v.getTipo().equals("VagonePasseggeri")) {
+				VagonePasseggeri pas = (VagonePasseggeri)v;
+				passeggeri = passeggeri + pas.getPostiASedere(); 
+			}
+			
+		}
+		return passeggeri;
+	}
+	
+	public String getImageUrl() {
+		return null;
+	}
 
 	@Override
 	public String toString() {
