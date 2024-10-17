@@ -6,6 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.ServizioGiaPresenteException;
 import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.acquisto.Acquisto;
@@ -174,8 +175,8 @@ public class TestGenerale {
 
             // --- QUERY TRENO --- 
 
-            // treno by ID
-            System.out.println("\n\n1. TRENO BY ID");
+            // treno by Marca
+            System.out.println("\n\n1. TRENO BY MARCA");
             System.out.println(trenoDAO.getTrenoByMarca(1));
 
             // treno by name
@@ -205,7 +206,9 @@ public class TestGenerale {
 		}
         catch(SoldiNonSufficientiException e){
             System.out.println(e.getMessage()+e.getSuggerimento());       
-        }
+        } catch (ServizioGiaPresenteException e) {
+        	System.out.println(e.message());
+		}
 
 
 
