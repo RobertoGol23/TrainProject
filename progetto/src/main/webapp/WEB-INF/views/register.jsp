@@ -46,7 +46,8 @@
             cursor: pointer;
         }
         button:hover {
-            background-color: #79c7e3;
+            background-color: #8a79c7;
+            color: #ffffff;
         }
         a{
             color: #ffffff;
