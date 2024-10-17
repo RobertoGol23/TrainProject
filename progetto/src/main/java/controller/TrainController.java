@@ -29,10 +29,88 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import utility.Assemblatore;
 import utility.ServiziUtility;
+import utility.TrenoUtility;
 
 @Controller
 @RequestMapping("/dashboard/train")
 public class TrainController {
+	
+	@GetMapping("/creaTrenoProva")
+    public String mostraCreazioneTrenoProva(HttpServletRequest request, Model model) {
+
+        if ((User) request.getSession().getAttribute("user") == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
+        return "dashboard/train/creaTrenoProva"; // Nome della JSP da visualizzare
+    }
+	
+	@PostMapping("/creaTrenoProva")
+	public String creaTreno(@RequestParam("wagons[]") List<String> vagoni, Model model, HttpServletRequest request) {
+	    
+		String stringFabbricaId = "1"; //arriva come parametro
+		int fabbricaId = Integer.parseInt(stringFabbricaId);
+		
+		String sigla = "";
+		for(String v: vagoni)
+		{
+			sigla += v;
+		}
+		
+		HttpSession session = request.getSession();
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+        
+        TrenoUtility tu = new TrenoUtility();
+        FabbricaVagoni fabbrica = tu.getFabbricaById(1/*fabbricaId*/);
+        
+        System.out.println("Sigla dal sito: " + sigla);
+        
+        try {
+            // Crea il treno usando il builder
+            Assemblatore assemblatore = new Assemblatore(fabbrica);
+            Treno nuovoTreno = assemblatore.costruisciTreno("Nome treno", sigla, utente, fabbricaId);
+   
+            
+            if (nuovoTreno != null) {
+                // Salva il treno nel database
+                AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+                TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+                trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
+                
+                
+                ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+        		ServiziUtility su = new ServiziUtility();
+        		su.aggiungiServiziAlDB(servizioDAO);
+        		
+        		context.close();
+                request.setAttribute("idTreno", nuovoTreno.getId());
+                
+                // Reindirizza alla pagina di modifica vagoni con l'ID del treno
+                return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
+                //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
+            } else {
+                request.setAttribute("error", "Errore durante la creazione del treno.");
+                System.out.println("Errore generico creazione treno");
+                return "dashboard/train/creaTrenoProva"; // Ritorna alla pagina di creazione del treno
+            }
+
+        } catch (SiglaTrenoException e) {
+            request.setAttribute("error", "Sigla del treno non valida.");
+            System.out.println("Errore sigla");
+            return "dashboard/train/creaTrenoProva"; // Ritorna alla pagina di creazione del treno
+        }
+        catch (Exception e) {
+        	System.out.println(e.getMessage());
+        	System.out.println("Errore generico");
+        	request.setAttribute("error", "Si è verificato un errore, riprova.");
+        	return "dashboard/train/modifyWagons";
+		}
+	}
+	
 	
     @GetMapping("/createTrain")
     public String mostraCreazioneTreno(HttpServletRequest request, Model model) {
@@ -59,22 +137,9 @@ public class TrainController {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
 
-        // Seleziona la fabbrica corretta in base al valore scelto dall'utente
-        FabbricaVagoni fabbrica = null;
-        switch (fabbricaId) {
-            case "1":
-                fabbrica = new FabbricaXFurryFast();
-                break;
-            case "2":
-                fabbrica = new FabbricaKargoModelz();
-                break;
-            case "3":
-                fabbrica = new FabbricaRegionalGain();
-                break;
-            default:
-                request.setAttribute("error", "Fabbrica non valida.");
-                return "/createTrain"; // Ritorna alla pagina di creazione del treno
-        }
+        TrenoUtility tu = new TrenoUtility();
+        FabbricaVagoni fabbrica = tu.getFabbricaById(Integer.parseInt(fabbricaId));
+
 
         try {
             // Crea il treno usando il builder
