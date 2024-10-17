@@ -176,7 +176,7 @@ public class UserController {
         
     }
 
- // Mostra i treni posseduti dall'utente
+ // // Mostra i treni posseduti dall'utente
     @GetMapping("/viewTrains")
     public String viewUserTrains(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("user");
@@ -187,44 +187,42 @@ public class UserController {
 
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         UserDAO userDAO = context.getBean(UserDAO.class);
-        VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
 
         // Ottieni i treni dell'utente
         List<Treno> userTrains = userDAO.getTrenoByUserId(loggedInUser.getId_user());
 
-        // Genera l'HTML per l'accordion
-        StringBuilder accordionHtml = new StringBuilder();
+        // Genera l'HTML per la tabella
+        StringBuilder tableHtml = new StringBuilder();
+
+        tableHtml.append("<table><thead><tr>")
+                .append("<th>Nome Treno</th>")
+                .append("<th>Peso Totale (ton)</th>")
+                .append("<th>Prezzo Totale (€)</th>")
+                .append("<th>Dettagli</th>") // Colonna per i pulsanti
+                .append("</tr></thead><tbody>");
 
         for (Treno train : userTrains) {
-            accordionHtml.append("<button class=\"accordion\">")
-                    .append(train.getNome())
-                    .append(train.getPesoTotaleTreno())
-                    .append(train.getPrezzoTotaleTreno())
-                    .append("</button>");
-            
-            // Recupera i vagoni per il treno
-            List<Vagone> vagoni = train.getListaVagoni(); // Supponendo tu abbia un metodo per recuperare i vagoni
-            accordionHtml.append("<div class=\"panel\"><table><thead><tr>")
-                    .append("<th>Vagone</th>")
-                    .append("<th>Peso (ton)</th>")
-                    .append("<th>Prezzo (€)</th>")
-                    .append("</tr></thead><tbody>");
-
-            for (Vagone v : vagoni) {
-                accordionHtml.append("<tr>")
-                        .append("<td>").append(v.getTipo()).append("</td>")
-                        .append("<td>").append(v.getPeso()).append("</td>")
-                        .append("<td>").append(v.getPrezzo()).append("</td>")
-                        .append("</tr>");
-            }
-            accordionHtml.append("</tbody></table></div>"); // Chiude il div del pannello
+            tableHtml.append("<tr>")
+                    .append("<td text-align='center'>").append(train.getNome()).append("</td>")
+                    .append("<td>").append(train.getPesoTotaleTreno()).append("</td>")
+                    .append("<td>").append(train.getPrezzoTotaleTreno()).append("</td>")
+                    .append("<td>")
+                    .append("<form action='/treni/dettagli' method='get'>") // Modulo con pulsante
+                    .append("<input type='hidden' name='trenoId' value='").append(train.getId()).append("' />")
+                    .append("<button type='submit'>Visualizza</button>")
+                    .append("</form>")
+                    .append("</td>")
+                    .append("</tr>");
         }
 
-        // Aggiungi l'HTML dell'accordion al modello
-        model.addAttribute("trainsTable", accordionHtml.toString());
+        tableHtml.append("</tbody></table>");
+
+        // Aggiungi l'HTML della tabella al modello
+        model.addAttribute("trainsTable", tableHtml.toString());
 
         context.close();
 
         return "dashboard/user/viewTrains"; // Nome della vista JSP per mostrare i treni
     }
+
 }

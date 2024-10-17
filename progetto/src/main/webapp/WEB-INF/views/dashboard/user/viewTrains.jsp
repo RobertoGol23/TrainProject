@@ -18,30 +18,20 @@
         h1 {
             color: #8a79c7;
         }
-        .accordion {
-            background-color: #49456d;
-            color: #ffffff;
-            cursor: pointer;
+        button {
+            width: 100%;
             padding: 10px;
+            background-color: #79c7e3;
             border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            transition: background-color 0.2s ease;
-            width: 80%; /* Imposta la larghezza per gli accordion */
-            margin: 10px 0; /* Aggiungi margine tra gli accordion */
+            border-radius: 5px;
+            color: #2e2b4f;
+            cursor: pointer;
         }
-        .accordion:hover {
-            background-color: #3a3758;
+        button:hover {
+            background-color: #8a79c7;
+            color: #ffffff;
         }
-        .panel {
-            padding: 0 10px;
-            display: none;
-            overflow: hidden;
-            background-color: #333;
-            width: 80%; /* Imposta la larghezza per i pannelli */
-            margin-bottom: 10px; /* Aggiungi margine inferiore ai pannelli */
-        }
+        
         table {
             width: 100%; /* Imposta la larghezza della tabella al 100% */
             background-color: #49456d;
@@ -51,12 +41,15 @@
         }
         th, td {
             padding: 12px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid #ddd;
         }
         th {
             background-color: #79c7e3;
             color: #2e2b4f;
+        }
+        div {
+        	width: 50%;
         }
     </style>
 </head>
@@ -67,21 +60,6 @@
     <div>
         ${trainsTable}
     </div>
-
-    <script>
-        // Funzione per gestire l'apertura e la chiusura delle tendine
-        document.querySelectorAll('.accordion').forEach(button => {
-            button.addEventListener('click', function() {
-                this.classList.toggle('active');
-                const panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
-        });
-    </script>
 
 </body>
 </html>
