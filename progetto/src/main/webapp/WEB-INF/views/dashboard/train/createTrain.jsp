@@ -30,8 +30,6 @@
             margin-bottom: 20px;
             border-radius: 5px;
             border: none;
-            
-            color: #ffffff;
         }
         select {
         	width: 100%;

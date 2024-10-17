@@ -6,12 +6,13 @@ import org.springframework.context.support.AbstractApplicationContext;
 import configuration.JpaConfig;
 import entity.dao.ServizioDAO;
 import fabbriche.FabbricaServizi;
+import utility.ServiziUtility;
 
 public class Test08 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		/*				TEST 0
+		/*				TEST 8
 		 * 
 		 * inserimento di tutti i servizi al database
 		 * 
@@ -24,13 +25,8 @@ public class Test08 {
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 		FabbricaServizi fabbricaServizi = new FabbricaServizi();
 		ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-		servizioDAO.salvaServizio(fabbricaServizi.creaTemperatura());
-		servizioDAO.salvaServizio(fabbricaServizi.creaWifi());
-		servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
-		servizioDAO.salvaServizio(fabbricaServizi.creaCinema());
-		servizioDAO.salvaServizio(fabbricaServizi.creaColore());
-		servizioDAO.salvaServizio(fabbricaServizi.creaMenu());
-		servizioDAO.salvaServizio(fabbricaServizi.creaSicurezza());
+		ServiziUtility su = new ServiziUtility();
+		su.aggiungiServiziAlDB(servizioDAO);
 		
 		
 		context.close();

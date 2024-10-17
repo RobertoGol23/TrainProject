@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
+import eccezioni.eccezioniGeneriche.ServizioGiaPresenteException;
 import entity.servizi.Servizio;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -15,8 +16,9 @@ public class ServizioDAO{
 	    private EntityManager em;
 
 	    @Transactional
-	    public void salvaServizio(Servizio servizio) {
+	    public void salvaServizio(Servizio servizio) throws ServizioGiaPresenteException {
 	        em.persist(servizio);
+	    	
 	    }
 
 	    @Transactional

@@ -28,6 +28,7 @@ import fabbriche.FabbricaXFurryFast;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import utility.Assemblatore;
+import utility.ServiziUtility;
 
 @Controller
 @RequestMapping("/dashboard/train")
@@ -79,15 +80,20 @@ public class TrainController {
             // Crea il treno usando il builder
             Assemblatore assemblatore = new Assemblatore(fabbrica);
             Treno nuovoTreno = assemblatore.costruisciTreno(nomeTreno, sigla, utente, Integer.parseInt(fabbricaId));
-
+   
+            
             if (nuovoTreno != null) {
                 // Salva il treno nel database
                 AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
                 TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
                 trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
-                context.close();
                 
-
+                
+                ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+        		ServiziUtility su = new ServiziUtility();
+        		su.aggiungiServiziAlDB(servizioDAO);
+        		
+        		context.close();
                 request.setAttribute("idTreno", nuovoTreno.getId());
                 
                 // Reindirizza alla pagina di modifica vagoni con l'ID del treno
@@ -102,6 +108,11 @@ public class TrainController {
             request.setAttribute("error", "Sigla del treno non valida.");
             return "dashboard/train/createTrain"; // Ritorna alla pagina di creazione del treno
         }
+        catch (Exception e) {
+        	System.out.println(e.getMessage());
+        	request.setAttribute("error", "Si è verificato un errore, riprova.");
+        	return "dashboard/train/modifyWagons";
+		}
     }
 
     @GetMapping("/modifyWagons")
