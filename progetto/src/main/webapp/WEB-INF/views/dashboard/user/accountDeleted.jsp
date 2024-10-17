@@ -49,7 +49,7 @@
     <p>Ci piacerebbe rivederti presto, ti invitiamo a iscriverti nuovamente.</p>
     
     <!-- TODO: /train-baazar/register -->
-    <form action="/my_esercizio/register" method="get">
+    <form action="/train-bazaar/register" method="get">
         <button type="submit">Registrati</button>
     </form>
 

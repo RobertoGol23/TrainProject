@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <a href="/train-baazar/login">Logout</a>
+    <a href="/train-bazaar/login">Logout</a>
 
 </body>
 </html>

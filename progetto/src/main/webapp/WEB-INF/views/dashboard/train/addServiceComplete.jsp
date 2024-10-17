@@ -61,7 +61,7 @@
                 } 
             %>
         </div>
-        <a href="/train-baazar/dashboard/home"><button>Torna alla Dashboard</button></a>
+        <a href="/train-bazaar/dashboard/home"><button>Torna alla Dashboard</button></a>
     </div>
 
 </body>
