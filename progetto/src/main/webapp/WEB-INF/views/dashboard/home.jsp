@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="../navbar.jsp" %> <!-- con .. si va indietro di una cartella-->
-
+    <%@ include file="../navbar.jsp" %> <!-- con .. si va indietro di una cartella-->
 
 <%@ page import="entity.user.User" %>
 <!DOCTYPE html>
@@ -16,8 +15,9 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
-            margin: 0; /* Rimuove il margine predefinito */
-            padding: 0; /* Rimuove il padding predefinito */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         h1 {
             color: #8a79c7;
@@ -34,7 +34,6 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            flex-wrap: wrap; /* Permette di adattare i contenitori */
         }
         .form-container {
             background-color: #49456d;
@@ -69,10 +68,9 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="container-benvenuto">
-        <h1>Benvenuto, ${user.nome}!</h1>
+
+    <h1>Benvenuto, ${user.nome}!</h1>
 
         <div class="content">
             <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
