@@ -13,9 +13,9 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
-            padding: 20px;
             text-align: center;
         }
+
         table {
             width: 80%;
             margin: 20px auto;
@@ -44,6 +44,10 @@
         .back-btn:hover {
             background-color: #45a049;
         }
+
+
+        
+
     </style>
 </head>
 <body>

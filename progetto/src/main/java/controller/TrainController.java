@@ -243,6 +243,7 @@ public class TrainController {
         Treno treno = trenoDAO.getTrenoById(trenoId);
         
         if (treno == null) {
+            context.close();;
             return "redirect:/dashboard/user/viewTrains"; // Se il treno non esiste, reindirizza alla lista dei treni
         }
 
