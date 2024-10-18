@@ -6,28 +6,12 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+   <link rel="stylesheet" type="text/css" href="../../../css/style.css"> <!-- Importa il CSS --> 
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wallet Aggiornato</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-        }
-        h1 {
-            color: #8a79c7;
-        }
-        .content {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #49456d;
-            border-radius: 10px;
-        }
-        a {
-            color: #79c7e3;
-        }
-    </style>
+
 </head>
 <body>
 

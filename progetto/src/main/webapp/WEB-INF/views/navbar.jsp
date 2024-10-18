@@ -101,7 +101,7 @@
                         <a class="nav-link btn btn-delft-blue text-bluepx-3 font-weight-bold " href="/train-bazaar/dashboard/home">
                         <i class="fas fa-home"></i> Home </a>
 
-                        <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold " href="user/addFunds">
+                        <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold " href="user/wallet">
                         <i class="fas fa-money-bill-wave"></i> Wallet </a>
                 </div>
 
