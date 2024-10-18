@@ -3,6 +3,7 @@
 <%@ page import="entity.classi_astratte.Vagone" %>
 <%@ page import="entity.servizi.Servizio" %>
 <%@ page import="java.util.List" %>
+<%@ include file="../../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>

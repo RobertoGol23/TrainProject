@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ include file="../../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -57,8 +59,6 @@
             <button type="submit">Aggiungi Fondi</button>
         </form>
     </div>
-
-    <a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a>
 
 </body>
 </html>
