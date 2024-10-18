@@ -3,6 +3,7 @@
 
 <%@ include file="navbar.jsp" %>
 
+<%@ page import="entity.user.User" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -80,7 +81,7 @@
     </div>
 
     <div class="container_pulsanti">
-        <!-- Involucro flessibile per i form container -->
+        <!-- Sezione visibile a tutti gli utenti -->
         <div class="form-wrapper">
             <div class="form-container">
                 <h2>Aggiungi Fondi al Tuo Wallet</h2>
@@ -96,35 +97,51 @@
                 </form>
             </div>
 
-            <!-- Nuovo pulsante per creare un treno -->
-            <div class="form-container">
-                <h2>Crea un Nuovo Treno con sigla</h2>
-                <form action="train/createTrain" method="get">
-                    <button type="submit">Crea Treno</button>
-                </form>
-            </div>
-            
-            <div class="form-container">
-                <h2>Crea un Nuovo Treno dinamico</h2>
-                <form action="train/creaTrenoProva" method="get">
-                    <button type="submit">Crea Treno</button>
-                </form>
-            </div>
-        </div>
-        
+        <!-- Nuovo pulsante per creare un treno -->
         <div class="form-container">
-            <h2>I Miei Treni Creati</h2>
-            <form action="user/viewTrains" method="get">
-                <button type="submit">Visualizza Treni</button>
-            </form>
-        </div>
-        <div class="form-container">
-            <h2>I Miei Treni Comprati</h2>
-            <form action="user/viewPurchasedTrains" method="get">
-                <button type="submit">Visualizza Treni</button>
+            <h2>Crea un Nuovo Treno con sigla</h2>
+            <form action="train/createTrain" method="get">
+                <button type="submit">Crea Treno</button>
             </form>
         </div>
         
+        <div class="form-container">
+            <h2>Crea un Nuovo Treno dinamico</h2>
+            <form action="train/creaTrenoProva" method="get">
+                <button type="submit">Crea Treno</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Visualizzazione treni creati e acquistati -->
+    <div class="form-container">
+        <h2>I Miei Treni Creati</h2>
+        <form action="user/viewTrains" method="get">
+            <button type="submit">Visualizza Treni</button>
+        </form>
+    </div>
+    <div class="form-container">
+        <h2>I Miei Treni Comprati</h2>
+        <form action="user/viewPurchasedTrains" method="get">
+            <button type="submit">Visualizza Treni</button>
+        </form>
+    </div>
+
+    <!-- Sezione visibile solo agli admin -->
+    <% 
+    	User user = (User) session.getAttribute("user");
+    	if (user != null && user.isSuperAdmin()) { 
+    %>
+    <div class="form-container">
+        <h2>Gestione Admin</h2>
+        <form action="admin/showPurchases" method="get">
+            <button type="submit">Mostra Tutti gli Acquisti</button>
+        </form>
+        <form action="admin/manageUsers" method="get">
+            <button type="submit">Gestisci Utenti</button>
+        </form>
+    </div>
+    <% } %>
 
         <a href="/logout">Logout</a>
     </div>
