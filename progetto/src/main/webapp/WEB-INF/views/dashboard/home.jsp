@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ include file="navbar.jsp" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -53,63 +56,78 @@
         button:hover {
             background-color: #8a79c7;
         }
+
+
+        .container-benvenuto {
+            margin: 2%;
+            /* padding: 30%; /* Padding interno */
+        }
+        .container-pulsanti {
+            max-width: 100%; /* Limita la larghezza massima */
+            padding: 100px; /* Padding interno */
+        }
+
     </style>
 </head>
+
 <body>
+    <div class="container-benvenuto">
+        <h1>Benvenuto, ${user.nome}!</h1>
 
-    <h1>Benvenuto, ${user.nome}!</h1>
-
-    <div class="content">
-        <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
+        <div class="content">
+            <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
+        </div>
     </div>
 
-    <!-- Involucro flessibile per i form container -->
-    <div class="form-wrapper">
-        <div class="form-container">
-            <h2>Aggiungi Fondi al Tuo Wallet</h2>
-            <form action="user/addFunds" method="get">
-                <button type="submit">Vai alla pagina di aggiunta fondi</button>
-            </form>
-        </div>
+    <div class="container_pulsanti">
+        <!-- Involucro flessibile per i form container -->
+        <div class="form-wrapper">
+            <div class="form-container">
+                <h2>Aggiungi Fondi al Tuo Wallet</h2>
+                <form action="user/addFunds" method="get">
+                    <button type="submit">Vai alla pagina di aggiunta fondi</button>
+                </form>
+            </div>
 
-        <div class="form-container">
-            <h2>Modifica il tuo Profilo</h2>
-            <form action="user/editProfile" method="get">
-                <button type="submit">Modifica Profilo</button>
-            </form>
-        </div>
+            <div class="form-container">
+                <h2>Modifica il tuo Profilo</h2>
+                <form action="user/editProfile" method="get">
+                    <button type="submit">Modifica Profilo</button>
+                </form>
+            </div>
 
-        <!-- Nuovo pulsante per creare un treno -->
-        <div class="form-container">
-            <h2>Crea un Nuovo Treno con sigla</h2>
-            <form action="train/createTrain" method="get">
-                <button type="submit">Crea Treno</button>
-            </form>
+            <!-- Nuovo pulsante per creare un treno -->
+            <div class="form-container">
+                <h2>Crea un Nuovo Treno con sigla</h2>
+                <form action="train/createTrain" method="get">
+                    <button type="submit">Crea Treno</button>
+                </form>
+            </div>
+            
+            <div class="form-container">
+                <h2>Crea un Nuovo Treno dinamico</h2>
+                <form action="train/creaTrenoProva" method="get">
+                    <button type="submit">Crea Treno</button>
+                </form>
+            </div>
         </div>
         
         <div class="form-container">
-            <h2>Crea un Nuovo Treno dinamico</h2>
-            <form action="train/creaTrenoProva" method="get">
-                <button type="submit">Crea Treno</button>
+            <h2>I Miei Treni Creati</h2>
+            <form action="user/viewTrains" method="get">
+                <button type="submit">Visualizza Treni</button>
             </form>
         </div>
-    </div>
-    
-    <div class="form-container">
-    	<h2>I Miei Treni Creati</h2>
-   		<form action="user/viewTrains" method="get">
-        	<button type="submit">Visualizza Treni</button>
-    	</form>
-	</div>
-	<div class="form-container">
-    	<h2>I Miei Treni Comprati</h2>
-   		<form action="user/viewPurchasedTrains" method="get">
-        	<button type="submit">Visualizza Treni</button>
-    	</form>
-	</div>
-    
+        <div class="form-container">
+            <h2>I Miei Treni Comprati</h2>
+            <form action="user/viewPurchasedTrains" method="get">
+                <button type="submit">Visualizza Treni</button>
+            </form>
+        </div>
+        
 
-    <a href="/logout">Logout</a>
+        <a href="/logout">Logout</a>
+    </div>
 
 </body>
 </html>

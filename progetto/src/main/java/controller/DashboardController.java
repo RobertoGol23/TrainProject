@@ -27,4 +27,6 @@ public class DashboardController {
         model.addAttribute("user", loggedInUser);
         return "dashboard/home"; // Mostra la dashboard
     }
+
+
 }
