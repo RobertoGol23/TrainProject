@@ -77,7 +77,7 @@
                 for (User user : users) {
             %>
             <tr>
-                <td><%= user.getId_User() %></td>
+                <td><%= user.getId_user() %></td>
                 <td><%= user.getNome() %></td>
                 <td><%= user.getEmail() %></td>
                 <td><%= user.isBloccato() ? "Bloccato" : "Attivo" %></td>

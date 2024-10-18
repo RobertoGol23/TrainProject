@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -31,6 +32,75 @@ import utility.TrenoUtility;
 @Controller
 @RequestMapping("/dashboard/train")
 public class TrainController {
+	
+	@GetMapping("/modifyTrain")
+	public String mostraModificaTreno(/*@RequestParam("idTreno") Long idTreno,*/ HttpServletRequest request, Model model) {
+
+	    // Verifica se l'utente è autenticato
+	    if ((User) request.getSession().getAttribute("user") == null) {
+	        return "redirect:/login";
+	    }
+
+	    Long fakeIdTreno = (long) 1;
+	    
+	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+	    Treno treno = trenoDAO.getTrenoById(fakeIdTreno);
+
+	    // Costruisci la tabella HTML con i vagoni e le checkbox
+	    StringBuilder vagoniHtml = new StringBuilder();
+	    vagoniHtml.append("<form action='rimuoviVagoni' method='POST'>");
+	    vagoniHtml.append("<table>");
+	    vagoniHtml.append("<thead><tr><th>Posizione</th><th>Tipo</th><th>Checkbox</th></tr></thead>");
+	    vagoniHtml.append("<tbody>");
+	    
+	    List<Vagone> vagoni = treno.getListaVagoni();
+	    for (int i = 0; i < vagoni.size(); i++) {
+	        Vagone vagone = vagoni.get(i);
+	        vagoniHtml.append("<tr>");
+	        vagoniHtml.append("<td>").append(i + 1).append("</td>");
+	        vagoniHtml.append("<td>").append(vagone.getTipo()).append("</td>");
+	        vagoniHtml.append("<td><input type='checkbox' name='vagoneId' value='").append(i).append("' /></td>");
+	        vagoniHtml.append("</tr>");
+	    }
+
+	    vagoniHtml.append("</tbody>");
+	    vagoniHtml.append("</table>");
+	    vagoniHtml.append("<button type='submit'>Rimuovi Vagoni</button>");
+	    vagoniHtml.append("</form>");
+
+	    // Aggiungi la tabella HTML generata al modello
+	    model.addAttribute("trenoNome", treno.getNome());
+	    model.addAttribute("vagoniHtml", vagoniHtml.toString());
+
+	    context.close();
+
+	    return "dashboard/train/modifyTrain"; // Nome della JSP da visualizzare
+	}
+
+	
+	@PostMapping("/rimuoviVagoni")
+	public String rimuoviVagoni(@RequestParam("vagoneId") List<Integer> vagoneIds,/* @RequestParam("idTreno") Long idTreno, */HttpServletRequest request) {
+
+	    // Verifica se l'utente è autenticato
+	    if ((User) request.getSession().getAttribute("user") == null) {
+	        return "redirect:/login";
+	    }
+
+	    Long fakeIdTreno = (long) 1;
+	    
+	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+
+
+	    trenoDAO.eliminaVagoni(fakeIdTreno,(ArrayList<Integer>)vagoneIds);
+
+	    context.close();
+
+	    return "dashboard/train/trainModifySuccess";
+	}
+
+	
 	
 	@GetMapping("/creaTrenoProva")
     public String mostraCreazioneTrenoProva(HttpServletRequest request, Model model) {
@@ -78,7 +148,7 @@ public class TrainController {
                 TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
                 trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
                 
-                
+                //Aggiunge i servizi al sito se non esistono
                 ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
         		ServiziUtility su = new ServiziUtility();
         		su.aggiungiServiziAlDB(servizioDAO);

@@ -107,22 +107,21 @@
                     <button type="submit">Crea Treno</button>
                 </form>
             </div>
-        </div>
-
-        <!-- Visualizzazione treni creati e acquistati -->
-        <div class="form-container">
-            <h2>I Miei Treni Creati</h2>
-            <form action="user/viewTrains" method="get">
-                <button type="submit">Visualizza Treni</button>
-            </form>
-        </div>
-        <div class="form-container">
-            <h2>I Miei Treni Comprati</h2>
-            <form action="user/viewPurchasedTrains" method="get">
-                <button type="submit">Visualizza Treni</button>
-            </form>
-        </div>
-
+        
+	        <!-- Visualizzazione treni creati e acquistati -->
+	        <div class="form-container">
+	            <h2>I Miei Treni Creati</h2>
+	            <form action="user/viewTrains" method="get">
+	                <button type="submit">Visualizza Treni</button>
+	            </form>
+	        </div>
+	        <div class="form-container">
+	            <h2>I Miei Treni Comprati</h2>
+	            <form action="user/viewPurchasedTrains" method="get">
+	                <button type="submit">Visualizza Treni</button>
+	            </form>
+	        </div>
+		</div>
         <!-- Sezione visibile solo agli admin -->
         <% 
             User user = (User) session.getAttribute("user");
@@ -139,5 +138,6 @@
         </div>
         <% } %>
     </div>
+
 </body>
 </html>

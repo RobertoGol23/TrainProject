@@ -51,6 +51,10 @@
         div {
         	width: 50%;
         }
+        a {
+            color: #79c7e3;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -60,6 +64,6 @@
     <div>
         ${trainsTable}
     </div>
-
+	<p align="center"><a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a></p>
 </body>
 </html>

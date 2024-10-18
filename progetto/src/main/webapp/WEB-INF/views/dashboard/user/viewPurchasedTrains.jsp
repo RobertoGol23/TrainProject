@@ -42,6 +42,10 @@
         .back-btn:hover {
             background-color: #45a049;
         }
+        a {
+            color: #79c7e3;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -86,9 +90,7 @@
         </tbody>
     </table>
 
-    <form action="/train-bazaar/dashboard/home" method="get">
-        <button type="submit" class="back-btn">Torna alla Dashboard</button>
-    </form>
+    <p align="center"><a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a></p>
 
 </body>
 </html>
