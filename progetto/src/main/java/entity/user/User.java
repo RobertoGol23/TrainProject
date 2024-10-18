@@ -40,6 +40,13 @@ public class User {
 	@Column(name = "wallet", nullable = true, unique = false)
 	private Double wallet = 0.0;
 	
+	@Column(name = "bloccato", nullable = false)
+	private boolean bloccato = false;
+	
+	@Column(name = "is_super_admin", nullable = false)
+    private boolean isSuperAdmin = false;
+
+	
 	
 	//TODO: Modificare in many-to-many ???
 	// One-to-Many: una persona può avere molti treni
@@ -117,6 +124,22 @@ public class User {
 	public void setWallet(Double wallet) {
 		this.wallet = wallet;
 	}
+	
+	public boolean isBloccato() {
+	    return bloccato;
+	}
+
+	public void setBloccato(boolean bloccato) {
+	    this.bloccato = bloccato;
+	}
+	
+	public boolean isSuperAdmin() {
+        return isSuperAdmin;
+    }
+
+    public void setSuperAdmin(boolean superAdmin) {
+        isSuperAdmin = superAdmin;
+    }
 	
 	@Override
 	public String toString() {

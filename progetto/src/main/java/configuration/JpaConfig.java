@@ -14,6 +14,7 @@ import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
 import entity.dao.VotoDAO;
 import entity.dao.AcquistoDAO;
+import entity.dao.AdminDAO;
 import entity.dao.ServizioDAO;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -104,6 +105,12 @@ public class JpaConfig {
     @Bean(name="acquistoDAO")
     public AcquistoDAO getAcquistoDAO() {
     	AcquistoDAO dao = new AcquistoDAO();
+        return dao;
+    }
+    
+    @Bean(name="adminDAO")
+    public AdminDAO adminDAO() {
+    	AdminDAO dao = new AdminDAO();
         return dao;
     }
 

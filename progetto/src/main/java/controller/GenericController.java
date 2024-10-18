@@ -70,6 +70,10 @@ public class GenericController {
                 if (userDAO.checkPasswordByUser(email, password)) {
                     // Imposta l'utente nella sessione e reindirizza alla home
                     session.setAttribute("user", user);
+                    if(user.isBloccato()) {
+                    	session.setAttribute("errorMessage", "Il tuo account e' stato bloccato");
+                    	return "redirect:/login";
+                    }
                     return "redirect:/dashboard/home";
                 } else {
                     // Password errata, imposta il messaggio di errore e torna al login
