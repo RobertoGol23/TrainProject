@@ -15,9 +15,8 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 0; /* Rimuove il margine predefinito */
+            padding: 0; /* Rimuove il padding predefinito */
         }
         h1 {
             color: #8a79c7;
@@ -34,6 +33,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap; /* Permette di adattare i contenitori */
         }
         .form-container {
             background-color: #49456d;
@@ -58,16 +58,13 @@
             background-color: #8a79c7;
         }
 
-
         .container-benvenuto {
-            margin: 2%;
-            /* padding: 30%; /* Padding interno */
+            margin: 2%; /* Margine su tutti i lati */
         }
         .container-pulsanti {
             max-width: 100%; /* Limita la larghezza massima */
-            padding: 100px; /* Padding interno */
+            padding: 0; /* Rimuove il padding */
         }
-
     </style>
 </head>
 
@@ -80,7 +77,7 @@
         </div>
     </div>
 
-    <div class="container_pulsanti">
+    <div class="container-pulsanti">
         <!-- Sezione visibile a tutti gli utenti -->
         <div class="form-wrapper">
             <div class="form-container">
@@ -97,54 +94,50 @@
                 </form>
             </div>
 
-        <!-- Nuovo pulsante per creare un treno -->
+            <div class="form-container">
+                <h2>Crea un Nuovo Treno con sigla</h2>
+                <form action="train/createTrain" method="get">
+                    <button type="submit">Crea Treno</button>
+                </form>
+            </div>
+            
+            <div class="form-container">
+                <h2>Crea un Nuovo Treno dinamico</h2>
+                <form action="train/creaTrenoProva" method="get">
+                    <button type="submit">Crea Treno</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Visualizzazione treni creati e acquistati -->
         <div class="form-container">
-            <h2>Crea un Nuovo Treno con sigla</h2>
-            <form action="train/createTrain" method="get">
-                <button type="submit">Crea Treno</button>
+            <h2>I Miei Treni Creati</h2>
+            <form action="user/viewTrains" method="get">
+                <button type="submit">Visualizza Treni</button>
             </form>
         </div>
-        
         <div class="form-container">
-            <h2>Crea un Nuovo Treno dinamico</h2>
-            <form action="train/creaTrenoProva" method="get">
-                <button type="submit">Crea Treno</button>
+            <h2>I Miei Treni Comprati</h2>
+            <form action="user/viewPurchasedTrains" method="get">
+                <button type="submit">Visualizza Treni</button>
             </form>
         </div>
-    </div>
 
-    <!-- Visualizzazione treni creati e acquistati -->
-    <div class="form-container">
-        <h2>I Miei Treni Creati</h2>
-        <form action="user/viewTrains" method="get">
-            <button type="submit">Visualizza Treni</button>
-        </form>
+        <!-- Sezione visibile solo agli admin -->
+        <% 
+            User user = (User) session.getAttribute("user");
+            if (user != null && user.isSuperAdmin()) { 
+        %>
+        <div class="form-container">
+            <h2>Gestione Admin</h2>
+            <form action="admin/showPurchases" method="get">
+                <button type="submit">Mostra Tutti gli Acquisti</button>
+            </form>
+            <form action="admin/manageUsers" method="get">
+                <button type="submit">Gestisci Utenti</button>
+            </form>
+        </div>
+        <% } %>
     </div>
-    <div class="form-container">
-        <h2>I Miei Treni Comprati</h2>
-        <form action="user/viewPurchasedTrains" method="get">
-            <button type="submit">Visualizza Treni</button>
-        </form>
-    </div>
-
-    <!-- Sezione visibile solo agli admin -->
-    <% 
-    	User user = (User) session.getAttribute("user");
-    	if (user != null && user.isSuperAdmin()) { 
-    %>
-    <div class="form-container">
-        <h2>Gestione Admin</h2>
-        <form action="admin/showPurchases" method="get">
-            <button type="submit">Mostra Tutti gli Acquisti</button>
-        </form>
-        <form action="admin/manageUsers" method="get">
-            <button type="submit">Gestisci Utenti</button>
-        </form>
-    </div>
-    <% } %>
-
-        <a href="/logout">Logout</a>
-    </div>
-
 </body>
 </html>

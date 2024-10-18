@@ -3,13 +3,44 @@
 <html lang="it">
 
 <style>
-  .custom-navbar {
-    display: flex;           /* Attiva il layout flex */
-    background-color: #49456d;; /* Scegli il colore che preferisci */
-    justify-content: space-between; /* Distribuisce gli elementi con spazio tra di loro */
-    align-items: center;    /* Allinea gli elementi verticalmente al centro */
-    padding: 10px;          /* Padding interno per la navbar */
-  }
+    .navbar-container {
+        background-color: #49456d; /* Colore di sfondo della navbar */
+        padding: 10px 0; /* Padding verticale */
+        width: 100%; /* Larghezza totale */
+        display: flex; /* Usa Flexbox per centrare il contenuto */
+        justify-content: space-around; /* Centra orizzontalmente */
+    }
+    
+    .navbar {
+        max-width: 1200px; /* Larghezza massima per contenere la navbar */
+        width: 100%; /* Larghezza completa all'interno del contenitore */
+    }
+    
+    .navbar-nav {
+        list-style: none; /* Rimuovi i punti elenco */
+        padding: 0; /* Rimuovi padding */
+        margin: 0; /* Rimuovi margini */
+        display: flex; /* Disporre gli elementi in una riga */
+        justify-content: space-around; /* Spazia uniformemente gli elementi */
+    }
+    
+    .nav-item {
+        margin: 0 15px; /* Margine orizzontale tra gli elementi */
+    }
+    
+    .nav-link {
+        text-decoration: none; /* Rimuovi la sottolineatura */
+        color: white; /* Colore del testo */
+        font-weight: bold; /* Grassetto per maggiore visibilità */
+        padding: 10px 15px; /* Padding interno per i link */
+        border-radius: 5px; /* Angoli arrotondati */
+        transition: background-color 0.3s; /* Transizione per effetto hover */
+    }
+    
+    .nav-link:hover {
+        background-color: #8a79c7; /* Colore di sfondo al passaggio del mouse */
+    }
+    
   
 
 </style>
@@ -30,105 +61,19 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-body-sea-salt border-bottom">
-
-    <!-- <a class="navbar-brand me-4" href="/">
-        <img src="/storage/images/logo.png" class="bi img-fluid" alt="Responsive image" width="140">
-    </a> -->
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}"> <!-- aria-label="Toggle navigation -->
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Left Side Of Navbar -->
-        <ul class="navbar-nav me-auto gap-1">
-            <li class="nav-item">
-                <a class="nav-link btn btn-delft-blue text-sea-salt px-3 rounded-2" href="/"> <i class="bi bi-house"></i> Home</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link btn btn-air-sup-blue text-dark px-3 rounded-2" href="user/addFunds"><i class="bi bi-house-door"></i> AddFounds</a>
-            </li>
-           <!--  @if (!Auth::check() || Auth::check() && Auth::user()->ruolo != 'nonstudente')
-                <li class="nav-item">
-                    <a class="nav-link btn btn-air-sup-blue text-sea-salt px-3 rounded-2" @auth href="{{ route('marketplace.index') }}" @endauth href="{{ route('login') }}"><i class="bi bi-book"></i> Marketplace</a>
-                </li>
-            @endif -->
-
-            <li class="nav-item">
-                <a class="nav-link btn btn-air-sup-blue text-dark px-3 rounded-2" href="{{ route('board.index') }}"><i class="bi bi-megaphone"></i> Bacheca</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link btn btn-air-sup-blue text-sea-salt px-3 rounded-2" href="{{ route('findplaces.index')}} "><i class="bi bi-pin-map"></i> FindPlaces</a>
-            </li>
-            <!-- @if (Auth::check() && Auth::user()->ruolo == 'admin')
-                <li class="nav-item">
-                    <a class="nav-link btn btn-air-sup-blue text-dark px-3 rounded-2" href="{{ route('admin.index')}}"><i class="bi bi-gear"></i> Admin</a>
-                </li>
-            @endif -->
-        </ul>
-
-        <!-- Right Side Of Navbar -->
-        <ul class="navbar-nav mt-1 ms-auto gap-1">
-            <!-- Authentication Links -->
-            @guest
-                @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-orange-peel text-dark px-3 rounded-2" href="{{ route('auth.roleselect') }}"><i class="bi bi-person"></i> REGISTRATI</a>
-                    </li>
-                @endif
-                @if (Route::has('login'))
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-hunyadi-yellow text-dark px-3 rounded-2" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right"></i> LOGIN</a>
-                    </li>
-                @endif
-            @else
-                <!-- controlla se l'utente è loggato, se lo è e si è in /houses, mostra il bottone per gestire le case
-                altrimenti no -->
-
-                @if (Request::is('houses') || Request::is('houses/*'))
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-delft-blue text-sea-salt px-3 rounded-2" href="/houses/manage/{{auth()->user()->id}}"><i class="bi bi-house-gear"></i> Gestisci case</a>
-                    </li>
-                @elseif (Request::is('marketplace') || Request::is('marketplace/*'))
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-delft-blue text-sea-salt px-3 rounded-2" href="/marketplace/manage/{{auth()->user()->id}}"><i class="bi bi-file-earmark-diff"></i> I tuoi annunci</a>
-                    </li>
-                @elseif (Request::is('board') || Request::is('board/*'))
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-delft-blue text-sea-salt px-3 rounded-2" href="{{ route('board.create') }}"><i class="bi bi-plus-lg"></i> Crea un post</a>
-                    </li>
-                @endif
-
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link btn btn-orange-peel text-dark px-3 rounded-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person"></i>
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-end bg-hunyadi-yellow rounded-2" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item bg-hunyadi-yellow" href="{{ route('settings') }}">
-                            <i class="bi bi-gear"></i>
-                            Impostazioni
-                        </a>
-                        <a class="dropdown-item bg-hunyadi-yellow" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            <i class="bi bi-box-arrow-right"></i>
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            @endguest
-        </ul>
+   
+    <div class="navbar-container">
+        <nav class="navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Profilo</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Add Funds</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+            </ul>
+        </nav>
     </div>
 
-</nav>
+</body>
   
 
       

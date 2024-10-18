@@ -62,8 +62,7 @@ public class GenericController {
         
         try {
             // Controlla se l'utente esiste nel database
-            User user = userDAO.getUserByEmail(email)
-;
+            User user = userDAO.getUserByEmail(email);
             
             if (user != null) {
                 // Se l'utente esiste, controlla la password

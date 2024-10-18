@@ -3,7 +3,6 @@ package entity.dao;
 import java.util.List;
 
 import entity.acquisto.Acquisto;
-import entity.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
