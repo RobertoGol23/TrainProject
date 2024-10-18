@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="navbar.jsp" %>
+<%@ include file="../navbar.jsp" %> <!-- con .. si va indietro di una cartella-->
+
 
 <%@ page import="entity.user.User" %>
 <!DOCTYPE html>
@@ -56,6 +57,7 @@
         }
         button:hover {
             background-color: #8a79c7;
+            color: #ffffff;
         }
 
         .container-benvenuto {
@@ -107,20 +109,22 @@
                     <button type="submit">Crea Treno</button>
                 </form>
             </div>
-        </div>
+        
 
-        <!-- Visualizzazione treni creati e acquistati -->
-        <div class="form-container">
-            <h2>I Miei Treni Creati</h2>
-            <form action="user/viewTrains" method="get">
-                <button type="submit">Visualizza Treni</button>
-            </form>
-        </div>
-        <div class="form-container">
-            <h2>I Miei Treni Comprati</h2>
-            <form action="user/viewPurchasedTrains" method="get">
-                <button type="submit">Visualizza Treni</button>
-            </form>
+            <!-- Visualizzazione treni creati e acquistati -->
+            <div class="form-container">
+                <h2>I Miei Treni Creati</h2>
+                <form action="user/viewTrains" method="get">
+                    <button type="submit">Visualizza Treni</button>
+                </form>
+            </div>
+            <div class="form-container">
+                <h2>I Miei Treni Comprati</h2>
+                <form action="user/viewPurchasedTrains" method="get">
+                    <button type="submit">Visualizza Treni</button>
+                </form>
+            </div>
+            
         </div>
 
         <!-- Sezione visibile solo agli admin -->
