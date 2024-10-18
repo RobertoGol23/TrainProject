@@ -126,7 +126,7 @@
     </div>
     <% } %>
 
-    <a href="/train-bazaar/login">Logout</a>
+    <a href="/train-bazaar/dashboard/user/logout">Logout</a>
 
 </body>
 </html>

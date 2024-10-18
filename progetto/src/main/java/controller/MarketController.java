@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,5 +101,25 @@ public class MarketController {
 
         }
         return "market/purchaseSuccess"; // Dopo l'acquisto, torna al market
+    }
+    @GetMapping("/trainDetails")
+    public String viewTrain(@RequestParam("trenoId") Long trenoId, Model model) {
+        // Recupera il treno dall'ID
+    	
+    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+        
+        Treno treno = trenoDAO.getTrenoById(trenoId);
+        
+        if (treno == null) {
+            return "redirect:/dashboard/user/viewTrains"; // Se il treno non esiste, reindirizza alla lista dei treni
+        }
+
+        // Aggiungi il treno al modello
+        model.addAttribute("treno", treno);
+        
+        context.close();
+
+        return "dashboard/train/viewTrain"; // Nome della vista JSP
     }
 }
