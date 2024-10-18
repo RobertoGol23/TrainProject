@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import jakarta.validation.constraints.Email;
 
 
 @Entity
+@Table(name = "User")
 public class User {
 
 	@Id
@@ -77,10 +79,10 @@ public class User {
 		this.wallet = 0.0;
 	}
 
-	public Long getId_User() {
+	public Long getId_user() {
 		return id_user;
 	}
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -111,10 +113,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Long getId_user() {
-		return id_user;
 	}
 
 	public Double getWallet() {

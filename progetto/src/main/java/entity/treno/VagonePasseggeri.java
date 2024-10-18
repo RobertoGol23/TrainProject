@@ -3,8 +3,10 @@ package entity.treno;
 import entity.classi_astratte.Vagone;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Vagoni Passeggeri")
 public class VagonePasseggeri extends Vagone{ //pensare se si puo' levare abstract per il dao
 
 	

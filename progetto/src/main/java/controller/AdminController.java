@@ -5,7 +5,6 @@ import entity.dao.UserDAO;
 import entity.user.User;
 import entity.acquisto.Acquisto;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -23,12 +22,6 @@ import java.util.List;
 @RequestMapping("/dashboard/admin")
 public class AdminController {
 
-    @Autowired
-    private AcquistoDAO acquistoDAO; // Servizio per gestire gli acquisti
-
-    @Autowired
-    private UserDAO userDAO; // Servizio per gestire gli utenti
-
     // Mostra la pagina con tutti gli acquisti di tutti gli utenti
     @GetMapping("/showPurchases")
     public String showPurchases(Model model) {
@@ -36,6 +29,7 @@ public class AdminController {
     	AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class);
         List<Acquisto> purchases = acquistoDAO.getAllAcquisti();
         model.addAttribute("purchases", purchases);
+        context.close();
         return "/dashboard/admin/showPurchases"; // Nome della JSP da visualizzare
     }
 
@@ -46,6 +40,7 @@ public class AdminController {
     	UserDAO userDAO = context.getBean(UserDAO.class);
         List<User> users = userDAO.getAllUsers();
         model.addAttribute("users", users);
+        context.close();
         return "/dashboard/admin/manageUsers"; // Nome della JSP da visualizzare
     }
 
@@ -61,7 +56,7 @@ public class AdminController {
             user.setBloccato(!isCurrentlyBlocked); // Inverte lo stato bloccato/non bloccato
             userDAO.updateUser(user); // Aggiorna lo stato nel database
         }
-
+        context.close();
         return "redirect:/dashboard/admin/manageUsers"; // Torna alla pagina di gestione utenti
     }
 }
