@@ -15,14 +15,13 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
+
         h1 {
             color: #8a79c7;
             text-align: center;
         }
+
         .content {
             background-color: #49456d;
             padding: 20px;
@@ -60,32 +59,39 @@
         }
 
         .container-benvenuto {
-            margin: 2%; /* Margine su tutti i lati */
+            margin: 2%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         .container-pulsanti {
-            max-width: 100%; /* Limita la larghezza massima */
-            padding: 0; /* Rimuove il padding */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+        
     </style>
 </head>
 <body>
 
-    <h1>Benvenuto, ${user.nome}!</h1>
+    <div class="container-benvenuto">
+        <h1>Benvenuto, ${user.nome}!</h1>
 
-        <div class="content">
-            <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
-        </div>
+            <div class="content">
+                <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
+            </div>
     </div>
 
     <div class="container-pulsanti">
         <!-- Sezione visibile a tutti gli utenti -->
         <div class="form-wrapper">
-            <div class="form-container">
+            <!-- <div class="form-container">
                 <h2>Aggiungi Fondi al Tuo Wallet</h2>
                 <form action="user/addFunds" method="get">
                     <button type="submit">Vai alla pagina di aggiunta fondi</button>
                 </form>
-            </div>
+            </div> -->
 
             <div class="form-container">
                 <h2>Modifica il tuo Profilo</h2>

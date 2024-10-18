@@ -17,6 +17,18 @@
         h1 {
             color: #8a79c7;
         }
+
+        .container-saldo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            
+            margin-top: 20px;            
+            background-color: #49456d;
+            border-radius: 10px;
+        }
+
         .form-container {
             margin-top: 20px;
             padding: 20px;
@@ -46,19 +58,36 @@
         .error {
             color: red;
         }
+
+        .container-aggiungiFondi {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+
+
     </style>
 </head>
 <body>
 
-    <h1>Aggiungi Fondi al Tuo Wallet</h1>
-
-    <div class="form-container">
-        <form action="addFunds" method="post">
-            <label for="amount">Importo da aggiungere:</label>
-            <input type="number" id="amount" name="amount" required min="0" step="100">
-            <button type="submit">Aggiungi Fondi</button>
-        </form>
+    <div class="container-saldo">
+        <h1>Saldo: ${wallet.balance}€</h1>
     </div>
 
+    <div class="container-aggiungiFondi">
+        <div class="form-container">
+            <h1>Aggiungi Fondi al Tuo Wallet</h1>
+
+            <form action="addFunds" method="post">
+                <label for="amount">Importo da aggiungere:</label>
+                <input type="number" id="amount" name="amount" required min="0" step="100">
+                <button type="submit">Aggiungi Fondi</button>
+            </form>
+
+
+        </div>
+    </div>
 </body>
 </html>

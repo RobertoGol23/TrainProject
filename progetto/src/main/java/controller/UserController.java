@@ -44,7 +44,7 @@ public class UserController {
         return "redirect:/login"; // Reindirizza al login
     }
       
-    @GetMapping("/addFunds")
+    @GetMapping("/wallet")
     public String showAddFundsForm(Model model, HttpSession session) {
         
         // Controlla se l'utente è autenticato
@@ -56,11 +56,11 @@ public class UserController {
         
         // Se l'utente è loggato, aggiungi l'attributo al modello
         model.addAttribute("user", user);
-        return "dashboard/user/addFunds"; // Nome della vista JSP per aggiungere fondi
+        return "dashboard/user/wallet"; // Nome della vista JSP per aggiungere fondi
     }
 
     // Gestisce l'aggiunta di fondi al wallet
-    @PostMapping("/addFunds")
+    @PostMapping("/wallet")
     public String addFunds(@RequestParam double amount, HttpSession session, Model model) {
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
