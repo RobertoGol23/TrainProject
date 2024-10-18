@@ -43,6 +43,12 @@
         .pagination a:hover {
             background-color: #79c7e3;
         }
+        .buttons {
+            margin-top: 10px;
+        }
+        .buttons button {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -64,10 +70,21 @@ List<Treno> treni = (List<Treno>) session.getAttribute("treni");
                 <p>Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> kg</p>
                 <p>Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> kg</p>
                 <p>Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
-                <form method="get" action="purchaseTrain">
-                    <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
-                    <button type="submit">Acquista</button>
-                </form>
+                
+                <!-- Sezione dei bottoni -->
+                <div class="buttons">
+                    <!-- Bottone per acquistare -->
+                    <form method="get" action="purchaseTrain" style="display:inline;">
+                        <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
+                        <button type="submit">Acquista</button>
+                    </form>
+
+                    <!-- Bottone per i dettagli -->
+                    <form method="get" action="trainDetails" style="display:inline;">
+                        <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
+                        <button type="submit">Dettagli</button>
+                    </form>
+                </div>
             </div>
         </div>
     <% } %>
@@ -77,7 +94,7 @@ List<Treno> treni = (List<Treno>) session.getAttribute("treni");
 
 <div class="pagination">
     <% 
-    	Integer currentPage = (Integer) session.getAttribute("currentPage");
+        Integer currentPage = (Integer) session.getAttribute("currentPage");
         Integer totalPages = (Integer) session.getAttribute("totalPages");
         
         if (currentPage == null) currentPage = 1;

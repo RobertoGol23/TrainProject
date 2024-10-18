@@ -302,4 +302,25 @@ public class TrainController {
         request.setAttribute("message", "Servizio aggiunto con successo!");
         return "dashboard/train/addServiceComplete";
     }
+    
+    @GetMapping("/viewTrain")
+    public String viewTrain(@RequestParam("trenoId") Long trenoId, Model model) {
+        // Recupera il treno dall'ID
+    	
+    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+        
+        Treno treno = trenoDAO.getTrenoById(trenoId);
+        
+        if (treno == null) {
+            return "redirect:/dashboard/user/viewTrains"; // Se il treno non esiste, reindirizza alla lista dei treni
+        }
+
+        // Aggiungi il treno al modello
+        model.addAttribute("treno", treno);
+        
+        context.close();
+
+        return "dashboard/train/viewTrain"; // Nome della vista JSP
+    }
 }

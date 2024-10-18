@@ -207,7 +207,7 @@ public class UserController {
                     .append("<td>").append(train.getPesoTotaleTreno()).append("</td>")
                     .append("<td>").append(train.getPrezzoTotaleTreno()).append("</td>")
                     .append("<td>")
-                    .append("<form action='/treni/dettagli' method='get'>") // Modulo con pulsante
+                    .append("<form action='/train-bazaar/dashboard/train/viewTrain' method='get'>") // Modulo con pulsante
                     .append("<input type='hidden' name='trenoId' value='").append(train.getId()).append("' />")
                     .append("<button type='submit'>Visualizza</button>")
                     .append("</form>")
