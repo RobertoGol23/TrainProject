@@ -26,4 +26,6 @@ public class DashboardController {
 
         return "dashboard/home"; // Mostra la dashboard
     }
+
+
 }

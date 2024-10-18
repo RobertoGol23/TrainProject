@@ -32,7 +32,7 @@ public class Admin extends User {
 
     @Override
     public String toString() {
-        return "Admin [id_user=" + getId_User() + ", nome=" + getNome() + ", cognome=" + getCognome() + ", email=" 
+        return "Admin [id_user=" + getId_user() + ", nome=" + getNome() + ", cognome=" + getCognome() + ", email=" 
                 + getEmail() + "]";
     }
 }

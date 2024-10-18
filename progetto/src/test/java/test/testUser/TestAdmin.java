@@ -40,6 +40,8 @@ public class TestAdmin {
 		boss.bloccaUtente(sasso);
 		
 		userDAO.updateUser(sasso);
+
+		context.close();
 		
 	}
 
