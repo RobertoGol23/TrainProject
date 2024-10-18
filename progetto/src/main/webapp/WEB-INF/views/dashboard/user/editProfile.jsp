@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ include file="../../navbar.jsp" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -171,7 +174,6 @@
 
     <!-- //TODO: Controllo password -->
 
-    <div align="center" class="dashboard"><a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a></div>
 
 
 </body>

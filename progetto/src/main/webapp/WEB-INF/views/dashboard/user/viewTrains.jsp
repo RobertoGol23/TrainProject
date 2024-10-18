@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ include file="../../navbar.jsp" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -11,13 +14,19 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
+        }
+
+        .container{
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         h1 {
             color: #8a79c7;
+            text-align: center;
         }
+
         button {
             width: 100%;
             padding: 10px;
@@ -48,20 +57,13 @@
             background-color: #79c7e3;
             color: #2e2b4f;
         }
-        div {
-        	width: 50%;
-        }
-        a {
-            color: #79c7e3;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
     <h1>I Miei Treni</h1>
 
     <!-- Includiamo l'HTML generato dal controller -->
-    <div>
+    <div class="container">
         ${trainsTable}
     </div>
 	<p align="center"><a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a></p>
