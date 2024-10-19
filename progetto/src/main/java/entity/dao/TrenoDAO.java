@@ -150,7 +150,7 @@ public class TrenoDAO {
      */
 	@Transactional
 	public boolean eliminaVagoni(Long id_treno, ArrayList<Integer> posVagoni) {
-
+		
 		TrenoUtility trenoUtility = new TrenoUtility();
 		Treno treno = this.getTrenoById(id_treno);
 		String siglaNuova = trenoUtility.riduciSigla(posVagoni, trenoUtility.getSigla(treno));
@@ -164,15 +164,15 @@ public class TrenoDAO {
 				}
 
 				em.merge(treno);
-				em.flush();
+				em.flush(); 
 			}
 		}
 		catch(SiglaTrenoException e)
 		{
 			System.out.println("Errore: " + e.getMessage());
+			return false;
 		}
-		
-		return false; 
+		return true;
 	}
 
 	
@@ -220,7 +220,7 @@ public class TrenoDAO {
 				em.flush();
 				return true;
 
-			} catch (Exception e) {
+			} catch (SiglaTrenoException e) {
 				System.out.println("Errore durante l'aggiunta dei vagoni: " + e.getMessage());
 				throw e; // Lancia nuovamente l'eccezione per attivare il rollback
 			}

@@ -46,13 +46,13 @@
 </head>
 <body>
 
-    <h1>Treno modificato con successo!</h1>
+    <h1>Il tuo treno NON è stato modificato!</h1>
 
     <div class="content">
-        <p>Il tuo treno è stato modificato con successo!</p>
-        <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o creare un altro treno.</p>
-        <form action="modifyTrain" method="get">
-            <button type="submit">Crea un altro treno</button>
+        <p>Si è verificato un errore durante la modifica</p>
+        <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o riprovare a modificarlo</p>
+        <form action="removeWagons" method="get">
+            <button type="submit">Torna alla visualizzazione dei tuoi treni</button>
         </form>
     </div>
 

@@ -50,13 +50,15 @@
         td {
             background-color: #49456d;
         }
-        button {
+         button, a.button {
             background-color: #8a79c7;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
-            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #79c7e3;
@@ -130,7 +132,10 @@
             </tbody>
         </table>
     </div>
-
+	<div align="center">
+        <a href="addWagons?idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Aggiungi vagoni</a>
+        <a href="removeWagons?idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Rimuovi vagoni</a>
+    </div>
     <%
         } else {
     %>
@@ -138,6 +143,5 @@
     <%
         }
     %>
-
 </body>
 </html>
