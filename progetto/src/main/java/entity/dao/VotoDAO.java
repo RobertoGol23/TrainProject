@@ -3,6 +3,9 @@ package entity.dao;
 import entity.votazioni.Voto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
 public class VotoDAO {
@@ -30,5 +33,26 @@ public class VotoDAO {
 	    @Transactional
 	    public void updateVoto(Voto voto) {
 	        em.merge(voto);
+	    }
+	    
+	 // Metodo per calcolare la media dei punteggi di un treno dato il suo ID
+	    public Double calcolaMediaPunteggioTreno(Long trenoId) {
+	        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+	        // Creazione della query per la media
+	        CriteriaQuery<Double> cq = cb.createQuery(Double.class);
+
+	        // Selezioniamo dalla classe Voto
+	        Root<Voto> voto = cq.from(Voto.class);
+
+	        // Costruiamo la query per ottenere la media
+	        cq.select(cb.avg(voto.get("punteggio")))
+	          .where(cb.equal(voto.get("treno").get("id"), trenoId));
+
+	        // Eseguiamo la query e ritorniamo il risultato
+	        Double mediaPunteggio = em.createQuery(cq).getSingleResult();
+
+	        // Controlliamo se la media è nulla (nessun voto presente)
+	        return mediaPunteggio != null ? mediaPunteggio : 0.0;
 	    }
 }
