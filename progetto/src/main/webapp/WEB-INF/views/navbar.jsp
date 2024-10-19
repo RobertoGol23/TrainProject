@@ -101,13 +101,13 @@
                         <a class="nav-link btn btn-delft-blue text-bluepx-3 font-weight-bold " href="/train-bazaar/dashboard/home">
                         <i class="fas fa-home"></i> Home </a>
 
-                        <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold " href="user/wallet">
+                        <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold " href="/train-bazaar/dashboard/user/wallet">
                         <i class="fas fa-money-bill-wave"></i> Wallet </a>
                 </div>
 
 
                 <div class="right-navbar">
-                        <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold" href="user/editProfile">
+                        <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold" href="/train-bazaar/dashboard/user/editProfile">
                         <i class="fas fa-info-circle"></i> Profilo  </a>
 
                         <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold" href="/train-bazaar/dashboard/user/logout">

@@ -1,0 +1,56 @@
+    
+        /* Container delle card */
+        .card-container {
+            display: none; /* Nascondi il div inizialmente */
+            justify-content: center;
+            align-items: center; /* Center vertically */
+            flex-wrap: wrap; /* Allow cards to wrap */
+        }
+
+        /* Stile per le carte */
+        .card {
+            width: 300px; /* Adjust width as needed */
+            height: 500px;
+            background-color: #8a79c7; /* Set card color */
+            color: white; /* Adjust text color for contrast */
+            margin: 20px; /* Space between cards */
+            cursor: pointer; /* Change cursor to pointer for clickable effect */
+            transition: background-color 0.3s; /* Smooth background color change */
+        }
+    
+        .card:hover {
+            background-color: #79c7e3; /* Change color on hover */
+        }
+    
+    
+    
+    <div class="container">
+        <div class="card-container" id="cardContainer">
+            <div class="card" onclick="cardClicked(100)">
+                <h5 class="card-title"> 100 Euro </h5>
+                <p class="card-text">  Ricarica da 100 euro super bella  </p>
+            </div>
+            
+            <div class="card" onclick="cardClicked(500)">
+                <h5 class="card-title"> 500 Euro </h5>
+                <p class="card-text">  Ricarica da 500 euro super bella  </p>
+            </div>
+
+            <div class="card" onclick="cardClicked(1000)">
+                <h5 class="card-title"> 1000 Euro </h5>
+                <p class="card-text">  Ricarica da 1000 euro super bella  </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showDiv() {
+            const myDiv = document.getElementById('cardContainer');
+            myDiv.style.display = 'flex'; // Mostra il div come flex
+        }
+
+        function cardClicked(cardNumber) {
+            alert(`Hai cliccato sulla Card ${cardNumber}`);
+        }
+    </script>

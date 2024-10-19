@@ -43,7 +43,8 @@ public class UserController {
         session.invalidate(); // Termina la sessione
         return "redirect:/login"; // Reindirizza al login
     }
-      
+
+
     @GetMapping("/wallet")
     public String showAddFundsForm(Model model, HttpSession session) {
         
@@ -72,7 +73,8 @@ public class UserController {
             // Salva l'utente aggiornato nel database
             userDAO.updateUser(user); // Assicurati di avere questo metodo nel tuo DAO
             context.close();
-            return "/dashboard/user/walletUpdated"; // Reindirizza alla pagina di conferma
+            return "/dashboard/user/wallet"; // Reindirizza alla pagina di conferma
+
         } else {
         	context.close();
             return "redirect:/login"; // Reindirizza al login se l'utente non è loggato
