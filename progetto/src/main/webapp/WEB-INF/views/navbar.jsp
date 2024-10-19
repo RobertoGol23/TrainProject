@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="right-navbar">
-                        <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold" >
+                        <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold" href="/train-bazaar/dashboard/user/ricarica">
                         <i class="fa-solid fa-euro-sign"></i> ${user.wallet} </a> 
 
                         <a class="nav-link btn btn-air-sup-blue text-blue px-3 rounded-2 font-weight-bold" href="/train-bazaar/dashboard/user/editProfile">
