@@ -1,6 +1,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="entity.treno.Treno" %>
+<%@ page import="entity.dao.VotoDAO" %>
 <%@ page import="java.util.List" %>
+<%@ page import= "org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
+<%@ page import= "org.springframework.context.support.AbstractApplicationContext" %>
+<%@ page import= "configuration.JpaConfig" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -60,16 +64,19 @@ List<Treno> treni = (List<Treno>) session.getAttribute("treni");
 %>
 
 <% if (treni != null && !treni.isEmpty()) { %>
+	<% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    	VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
     <% for (Treno treno : treni) { %>
         <div class="treno">
             <img src="<%= (treno != null && treno.getImageUrl() != null) ? treno.getImageUrl() : "default-image.png" %>" alt="<%= (treno != null) ? treno.getNome() : "Treno non disponibile" %>">
             <div>
                 <h3><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h3>
                 <p>Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
-                <p>Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> €</p>
-                <p>Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> kg</p>
-                <p>Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> kg</p>
+                <p>Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
+                <p>Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
+                <p>Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> tonnellate</p>
                 <p>Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
+                <p>Voto: <%= (treno != null) ? votoDAO.calcolaMediaPunteggioTreno(treno.getId()) : 0 %></p>
                 
                 <!-- Sezione dei bottoni -->
                 <div class="buttons">
@@ -84,10 +91,16 @@ List<Treno> treni = (List<Treno>) session.getAttribute("treni");
                         <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
                         <button type="submit">Dettagli</button>
                     </form>
+                     <!-- Bottone per votare il treno -->
+    				<form method="get" action="voteTrain" style="display:inline;">
+        				<input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
+        				<button type="submit">Vota</button>
+    				</form>
                 </div>
             </div>
         </div>
     <% } %>
+    <% context.close(); %>
 <% } else { %>
     <p>Nessun treno disponibile al momento.</p>
 <% } %>

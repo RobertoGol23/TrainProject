@@ -2,9 +2,11 @@ package controller;
 
 import entity.treno.Treno;
 import entity.user.User;
+import entity.votazioni.Voto;
 import entity.acquisto.Acquisto;
 import entity.dao.AcquistoDAO;
 import entity.dao.TrenoDAO;
+import entity.dao.VotoDAO;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -120,5 +122,57 @@ public class MarketController {
         context.close();
 
         return "dashboard/train/viewTrain"; // Nome della vista JSP
+    }
+    
+ // GET per visualizzare la pagina di voto
+    @GetMapping("/voteTrain")
+    public String showVoteTrain(@RequestParam("trenoId") Long trenoId, HttpSession session) {
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+
+        // Ottieni il treno per ID
+        Treno treno = trenoDAO.getTrenoById(trenoId);
+        if (treno != null) {
+            // Salva il treno nella sessione
+            session.setAttribute("treno", treno);
+            context.close();
+            return "market/voteTrain"; // Pagina JSP per votare
+        } else {
+            context.close();
+            return "redirect:/trainMarket"; // Se il treno non esiste, torna al market
+        }
+    }
+
+    // POST per salvare il voto
+    @PostMapping("/submitVote")
+    public String submitVote(@RequestParam("trenoId") Long trenoId, @RequestParam("userId") Long userId, 
+                             @RequestParam("punteggio") int punteggio, HttpSession session) {
+        
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        VotoDAO votoDAO = context.getBean(VotoDAO.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+
+        // Recupera l'utente e il treno dalla sessione
+        User user = (User) session.getAttribute("user");
+        Treno treno = trenoDAO.getTrenoById(trenoId);
+
+        if (user != null && treno != null) {
+            try {
+                // Crea un nuovo voto
+                Voto voto = new Voto(punteggio, user, treno);
+                votoDAO.salvaVoto(voto);
+            } catch (IllegalArgumentException e) {
+                // Gestione eccezione se il punteggio è fuori dal range 0-5
+                session.setAttribute("errorMessage", "Punteggio non valido, deve essere tra 0 e 5.");
+                context.close();
+                return "redirect:/voteTrain?trenoId=" + trenoId; // Torna alla pagina di voto
+            }
+
+            context.close();
+            return "market/voteSuccess"; // Pagina di successo del voto (da creare)
+        } else {
+            context.close();
+            return "redirect:/trainMarket"; // Se l'utente o il treno non esistono, torna al market
+        }
     }
 }
