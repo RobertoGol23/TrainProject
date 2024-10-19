@@ -43,7 +43,8 @@ public class UserController {
         session.invalidate(); // Termina la sessione
         return "redirect:/login"; // Reindirizza al login
     }
-      
+
+
     @GetMapping("/wallet")
     public String showAddFundsForm(Model model, HttpSession session) {
         
@@ -62,22 +63,28 @@ public class UserController {
     // Gestisce l'aggiunta di fondi al wallet
     @PostMapping("/wallet")
     public String addFunds(@RequestParam double amount, HttpSession session, Model model) {
-    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-    	UserDAO userDAO = context.getBean(UserDAO.class);
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        UserDAO userDAO = context.getBean(UserDAO.class);
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
             user.setWallet(user.getWallet() + amount); // Aggiungi fondi al wallet
 
             // Salva l'utente aggiornato nel database
-            userDAO.updateUser(user); // Assicurati di avere questo metodo nel tuo DAO
+            userDAO.updateUser(user);
             context.close();
-            return "/dashboard/user/walletUpdated"; // Reindirizza alla pagina di conferma
+
+            // Aggiungi un messaggio di successo al modello
+            model.addAttribute("successMessage", "Fondi aggiunti con successo!");
+            model.addAttribute("user", user); // Ricarica l'utente nel modello
+            return "dashboard/user/walletUpdated"; // Ritorna alla stessa pagina
         } else {
-        	context.close();
+            context.close();
             return "redirect:/login"; // Reindirizza al login se l'utente non è loggato
         }
     }
+
+
 
     // Pagina di conferma dopo l'aggiornamento del wallet
     @GetMapping("/walletUpdated")
@@ -90,6 +97,10 @@ public class UserController {
             return "redirect:/login"; // Reindirizza al login se non è loggato
         }
     }
+
+
+
+
     
  // Mostra il form per modificare il profilo
     @GetMapping("/editProfile")
