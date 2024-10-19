@@ -125,47 +125,49 @@
         .error {
             color: red;
         }
+
     </style>
     
 </head>
 <body>
 
     <div class="container">
+
         <div class="credit-card">
             <h4> Saldo Train-Bazaar </h4>
             <h1>${user.wallet}€ EUR</h1>
             <h6> Disponibile </h6>
             <button class="reload-button" onclick="showDiv()">Ricarica</button>
         </div>
+    
 
         <div class="container-aggiungiFondi" id="container-aggiungiFondi">
             <div class="form-container">
                 <h1>Aggiungi Fondi al Tuo Wallet</h1>
-    
-                <form action="wallet" method="post">
+
+                <form action="wallet" method="post" onsubmit="showSuccessMessage();">
                     <label for="amount">Importo da aggiungere:</label>
-                    <input type="number" id="amount" name="amount" required min="0" step="100" value="0">
+                    <input type="number" id="amount" name="amount" required min="0" step="100" value="">
                     <button type="submit">Aggiungi Fondi</button>
                 </form>
             </div>
         </div>
+
     </div>
 
     <script>
         function showDiv() {
             const myDiv = document.getElementById('container-aggiungiFondi');
             if (myDiv.style.display === 'flex') {
-                // Se il div è già visibile, nascondilo
                 myDiv.style.opacity = 0; // Rendi invisibile con transizione
                 setTimeout(() => {
-                    myDiv.style.display = 'none'; // Nascondi il div dopo la transizione
-                }, 500); // Ritardo per permettere la transizione
+                    myDiv.style.display = 'none';
+                }, 500);
             } else {
-                // Se il div è nascosto, mostralo
-                myDiv.style.display = 'flex'; // Mostra il div come flex
+                myDiv.style.display = 'flex';
                 setTimeout(() => {
-                    myDiv.style.opacity = 1; // Rendi il div visibile con transizione
-                }, 10); // Breve ritardo per permettere l'applicazione della proprietà display
+                    myDiv.style.opacity = 1;
+                }, 10);
             }
         }
     </script>
