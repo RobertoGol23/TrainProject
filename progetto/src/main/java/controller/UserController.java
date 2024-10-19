@@ -45,7 +45,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/wallet")
+    @GetMapping("/ricarica")
     public String showAddFundsForm(Model model, HttpSession session) {
         
         // Controlla se l'utente è autenticato
@@ -57,11 +57,11 @@ public class UserController {
         
         // Se l'utente è loggato, aggiungi l'attributo al modello
         model.addAttribute("user", user);
-        return "dashboard/user/wallet"; // Nome della vista JSP per aggiungere fondi
+        return "dashboard/user/ricarica"; // Nome della vista JSP per aggiungere fondi
     }
 
     // Gestisce l'aggiunta di fondi al wallet
-    @PostMapping("/wallet")
+    @PostMapping("/ricarica")
     public String addFunds(@RequestParam double amount, HttpSession session, Model model) {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         UserDAO userDAO = context.getBean(UserDAO.class);
@@ -77,7 +77,7 @@ public class UserController {
             // Aggiungi un messaggio di successo al modello
             model.addAttribute("successMessage", "Fondi aggiunti con successo!");
             model.addAttribute("user", user); // Ricarica l'utente nel modello
-            return "dashboard/user/walletUpdated"; // Ritorna alla stessa pagina
+            return "dashboard/user/ricaricaConfirmed"; // Ritorna alla stessa pagina
         } else {
             context.close();
             return "redirect:/login"; // Reindirizza al login se l'utente non è loggato
@@ -87,12 +87,12 @@ public class UserController {
 
 
     // Pagina di conferma dopo l'aggiornamento del wallet
-    @GetMapping("/walletUpdated")
-    public String walletUpdated(Model model, HttpSession session) {
+    @GetMapping("/ricaricaConfirmed")
+    public String ricaricaConfirmed(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             model.addAttribute("user", user);
-            return "walletUpdated"; // Nome della vista JSP per il wallet aggiornato
+            return "ricaricaConfirmed"; // Nome della vista JSP per il wallet aggiornato
         } else {
             return "redirect:/login"; // Reindirizza al login se non è loggato
         }
