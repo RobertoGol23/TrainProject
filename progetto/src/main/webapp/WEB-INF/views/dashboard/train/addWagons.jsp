@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Crea Treno</title>
+    <title>Aggiungi vagoni</title>
     <style>
         .wagon-form {
             margin-bottom: 10px;
@@ -27,7 +27,7 @@
     </style>
 </head>
 <body>
-    <h1>Crea il tuo Treno</h1>
+    <h1>Aggiungi vagoni al tuo Treno</h1>
 
     <!-- Form per inviare i dati -->
     <form id="trainForm" action="addWagons" method="POST">
@@ -42,7 +42,7 @@
         <div id="wagonsContainer"></div>
 
         <!-- Pulsante per inviare il form -->
-        <button type="submit">Crea Treno</button>
+        <button type="submit">Modifica treno</button>
     </form>
 
     <script>
