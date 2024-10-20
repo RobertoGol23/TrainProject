@@ -11,11 +11,10 @@ public class RistoranteNonInMezzoException extends SiglaTrenoException
 		super(sigla,messaggio);
 	}
 	
-	@SuppressWarnings({ "null", "unchecked" })
 	public String getSuggerimento() {
 		
 		int dim = getSigla().length();
-		ArrayList siglaVecchia = new ArrayList();
+		ArrayList<Character> siglaVecchia = new ArrayList<Character>();
 		
 		for(int j=0; j<dim;j++)
 		{
@@ -52,6 +51,14 @@ public class RistoranteNonInMezzoException extends SiglaTrenoException
 		
 		return "Stringa utilizzata: " + getSigla() + "\nStringa suggerita " + siglaNuova;
 	}
+
+	@Override
+	public String getErrorePerUtente() {
+		
+		return "Il ristorante deve trovarsi in posizione centrale";
+	}
+	
+	
 }
 
 

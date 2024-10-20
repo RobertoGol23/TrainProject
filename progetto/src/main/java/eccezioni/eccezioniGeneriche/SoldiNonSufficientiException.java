@@ -1,7 +1,7 @@
 package eccezioni.eccezioniGeneriche;
 
 @SuppressWarnings("serial")
-public class SoldiNonSufficientiException extends Exception {
+public class SoldiNonSufficientiException extends GenericException {
     
 	private Double soldiWallet;
 	private Double costoTreno;
@@ -34,6 +34,12 @@ public class SoldiNonSufficientiException extends Exception {
 
 	public void setCostoTreno(Double costoTreno) {
 		this.costoTreno = costoTreno;
+	}
+
+	@Override
+	public String getErrorePerUtente() {
+		
+		return "Soldi non sufficienti per l'acquisto";
 	}
 	
 	

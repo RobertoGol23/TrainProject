@@ -11,4 +11,10 @@ public class StringaNonValidaException extends SiglaTrenoException {
 	public String getSuggerimento() {
 		return "Stringa utilizzata " + getSigla() + "\nCaratteri validi: h (locomotiva), r (ristorante), p (passeggeri), c (cargo)";
 	}
+	
+	@Override
+	public String getErrorePerUtente() {
+		
+		return "La sigla contiene caratteri non validi" + getSuggerimento() +"\n";
+	}
 }

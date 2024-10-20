@@ -92,9 +92,7 @@
         </tbody>
     </table>
 
-    <form action="/train-bazaar/dashboard/home" method="get">
-        <button type="submit" class="back-btn">Torna alla Dashboard</button>
-    </form>
+    <p align="center"><a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a></p>
 
 </body>
 </html>

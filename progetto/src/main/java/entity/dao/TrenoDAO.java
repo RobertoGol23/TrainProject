@@ -20,6 +20,7 @@ import utility.TrenoUtility;
 
 import java.util.*;
 
+import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 
@@ -146,11 +147,11 @@ public class TrenoDAO {
      * @param idVagoni, questa lista di id dei vagoni non rappresenta una raccolta di id dei vagoni presenti sul db. Quelli sono fissi.
      * Gli id che saranno passati qui, saranno quelli scelti dall'utente dalla lista vagoni, quindi a seconda della disposizione sul sito
      * @param siglaNuova
-     * @return un boleano che indica la riuscita dell'operazione
+     * @return un boolean con l'esito dell'operazione
      */
 	@Transactional
-	public boolean eliminaVagoni(Long id_treno, ArrayList<Integer> posVagoni) {
-
+	public boolean eliminaVagoni(Long id_treno, ArrayList<Integer> posVagoni) throws Exception, SiglaTrenoException {
+		
 		TrenoUtility trenoUtility = new TrenoUtility();
 		Treno treno = this.getTrenoById(id_treno);
 		String siglaNuova = trenoUtility.riduciSigla(posVagoni, trenoUtility.getSigla(treno));
@@ -164,15 +165,15 @@ public class TrenoDAO {
 				}
 
 				em.merge(treno);
-				em.flush();
+				em.flush(); 
 			}
 		}
 		catch(SiglaTrenoException e)
 		{
 			System.out.println("Errore: " + e.getMessage());
+			throw e; // Lancia nuovamente l'eccezione per attivare il rollback
 		}
-		
-		return false; 
+		return true; //true
 	}
 
 	
@@ -182,11 +183,11 @@ public class TrenoDAO {
      * @param id_treno, id del treno a cui aggiungere i vagoni
      * @param idVagoni, questa lista di id dei vagoni indica la posizione dei vagoni nuovi che vuoi aggiungere
      * @param siglaNuova
-     * @return un boleano che indica la riuscita dell'operazione
+     * @return un boolean con l'esito dell'operazione
 	 * @throws MarcaNonValidaException 
      */																			   
 	@Transactional
-	public boolean aggiungiVagoni(Long id_treno, ArrayList<Integer> posVagoni, String siglaNuova) throws Exception, SiglaTrenoException {
+	public boolean aggiungiVagoni(Long id_treno, ArrayList<Integer> posVagoni, String siglaNuova) throws GenericException, SiglaTrenoException {
 		TrenoUtility trenoUtility = new TrenoUtility();
 		Treno treno = this.getTrenoById(id_treno);
 
@@ -220,13 +221,18 @@ public class TrenoDAO {
 				em.flush();
 				return true;
 
-			} catch (Exception e) {
+			} catch (SiglaTrenoException e) {
 				System.out.println("Errore durante l'aggiunta dei vagoni: " + e.getMessage());
-				throw e; // Lancia nuovamente l'eccezione per attivare il rollback
+				throw e;
+			}
+			catch (GenericException e)
+			{
+				System.out.println("Errore durante l'aggiunta dei vagoni: " + e.getMessage());
+				throw e;
 			}
 		}
 
-		return false; 
+		return true; 
 	}
 	
 	//TODO: controllare se serve ALLA FINE

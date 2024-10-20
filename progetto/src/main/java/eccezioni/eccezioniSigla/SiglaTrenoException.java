@@ -16,4 +16,7 @@ public abstract class SiglaTrenoException extends Exception {
 	}
 	
 	public abstract String getSuggerimento();
+	
+	public abstract String getErrorePerUtente();
+	
 }

@@ -1,7 +1,7 @@
 package eccezioni.eccezioniGeneriche;
 
 @SuppressWarnings("serial")
-public class MarcaNonValidaException extends Exception {
+public class MarcaNonValidaException extends GenericException {
     
 	private String marca;
 	
@@ -13,5 +13,11 @@ public class MarcaNonValidaException extends Exception {
 
 	public String getSuggerimento() {
 		return "Numero marca inserita: " + marca + ". Inserisci una marca con numero esistente";
+	}
+	
+	@Override
+	public String getErrorePerUtente() {
+		
+		return "La marca non è valida!";
 	}
 }
