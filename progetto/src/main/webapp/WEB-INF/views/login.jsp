@@ -60,9 +60,9 @@
 <body>
 
     <div style="margin: 20px;">
-        <h1 align="center" style="font-size: 5.5rem; margin: 0;"> Train Bazaar *logo* </h1>
-        
-        <h1 align="center" style="font-size: 1.5rem; margin-top: 5px;"> Make it better, make it faster! </h1>
+        <h1 align="center" style="font-size: 5.5rem; margin: 0;">  
+        	<img src="${pageContext.request.contextPath}/images/logo.jpg" alt="Train Bazaar Logo" style="width: 150px; height: auto;">
+        </h1>
     </div>
 
 

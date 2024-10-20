@@ -7,6 +7,9 @@
 
 	<!-- Abilita le annotazioni MVC -->
 	<mvc:annotation-driven />
+	
+	<!-- Configurazione per servire le risorse statiche (immagini, CSS, JS) -->
+	<mvc:resources mapping="/images/**" location="/images/" />
 
 	<!-- Definisci un InternalResourceViewResolver per la gestione delle viste -->
 	<bean id="viewResolver"
