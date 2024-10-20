@@ -31,34 +31,11 @@
 
     <!-- Form per inviare i dati -->
     <form id="trainForm" action="addWagons" method="POST">
-        <!-- Locomotiva -->
-        <div class="wagon-form">
-            <label>Locomotiva:</label>
-            <input type="hidden" name="wagons[]" value="H">
-            <span>Locomotiva</span>
-            <span class="add-button" data-position="0">+ Aggiungi dopo</span>
-        </div>
+    	<input type="hidden" name="idTreno" value="${idTreno}">
 
         <!-- Sezione per i vagoni preesistenti -->
         <div id="preexistingWagons">
-            <div class="wagon-form" data-index="1">
-                <label>Vagone Passeggero (preesistente):</label>
-                <input type="hidden" name="wagons[]" value="P">
-                <span>Vagone Passeggero</span>
-                <span class="add-button" data-position="1">+ Aggiungi dopo</span>
-            </div>
-            <div class="wagon-form" data-index="1">
-                <label>Vagone Passeggero (preesistente):</label>
-                <input type="hidden" name="wagons[]" value="P">
-                <span>Vagone Passeggero</span>
-                <span class="add-button" data-position="1">+ Aggiungi dopo</span>
-            </div>
-<!--             <div class="wagon-form" data-index="2"> -->
-<!--                 <label>Vagone Cargo (preesistente):</label> -->
-<!--                 <input type="hidden" name="wagons[]" value="C"> -->
-<!--                 <span>Vagone Cargo</span> -->
-<!--                 <span class="add-button" data-position="2">+ Aggiungi dopo</span> -->
-<!--             </div> -->
+           	${vagoniHtml}
         </div>
 
         <!-- Sezione per i vagoni aggiunti dinamicamente -->

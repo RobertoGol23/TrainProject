@@ -9,9 +9,16 @@ public class LocomotivaNonInTestaException extends SiglaTrenoException {
 		super(sigla,messaggio);
 	}
 	
-	public String getSuggerimento() {
-			return "Stringa utilizzata " + getSigla() + "\nstringa suggerita " + "h" + getSigla();
-		}
+	public String getSuggerimento()
+	{
+		return "Stringa utilizzata " + getSigla() + "\nstringa suggerita " + "h" + getSigla();
 	}
+	
+	@Override
+	public String getErrorePerUtente() {
+		
+		return "La locomotiva può trovarsi soltanto in cima o al fondo";
+	}
+}
 
 

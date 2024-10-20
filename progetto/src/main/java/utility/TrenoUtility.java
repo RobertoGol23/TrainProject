@@ -3,6 +3,7 @@ package utility;
 import java.util.ArrayList;
 import java.util.List;
 
+import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniGeneriche.TroppoPesoException;
 import eccezioni.eccezioniSigla.IncoerenzaVagoniException;
@@ -209,7 +210,7 @@ public class TrenoUtility {
 	}
 	
 
-	public boolean controllaPesoTrainabile(String sigla, List<Vagone> listaVagoni) throws SiglaTrenoException
+	public boolean controllaPesoTrainabile(String sigla, List<Vagone> listaVagoni) throws SiglaTrenoException, GenericException
 	{
 		double sommapeso = 0.0;
 		for(Vagone v: listaVagoni) {
@@ -224,6 +225,27 @@ public class TrenoUtility {
 		return true;
 	}
 
+	/**
+	 * Metodo usato per restituire il carattere in base al tipo.
+	 * Il carattere è maiuscolo per via di una gestione dell'aggiunta dei vagoni
+	 * @param tipo
+	 * @return
+	 */
+	public char getCharByTipo(String tipo){
+		switch(tipo){
+			case "Locomotiva": 
+				return 'H';
+			case "VagonePasseggeri":
+				return 'P';
+			case "VagoneRistorante":
+				return 'R';
+			case "VagoneCarro":
+				return 'C';
+			default:
+				return ' ';
+		}
+	}
+	
 	
 	//Metodo che serve per ricreare la sigla dato un treno
 	private char findTipo(String tipo){

@@ -1,5 +1,6 @@
 package eccezioni.eccezioniSigla;
 
+@SuppressWarnings("serial")
 public class IncoerenzaVagoniException extends SiglaTrenoException{
     
 	// Errore qualora:
@@ -11,5 +12,11 @@ public class IncoerenzaVagoniException extends SiglaTrenoException{
 
 	public String getSuggerimento() {
 		return "Stringa utilizzata " + getSigla();
+	}
+	
+	@Override
+	public String getErrorePerUtente() {
+		
+		return "Assicurati di non mischiare i vagoni cargo con quelli passeggeri";
 	}
 }

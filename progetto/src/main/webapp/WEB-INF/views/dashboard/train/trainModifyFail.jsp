@@ -42,6 +42,9 @@
         button:hover {
             background-color: #8a79c7;
         }
+        .error {
+        	color: #fc032c;
+        }
     </style>
 </head>
 <body>
@@ -50,9 +53,11 @@
 
     <div class="content">
         <p>Si è verificato un errore durante la modifica</p>
+        <p class="error"> ${error} </p>
         <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o riprovare a modificarlo</p>
-        <form action="removeWagons" method="get">
-            <button type="submit">Torna alla visualizzazione dei tuoi treni</button>
+        <form action="viewTrain" method="get">
+        	<input type="hidden" name="idTreno" value="${idTreno}">
+            <button type="submit">Riprova a modificare</button>
         </form>
     </div>
 

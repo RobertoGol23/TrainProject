@@ -45,14 +45,13 @@
     </style>
 </head>
 <body>
-
     <h1>Treno modificato con successo!</h1>
-
     <div class="content">
         <p>Il tuo treno è stato modificato con successo!</p>
-        <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o creare un altro treno.</p>
-        <form action="modifyTrain" method="get">
-            <button type="submit">Crea un altro treno</button>
+        <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o continua a modificare.</p>
+        <form action="viewTrain" method="get">
+ 			<input type="hidden" name="idTreno" value="${idTreno}">
+            <button type="submit">Continua a modificare</button>
         </form>
     </div>
 

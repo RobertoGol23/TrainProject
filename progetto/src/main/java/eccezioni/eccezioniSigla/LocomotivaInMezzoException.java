@@ -14,4 +14,10 @@ public class LocomotivaInMezzoException extends SiglaTrenoException{
 		String duplicato = this.getSigla().substring(0, posizione) + this.getSigla().substring(posizione+1, this.getSigla().length());
 		return "Stringa utilizzata " + this.getSigla() + "\nStringa suggerita " +duplicato;
 	}
+	
+	@Override
+	public String getErrorePerUtente() {
+		
+		return "La locomotiva può trovarsi soltanto in cima o al fondo";
+	}
 }

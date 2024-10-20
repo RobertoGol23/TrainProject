@@ -13,10 +13,16 @@ public class TroppiRistorantiException extends SiglaTrenoException {
 	}
 
 	
-		public String getSuggerimento() {
-			String duplicato = this.getSigla().substring(0, posizione) + this.getSigla().substring(posizione+1, this.getSigla().length());
-			return "Stringa utilizzata: " + this.getSigla() + "\nStringa suggerita " +duplicato;
-		}
+	public String getSuggerimento() {
+		String duplicato = this.getSigla().substring(0, posizione) + this.getSigla().substring(posizione+1, this.getSigla().length());
+		return "Stringa utilizzata: " + this.getSigla() + "\nStringa suggerita " +duplicato;
 	}
+	
+	@Override
+	public String getErrorePerUtente() {
+		
+		return "Il treno contiene troppi ristoranti";
+	}
+}
 
 

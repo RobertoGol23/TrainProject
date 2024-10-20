@@ -10,7 +10,7 @@
 
     <!-- Stampa direttamente l'HTML generato dal controller -->
     ${vagoniHtml}
-    
+     <input type="hidden" name="idTreno" value="${idTreno}">
 </body>
 </html>
 
