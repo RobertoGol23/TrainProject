@@ -20,6 +20,7 @@
         h1 {
             color: #8a79c7;
             text-align: center;
+            margin: 0;
         }
 
         .content {
@@ -56,6 +57,7 @@
         button:hover {
             background-color: #8a79c7;
             color: #ffffff;
+            transition: background-color 0.3s, transform 0.2s; /* Transizione per effetto hover */
         }
 
         .container-benvenuto {
@@ -128,7 +130,8 @@
                     <button type="submit">Visualizza Treni</button>
                 </form>
             </div>
-            
+                       
+
         </div>
 
         <!-- Sezione visibile solo agli admin -->

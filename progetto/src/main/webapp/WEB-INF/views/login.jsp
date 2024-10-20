@@ -62,7 +62,7 @@
     <div style="margin: 20px;">
         <h1 align="center" style="font-size: 5.5rem; margin: 0;"> Train Bazaar *logo* </h1>
         
-        <h1 align="center" style="margin-top: 10px;"> Make it better, make it faster! </h1>
+        <h1 align="center" style="font-size: 1.5rem; margin-top: 5px;"> Make it better, make it faster! </h1>
     </div>
 
 

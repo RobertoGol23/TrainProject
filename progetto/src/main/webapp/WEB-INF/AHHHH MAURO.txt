@@ -54,3 +54,8 @@
             alert(`Hai cliccato sulla Card ${cardNumber}`);
         }
     </script>
+
+
+
+
+    

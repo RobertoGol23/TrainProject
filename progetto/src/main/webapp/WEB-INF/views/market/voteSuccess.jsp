@@ -1,3 +1,4 @@
+<%@ include file="../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -9,7 +10,6 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
-            padding: 20px;
         }
     </style>
 </head>

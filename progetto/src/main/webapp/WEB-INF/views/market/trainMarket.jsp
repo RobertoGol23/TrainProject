@@ -5,6 +5,8 @@
 <%@ page import= "org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
 <%@ page import= "org.springframework.context.support.AbstractApplicationContext" %>
 <%@ page import= "configuration.JpaConfig" %>
+<%@ include file="../navbar.jsp" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -16,8 +18,14 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
-            padding: 20px;
         }
+        
+        h1 {
+            color: #8a79c7;
+            text-align: center;
+            margin: 0;
+        }
+
         .treno {
             background-color: #49456d;
             border-radius: 10px;
@@ -25,6 +33,8 @@
             margin-bottom: 10px;
             display: flex;
             align-items: center;
+
+            margin-top: 2%;
         }
         .treno img {
             width: 100px;
@@ -32,6 +42,8 @@
             border-radius: 5px;
             margin-right: 10px;
         }
+
+
         .pagination {
             text-align: center;
             margin-top: 20px;
@@ -47,17 +59,32 @@
         .pagination a:hover {
             background-color: #79c7e3;
         }
+        
         .buttons {
             margin-top: 10px;
+            display: flex; /* Imposta il contenitore come Flexbox */
+            justify-content: space-between; /* Spazia i pulsanti uniformemente */
         }
         .buttons button {
-            margin-right: 10px;
+            width: 100%; /* Larghezza del pulsante (considerando uno spazio tra di essi) */
+            padding: 10px;
+            background-color: #79c7e3;
+            border: none;
+            border-radius: 5px;
+            color: #2e2b4f;
+            cursor: pointer;
         }
+        .buttons button:hover {
+            background-color: #8a79c7;
+            color: #ffffff;
+            transition: background-color 0.3s, transform 0.2s; /* Transizione per effetto hover */
+        }
+
     </style>
 </head>
 <body>
 
-<h1>Market dei Treni</h1>
+<h1 style="margin-top: 2%; font: size 4.0rem;"> <b> Market dei Treni </b></h1>
 
 <% 
 List<Treno> treni = (List<Treno>) session.getAttribute("treni"); 
@@ -67,8 +94,12 @@ List<Treno> treni = (List<Treno>) session.getAttribute("treni");
 	<% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
     <% for (Treno treno : treni) { %>
+
         <div class="treno">
+
+            <!-- TODO: non funziona l'immagine-->
             <img src="<%= (treno != null && treno.getImageUrl() != null) ? treno.getImageUrl() : "default-image.png" %>" alt="<%= (treno != null) ? treno.getNome() : "Treno non disponibile" %>">
+            
             <div>
                 <h3><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h3>
                 <p>Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
@@ -91,12 +122,14 @@ List<Treno> treni = (List<Treno>) session.getAttribute("treni");
                         <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
                         <button type="submit">Dettagli</button>
                     </form>
-                     <!-- Bottone per votare il treno -->
-    				<form method="get" action="voteTrain" style="display:inline;">
-        				<input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
-        				<button type="submit">Vota</button>
-    				</form>
+
+                    <!-- Bottone per votare il treno -->
+                    <form method="get" action="voteTrain" style="display:inline;">
+                        <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
+                        <button type="submit">Vota</button>
+                    </form>
                 </div>
+
             </div>
         </div>
     <% } %>
