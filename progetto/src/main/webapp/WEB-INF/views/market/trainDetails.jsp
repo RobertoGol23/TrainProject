@@ -3,6 +3,12 @@
 <%@ page import="entity.classi_astratte.Vagone" %>
 <%@ page import="entity.servizi.Servizio" %>
 <%@ page import="java.util.List" %>
+<%@ page import="entity.votazioni.Voto" %>
+<%@ page import="entity.dao.VotoDAO" %>
+<%@ page import= "org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
+<%@ page import= "org.springframework.context.support.AbstractApplicationContext" %>
+<%@ page import= "configuration.JpaConfig" %>
+<%@ include file="../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -72,12 +78,15 @@
         Treno treno = (Treno) request.getAttribute("treno");
         if (treno != null) {
     %>
+    	<% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    		VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
         <p>Id: <%= treno.getId() %></p>
         <p>Id: <%= treno.getMarca() %></p>
         <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
         <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
+        <p>Voto: <%= (treno != null) ? votoDAO.calcolaMediaPunteggioTreno(treno.getId()) : 0 %></p>
     </div>
 
     <h2>Lista dei Vagoni</h2>
@@ -130,7 +139,7 @@
             </tbody>
         </table>
     </div>
-
+	<% context.close(); %>
     <%
         } else {
     %>

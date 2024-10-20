@@ -52,46 +52,61 @@
         a{
             color: #ffffff;
         }
+
+        
+
     </style>
 </head>
 <body>
 
-    <h1 align="center">Login</h1>
+    <div style="margin: 20px;">
+        <h1 align="center" style="font-size: 5.5rem; margin: 0;">  
+        	<img src="${pageContext.request.contextPath}/images/logo.jpg" alt="Train Bazaar Logo" style="width: 150px; height: auto;">
+        </h1>
+    </div>
 
-    <form action="login" method="POST">
-        <label for="email">Email</label>
-        
+
+    <div class="conainer" style="margin-top: 100px;">
+
+        <h1 align="center" style="font-size: 3.0rem; margin-bottom: 5px;">Login</h1>
+
+        <form action="login" method="POST" style="margin-top: 0;">
+            <label for="email">Email</label>
+            
+            <%
+            
+                String email = (String) session.getAttribute("email");
+                if (email != null && !email.isEmpty())
+                {
+                    %><input type="email" id="email" value="<%= email %>" name="email" required><%
+                    session.removeAttribute("email");
+                }
+                else
+                {
+                    %><input type="email" id="email" placeholder="Inserisci qui il nome utente" name="email" required><%
+                }  
+            %>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Inserisci qui la tua password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
         <%
-        
-		    String email = (String) session.getAttribute("email");
-			if (email != null && !email.isEmpty())
-			{
-				%><input type="email" id="email" value="<%= email %>" name="email" required><%
-				session.removeAttribute("email");
-			}
-			else
-			{
-				%><input type="email" id="email" placeholder="Inserisci qui il nome utente" name="email" required><%
-			}  
-		%>
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Inserisci qui la tua password" name="password" required>
+            String errorMessage = (String) session.getAttribute("errorMessage");
+            session.removeAttribute("errorMessage");
+            if (errorMessage != null && !errorMessage.isEmpty())
+            {
+                %>
+                <p align="center" style="color: red"><%= errorMessage %></p>
+                <%
+            }
+        %>
 
-        <button type="submit">Login</button>
-    </form>
+        <p align="center">Non hai un account? <a href="${pageContext.request.contextPath}/register">Registrati</a></p>
 
-    <%
-	    String errorMessage = (String) session.getAttribute("errorMessage");
-        session.removeAttribute("errorMessage");
-	    if (errorMessage != null && !errorMessage.isEmpty())
-	    {
-			%>
-        	<p align="center" style="color: red"><%= errorMessage %></p>
-			<%
-	    }
-	%>
-
-    <p align="center">Non hai un account? <a href="${pageContext.request.contextPath}/register">Registrati</a></p>
+    </div>
+    
 
 </body>
 </html>

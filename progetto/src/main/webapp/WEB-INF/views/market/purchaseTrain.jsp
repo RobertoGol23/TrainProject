@@ -1,6 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="entity.treno.Treno" %>
 <%@ page import="java.util.List" %>
+<%@ include file="../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -12,7 +13,6 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
-            padding: 20px;
         }
         .treno {
             background-color: #49456d;

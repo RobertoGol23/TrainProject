@@ -43,8 +43,9 @@ public class UserController {
         session.invalidate(); // Termina la sessione
         return "redirect:/login"; // Reindirizza al login
     }
-      
-    @GetMapping("/wallet")
+
+
+    @GetMapping("/ricarica")
     public String showAddFundsForm(Model model, HttpSession session) {
         
         // Controlla se l'utente è autenticato
@@ -56,40 +57,72 @@ public class UserController {
         
         // Se l'utente è loggato, aggiungi l'attributo al modello
         model.addAttribute("user", user);
-        return "dashboard/user/wallet"; // Nome della vista JSP per aggiungere fondi
+        return "dashboard/user/ricarica"; // Nome della vista JSP per aggiungere fondi
     }
 
     // Gestisce l'aggiunta di fondi al wallet
-    @PostMapping("/wallet")
+    @PostMapping("/ricarica")
     public String addFunds(@RequestParam double amount, HttpSession session, Model model) {
-    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-    	UserDAO userDAO = context.getBean(UserDAO.class);
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        UserDAO userDAO = context.getBean(UserDAO.class);
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
             user.setWallet(user.getWallet() + amount); // Aggiungi fondi al wallet
 
             // Salva l'utente aggiornato nel database
-            userDAO.updateUser(user); // Assicurati di avere questo metodo nel tuo DAO
+            userDAO.updateUser(user);
             context.close();
-            return "/dashboard/user/walletUpdated"; // Reindirizza alla pagina di conferma
+
+            // Aggiungi un messaggio di successo al modello
+            model.addAttribute("successMessage", "Fondi aggiunti con successo!");
+            model.addAttribute("user", user); // Ricarica l'utente nel modello
+            return "dashboard/user/ricaricaConfirmed"; // Ritorna alla stessa pagina
         } else {
-        	context.close();
+            context.close();
             return "redirect:/login"; // Reindirizza al login se l'utente non è loggato
         }
     }
 
+
+
     // Pagina di conferma dopo l'aggiornamento del wallet
-    @GetMapping("/walletUpdated")
-    public String walletUpdated(Model model, HttpSession session) {
+    @GetMapping("/ricaricaConfirmed")
+    public String ricaricaConfirmed(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             model.addAttribute("user", user);
-            return "walletUpdated"; // Nome della vista JSP per il wallet aggiornato
+            return "ricaricaConfirmed"; // Nome della vista JSP per il wallet aggiornato
         } else {
             return "redirect:/login"; // Reindirizza al login se non è loggato
         }
     }
+
+
+
+
+    // Mostra la pagina del wallet
+    @GetMapping("/wallet")
+    public String showWallet(HttpServletRequest request, Model model) {
+
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+
+        model.addAttribute("user", loggedInUser);
+        return "dashboard/user/wallet"; // Mostra la dashboard
+    }
+
+
+
+
+
+
+
+
     
  // Mostra il form per modificare il profilo
     @GetMapping("/editProfile")

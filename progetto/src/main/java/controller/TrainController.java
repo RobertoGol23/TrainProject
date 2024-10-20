@@ -419,4 +419,20 @@ public class TrainController {
 
         return "dashboard/train/viewTrain"; // Nome della vista JSP
     }
+
+
+
+    @GetMapping("/trainMarket")
+    public String showTrainMarket(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+
+        model.addAttribute("user", loggedInUser);
+        return "/train-bazaar/trainMarket"; // Mostra la dashboard
+    }
+    
 }
