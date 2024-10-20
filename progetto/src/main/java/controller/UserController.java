@@ -66,30 +66,29 @@ public class UserController {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         UserDAO userDAO = context.getBean(UserDAO.class);
         User user = (User) session.getAttribute("user");
+        context.close();
 
         if (user != null) {
             user.setWallet(user.getWallet() + amount); // Aggiungi fondi al wallet
 
             // Salva l'utente aggiornato nel database
             userDAO.updateUser(user);
-            context.close();
 
             // Aggiungi un messaggio di successo al modello
             model.addAttribute("successMessage", "Fondi aggiunti con successo!");
             model.addAttribute("user", user); // Ricarica l'utente nel modello
-            return "dashboard/user/ricaricaConfirmed"; // Ritorna alla stessa pagina
+            return "dashboard/user/ricaricaConfirmed"; // Ritorna alla pagina di conferma
         } else {
-            context.close();
             return "redirect:/login"; // Reindirizza al login se l'utente non è loggato
         }
     }
-
-
 
     // Pagina di conferma dopo l'aggiornamento del wallet
     @GetMapping("/ricaricaConfirmed")
     public String ricaricaConfirmed(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
+
+        // TODO: perchè se user!= null facciamo così? Dov'è il controllo sul login?
         if (user != null) {
             model.addAttribute("user", user);
             return "ricaricaConfirmed"; // Nome della vista JSP per il wallet aggiornato
@@ -97,8 +96,6 @@ public class UserController {
             return "redirect:/login"; // Reindirizza al login se non è loggato
         }
     }
-
-
 
 
     // Mostra la pagina del wallet
@@ -117,13 +114,7 @@ public class UserController {
     }
 
 
-
-
-
-
-
-
-    
+   
  // Mostra il form per modificare il profilo
     @GetMapping("/editProfile")
     public String showEditProfileForm(Model model, HttpSession session) {
@@ -209,7 +200,7 @@ public class UserController {
         
     }
 
- // // Mostra i treni posseduti dall'utente
+    // Mostra i treni posseduti dall'utente
     @GetMapping("/viewTrains")
     public String viewUserTrains(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("user");
