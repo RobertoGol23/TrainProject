@@ -6,6 +6,7 @@
 <%@ page import= "org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
 <%@ page import= "org.springframework.context.support.AbstractApplicationContext" %>
 <%@ page import= "configuration.JpaConfig" %>
+<%@ include file="../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -17,7 +18,6 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
-            padding: 20px;
         }
         .treno {
             background-color: #49456d;

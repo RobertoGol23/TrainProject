@@ -55,7 +55,13 @@ public class MarketController {
     // GET per visualizzare la pagina di conferma acquisto
     @GetMapping("/purchaseTrain")
     public String purchaseTrain(@RequestParam("trenoId") Long trenoId, HttpSession session) {
-        
+
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 
@@ -76,10 +82,15 @@ public class MarketController {
     @PostMapping("/confirmPurchase")
     public String confirmPurchase(@RequestParam("trenoId") Long trenoId, HttpSession session) throws SoldiNonSufficientiException {
         
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class); 
-        User utente = (User) session.getAttribute("user");
 
         Treno treno = trenoDAO.getTrenoById(trenoId);
         
@@ -103,9 +114,15 @@ public class MarketController {
         return "market/purchaseSuccess"; // Dopo l'acquisto, torna al market
     }
     @GetMapping("/trainDetails")
-    public String viewTrain(@RequestParam("trenoId") Long trenoId, Model model) {
+    public String viewTrain(@RequestParam("trenoId") Long trenoId, Model model, HttpSession session) {
         // Recupera il treno dall'ID
-    	
+
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
@@ -127,6 +144,13 @@ public class MarketController {
  // GET per visualizzare la pagina di voto
     @GetMapping("/voteTrain")
     public String showVoteTrain(@RequestParam("trenoId") Long trenoId, HttpSession session) {
+
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 
@@ -147,6 +171,12 @@ public class MarketController {
     @PostMapping("/submitVote")
     public String submitVote(@RequestParam("trenoId") Long trenoId, @RequestParam("userId") Long userId, 
                              @RequestParam("punteggio") int punteggio, HttpSession session) {
+
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
         
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         VotoDAO votoDAO = context.getBean(VotoDAO.class);
