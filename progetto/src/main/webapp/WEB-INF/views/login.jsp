@@ -68,9 +68,9 @@
 
     <div class="conainer" style="margin-top: 100px;">
 
-        <h1 align="center" style="font-size: 3.5rem;">Login</h1>
+        <h1 align="center" style="font-size: 3.0rem; margin-bottom: 5px;">Login</h1>
 
-        <form action="login" method="POST">
+        <form action="login" method="POST" style="margin-top: 0;">
             <label for="email">Email</label>
             
             <%

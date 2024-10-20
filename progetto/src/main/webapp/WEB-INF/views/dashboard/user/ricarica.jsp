@@ -9,10 +9,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aggiungi Fondi</title>
+
+    <!-- TODO: Controllare sti import -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -145,7 +149,7 @@
             <div class="form-container">
                 <h1>Aggiungi Fondi al Tuo Wallet</h1>
 
-                <form action="wallet" method="post" onsubmit="showSuccessMessage();">
+                <form action="ricarica" method="post" onsubmit="showSuccessMessage();">
                     <label for="amount">Importo da aggiungere:</label>
                     <input type="number" id="amount" name="amount" required min="0" step="100" value="">
                     <button type="submit">Aggiungi Fondi</button>

@@ -101,6 +101,28 @@ public class UserController {
 
 
 
+    // Mostra la pagina del wallet
+    @GetMapping("/wallet")
+    public String showWallet(HttpServletRequest request, Model model) {
+
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+
+        model.addAttribute("user", loggedInUser);
+        return "dashboard/user/wallet"; // Mostra la dashboard
+    }
+
+
+
+
+
+
+
+
     
  // Mostra il form per modificare il profilo
     @GetMapping("/editProfile")
