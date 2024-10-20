@@ -239,7 +239,7 @@ public class TrenoUtility {
 				return 'P';
 			case "VagoneRistorante":
 				return 'R';
-			case "VagoneCarro":
+			case "VagoneCargo":
 				return 'C';
 			default:
 				return ' ';
@@ -256,7 +256,7 @@ public class TrenoUtility {
 				return 'p';
 			case "VagoneRistorante":
 				return 'r';
-			case "VagoneCarro":
+			case "VagoneCargo":
 				return 'c';
 			default:
 				return ' ';

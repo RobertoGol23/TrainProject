@@ -143,18 +143,20 @@ public class TrainController {
 	    TrenoUtility tu = new TrenoUtility();
 	    char car;
 	    StringBuilder vagoniHtml = new StringBuilder();
-	    
+	    Vagone vagone;
 	    List<Vagone> vagoni = treno.getListaVagoni();
 	    for (int i = 0; i < vagoni.size(); i++) {
-	        Vagone vagone = vagoni.get(i);
+	        vagone = vagoni.get(i);
 	           
 	        vagoniHtml.append("<div class='wagon-form'>");
 	        vagoniHtml.append("<label>").append(vagone.getTipo()).append("</label>");
+	        System.out.println("tipo: "+vagone.getTipo());
 	        car = tu.getCharByTipo(vagone.getTipo());
 	        vagoniHtml.append("<input type='hidden' name='wagons[]' value='").append(car).append("'>");
 	        vagoniHtml.append("<span>Vagone</span>");
 	        vagoniHtml.append("<span class='add-button'>+ Aggiungi dopo</span>");
 	        vagoniHtml.append("</div>");
+	        System.out.println("car: "+car);
 	       
 	    }
 
