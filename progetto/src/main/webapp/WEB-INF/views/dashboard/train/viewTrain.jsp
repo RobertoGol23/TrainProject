@@ -185,6 +185,8 @@
     	<a href="cloneTrain?idTreno=${treno.id}" class="button">Clona il Treno</a> <!-- Pulsante per clonare il treno -->
     	
     	<a href="ribaltaTreno?idTreno=${treno.id}" class="button">Ribalta il Treno</a>
+    
+    	<a href="deleteTrain?idTreno=${treno.id}" class="button">Cancella</a>
     </div>
 	<% context.close(); %>
     <%
