@@ -91,10 +91,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <!-- Aggiunta del logo -->
                 <div class="left-navbar">
-                    <a href="/train-bazaar/dashboard/home">
                         <img src="${pageContext.request.contextPath}/images/logo.jpg" alt="Train Bazaar Logo"
                             class="logo-img">
-                    </a>
                     
                     <!-- Link di navigazione -->
                     <a class="nav-link btn btn-delft-blue text-bluepx-3 font-weight-bold"

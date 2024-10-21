@@ -112,19 +112,6 @@ public class TrainController {
 	    	System.out.println("errore: "+ e);
 	    	return "dashboard/train/trainModifyFail";
 		}
-		catch (GenericException e)
-		{
-			e.printStackTrace();
-			model.addAttribute("idTreno", idTreno);
-			model.addAttribute("error", e.getErrorePerUtente());
-	    	System.out.println("errore: "+ e);
-			return "dashboard/train/trainModifyFail";
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			return "dashboard/train/trainModifyFail";
-		}
 	}
 
 	

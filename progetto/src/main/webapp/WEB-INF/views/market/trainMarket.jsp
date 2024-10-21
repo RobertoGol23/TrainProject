@@ -115,6 +115,44 @@
             left: 15px;
             color: #9ca3af;
         }
+
+
+
+
+        .form-range {
+            -webkit-appearance: none; /* Rimuove lo stile predefinito in Safari */
+            appearance: none; /* Rimuove lo stile predefinito */
+            height: 10px; /* Altezza della barra */
+            border-radius: 5px; /* Bordo arrotondato */
+            background: #ddd; /* Colore della barra */
+            outline: none; /* Rimuove il contorno al focus */
+        }
+    
+        .form-range::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Rimuove lo stile predefinito in Safari */
+            appearance: none; /* Rimuove lo stile predefinito */
+            width: 20px; /* Larghezza del cursore */
+            height: 20px; /* Altezza del cursore */
+            border-radius: 50%; /* Cursore arrotondato */
+            background: #007bff; /* Colore del cursore */
+            cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+        }
+    
+        .form-range::-moz-range-thumb {
+            width: 20px; /* Larghezza del cursore */
+            height: 20px; /* Altezza del cursore */
+            border-radius: 50%; /* Cursore arrotondato */
+            background: #007bff; /* Colore del cursore */
+            cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+        }
+    
+        .form-range::-ms-thumb {
+            width: 20px; /* Larghezza del cursore */
+            height: 20px; /* Altezza del cursore */
+            border-radius: 50%; /* Cursore arrotondato */
+            background: #007bff; /* Colore del cursore */
+            cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+        }
     </style>
 </head>
 <body>
@@ -134,19 +172,46 @@
 
         <!-- Container del FORM a sinistra -->
         <div class="container-left">
+            
+
+            <!-- 
+
+            RANGE: prezzo, peso, lunghezza
+            SEARCH BAR: sigla, nome
+            ORDINAMENTO: per prezzo, lunghezza, peso, 
+            
+             -->
+
             <form action="/search" method="get">
-                <label for="tipo-immobile">Tipologia di immobile</label>
-                <select id="tipo-immobile" name="tipo-immobile">
-                    <option value="case-appartamenti">Case e appartamenti</option>
-                    <option value="ville-villette">Case, ville e villette</option>
+                <label for="tipo-treno"> Marca del treno </label>
+                <select id="tipo-treno" name="tipo-treno">
+                    <option value="KargoModelz">KargoModelz</option>
+                    <option value="RegionalGain">RegionalGain</option>
+                    <option value="xFurryFast">xFurryFast</option>
                 </select>
+
                 <br><br>
 
-                <label for="prezzo-min">Prezzo Min:</label>
-                <input type="number" id="prezzo-min" name="prezzo-min" placeholder="Min">
+                <!-- <label for="prezzo-min">Prezzo Min:</label>
+                <input type="number" id="prezzo-min" name="prezzo-min" placeholder="Min" value="0">
                 <label for="prezzo-max">Prezzo Max:</label>
                 <input type="number" id="prezzo-max" name="prezzo-max" placeholder="Max">
-                <br><br>
+                <br><br> -->
+
+                <div class="d-flex flex-column align-items-center" style="width: 80%; margin: 0 auto;">
+                    <label for="range" class="form-label"> Prezzo </label>
+                    <input type="range" class="form-range" min="0.0" max="1000000" step="10000" id="range" oninput="updateValue(this.value)" style="width: 100%;">
+                    <span id="rangeValue"> 0 </span> <!-- Valore iniziale -->
+                </div>
+                
+                <script>
+                    // Funzione per aggiornare il valore visualizzato con formattazione
+                    function updateValue(val) {
+                        const formattedValue = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
+                        document.getElementById('rangeValue').textContent = formattedValue;
+                    }
+                </script>
+
 
                 <label for="dimensioni-min">Dimensioni Min:</label>
                 <input type="number" id="dimensioni-min" name="dimensioni-min" placeholder="Min">
