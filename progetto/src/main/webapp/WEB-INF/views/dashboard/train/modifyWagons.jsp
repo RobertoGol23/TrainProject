@@ -1,4 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="entity.treno.Treno" %>
 <%@ page import="entity.classi_astratte.Vagone" %>
 <%@ page import="entity.servizi.Servizio" %>
@@ -7,7 +8,6 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifica Vagoni</title>
     <style>
