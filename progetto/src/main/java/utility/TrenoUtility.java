@@ -29,7 +29,7 @@ public class TrenoUtility {
 	 * @return marca
 	 * @throws Exception
 	 */
-	public String getMarcaByInt(int numeroMarca) throws Exception
+	public String getMarcaByInt(int numeroMarca) throws GenericException
 	{
 		String marca = "";
 		
