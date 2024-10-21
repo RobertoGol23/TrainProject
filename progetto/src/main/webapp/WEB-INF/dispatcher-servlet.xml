@@ -10,6 +10,9 @@
 	
 	<!-- Configurazione per servire le risorse statiche (immagini, CSS, JS) -->
 	<mvc:resources mapping="/images/**" location="/images/" />
+	
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
 
 	<!-- Definisci un InternalResourceViewResolver per la gestione delle viste -->
 	<bean id="viewResolver"
