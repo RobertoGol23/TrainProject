@@ -35,15 +35,20 @@
             border: none;
             border-radius: 5px;
         }
-        button {
+        button, a.button {
             background-color: #8a79c7;
+            width: 170px;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            
         }
-        button:hover {
+        button:hover, a.button:hover {
             background-color: #79c7e3;
         }
         h1, h2 {
@@ -60,10 +65,6 @@
             padding: 10px;
             margin-bottom: 5px;
             border-radius: 5px;
-        }
-        a {
-            color: #ffffff;
-            text-decoration: none;
         }
     </style>
 </head>
@@ -99,9 +100,11 @@
             %>
             </select><br/>
 			<!-- Campo nascosto per memorizzare l'indice del vagone -->
-            <input type="hidden" name="vagoneId" id="vagoneId" value="<%= vagone.getId() %>"></input>
+            <input type="hidden" name="vagoneId" id="vagoneId" value="<%= vagone.getId()%>"></input>
             <input type="hidden" name="idTreno" id="idTreno" value="<%= (request.getAttribute("idTreno")) %>"></input>
             <button type="submit">Aggiungi Servizio</button>
+            <a href="viewTrain?idTreno=<%= (request.getAttribute("idTreno")) %>" class="button">Torna indietro</a> 
+
         </form>
 
 </body>

@@ -14,6 +14,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dettagli Treno</title>
     <style>
@@ -38,9 +39,6 @@
             padding: 0;
         }
         ul li {
-            /*background-color: #6c6991;*/
-            padding: 10px;
-            margin-bottom: 5px;
             border-radius: 5px;
         }
         table {
@@ -48,9 +46,14 @@
             margin-top: 20px;
             border-collapse: collapse;
         }
-        th, td {
+        th {
             padding: 10px;
             text-align: center;
+        }
+        
+        td {
+            padding: 10px;
+            text-align: left;
         }
         th {
             background-color: #6c6991;
@@ -65,6 +68,10 @@
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: white;
+            text-align:center;
             text-decoration: none;
             display: inline-block;
             /*margin-top: 10px;*/
@@ -72,6 +79,17 @@
         button:hover, a.button:hover {
             background-color: #79c7e3;
         }
+        .cestino {
+        	padding: 10px;
+        	color: pink;
+        }
+        .cestino:hover {
+        	color: purple;
+        }
+        .addButton{
+        	
+        }
+        
     </style>
 </head>
 <body>
@@ -130,6 +148,8 @@
 								    <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">
 								        <%= servizio.getNome() %>
 								    </a>
+								    <a class="cestino" href="deleteService?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&nomeServizio=<%= servizio.getNome() %>">
+								    <i class="fas fa-trash"></i></a>
 								</li>
                             <%
                                 }
@@ -142,12 +162,14 @@
                             <p> 
 							    <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>
 							    	&idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Aggiungi servizio</a>
-							</p>
+							 </p>
 
                         <%
                             }
                         %>
                     </td>
+                    <td>
+					
                 </tr>
             <%
                 }

@@ -157,7 +157,6 @@ public class TrainController {
 	}
 	
 	
-	@SuppressWarnings("resource")
 	@PostMapping("/addWagons")
     public String aggiungiVagoni(
             @RequestParam("wagons[]") List<String> wagons, // Tutti i vagoni (preesistenti e nuovi)
@@ -453,9 +452,8 @@ public class TrainController {
     }
     
     @GetMapping("/viewTrain")
-    public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model) {
-        // Recupera il treno dall'ID
-    	
+    public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
+	
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
@@ -474,6 +472,40 @@ public class TrainController {
         return "dashboard/train/viewTrain"; // Nome della vista JSP
     }
     
+    
+    @GetMapping("/deleteService")
+    public String cancellaServizio(@RequestParam("idTreno") Long idTreno,
+    							@RequestParam("idVagone") Long idVagone,
+    							@RequestParam("nomeServizio") String nomeServizio,
+    							Model model, HttpSession session) throws Exception
+    {
+    	User utente = (User) session.getAttribute("user");
+
+    	System.out.println("servizio: " + nomeServizio);
+    	//throw new Exception("Passo di qui");
+    	
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+    	
+    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    	VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+    	ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+    	
+    	System.out.println("servizio: " + nomeServizio);
+    	
+    	Vagone vagone = vagoneDAO.getVagoneById(idVagone);
+    	Servizio servizio = servizioDAO.getServizioByName(nomeServizio);
+    	
+    	vagone.deleteServizio(servizio);
+    	vagoneDAO.updateVagone(vagone);
+    	
+    	context.close();
+    	return "redirect:viewTrain?idTreno="+ idTreno;
+    	//return "";
+    }
+    
+    
  // GET per visualizzare la pagina di clonazione del treno
     @GetMapping("/cloneTrain")
     public String showCloneTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
@@ -489,7 +521,7 @@ public class TrainController {
         Treno treno = trenoDAO.getTrenoById(idTreno);
         if (treno == null) {
             context.close();
-            return "redirect:/dashboard/home"; // Se il treno non esiste, torna al market
+            return "redirect:/dashboard/home"; // Se il treno non esiste, torna alla home
         }
 
         // Aggiungi il treno alla model
