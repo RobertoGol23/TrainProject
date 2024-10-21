@@ -18,7 +18,7 @@
             margin: 0; /* Rimuovi margine di default */
         }
         h1 {
-            color: #8a79c7;
+            color: #e1418b;
         }
         form {
             background-color: #49456d;
@@ -31,7 +31,8 @@
         label {
             display: block;
             margin-bottom: 10px;
-            color: #79c7e3;
+            color: #e1418b;
+            font-weight: bold;
         }
         input {
             width: 94%;
@@ -44,14 +45,14 @@
             width: 100%;
             margin-top: 25px;
             padding: 10px;
-            background-color: #79c7e3;
+            background-color: #f5835e;
             border: none;
             border-radius: 5px;
             color: #2e2b4f;
             cursor: pointer;
         }
         button:hover {
-            background-color: #8a79c7;
+            background-color: #f96737;
             color: #ffffff;
         }
         a {
@@ -61,7 +62,7 @@
 
         .container {
             width: 25%;
-            border: 2px solid #79c7e3; /* Colore e spessore del bordo */
+            border: 3px solid #db7a4e; /* Colore e spessore del bordo */
             border-radius: 10px;
             padding: 20px; /* Spaziatura interna */
             margin-top: -12%;
@@ -94,7 +95,7 @@
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="Inserisci qui la tua password" name="password" required>
 
-            <button type="submit">Login</button>
+            <button type="submit"><b>Login</b></button>
         </form>
 
         <%
