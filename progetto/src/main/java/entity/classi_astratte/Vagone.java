@@ -3,6 +3,7 @@ package entity.classi_astratte;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToMany;
+import utility.TrenoUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,12 +132,11 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 		return listaServizi;
 	}
 
-//	public void setListaServizi() {
-//		
-//		this.listaServizi = new ArrayList<Servizio>();
-//
-//	}
-//	
+	public String getDettagli()
+	{
+		TrenoUtility tu = new TrenoUtility();
+		return tu.getDettagli(this);
+	}
 	
 	
 }
