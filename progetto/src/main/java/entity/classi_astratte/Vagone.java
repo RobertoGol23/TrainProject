@@ -131,6 +131,10 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	{
 		return listaServizi;
 	}
+	
+	public void setListaServizi(List<Servizio> listaServizi) {
+		this.listaServizi = listaServizi;
+	}
 
 	public String getDettagli()
 	{

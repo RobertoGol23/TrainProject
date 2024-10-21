@@ -149,7 +149,8 @@
         <a href="purchaseTrain?trenoId=${treno.id}" class="button">Compra il treno</a>
 
         <a href="voteTrain?trenoId=${treno.id}" class="button">Vota il treno</a>
-
+		
+		
     </div>
 	<% context.close(); %>
     <%

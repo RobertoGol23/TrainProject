@@ -157,7 +157,10 @@
     </div>
 	<div align="center">
         <a href="addWagons?idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Aggiungi vagoni</a>
+        
         <a href="removeWagons?idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Rimuovi vagoni</a>
+    
+    	<a href="cloneTrain?trenoId=${treno.id}" class="button">Clona il Treno</a> <!-- Pulsante per clonare il treno -->
     </div>
 	<% context.close(); %>
     <%
