@@ -22,6 +22,28 @@ import entity.user.User;
 @RequestMapping("/dashboard/user")
 public class UserController {
     
+	
+	@PostMapping("/checkForDeleteAccount")
+	public String controlliPerCancellazioneAccount(HttpServletRequest request, Model model,
+													@RequestParam("password") String password)
+	{
+		HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user");
+
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+		if(loggedInUser.getPassword().equalsIgnoreCase(password))
+		{
+			
+		}
+        
+        
+		
+		return "";
+	}
+	
+	
     // Mostra la dashboard dopo il login
     @GetMapping("/dashboard")
     public String showDashboard(HttpServletRequest request, Model model) {
@@ -174,8 +196,8 @@ public class UserController {
     
  // Gestisce la cancellazione dell'utente
     @Transactional
-    @PostMapping("/deleteUser")
-    public String deleteUser(HttpSession session, @RequestParam String password) {
+    @GetMapping("/deleteUser")
+    public String controllaPasswordRimuoviUtente(HttpSession session, @RequestParam("password") String password, Model model) {
         User loggedInUser = (User) session.getAttribute("user");
 
         if (loggedInUser == null) {
@@ -185,18 +207,19 @@ public class UserController {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
         
-        context.close();
+        
 
         if(loggedInUser.getPassword().equals(password)){
             // Cancella l'utente dal database
             userDAO.deleteUser(loggedInUser);
-
+            context.close();
             // Termina la sessione
             session.invalidate();
             return "dashboard/user/accountDeleted"; // Reindirizza alla pagina di conferma
         }
         else{
-            session.setAttribute("errorMessage", "Password non valida");
+            model.addAttribute("errorMessage", "Password non valida");
+            context.close();
             return "/dashboard/user/editProfile";
         }
         

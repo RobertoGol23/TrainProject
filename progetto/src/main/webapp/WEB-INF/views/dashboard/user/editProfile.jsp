@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	    pageEncoding="UTF-8"%>
 
 <%@ include file="../../navbar.jsp" %>
+
+
 
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Modifica Profilo</title>
     <style>
         body {
@@ -104,22 +107,71 @@
             color: red;
             cursor: pointer;
         }
+        
+        <!-- Aggiungi il CSS per il modale -->
+
+	    .modal {
+	        display: none; 
+	        position: fixed; 
+	        z-index: 1; 
+	        left: 0;
+	        top: 0;
+	        width: 100%; 
+	        height: 100%; 
+	        background-color: rgba(0,0,0,0.4); 
+	        padding-top: 60px; 
+	    }
+	    .modal-content {
+	        background-color: #49456d;
+	        margin: 5% auto; 
+	        padding: 20px;
+	        border: 1px solid #888;
+	        width: 80%; 
+	        max-width: 400px;
+	        color: #ffffff;
+	    }
+	    .errore {
+	    	color: red;
+	    }
+	
+        
     </style>
-    <script>
-        function showConfirmationPanel() {
-            document.getElementById('confirmationPanel').style.display = 'block';
-        }
-        function hideConfirmationPanel() {
-            document.getElementById('confirmationPanel').style.display = 'none';
-        }
-        function showErrorModal(message) {
-            document.getElementById('errorModal').style.display = 'block';
-            document.getElementById('errorMessage').innerText = message;
-        }
-        function closeErrorModal() {
-            document.getElementById('errorModal').style.display = 'none';
-        }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+	<!-- Script per gestire il popup di conferma -->
+	<script>
+	    // Funzione per mostrare il modale
+	    function showDeleteModal() {
+	        document.getElementById('confirmDeleteModal').style.display = 'block';
+	    }
+	
+	    // Funzione per chiudere il modale
+	    function closeDeleteModal() {
+	        document.getElementById('confirmDeleteModal').style.display = 'none';
+	    }
+	
+	    // Funzione per confermare la cancellazione del profilo
+	    function confirmDelete() {
+	        var password = document.getElementById('deletePassword').value;
+	
+	        // Controlla se la password è stata inserita
+	        if (password) {
+	            // Se la password è valida, procedi con la cancellazione
+	            window.location.href = "deleteUser?password=" + password;
+	        } else {
+	            alert("Per favore, inserisci la tua password.");
+	        }
+	    }
+	
+	    // Funzione per chiudere il modale cliccando fuori dal contenuto
+	    window.onclick = function(event) {
+	        var modal = document.getElementById('confirmDeleteModal');
+	        if (event.target == modal) {
+	            modal.style.display = "none";
+	        }
+	    }
+	</script>
 </head>
 <body>
 
@@ -142,39 +194,32 @@
             <button type="submit">Aggiorna Profilo</button>
         </form>
     </div>
+	<div class="delete-section">
+   		<button type="button" onclick="showDeleteModal()">Cancella Profilo</button>
 
-    <div class="delete-section">
-        <h2>Elimina il tuo account</h2>
-        <button type="button" onclick="showConfirmationPanel()">Cancella il mio account</button>
-
-        <div id="confirmationPanel" class="confirmation-panel">
-            <h3>Conferma cancellazione account</h3>
-            <form action="deleteUser" method="post">
-                <label for="deletePassword">Inserisci la tua password:</label>
-                <input type="password" id="deletePassword" name="password" required>
-
-                //TODO: DA SISTEMARE TUTTO
-                <%
-                    String errorMessage = (String) session.getAttribute("errorMessage");
-                    session.removeAttribute("errorMessage");
-                    if (errorMessage != null && !errorMessage.isEmpty())
-                    {
-                        %>
-                        <p style="color: red"><%= errorMessage %></p>
-                        <%
-                    }
-                %>
-                
-                <button type="submit">Conferma Cancellazione</button>
-                <button type="button" onclick="hideConfirmationPanel()">Annulla</button>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- //TODO: Controllo password -->
-
-
+		<%
+			if(request.getAttribute("errorMessage")!=null)
+			{
+		%>
+		        <div class="errore">${errorMessage} </div>
+		<%
+		    };
+		%>
+	</div>
+    
+	<!-- Modale per la conferma della password -->
+	<div id="confirmDeleteModal" class="modal">
+	    <div class="modal-content">
+	        
+	        <h2>Conferma Cancellazione</h2>
+	        <p>Per favore, inserisci la tua password per confermare la cancellazione del profilo</p>
+	        <form id="confirmDeleteForm">
+	            <label for="deletePassword">Password:</label>
+	            <input type="password" id="deletePassword" name="password" class="form-control" required>
+	        </form>
+	        <button type="button" class="btn btn-danger" onclick="confirmDelete()">Conferma</button>
+	    </div>
+	</div>
 
 </body>
 </html>

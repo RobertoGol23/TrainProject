@@ -5,16 +5,17 @@
 <%@ page import="java.util.List" %>
 <%@ page import="entity.votazioni.Voto" %>
 <%@ page import="entity.dao.VotoDAO" %>
-<%@ page import= "org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
-<%@ page import= "org.springframework.context.support.AbstractApplicationContext" %>
-<%@ page import= "configuration.JpaConfig" %>
+<%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
+<%@ page import="org.springframework.context.support.AbstractApplicationContext" %>
+<%@ page import="configuration.JpaConfig" %>
 <%@ include file="../../navbar.jsp" %>
 
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dettagli Treno</title>
     <style>
@@ -50,7 +51,6 @@
             padding: 10px;
             text-align: center;
         }
-        
         td {
             padding: 10px;
             text-align: left;
@@ -61,8 +61,8 @@
         td {
             background-color: #49456d;
         }
-         button, a.button {
-         	width: 180px;
+        button, a.button {
+            width: 180px;
             background-color: #8a79c7;
             color: white;
             border: none;
@@ -74,22 +74,41 @@
             text-align:center;
             text-decoration: none;
             display: inline-block;
-            /*margin-top: 10px;*/
         }
         button:hover, a.button:hover {
             background-color: #79c7e3;
         }
         .cestino {
-        	padding: 10px;
-        	color: pink;
+            padding: 10px;
+            color: pink;
         }
         .cestino:hover {
-        	color: purple;
+            color: purple;
         }
-        .addButton{
-        	
-        }
-        
+        .modal-content {
+		    background-color: #49456d; /* Colore di sfondo del modale */
+		    color: #ffffff; /* Colore del testo */
+		}
+		.close {
+			border-style: solid;
+			border-width: 2px;
+			border-color: black;
+			width: 50px;
+			height: 50px;
+			text-align: center;
+		}
+		.modal-footer {
+		  	margin: auto;
+		  	
+		}
+		.modal-header {
+			margin: auto;
+			padding-left: 90px;
+		  	padding-right: 90px;
+		}
+		.modal-body {
+			margin: auto;
+		}
     </style>
 </head>
 <body>
@@ -102,7 +121,7 @@
         if (treno != null) {
     %>
     <% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-    		VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
+        VotoDAO votoDAO = context.getBean(VotoDAO.class); %>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
         <p>Id: <%= treno.getId() %></p>
@@ -145,54 +164,74 @@
                                 for (Servizio servizio : servizi) {
                             %>
                                 <li> 
-								    <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">
-								        <%= servizio.getNome() %>
-								    </a>
-								    <a class="cestino" href="deleteService?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&nomeServizio=<%= servizio.getNome() %>">
-								    <i class="fas fa-trash"></i></a>
-								</li>
+                                    <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">
+                                        <%= servizio.getNome() %>
+                                    </a>
+                                    <a class="cestino" href="deleteService?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&nomeServizio=<%= servizio.getNome() %>">
+                                    <i class="fas fa-trash"></i></a>
+                                </li>
                             <%
                                 }
                             %>
                             </ul>
                         <%
-                            } else if(!vagone.getTipo().equalsIgnoreCase("Locomotiva"))
-                            {
+                            } else if (!vagone.getTipo().equalsIgnoreCase("Locomotiva")) {
                         %>
                             <p> 
-							    <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>
-							    	&idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Aggiungi servizio</a>
-							 </p>
-
+                                <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Aggiungi servizio</a>
+                             </p>
                         <%
                             }
                         %>
                     </td>
-                    <td>
-					
                 </tr>
             <%
                 }
+                context.close();
             %>
             </tbody>
         </table>
     </div>
-	<div align="center">
+
+    <div align="center">
         <a href="addWagons?idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Aggiungi vagoni</a>
-        
         <a href="removeWagons?idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Rimuovi vagoni</a>
-    
-    	<a href="cloneTrain?idTreno=${treno.id}" class="button">Clona il Treno</a> <!-- Pulsante per clonare il treno -->
-    	
-    	<a href="ribaltaTreno?idTreno=${treno.id}" class="button">Ribalta il Treno</a>
-    
-    	<a href="deleteTrain?idTreno=${treno.id}" class="button">Cancella</a>
+        <a href="cloneTrain?idTreno=${treno.id}" class="button">Clona il Treno</a>
+        <a href="ribaltaTreno?idTreno=${treno.id}" class="button">Ribalta il Treno</a>
+        <a href="javascript:void(0)" class="button" onclick="showDeleteModal()">Cancella</a>
     </div>
-	<% context.close(); %>
-    <%
-        } else {
-    %>
-        <p>Nessun treno trovato con l'ID specificato.</p>
+
+    <!-- Modale per la conferma della cancellazione -->
+    <div id="confirmDeleteModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Conferma Cancellazione</h5>
+          </div>
+          <div class="modal-body">
+            <p>Sei sicuro di voler cancellare il treno con ID: <strong><%= treno.getId() %></strong>?</p>
+            <p>Questa azione non può essere annullata.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+            <button type="button" class="btn btn-danger" onclick="confirmDelete()">Conferma</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function showDeleteModal() {
+            $('#confirmDeleteModal').modal('show');
+        }
+
+        function confirmDelete() {
+            window.location.href = 'deleteTrain?idTreno=<%= treno.getId() %>';
+        }
+    </script>
+
     <%
         }
     %>
