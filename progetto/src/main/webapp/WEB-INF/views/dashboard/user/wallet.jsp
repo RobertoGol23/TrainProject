@@ -139,7 +139,8 @@
             <div class="form-container">
 
                 <h1 class="scritta-aggiungiFondi">Aggiungi Fondi al Tuo Wallet</h1>
-                <form action="ricarica" method="post" onsubmit="showSuccessMessage();"" style=" margin-top: 4%;">
+
+                <form action="ricarica" method="post" onsubmit="showSuccessMessage();" style=" margin-top: 4%;">
                     <input type="number" id="amount" name="amount" required min="0" step="100" placeholder="Importo da aggiungere" value="">
                     <button type="submit">Aggiungi Fondi</button>
                 </form>

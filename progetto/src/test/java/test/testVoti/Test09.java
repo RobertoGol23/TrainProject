@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniSigla.*;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
@@ -62,7 +63,6 @@ public class Test09 {
         	    System.out.println("L'utente ha già votato questo treno");
         	}
         	
-
             System.out.println(trenoDAO.getTreniOrderByVotazione());
 
         	context.close();
@@ -71,6 +71,9 @@ public class Test09 {
         	String message = e.getMessage();
 			System.out.println(message);
 			System.out.println(e.getSuggerimento());
-        }
+        } catch (GenericException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

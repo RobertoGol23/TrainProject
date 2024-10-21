@@ -191,10 +191,12 @@
                             <p>Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
                             <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
                             <div class="buttons">
+                                
                                 <form method="get" action="trainDetails">
                                     <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
                                     <button type="submit">Dettagli</button>
                                 </form>
+
                             </div>
                         </div>
                     </div>
