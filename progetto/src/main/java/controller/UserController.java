@@ -66,7 +66,6 @@ public class UserController {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         UserDAO userDAO = context.getBean(UserDAO.class);
         User user = (User) session.getAttribute("user");
-        context.close();
 
         if (user != null) {
             user.setWallet(user.getWallet() + amount); // Aggiungi fondi al wallet
@@ -74,24 +73,28 @@ public class UserController {
             // Salva l'utente aggiornato nel database
             userDAO.updateUser(user);
 
-            // Aggiungi un messaggio di successo al modello
-            model.addAttribute("successMessage", "Fondi aggiunti con successo!");
-            model.addAttribute("user", user); // Ricarica l'utente nel modello
-            return "dashboard/user/ricaricaConfirmed"; // Ritorna alla pagina di conferma
+            // Chiudi il contesto di Spring
+            context.close();
+
+            // Imposta l'utente nella sessione
+            session.setAttribute("user", user);
+
+            // Reindirizza alla pagina di conferma
+            return "redirect:/dashboard/user/ricaricaConfirmed";
         } else {
+            context.close();
             return "redirect:/login"; // Reindirizza al login se l'utente non è loggato
         }
     }
 
+
     // Pagina di conferma dopo l'aggiornamento del wallet
     @GetMapping("/ricaricaConfirmed")
-    public String ricaricaConfirmed(Model model, HttpSession session) {
+    public String ricaricaConfirmed(HttpSession session) {
         User user = (User) session.getAttribute("user");
 
-        // TODO: perchè se user!= null facciamo così? Dov'è il controllo sul login?
         if (user != null) {
-            model.addAttribute("user", user);
-            return "ricaricaConfirmed"; // Nome della vista JSP per il wallet aggiornato
+            return "dashboard/user/ricaricaConfirmed"; // Nome della vista JSP per il wallet aggiornato
         } else {
             return "redirect:/login"; // Reindirizza al login se non è loggato
         }

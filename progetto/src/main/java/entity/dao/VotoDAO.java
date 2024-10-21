@@ -36,7 +36,7 @@ public class VotoDAO {
 	    }
 	    
 	 // Metodo per calcolare la media dei punteggi di un treno dato il suo ID
-	    public Double calcolaMediaPunteggioTreno(Long trenoId) {
+	    public Double getVotazioneMedia(Long trenoId) {
 	        CriteriaBuilder cb = em.getCriteriaBuilder();
 
 	        // Creazione della query per la media

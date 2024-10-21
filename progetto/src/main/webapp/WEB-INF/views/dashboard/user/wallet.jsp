@@ -53,6 +53,7 @@
             position: absolute; /* Posiziona il pulsante */
             bottom: 10px; /* Posiziona il pulsante in basso */
             right: 5px; /* Posiziona il pulsante a destra */
+            margin-right: 1%;
         }
 
         .transazioni {
@@ -67,9 +68,18 @@
             display: none; /* Nascondi il div inizialmente */
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 10px;
+
             opacity: 0; /* Nascondi inizialmente */
             transition: opacity 0.5s; /* Effetto di transizione */
+        }
+
+        .scritta-aggiungiFondi {
+            font-size: 20px;
+
+            color: #8a79c7;
+            text-align: center;
+            margin: 0; /* Rimuovi il margine di default */
         }
 
         .form-container {
@@ -116,53 +126,54 @@
 </head>
 <body>
 
-    <div class="container">
-        <div class="content">
-            <div class="showSaldo">
-                <h1 style="margin-top: 2%; margin-bottom: 3%; font-size: 1.5rem;">Saldo Train-Bazaar</h1>
-                <h1 style="font-size: 2.5rem; margin: 0;">${user.wallet} €</h1>
-                <h1 style="font-size: 1.0rem; margin-top: 1%;">Disponibile</h1>
-                <button class="reload-button" onclick="showDiv()">Ricarica</button>
-            </div>
+<div class="container">
+    <div class="content">
+        <div class="showSaldo">
+            <h1 style="margin-top: 2%; margin-bottom: 3%; margin-left: 1%; font-size: 1.5rem;">Saldo Train-Bazaar</h1>
+            <h1 style="font-size: 2.5rem; margin: 0;  margin-left: 1%;">${user.wallet} €</h1>
+            <h1 style="font-size: 1.0rem; margin-top: 1%;  margin-left: 1%;">Disponibile</h1>
+            <button class="reload-button" onclick="showDiv()">Ricarica</button>
+        </div>
 
-            <div class="container-aggiungiFondi" id="container-aggiungiFondi">
-                <div class="form-container">
-                    <h1>Aggiungi Fondi al Tuo Wallet</h1>
-                    <form action="ricarica" method="post" onsubmit="showSuccessMessage();">
-                        <label for="amount">Importo da aggiungere:</label>
-                        <input type="number" id="amount" name="amount" required min="0" step="100" value="">
-                        <button type="submit">Aggiungi Fondi</button>
-                    </form>
-                </div>
-            </div>
+        <div class="container-aggiungiFondi" id="container-aggiungiFondi">
+            <div class="form-container">
 
-            <div class="transazioni">
-                <h1 style="font-size: 1.0rem;">Attività recenti</h1>
+                <h1 class="scritta-aggiungiFondi">Aggiungi Fondi al Tuo Wallet</h1>
+                <form action="ricarica" method="post" onsubmit="showSuccessMessage();"" style=" margin-top: 4%;">
+                    <input type="number" id="amount" name="amount" required min="0" step="100" placeholder="Importo da aggiungere" value="">
+                    <button type="submit">Aggiungi Fondi</button>
+                </form>
+
             </div>
         </div>
 
-        <div class="right-content">
-            <h2>Contenuto Aggiuntivo</h2>
-            <p>Questo è un esempio di contenuto aggiuntivo che apparirà a destra.</p>
+        <div class="transazioni">
+            <h1 style="font-size: 1.0rem;">Attività recenti</h1>
         </div>
     </div>
 
-    <script>
-        function showDiv() {
-            const myDiv = document.getElementById('container-aggiungiFondi');
-            if (myDiv.style.display === 'flex') {
-                myDiv.style.opacity = 0; // Rendi invisibile con transizione
-                setTimeout(() => {
-                    myDiv.style.display = 'none';
-                }, 500);
-            } else {
-                myDiv.style.display = 'flex';
-                setTimeout(() => {
-                    myDiv.style.opacity = 1;
-                }, 10);
-            }
+    <div class="right-content">
+        <h2>Contenuto Aggiuntivo</h2>
+        <p>Questo è un esempio di contenuto aggiuntivo che apparirà a destra.</p>
+    </div>
+</div>
+
+<script>
+    function showDiv() {
+        const myDiv = document.getElementById('container-aggiungiFondi');
+        if (myDiv.style.display === 'flex') {
+            myDiv.style.opacity = 0; // Rendi invisibile con transizione
+            setTimeout(() => {
+                myDiv.style.display = 'none';
+            }, 50);
+        } else {
+            myDiv.style.display = 'flex';
+            setTimeout(() => {
+                myDiv.style.opacity = 1;
+            }, 50);
         }
-    </script>
+    }
+</script>
 
 </body>
 </html>

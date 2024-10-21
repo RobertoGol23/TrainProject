@@ -32,8 +32,7 @@
             display: flex;
             margin: 10px auto;
             justify-content: center;
-            align-items: flex-start; /* Allinea i contenuti in cima */
-            max-width: 1200px; /* Limita la larghezza massima */
+            max-width: 1200px; 
         }
 
         .container-left {
@@ -41,7 +40,7 @@
             padding: 20px;
             background-color: #3b3a5d;
             border-radius: 10px;
-            margin-right: 20px; /* Spazio tra i due contenitori */
+            margin-right: 20px; 
         }
 
         .container-right {
@@ -50,31 +49,39 @@
             background-color: #3b3a5d;
             border-radius: 10px;
             display: flex;
-            flex-wrap: wrap; /* Permette di andare a capo */
+            flex-wrap: wrap; 
             justify-content: flex-start; /* Allinea le card a sinistra */
         }
 
-        
         .card {
-            width: 30%; /* Larghezza fissa per le card */
-            margin: 10px; /* Spazio tra le card */
+            width: 30%; /* Dimensione delle card */
+            margin: 10px; 
             background-color: #49456d;
             border-radius: 10px;
-            overflow: hidden; /* Arrotonda gli angoli delle card */
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Spazio tra contenuto e pulsanti */
+            height: auto; /* Altezza fissa per uniformità */
         }
+
         .card img {
-            width: 100%; /* Larghezza piena dell'immagine */
-            height: auto; /* Mantiene l'aspetto */
+            width: 100%; 
+            height: auto; 
+        }
+
+        .card-body {
+            padding: 10px;
+            flex-grow: 1; /* Permette al corpo di occupare lo spazio rimanente */
         }
 
         .buttons {
             display: flex;
             justify-content: flex-end; /* Allinea i pulsanti a destra */
+            align-items: center; /* Centra verticalmente i pulsanti */
             padding: 10px; /* Padding attorno ai pulsanti */
-            margin-top: auto; /* Spinge i pulsanti verso il basso */
         }
 
-        
         button {
             background-color: #8a79c7;
             border: none;
