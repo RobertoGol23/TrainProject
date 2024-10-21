@@ -1,7 +1,7 @@
 package eccezioni.eccezioniSigla;
 
 @SuppressWarnings("serial")
-public abstract class SiglaTrenoException extends Exception {
+public abstract class SiglaTrenoException extends RuntimeException {
 
 	private String sigla;
 	

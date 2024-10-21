@@ -152,7 +152,7 @@ public class TrenoDAO {
      * @return un boolean con l'esito dell'operazione
      */
 	@Transactional
-	public boolean eliminaVagoni(Long id_treno, ArrayList<Integer> posVagoni) throws Exception, SiglaTrenoException {
+	public boolean eliminaVagoni(Long id_treno, ArrayList<Integer> posVagoni) throws SiglaTrenoException {
 		
 		TrenoUtility trenoUtility = new TrenoUtility();
 		Treno treno = this.getTrenoById(id_treno);
