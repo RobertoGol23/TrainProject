@@ -26,11 +26,12 @@
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
-            max-width: 800px;
+            max-width: 950px;
             margin: 20px auto;
         }
         h1, h2 {
             text-align: center;
+            padding-top:15px;
         }
         ul {
             list-style-type: none;
@@ -85,8 +86,8 @@
     		VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
-        <p>Id: <%= treno.getId() %></p>
-        <p>Id: <%= treno.getMarca() %></p>
+<%--         <p>Id: <%= treno.getId() %></p> --%>
+        <p>Marca: <%= treno.getMarca() %></p>
         <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
         <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
         <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
@@ -100,6 +101,7 @@
                     <th>Tipo Vagone</th>
                     <th>Peso</th>
                     <th>Prezzo</th>
+                    <th>Dettagli</th>
                     <th>Servizi</th>
                 </tr>
             </thead>
@@ -113,6 +115,7 @@
                     <td><%= vagone.getTipo() %></td>
                     <td><%= vagone.getPeso() %> tonnellate</td>
                     <td><%= vagone.getPrezzo() %> euro</td>
+                    <td><%= vagone.getDettagli() %></td>
                     <td>
                         <%
                             List<Servizio> servizi = vagone.getListaServizi();

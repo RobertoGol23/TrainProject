@@ -6,6 +6,7 @@ import java.util.List;
 import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniGeneriche.TroppoPesoException;
+import eccezioni.eccezioniGeneriche.VagoneNonRiconosciutoException;
 import eccezioni.eccezioniSigla.IncoerenzaVagoniException;
 import eccezioni.eccezioniSigla.LocomotivaInMezzoException;
 import eccezioni.eccezioniSigla.LocomotivaNonInTestaException;
@@ -17,6 +18,9 @@ import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.Vagone;
 import entity.treno.Locomotiva;
 import entity.treno.Treno;
+import entity.treno.VagoneCargo;
+import entity.treno.VagonePasseggeri;
+import entity.treno.VagoneRistorante;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaRegionalGain;
 import fabbriche.FabbricaXFurryFast;
@@ -245,6 +249,32 @@ public class TrenoUtility {
 				return ' ';
 		}
 	}
+	
+	
+	/**
+	 * Metodo usato per restituire il carattere in base al tipo.
+	 * Il carattere è maiuscolo per via di una gestione dell'aggiunta dei vagoni
+	 * @param tipo
+	 * @return
+	 */
+	public String getDettagli(Vagone vagone){
+		
+		String tipo = vagone.getTipo();
+		
+		switch(tipo){
+			case "Locomotiva": 
+				return "Peso trainabile:\n"+((Locomotiva)vagone).getPesoTrainabile().toString();
+			case "VagonePasseggeri":
+				return  "Posti a sedere:\n"+String.valueOf(((VagonePasseggeri)vagone).getPostiASedere());
+			case "VagoneRistorante":
+				return "Coperti:\n"+String.valueOf(((VagoneRistorante)vagone).getCoperti());
+			case "VagoneCargo":
+				return "Peso massimo trasportabile:\n"+String.valueOf(((VagoneCargo)vagone).getPesoMassimoTrasportabile());
+			default:
+				throw new VagoneNonRiconosciutoException("Nessun dettaglio, tipo del vagone non definito");
+		}
+	}
+	
 	
 	
 	//Metodo che serve per ricreare la sigla dato un treno
