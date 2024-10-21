@@ -4,6 +4,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.AssociazioneServizioVagoneNonTrovataException;
 import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
@@ -157,7 +159,6 @@ public class TrainController {
 	}
 	
 	
-	@SuppressWarnings("resource")
 	@PostMapping("/addWagons")
     public String aggiungiVagoni(
             @RequestParam("wagons[]") List<String> wagons, // Tutti i vagoni (preesistenti e nuovi)
@@ -453,9 +454,8 @@ public class TrainController {
     }
     
     @GetMapping("/viewTrain")
-    public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model) {
-        // Recupera il treno dall'ID
-    	
+    public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
+	
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
@@ -474,6 +474,39 @@ public class TrainController {
         return "dashboard/train/viewTrain"; // Nome della vista JSP
     }
     
+    
+    @GetMapping("/deleteService")
+    public String cancellaServizio(@RequestParam("idTreno") Long idTreno,
+    							@RequestParam("idVagone") Long idVagone,
+    							@RequestParam("nomeServizio") String nomeServizio,
+    							HttpSession session) throws Exception
+    {
+    	User utente = (User) session.getAttribute("user");
+    	
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+    	
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+	    VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+	    Vagone vagone = vagoneDAO.getVagoneById(idVagone);
+	   
+	    try
+	    {
+	    	vagoneDAO.removeServizioFromVagone(idVagone, nomeServizio);
+	    }
+	    catch(AssociazioneServizioVagoneNonTrovataException e)
+	    {
+	    	System.out.println("Errore: "+ e.getErrorePerUtente());
+	    }
+	       
+	    context.close();
+	
+    	
+    	return "redirect:viewTrain?idTreno="+ idTreno;
+    }
+    
+    
  // GET per visualizzare la pagina di clonazione del treno
     @GetMapping("/cloneTrain")
     public String showCloneTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
@@ -489,7 +522,7 @@ public class TrainController {
         Treno treno = trenoDAO.getTrenoById(idTreno);
         if (treno == null) {
             context.close();
-            return "redirect:/dashboard/home"; // Se il treno non esiste, torna al market
+            return "redirect:/dashboard/home"; // Se il treno non esiste, torna alla home
         }
 
         // Aggiungi il treno alla model

@@ -196,9 +196,9 @@ public class TrenoUtility {
 		return true;
 	}
 	
-	public static Boolean controllaRistoranteCentrale(String sigla)
+	public static boolean controllaRistoranteCentrale(String sigla)
 	{
-		Boolean flag = false;
+		boolean flag = false;
 		
 		if((sigla.length()%2)==0) //pari,  A A A R(3) R(4) A A A
 		{
