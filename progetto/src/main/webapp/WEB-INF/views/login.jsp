@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Login</title>
     <style>
         body {
@@ -65,7 +66,7 @@
             border: 3px solid #db7a4e; /* Colore e spessore del bordo */
             border-radius: 10px;
             padding: 20px; /* Spaziatura interna */
-            margin-top: -12%;
+            margin-top: -10%;
         }
     </style>
 </head>

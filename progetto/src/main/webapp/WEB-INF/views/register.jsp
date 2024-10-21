@@ -4,6 +4,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrazione</title>
     <style>
