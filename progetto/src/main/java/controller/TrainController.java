@@ -447,20 +447,64 @@ public class TrainController {
 
         return "dashboard/train/viewTrain"; // Nome della vista JSP
     }
+    
+ // GET per visualizzare la pagina di clonazione del treno
+    @GetMapping("/cloneTrain")
+    public String showCloneTrain(@RequestParam("trenoId") Long trenoId, Model model, HttpSession session) {
+        User utente = (User) session.getAttribute("user");
 
-
-
-    @GetMapping("/trainMarket")
-    public String showTrainMarket(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("user");
-
-        if (loggedInUser == null) {
-            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
 
-        model.addAttribute("user", loggedInUser);
-        return "/train-bazaar/trainMarket"; // Mostra la dashboard
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+        
+        Treno treno = trenoDAO.getTrenoById(trenoId);
+        if (treno == null) {
+            context.close();
+            return "redirect:/dashboard/home"; // Se il treno non esiste, torna al market
+        }
+
+        // Aggiungi il treno alla model
+        model.addAttribute("treno", treno);
+        context.close();
+
+        return "dashboard/train/cloneTrain"; // Nome della JSP per la clonazione
     }
+
+    // POST per clonare il treno
+    @PostMapping("/confirmClone")
+    public String confirmClone(@RequestParam("trenoId") Long trenoId,
+                               @RequestParam("nomeNuovo") String nomeNuovo,
+                               HttpSession session,
+                               Model model) {
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+        
+        Treno treno = trenoDAO.getTrenoById(trenoId);
+        if (treno != null) {
+            TrenoUtility tu = new TrenoUtility();
+            Treno trenoClonato = tu.clonaTreno(treno, nomeNuovo, utente); // Usa la tua funzione di clonazione
+
+            if (trenoClonato != null) {
+                model.addAttribute("successMessage", "Treno clonato con successo: " + trenoClonato.getNome());
+            } else {
+                model.addAttribute("errorMessage", "Errore nella clonazione del treno.");
+            }
+        } else {
+            model.addAttribute("errorMessage", "Treno non trovato.");
+        }
+
+        context.close();
+        return "dashboard/train/cloneSuccess"; // Pagina di successo per la clonazione
+    }
+
     
 }

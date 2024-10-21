@@ -3,6 +3,10 @@ package utility;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+
+import configuration.JpaConfig;
 import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniGeneriche.TroppoPesoException;
@@ -16,11 +20,16 @@ import eccezioni.eccezioniSigla.StringaNonValidaException;
 import eccezioni.eccezioniSigla.TroppiRistorantiException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.Vagone;
+import entity.dao.ServizioDAO;
+import entity.dao.TrenoDAO;
+import entity.dao.VagoneDAO;
+import entity.servizi.Servizio;
 import entity.treno.Locomotiva;
 import entity.treno.Treno;
 import entity.treno.VagoneCargo;
 import entity.treno.VagonePasseggeri;
 import entity.treno.VagoneRistorante;
+import entity.user.User;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaRegionalGain;
 import fabbriche.FabbricaXFurryFast;
@@ -327,7 +336,42 @@ public class TrenoUtility {
 		
 		return siglaNuova;
 	}
-
+	
+	/**
+	 * Metodo che prende in input il treno e ne restituisce una copia con un nuovo id
+	 * @param treno
+	 * @param nome del treno nuovo
+	 * @param utente
+	 */
+	public Treno clonaTreno(Treno t, String nomeNuovo, User user) {
+		
+		TrenoUtility tu = new TrenoUtility();
+		FabbricaVagoni fabbrica = tu.getFabbricaById(tu.getIntByMarca(t.getMarca()));
+		Assemblatore assemblatore = new Assemblatore(fabbrica);
+		
+		Treno trenoClonato = assemblatore.costruisciTreno(nomeNuovo, tu.getSigla(t), user, tu.getIntByMarca(t.getMarca()));
+		if (trenoClonato != null) {
+			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+            TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+            trenoDAO.salvaTreno(trenoClonato);
+            VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+            ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+            
+            for(int i = 0; i < t.getListaVagoni().size(); i++) {
+            	Vagone v = t.getVagone(i);
+            	for(int j = 0; j < v.getListaServizi().size(); j++) {
+            		Servizio s = v.getListaServizi().get(j);
+            		trenoClonato.getVagone(i).addServizio(s);
+            		vagoneDAO.updateVagone(trenoClonato.getVagone(i));
+                    servizioDAO.updateServizio(s);
+            	}
+            }
+            context.close();	
+            return trenoClonato;
+		}
+		
+		return null;
+	}
 	
 
 
