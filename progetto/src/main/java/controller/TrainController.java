@@ -476,7 +476,7 @@ public class TrainController {
     
  // GET per visualizzare la pagina di clonazione del treno
     @GetMapping("/cloneTrain")
-    public String showCloneTrain(@RequestParam("trenoId") Long trenoId, Model model, HttpSession session) {
+    public String showCloneTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
         User utente = (User) session.getAttribute("user");
 
         if (utente == null) {
@@ -486,7 +486,7 @@ public class TrainController {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
-        Treno treno = trenoDAO.getTrenoById(trenoId);
+        Treno treno = trenoDAO.getTrenoById(idTreno);
         if (treno == null) {
             context.close();
             return "redirect:/dashboard/home"; // Se il treno non esiste, torna al market
@@ -501,7 +501,7 @@ public class TrainController {
 
     // POST per clonare il treno
     @PostMapping("/confirmClone")
-    public String confirmClone(@RequestParam("trenoId") Long trenoId,
+    public String confirmClone(@RequestParam("idTreno") Long idTreno,
                                @RequestParam("nomeNuovo") String nomeNuovo,
                                HttpSession session,
                                Model model) {
@@ -514,7 +514,7 @@ public class TrainController {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
-        Treno treno = trenoDAO.getTrenoById(trenoId);
+        Treno treno = trenoDAO.getTrenoById(idTreno);
         if (treno != null) {
             TrenoUtility tu = new TrenoUtility();
             Treno trenoClonato = tu.clonaTreno(treno, nomeNuovo, utente); // Usa la tua funzione di clonazione
@@ -522,16 +522,53 @@ public class TrainController {
             if (trenoClonato != null) {
                 model.addAttribute("successMessage", "Treno clonato con successo: " + trenoClonato.getNome());
             } else {
-                model.addAttribute("errorMessage", "Errore nella clonazione del treno.");
+            	model.addAttribute("idTreno", idTreno);
+                model.addAttribute("error", "Errore nella clonazione del treno.");
             }
         } else {
-            model.addAttribute("errorMessage", "Treno non trovato.");
+        	model.addAttribute("idTreno", idTreno);
+            model.addAttribute("error", "Treno non trovato.");
         }
 
         context.close();
         return "dashboard/train/cloneSuccess"; // Pagina di successo per la clonazione
     }
 
-    
-    }    
+    @GetMapping("/ribaltaTreno")
+    public String ribaltaTreno(@RequestParam("idTreno") Long idTreno, Model model) {
+        // Recupera il treno dal database utilizzando l'ID
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+        TrenoUtility trenoUtility = new TrenoUtility();
+        
+        Treno treno = trenoDAO.getTrenoById(idTreno);
+        
+        // Verifica se il treno esiste
+        if (treno != null) {
+            // Esegui il ribaltamento del treno
+            boolean successo = trenoUtility.ribaltaTreno(treno);
+            
+            if (successo) {
+                // Salva le modifiche nel database
+                trenoDAO.updateTreno(treno);
+                model.addAttribute("treno", treno);
+                context.close();
+                
+                // Reindirizza alla pagina con i dettagli aggiornati del treno
+                return "redirect:viewTrain?idTreno="+ idTreno; // Nome della tua JSP che mostra i dettagli del treno
+            } else {
+                // Se non è possibile ribaltare il treno (es. sigla finisce con 'h')
+            	model.addAttribute("idTreno", idTreno);
+            	model.addAttribute("error", "Non è possibile ribaltare questo treno.");
+                context.close();
+                return "dashboard/train/trainModifyFail"; // Pagina di errore o messaggio da gestire
+            }
+        } else {
+            // Treno non trovato
+        	model.addAttribute("idTreno", idTreno);
+            model.addAttribute("error", "Treno non trovato.");
+            context.close();
+            return "dashboard/train/trainModifyFail";
+        }
+    }
 }
