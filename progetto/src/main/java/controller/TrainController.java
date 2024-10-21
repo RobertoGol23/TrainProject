@@ -571,4 +571,21 @@ public class TrainController {
             return "dashboard/train/trainModifyFail";
         }
     }
+    
+    @GetMapping("/deleteTrain")
+    public String deleteTrain(@RequestParam("idTreno") Long idTreno, Model model) {
+    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+    	Treno treno = trenoDAO.getTrenoById(idTreno);  // Recupera il treno dal DB tramite l'ID
+        if (treno != null) {
+            trenoDAO.eliminaTrenoById(idTreno);  // Cancella il treno dal database
+            context.close();
+            return "redirect:/dashboard/user/viewTrains";  // Reindirizza alla lista dei treni o a una pagina di conferma
+        } else {
+            // Treno non trovato, gestisci l'errore
+            model.addAttribute("error", "Treno non trovato.");
+            context.close();
+            return "dashboard/train/trainModifyFail";
+        }
+    }
 }
