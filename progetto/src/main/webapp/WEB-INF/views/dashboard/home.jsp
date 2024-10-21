@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 
     <%@ include file="../navbar.jsp" %> <!-- con .. si va indietro di una cartella-->
@@ -111,7 +111,7 @@
             
             <div class="form-container">
                 <h2>Crea un Nuovo Treno dinamico</h2>
-                <form action="train/creaTrenoProva" method="get">
+                <form action="train/creaTrenoDinamico" method="get">
                     <button type="submit">Crea Treno</button>
                 </form>
             </div>
