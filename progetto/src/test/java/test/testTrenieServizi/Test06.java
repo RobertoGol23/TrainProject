@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
@@ -17,7 +18,7 @@ import fabbriche.FabbricaXFurryFast;
 import utility.Assemblatore;
 
 public class Test06 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws GenericException {
         
         /*				TEST 06
          *  Test creazione piu' treni

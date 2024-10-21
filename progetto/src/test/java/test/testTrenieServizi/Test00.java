@@ -1,5 +1,6 @@
 package test.testTrenieServizi;
 
+import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
@@ -10,7 +11,7 @@ import utility.Assemblatore;
 
 public class Test00 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws GenericException {
 		
 		String sigla = "hccc";
 		

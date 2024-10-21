@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniSigla.*;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
@@ -19,7 +20,7 @@ import utility.Assemblatore;
 
 public class Test08 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws GenericException {
 		
 		FabbricaVagoni fabbricaFF= new FabbricaXFurryFast();
 		TrenoBuilder builderFF = new Assemblatore(fabbricaFF);

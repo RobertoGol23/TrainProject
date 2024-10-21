@@ -11,7 +11,7 @@ import utility.TrenoUtility;
 
 public abstract class TrenoBuilder {
 	
-	public Treno costruisciTreno(String nomeTreno, String sigla, User utente, int numeroMarca) throws Exception{
+	public Treno costruisciTreno(String nomeTreno, String sigla, User utente, int numeroMarca) throws GenericException, SiglaTrenoException{
 		
 		
 		TrenoUtility trenoUtility = new TrenoUtility();
