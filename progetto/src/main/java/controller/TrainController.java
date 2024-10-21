@@ -4,6 +4,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.AssociazioneServizioVagoneNonTrovataException;
 import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
@@ -477,32 +479,31 @@ public class TrainController {
     public String cancellaServizio(@RequestParam("idTreno") Long idTreno,
     							@RequestParam("idVagone") Long idVagone,
     							@RequestParam("nomeServizio") String nomeServizio,
-    							Model model, HttpSession session) throws Exception
+    							HttpSession session) throws Exception
     {
     	User utente = (User) session.getAttribute("user");
-
-    	System.out.println("servizio: " + nomeServizio);
-    	//throw new Exception("Passo di qui");
     	
         if (utente == null) {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
     	
-    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-    	VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
-    	ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+	    VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+	    Vagone vagone = vagoneDAO.getVagoneById(idVagone);
+	   
+	    try
+	    {
+	    	vagoneDAO.removeServizioFromVagone(idVagone, nomeServizio);
+	    }
+	    catch(AssociazioneServizioVagoneNonTrovataException e)
+	    {
+	    	System.out.println("Errore: "+ e.getErrorePerUtente());
+	    }
+	       
+	    context.close();
+	
     	
-    	System.out.println("servizio: " + nomeServizio);
-    	
-    	Vagone vagone = vagoneDAO.getVagoneById(idVagone);
-    	Servizio servizio = servizioDAO.getServizioByName(nomeServizio);
-    	
-    	vagone.deleteServizio(servizio);
-    	vagoneDAO.updateVagone(vagone);
-    	
-    	context.close();
     	return "redirect:viewTrain?idTreno="+ idTreno;
-    	//return "";
     }
     
     
