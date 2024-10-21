@@ -61,7 +61,7 @@
 
     <div style="margin: 20px;">
         <h1 align="center" style="font-size: 5.5rem; margin: 0;">  
-        	<img src="${pageContext.request.contextPath}/images/logo.jpg" alt="Train Bazaar Logo" style="width: 150px; height: auto;">
+        	<img src="${pageContext.request.contextPath}/images/logo2.jpg" alt="Train Bazaar Logo" style="width: 225px; height: auto;">
         </h1>
     </div>
 
