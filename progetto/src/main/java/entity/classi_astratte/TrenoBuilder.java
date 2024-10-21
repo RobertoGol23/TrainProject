@@ -2,6 +2,7 @@ package entity.classi_astratte;
 
 import java.util.ArrayList;
 
+import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniSigla.*;
 import entity.treno.Treno;
 import entity.user.User;
@@ -10,7 +11,7 @@ import utility.TrenoUtility;
 
 public abstract class TrenoBuilder {
 	
-	public Treno costruisciTreno(String nomeTreno, String sigla, User utente, int numeroMarca) throws SiglaTrenoException{
+	public Treno costruisciTreno(String nomeTreno, String sigla, User utente, int numeroMarca) throws GenericException, SiglaTrenoException{
 		
 		
 		TrenoUtility trenoUtility = new TrenoUtility();
@@ -37,7 +38,7 @@ public abstract class TrenoBuilder {
 			marca = trenoUtility.getMarcaByInt(numeroMarca);
 			return Treno.creaTreno(nomeTreno, listaVagoni, marca, utente);
 		}
-		catch (Exception e)
+		catch (GenericException e)
 		{
 			System.out.println(e);
 		}

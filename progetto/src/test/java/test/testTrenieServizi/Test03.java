@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniGeneriche.ServizioGiaPresenteException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
@@ -21,7 +22,7 @@ import fabbriche.FabbricaServizi;
 import utility.Assemblatore;
 
 public class Test03 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws GenericException {
         
         FabbricaVagoni fabbricaKM= new FabbricaKargoModelz();
 		TrenoBuilder builderKM = new Assemblatore(fabbricaKM);

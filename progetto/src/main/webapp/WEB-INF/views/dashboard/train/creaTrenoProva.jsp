@@ -66,10 +66,17 @@
             option3.value = 'r';
             option3.text = 'Vagone Ristorante';
 
+         	// Opzione Locomotiva
+            let option4 = document.createElement('option');
+            option3.value = 'l';
+            option3.text = 'Locomotiva';
+            
             // Aggiungi le opzioni al menu a tendina
             select.appendChild(option1);
             select.appendChild(option2);
             select.appendChild(option3);
+            select.appendChild(option4);
+            
 
             // Pulsante per rimuovere il vagone
             let removeButton = document.createElement('button');
