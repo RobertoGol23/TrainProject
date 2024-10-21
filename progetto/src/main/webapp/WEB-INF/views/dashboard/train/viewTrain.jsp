@@ -26,7 +26,7 @@
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
-            max-width: 950px;
+            max-width: 1050px;
             margin: 20px auto;
         }
         h1, h2 {
@@ -38,7 +38,7 @@
             padding: 0;
         }
         ul li {
-            background-color: #6c6991;
+            /*background-color: #6c6991;*/
             padding: 10px;
             margin-bottom: 5px;
             border-radius: 5px;
@@ -59,6 +59,7 @@
             background-color: #49456d;
         }
          button, a.button {
+         	width: 180px;
             background-color: #8a79c7;
             color: white;
             border: none;
@@ -66,9 +67,9 @@
             border-radius: 5px;
             text-decoration: none;
             display: inline-block;
-            margin-top: 10px;
+            /*margin-top: 10px;*/
         }
-        button:hover {
+        button:hover, a.button:hover {
             background-color: #79c7e3;
         }
     </style>
@@ -86,7 +87,7 @@
     		VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
-<%--         <p>Id: <%= treno.getId() %></p> --%>
+        <p>Id: <%= treno.getId() %></p>
         <p>Marca: <%= treno.getMarca() %></p>
         <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
         <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
@@ -125,15 +126,24 @@
                             <%
                                 for (Servizio servizio : servizi) {
                             %>
-                                <li><%= servizio.getNome() %></li>
+                                <li> 
+								    <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">
+								        <%= servizio.getNome() %>
+								    </a>
+								</li>
                             <%
                                 }
                             %>
                             </ul>
                         <%
-                            } else {
+                            } else if(!vagone.getTipo().equalsIgnoreCase("Locomotiva"))
+                            {
                         %>
-                            <p>Nessun servizio associato</p>
+                            <p> 
+							    <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>
+							    	&idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Aggiungi servizio</a>
+							</p>
+
                         <%
                             }
                         %>

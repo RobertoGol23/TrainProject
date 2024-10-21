@@ -261,10 +261,9 @@ public class TrenoUtility {
 	
 	
 	/**
-	 * Metodo usato per restituire il carattere in base al tipo.
-	 * Il carattere è maiuscolo per via di una gestione dell'aggiunta dei vagoni
-	 * @param tipo
-	 * @return
+	 * Metodo usato per restituire la stringa con le info in base al tipo di vagone
+	 * @param vagone
+	 * @return dettagli vagoni
 	 */
 	public String getDettagli(Vagone vagone){
 		
@@ -372,7 +371,24 @@ public class TrenoUtility {
 		
 		return null;
 	}
-	
+
+	/**
+	 * Metodo che verifica la presenza di un servizio nel vagone
+	 * @param vagone
+	 * @param servizio
+	 * @return true se è presente, false se non lo è
+	 */
+	public boolean isServicePresent(Vagone vagone, Servizio servizio)
+	{
+		for(Servizio s: vagone.getListaServizi())
+		{
+			if(s.getNome().equalsIgnoreCase(servizio.getNome()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 
 }

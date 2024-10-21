@@ -223,18 +223,18 @@ public class TrainController {
     }
 
 	
-	@GetMapping("/creaTrenoProva")
-    public String mostraCreazioneTrenoProva(HttpServletRequest request, Model model) {
+	@GetMapping("/creaTrenoDinamico")
+    public String mostraCreazioneTrenoDinamico(HttpServletRequest request, Model model) {
 
         if ((User) request.getSession().getAttribute("user") == null) {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
 
-        return "dashboard/train/creaTrenoProva"; // Nome della JSP da visualizzare
+        return "dashboard/train/creaTrenoDinamico"; // Nome della JSP da visualizzare
     }
 	
-	@PostMapping("/creaTrenoProva")
-	public String creaTreno(@RequestParam("wagons[]") List<String> vagoni, Model model, HttpServletRequest request) {
+	@PostMapping("/creaTrenoDinamico")
+	public String creaTrenoDinamico(@RequestParam("wagons[]") List<String> vagoni, Model model, HttpServletRequest request) {
 	    
 		String stringFabbricaId = "1"; //arriva come parametro TODO aggiungere menù a tendina per marca
 		int fabbricaId = Integer.parseInt(stringFabbricaId);
@@ -278,24 +278,24 @@ public class TrainController {
                 request.setAttribute("idTreno", nuovoTreno.getId());
                 
                 // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
-                //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
+                //return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
+                return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
             } else {
                 request.setAttribute("error", "Errore durante la creazione del treno.");
                 System.out.println("Errore generico creazione treno");
-                return "dashboard/train/creaTrenoProva"; // Ritorna alla pagina di creazione del treno
+                return "dashboard/train/creaTrenoDinamico"; // Ritorna alla pagina di creazione del treno
             }
 
         } catch (SiglaTrenoException e) {
             request.setAttribute("error", "Sigla del treno non valida.");
             System.out.println("Errore sigla");
-            return "dashboard/train/creaTrenoProva"; // Ritorna alla pagina di creazione del treno
+            return "dashboard/train/creaTrenoDinamico"; // Ritorna alla pagina di creazione del treno
         }
         catch (Exception e) {
         	System.out.println(e.getMessage());
         	System.out.println("Errore generico");
         	request.setAttribute("error", "Si è verificato un errore, riprova.");
-        	return "dashboard/train/modifyWagons";
+        	return "dashboard/train/creaTrenoDinamico";
 		}
 	}
 	
@@ -351,9 +351,7 @@ public class TrainController {
                     context.close();
                     request.setAttribute("idTreno", nuovoTreno.getId());
                     
-                    // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                    return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
-                    //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
+                    return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
                 } else {
                     request.setAttribute("error", "Errore durante la creazione del treno.");
                     return "dashboard/train/createTrain"; // Ritorna alla pagina di creazione del treno
@@ -366,7 +364,7 @@ public class TrainController {
         catch (Exception e) {
         	System.out.println(e.getMessage());
         	request.setAttribute("error", "Si è verificato un errore, riprova.");
-        	return "dashboard/train/modifyWagons";
+        	return "dashboard/train/createTrain";
 		}
     }
 
@@ -395,12 +393,39 @@ public class TrainController {
         return "dashboard/train/modifyWagons"; // Nome della JSP da visualizzare
     }
 
+    
+    @GetMapping("/modifyWagonServices")
+    public String mostraModificaServiziVagone(@RequestParam("idVagone") Long idVagone,
+    		Model model,
+    		@RequestParam("idTreno") Long idTreno) {
+        // Recupera il treno dal database
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+        Vagone vagone = vagoneDAO.getVagoneById(idVagone);
+        ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+
+        if (vagone == null) {
+            model.addAttribute("errorMessage", "Nessun vagone trovato con l'ID specificato.");
+            context.close();
+            return "dashboard/train/modifyWagonServices";
+        }
+
+        // Aggiungi il treno e i servizi al modello
+        model.addAttribute("vagone", vagone);
+        model.addAttribute("idTreno", idTreno);
+        // Recupera i servizi disponibili
+        List<Servizio> servizi = servizioDAO.trovaServiziDisponibili();
+        model.addAttribute("servizi", servizi);
+
+        context.close();
+        return "dashboard/train/modifyWagonServices"; // Nome della JSP da visualizzare
+    }
+    
     @PostMapping("/addService")
     public String aggiungiServizio(
             @RequestParam("vagoneId") Long vagoneId,
             @RequestParam("servizio") String servizio,
-            @RequestParam("idTreno") Long idTreno, // Aggiungi anche l'ID del treno qui
-            @RequestParam("vagoneIndex") int vagoneIndex, // Recupera l'indice del vagone
+            @RequestParam("idTreno") Long idTreno,
             HttpServletRequest request) {
 
         // Recupera il treno e il vagone dal database
@@ -421,7 +446,8 @@ public class TrainController {
         
         
         context.close();
-
+        
+        request.setAttribute("idTreno", idTreno);
         request.setAttribute("message", "Servizio aggiunto con successo!");
         return "dashboard/train/addServiceComplete";
     }
@@ -507,4 +533,5 @@ public class TrainController {
     }
 
     
+    }    
 }
