@@ -341,6 +341,7 @@ public class TrenoUtility {
 	 * @param treno
 	 * @param nome del treno nuovo
 	 * @param utente
+	 * @return treno clonato oppure null
 	 */
 	public Treno clonaTreno(Treno t, String nomeNuovo, User user) {
 		
@@ -389,6 +390,28 @@ public class TrenoUtility {
 		}
 		return false;
 	}
+	
+	/**
+	 * Metodo ribalta il treno se possibile
+	 * @param treno
+	 * 
+	 * @return true se è riuscito, false se fallito
+	 */
 
+	public boolean ribaltaTreno(Treno t) {
+		TrenoUtility tu = new TrenoUtility();
+		List<Vagone> nuovaListaDiVagoni = new ArrayList<Vagone>();
+		if(!tu.getSigla(t).endsWith("h")) {
+			return false;
+		}
+		for(int j = t.getListaVagoni().size() - 1; j >= 0; j--) {
+			nuovaListaDiVagoni.add(t.getListaVagoni().get(j));
+		}
+		t.setListaVagoni((ArrayList<Vagone>) nuovaListaDiVagoni);
+		AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+	    trenoDAO.updateTreno(t);
+		return true;
+	}
 
 }
