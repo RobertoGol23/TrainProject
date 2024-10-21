@@ -54,7 +54,7 @@ User user = (User) session.getAttribute("user");
         <p>Prezzo: <%= treno.getPrezzoTotaleTreno() %> €</p>
         <p>Peso: <%= treno.getPesoTotaleTreno() %> kg</p>
         <p>Numero di Persone: <%= treno.getPasseggeriTotali() %></p>
-        <p>Voto: <%= (treno != null) ? votoDAO.calcolaMediaPunteggioTreno(treno.getId()) : 0 %></p>
+        <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
 
         <!-- Form per votare il treno -->
         <form method="post" action="submitVote">

@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="entity.treno.Treno" %>
+<%@ page import="utility.TrenoUtility" %>
 <%@ page import="entity.dao.VotoDAO" %>
 <%@ page import="entity.dao.TrenoDAO" %>
 <%@ page import="java.util.List" %>
@@ -233,7 +234,7 @@
             <%
             List<Treno> treni = (List<Treno>) session.getAttribute("treni");
             AbstractApplicationContext context = null;
-
+			TrenoUtility tu = new TrenoUtility();
             try {
                 context = new AnnotationConfigApplicationContext(JpaConfig.class);
                 VotoDAO votoDAO = context.getBean(VotoDAO.class);
@@ -249,12 +250,15 @@
                         
                         <div class="card-body">
                             <h5><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
+                           	<p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
                             <p>Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
+                            <p>Sigla di composizione: <%= (treno != null) ? tu.getSigla(treno) : "N/A" %></p>
                             <p>Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
                             <p>Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
                             <p>Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> tonnellate</p>
                             <p>Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
-                            <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
+                            <p>Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
+                            <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long)treno.getId()) : 0 %></p>
                             <div class="buttons">
                                 
                                 <form method="get" action="trainDetails">
