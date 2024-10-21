@@ -316,9 +316,7 @@ public class TrainController {
     @GetMapping("/createTrain")
     public String mostraCreazioneTreno(HttpServletRequest request, Model model) {
 
-        if ((User) request.getSession().getAttribute("user") == null) {
-            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
-        }
+        // L'utente NON registrato può provare a creare un treno, ma non possono essere salvati!!!
 
         // Qui puoi aggiungere eventuali attributi al modello se necessario
         return "dashboard/train/createTrain"; // Nome della JSP da visualizzare
@@ -334,9 +332,7 @@ public class TrainController {
         HttpSession session = request.getSession();
         User utente = (User) session.getAttribute("user");
 
-        if (utente == null) {
-            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
-        }
+        // L'utente NON registrato può provare a creare un treno, ma non possono essere salvati!!!
 
         TrenoUtility tu = new TrenoUtility();
         FabbricaVagoni fabbrica = tu.getFabbricaById(Integer.parseInt(fabbricaId));
@@ -344,31 +340,37 @@ public class TrainController {
 
         try {
             // Crea il treno usando il builder
+            if(utente == null) {
+                // TODO: gestire il messaggio "non puoi salvare il treno"
+
+                return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+            } 
+
             Assemblatore assemblatore = new Assemblatore(fabbrica);
             Treno nuovoTreno = assemblatore.costruisciTreno(nomeTreno, sigla, utente, Integer.parseInt(fabbricaId));
    
             
-            if (nuovoTreno != null) {
-                // Salva il treno nel database
-                AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-                TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-                trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
-                
-                
-                ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-        		ServiziUtility su = new ServiziUtility();
-        		su.aggiungiServiziAlDB(servizioDAO);
-        		
-        		context.close();
-                request.setAttribute("idTreno", nuovoTreno.getId());
-                
-                // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
-                //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
-            } else {
-                request.setAttribute("error", "Errore durante la creazione del treno.");
-                return "dashboard/train/createTrain"; // Ritorna alla pagina di creazione del treno
-            }
+                if (nuovoTreno != null) {
+                    // Salva il treno nel database
+                    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+                    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+                    trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
+                    
+                    
+                    ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+                    ServiziUtility su = new ServiziUtility();
+                    su.aggiungiServiziAlDB(servizioDAO);
+                    
+                    context.close();
+                    request.setAttribute("idTreno", nuovoTreno.getId());
+                    
+                    // Reindirizza alla pagina di modifica vagoni con l'ID del treno
+                    return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
+                    //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
+                } else {
+                    request.setAttribute("error", "Errore durante la creazione del treno.");
+                    return "dashboard/train/createTrain"; // Ritorna alla pagina di creazione del treno
+                }
 
         } catch (SiglaTrenoException e) {
             request.setAttribute("error", "Sigla del treno non valida.");

@@ -11,6 +11,11 @@
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
+            display: flex; /* Usa flexbox per centrare */
+            justify-content: center; /* Allinea orizzontalmente al centro */
+            align-items: center; /* Allinea verticalmente al centro */
+            height: 100vh; /* Altezza della pagina */
+            margin: 0; /* Rimuovi margine di default */
         }
         h1 {
             color: #8a79c7;
@@ -20,8 +25,8 @@
             padding: 20px;
             border-radius: 10px;
             width: 300px;
-            height: 200px;
-            margin: 0 auto;
+            height: auto; /* Permette al contenuto di determinare l'altezza */
+            margin: 0 auto; /* Centra orizzontalmente */
         }
         label {
             display: block;
@@ -49,40 +54,40 @@
             background-color: #8a79c7;
             color: #ffffff;
         }
-        a{
+        a {
             color: #ffffff;
         }
 
-        
 
+        .container {
+            width: 25%;
+            border: 2px solid #79c7e3; /* Colore e spessore del bordo */
+            border-radius: 10px;
+            padding: 20px; /* Spaziatura interna */
+            margin-top: -12%;
+        }
     </style>
 </head>
 <body>
 
-    <div style="margin: 20px;">
-        <h1 align="center" style="font-size: 5.5rem; margin: 0;">  
-        	<img src="${pageContext.request.contextPath}/images/logo2.jpg" alt="Train Bazaar Logo" style="width: 225px; height: auto;">
-        </h1>
-    </div>
+    <div class="container">
 
-
-    <div class="conainer" style="margin-top: 100px;">
+        <div style="margin: 20px; text-align: center;">
+            <h1 style="margin: 0;">  
+                <img src="${pageContext.request.contextPath}/images/logo2.jpg" alt="Train Bazaar Logo" style="width: 225px; height: auto;">
+            </h1>
+        </div>
 
         <h1 align="center" style="font-size: 3.0rem; margin-bottom: 5px;">Login</h1>
 
         <form action="login" method="POST" style="margin-top: 0;">
             <label for="email">Email</label>
-            
             <%
-            
                 String email = (String) session.getAttribute("email");
-                if (email != null && !email.isEmpty())
-                {
+                if (email != null && !email.isEmpty()) {
                     %><input type="email" id="email" value="<%= email %>" name="email" required><%
                     session.removeAttribute("email");
-                }
-                else
-                {
+                } else {
                     %><input type="email" id="email" placeholder="Inserisci qui il nome utente" name="email" required><%
                 }  
             %>
@@ -95,8 +100,7 @@
         <%
             String errorMessage = (String) session.getAttribute("errorMessage");
             session.removeAttribute("errorMessage");
-            if (errorMessage != null && !errorMessage.isEmpty())
-            {
+            if (errorMessage != null && !errorMessage.isEmpty()) {
                 %>
                 <p align="center" style="color: red"><%= errorMessage %></p>
                 <%

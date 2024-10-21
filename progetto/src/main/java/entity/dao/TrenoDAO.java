@@ -13,6 +13,8 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import utility.Assemblatore;
@@ -276,7 +278,7 @@ public class TrenoDAO {
 		return false;
 	}
 
-	@Transactional
+	/* @Transactional
 	public double getVotazioneMedia(Treno treno){
 		double result = 0.0;
 
@@ -299,7 +301,7 @@ public class TrenoDAO {
 		result = result/listaVoti.size();
 
 		return result;
-	}
+	} */
 
 	// Restituisci la lista di tutti i treni
 	public List<Treno> getAllTrain() { 
@@ -323,5 +325,24 @@ public class TrenoDAO {
         query.setMaxResults(limit); // Imposta il limite
         return query.getResultList(); // Restituisce la lista dei treni
     }
+
+
+	public List<Treno> getTreniOrderByVotazione() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Treno> cq = cb.createQuery(Treno.class);
+		
+		Root<Treno> rootTreno = cq.from(Treno.class);
+		
+		// Usare un left join per includere treni senza voti!!!
+		Join<Treno, Voto> votoJoin = rootTreno.join("voti", JoinType.LEFT);
+	
+		// Calcolare la media dei punteggi e ordinare
+		cq.select(rootTreno)
+		  .groupBy(rootTreno.get("id"))
+		  .orderBy(cb.desc(cb.avg(votoJoin.get("punteggio")))); // Ordinamento per voto medio
+	
+		return em.createQuery(cq).getResultList();
+	}
+	
 
 }

@@ -72,12 +72,15 @@ public class UserController {
 
             // Salva l'utente aggiornato nel database
             userDAO.updateUser(user);
+
+            // Chiudi il contesto di Spring
             context.close();
 
-            // Aggiungi un messaggio di successo al modello
-            model.addAttribute("successMessage", "Fondi aggiunti con successo!");
-            model.addAttribute("user", user); // Ricarica l'utente nel modello
-            return "dashboard/user/ricaricaConfirmed"; // Ritorna alla stessa pagina
+            // Imposta l'utente nella sessione
+            session.setAttribute("user", user);
+
+            // Reindirizza alla pagina di conferma
+            return "redirect:/dashboard/user/ricaricaConfirmed";
         } else {
             context.close();
             return "redirect:/login"; // Reindirizza al login se l'utente non è loggato
@@ -85,20 +88,17 @@ public class UserController {
     }
 
 
-
     // Pagina di conferma dopo l'aggiornamento del wallet
     @GetMapping("/ricaricaConfirmed")
-    public String ricaricaConfirmed(Model model, HttpSession session) {
+    public String ricaricaConfirmed(HttpSession session) {
         User user = (User) session.getAttribute("user");
+
         if (user != null) {
-            model.addAttribute("user", user);
-            return "ricaricaConfirmed"; // Nome della vista JSP per il wallet aggiornato
+            return "dashboard/user/ricaricaConfirmed"; // Nome della vista JSP per il wallet aggiornato
         } else {
             return "redirect:/login"; // Reindirizza al login se non è loggato
         }
     }
-
-
 
 
     // Mostra la pagina del wallet
@@ -117,13 +117,7 @@ public class UserController {
     }
 
 
-
-
-
-
-
-
-    
+   
  // Mostra il form per modificare il profilo
     @GetMapping("/editProfile")
     public String showEditProfileForm(Model model, HttpSession session) {
@@ -209,7 +203,7 @@ public class UserController {
         
     }
 
- // // Mostra i treni posseduti dall'utente
+    // Mostra i treni posseduti dall'utente
     @GetMapping("/viewTrains")
     public String viewUserTrains(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("user");

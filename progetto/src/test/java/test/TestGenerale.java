@@ -250,7 +250,7 @@ public class TestGenerale {
             System.out.println(trenoDAO.getTreniByPesoTrasportabile(500));
 
             System.out.println(("\n\n\n\n4. GET MEDIA VOTI"));
-            System.out.println(trenoDAO.getVotazioneMedia(trenoKM));
+            /* System.out.println(trenoDAO.getVotazioneMedia(trenoKM)); */
 
             // treno by user_id
             System.out.println("\n\n\n\n5. TRENO BY USER");
