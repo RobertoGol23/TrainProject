@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Treno Creato con Successo</title>
     <style>
         body {

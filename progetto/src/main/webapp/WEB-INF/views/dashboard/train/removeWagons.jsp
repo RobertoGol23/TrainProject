@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Modifica Treno</title>
 </head>
 <body>
