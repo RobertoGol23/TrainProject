@@ -41,6 +41,9 @@
             padding: 0;
         }
         ul li {
+            background-color: #6c6991;
+            padding: 10px;
+            margin-bottom: 5px;
             border-radius: 5px;
         }
         table {
@@ -48,13 +51,9 @@
             margin-top: 20px;
             border-collapse: collapse;
         }
-        th {
+        th, td {
             padding: 10px;
             text-align: center;
-        }
-        td {
-            padding: 10px;
-            text-align: left;
         }
         th {
             background-color: #6c6991;
