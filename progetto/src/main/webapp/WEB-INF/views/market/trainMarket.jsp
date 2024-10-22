@@ -7,285 +7,317 @@
 <%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
 <%@ page import="org.springframework.context.support.AbstractApplicationContext" %>
 <%@ page import="configuration.JpaConfig" %>
-<%@ include file="../navbar.jsp" %>
 
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+ 
+
+    <%@ include file="../navbar.jsp" %>
+
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Market dei Treni</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-            margin: 0;
-        }
+          body {
+              font-family: Arial, sans-serif;
+              background-color: #2e2b4f;
+              color: #ffffff;
+              margin: 0;
+          }
 
-        h1 {
-            color: #8a79c7;
-            text-align: center;
-            margin: 20px 0;
-        }
+          h1 {
+              color: #8a79c7;
+              text-align: center;
+              margin: 20px 0;
+          }
+          
+          .form-select[multiple] {
+              height: auto; /* Imposta un'altezza fissa se necessario */
+              min-height: 100px; /* Altezza minima per visualizzare più opzioni */
+          }
+          
+          .container {
+              display: flex;
+              justify-content: flex-start; /* Allinea gli elementi a sinistra */
+              align-items: flex-start; /* Allinea gli elementi all'inizio */
+              max-width: 1200px;
+              margin: 10px auto;
+          }
 
-        .container {
-            display: flex;
-            margin: 10px auto;
-            justify-content: center;
-            align-items: flex-start; /* Allinea i contenuti in cima */
-            max-width: 1200px; /* Limita la larghezza massima */
-        }
+          .container-left, .container-right {
+              padding: 20px;
+              background-color: #3b3a5d;
+              border-radius: 10px;
+          }
 
-        .container-left {
-            width: 30%;
-            padding: 20px;
-            background-color: #3b3a5d;
-            border-radius: 10px;
-            margin-right: 20px; /* Spazio tra i due contenitori */
-        }
+          .container-left {
+              width: 30%; /* Mantieni la larghezza desiderata */
+              margin-right: 20px; /* Margine per separare i due contenitori */
+          }
 
-        .container-right {
-            width: 70%;
-            padding: 20px;
-            background-color: #3b3a5d;
-            border-radius: 10px;
-            display: flex;
-            flex-wrap: wrap; /* Permette di andare a capo */
-            justify-content: flex-start; /* Allinea le card a sinistra */
-        }
+          .container-right {
+              width: 70%; /* Mantieni la larghezza desiderata */
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: flex-start;
+          }
 
-        
-        .card {
-            width: 30%; /* Larghezza fissa per le card */
-            margin: 10px; /* Spazio tra le card */
-            background-color: #49456d;
-            border-radius: 10px;
-            overflow: hidden; /* Arrotonda gli angoli delle card */
-        }
-        .card img {
-            width: 100%; /* Larghezza piena dell'immagine */
-            height: auto; /* Mantiene l'aspetto */
-        }
+          
+          input[type="number"] {
+              width: 110px;
+              height: 40px;
+              padding: 5px;
+              font-size: 14px;
+              
+              margin-top: 2%;
+              margin-right: 2%;
+          }
+          
 
-        .buttons {
-            display: flex;
-            justify-content: flex-end; /* Allinea i pulsanti a destra */
-            padding: 10px; /* Padding attorno ai pulsanti */
-            margin-top: auto; /* Spinge i pulsanti verso il basso */
-        }
+          .input-container{
+              display: flex;
+              align-items: center; /* Allinea verticalmente gli elementi */
+              width: 70%; /* Utilizza tutta la larghezza disponibile */
+              margin: -10%;
+              margin-left: 10%;
+          }
+          
+          .single-input{
+              margin-left: 10%;
+          }
+          
+          .text-area {
+              flex: 1; /* Div flessibile e occupa spazio disponibile */
+              font-size: 1.8rem;
+          }
 
-        
-        button {
-            background-color: #8a79c7;
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 5px; /* Spazio tra i pulsanti */
-            height: 40px; /* Altezza fissa per i pulsanti */
-        }
+          .card {
+              width: 30%;
+              margin: 10px;
+              background-color: #49456d;
+              border-radius: 10px;
+              overflow: hidden;
+          }
 
-        button:hover {
-            background-color: #79c7e3;
-        }
+          .card img {
+              width: 100%;
+              height: auto;
+          }
 
-        .search-bar-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0; /* Margine superiore per separare dal titolo */
-        }
+          .buttons {
+              display: flex;
+              justify-content: flex-end;
+              padding: 10px;
+              margin-top: auto;
+          }
 
-        .search-bar {
-            position: relative;
-            width: 60%; /* Imposta una larghezza per la barra di ricerca */
-        }
+          button {
+              background-color: #8a79c7;
+              border: none;
+              color: white;
+              padding: 10px;
+              border-radius: 5px;
+              cursor: pointer;
+              margin-left: 5px;
+              height: 40px;
+          }
 
-        .search-bar input {
-            width: 100%; /* Larghezza piena dell'input */
-            height: 55px;
-            border-radius: 10px;
-            padding-left: 40px; /* Spazio per l'icona di ricerca */
-        }
+          button:hover {
+              background-color: #79c7e3;
+          }
 
-        .search-bar .fa-search {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            color: #9ca3af;
-        }
+          .search-bar-container {
+              display: flex;
+              justify-content: center;
+              margin: 20px 0;
+          }
+
+          .search-bar {
+              position: relative;
+              width: 60%;
+          }
+
+          .search-bar input {
+              width: 100%;
+              height: 55px;
+              border-radius: 10px;
+              padding-left: 40px;
+          }
+
+          /* Stile di base per il form-select */
+          .form-select {
+            appearance: none; /* Rimuove il default del browser */
+            background-color: #3b3a5d; /* Colore di sfondo */
+            color: #ffffff; /* Colore del testo */
+            border: 1px solid #8a79c7; /* Bordo */
+            border-radius: 5px; /* Angoli arrotondati */
+            padding: 10px 15px; /* Padding */
+            width: 100%; /* Larghezza */
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Transizione */
+            font-size: 1rem; /* Dimensione del font */
+            cursor: pointer; /* Cambia il cursore */
+          }
+
+          /* Stile quando il form-select è attivo */
+          .form-select:focus {
+            outline: none; /* Rimuove il contorno predefinito */
+            background-color: #49456d; /* Colore di sfondo quando in focus */
+            border-color: #79c7e3; /* Colore del bordo quando in focus */
+          }
+
+          /* Aggiunta di un'icona per la freccia del dropdown */
+          .form-select::after {
+            content: ''; /* Contenuto vuoto */
+            position: absolute; /* Posizione assoluta */
+            top: 50%; /* Centrato verticalmente */
+            right: 15px; /* Distanza da destra */
+            transform: translateY(-50%); /* Centra verticalmente */
+            border: solid transparent; /* Bordo trasparente */
+            border-width: 5px 5px 0; /* Freccia */
+            border-top-color: #8a79c7; /* Colore della freccia */
+            pointer-events: none; /* Ignora eventi sul pseudo-elemento */
+          }
+
+          /* Stile per opzioni quando vengono selezionate */
+          .form-select option {
+            background-color: #3b3a5d; /* Colore di sfondo delle opzioni */
+            color: #ffffff; /* Colore del testo delle opzioni */
+          }
+
+          /* Stile per opzioni al passaggio del mouse */
+          .form-select option:hover {
+            background-color: #49456d; /* Colore di sfondo al passaggio del mouse */
+          }
 
 
-
-
-        .form-range {
-            -webkit-appearance: none; /* Rimuove lo stile predefinito in Safari */
-            appearance: none; /* Rimuove lo stile predefinito */
-            height: 10px; /* Altezza della barra */
-            border-radius: 5px; /* Bordo arrotondato */
-            background: #ddd; /* Colore della barra */
-            outline: none; /* Rimuove il contorno al focus */
-        }
-    
-        .form-range::-webkit-slider-thumb {
-            -webkit-appearance: none; /* Rimuove lo stile predefinito in Safari */
-            appearance: none; /* Rimuove lo stile predefinito */
-            width: 20px; /* Larghezza del cursore */
-            height: 20px; /* Altezza del cursore */
-            border-radius: 50%; /* Cursore arrotondato */
-            background: #007bff; /* Colore del cursore */
-            cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-        }
-    
-        .form-range::-moz-range-thumb {
-            width: 20px; /* Larghezza del cursore */
-            height: 20px; /* Altezza del cursore */
-            border-radius: 50%; /* Cursore arrotondato */
-            background: #007bff; /* Colore del cursore */
-            cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-        }
-    
-        .form-range::-ms-thumb {
-            width: 20px; /* Larghezza del cursore */
-            height: 20px; /* Altezza del cursore */
-            border-radius: 50%; /* Cursore arrotondato */
-            background: #007bff; /* Colore del cursore */
-            cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-        }
     </style>
 </head>
 <body>
 
-    <h1><b>Train Market</b></h1>
+  <h1><b>Train Market</b></h1>
 
-    <!-- Container barra di ricerca -->
-    <div class="search-bar-container">
-        <div class="search-bar">
-            <i class="fa fa-search"></i>
-            <input type="text" placeholder="Search anything...">
-        </div>
-    </div>
+  <div class="search-bar-container">
+      <div class="search-bar">
+          <input type="text" placeholder="Search anything...">
+      </div>
+  </div>
 
-    <!-- Container principale -->
-    <div class="container">
+  <div class="container">
 
-        <!-- Container del FORM a sinistra -->
-        <div class="container-left">
-            
+      <div class="container-left">
 
-            <!-- 
+          <form action="/search" method="get">
 
-            RANGE: prezzo, peso, lunghezza
-            SEARCH BAR: sigla, nome
-            ORDINAMENTO: per prezzo, lunghezza, peso, 
-            
-             -->
-
-            <form action="/search" method="get">
-                <label for="tipo-treno"> Marca del treno </label>
-                <select id="tipo-treno" name="tipo-treno">
-                    <option value="KargoModelz">KargoModelz</option>
-                    <option value="RegionalGain">RegionalGain</option>
-                    <option value="xFurryFast">xFurryFast</option>
-                </select>
-
-                <br><br>
-
-                <!-- <label for="prezzo-min">Prezzo Min:</label>
-                <input type="number" id="prezzo-min" name="prezzo-min" placeholder="Min" value="0">
-                <label for="prezzo-max">Prezzo Max:</label>
-                <input type="number" id="prezzo-max" name="prezzo-max" placeholder="Max">
-                <br><br> -->
-
-                <div class="d-flex flex-column align-items-center" style="width: 80%; margin: 0 auto;">
-                    <label for="range" class="form-label"> Prezzo </label>
-                    <input type="range" class="form-range" min="0.0" max="1000000" step="10000" id="range" oninput="updateValue(this.value)" style="width: 100%;">
-                    <span id="rangeValue"> 0 </span> <!-- Valore iniziale -->
-                </div>
-                
-                <script>
-                    // Funzione per aggiornare il valore visualizzato con formattazione
-                    function updateValue(val) {
-                        const formattedValue = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
-                        document.getElementById('rangeValue').textContent = formattedValue;
-                    }
-                </script>
-
-
-                <label for="dimensioni-min">Dimensioni Min:</label>
-                <input type="number" id="dimensioni-min" name="dimensioni-min" placeholder="Min">
-                <label for="dimensioni-max">Dimensioni Max:</label>
-                <input type="number" id="dimensioni-max" name="dimensioni-max" placeholder="Max">
-                <br><br>
-
-                <label for="tipo-casa">Tipo di casa</label><br>
-                <input type="checkbox" id="appartamenti" name="tipo-casa" value="appartamenti">
-                <label for="appartamenti">Appartamenti, attici e duplex</label><br>
-                <input type="checkbox" id="ville" name="tipo-casa" value="ville">
-                <label for="ville">Case, ville e villette</label><br><br>
-
-                <input type="submit" value="Cerca">
-            </form>
-        </div>
-
-        <!-- Container delle card -->
-        <div class="container-right">
-            <%
-            List<Treno> treni = (List<Treno>) session.getAttribute("treni");
-            AbstractApplicationContext context = null;
-			TrenoUtility tu = new TrenoUtility();
-            try {
-                context = new AnnotationConfigApplicationContext(JpaConfig.class);
-                VotoDAO votoDAO = context.getBean(VotoDAO.class);
-                TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-                List<Treno> listaTreniOrderByVotazione = trenoDAO.getTreniOrderByVotazione();
-
-                if (listaTreniOrderByVotazione != null && !listaTreniOrderByVotazione.isEmpty()) {
-                    for (Treno treno : listaTreniOrderByVotazione) {
-            %>  
-
-                    <div class="card">
-                        <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="...">
-                        
-                        <div class="card-body">
-                            <h5><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
-                           	<p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
-                            <p>Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
-                            <p>Sigla di composizione: <%= (treno != null) ? tu.getSigla(treno) : "N/A" %></p>
-                            <p>Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
-                            <p>Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
-                            <p>Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> tonnellate</p>
-                            <p>Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
-                            <p>Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
-                            <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long)treno.getId()) : 0 %></p>
-                            <div class="buttons">
-                                
-                                <form method="get" action="trainDetails">
-                                    <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
-                                    <button type="submit">Dettagli</button>
-                                </form>
-
-                            </div>
-                        </div>
+                  <!-- Range Peso -->
+                <div class="mb-4">
+                    <label for="peso" class="form-label">Peso:</label>
+                    <div class="d-flex">
+                        <input type="number" id="peso-min" placeholder="Min" class="form-control me-2">
+                        <input type="number" id="peso-max" placeholder="Max" class="form-control">
                     </div>
-            <%
-                    }
-                } else {
-            %>
-                    <h1 style="margin-top: 2%; font-size: 1.5rem;">Ci dispiace, non ci sono treni disponibili al momento.</h1>
-            <%
-                }
-            } catch (Exception e) {
-                e.printStackTrace(); // Gestisci eventuali eccezioni
-            } finally {
-                if (context != null) {
-                    context.close(); // Chiudi il contesto
-                }
-            }
-            %>
-        </div> 
-    </div>
+                </div>
+
+                <!-- Range Lunghezza -->
+                <div class="mb-4">
+                    <label for="lunghezza" class="form-label">Lunghezza:</label>
+                    <div class="d-flex">
+                        <input type="number" id="lunghezza-min" placeholder="Min" class="form-control me-2">
+                        <input type="number" id="lunghezza-max" placeholder="Max" class="form-control">
+                    </div>
+                </div>
+
+                <!-- Range Prezzo -->
+                <div class="mb-4">
+                    <label for="prezzo" class="form-label">Prezzo:</label>
+                    <div class="d-flex">
+                        <input type="number" id="prezzo-min" placeholder="Min" class="form-control me-2">
+                        <input type="number" id="prezzo-max" placeholder="Max" class="form-control">
+                    </div>
+                </div>
+
+                <!-- Select Ordinamento -->
+                <div class="mb-4">
+                    <label for="ordinamento" class="form-label">Ordinamento:</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option value="voto">Per Voto</option>
+                      <option value="prezzo">Per Prezzo</option>
+                      <option value="nome">Per Nome</option>
+                      <option value="peso">Per Peso</option>
+                    </select>
+                </div>
+
+                
+                <input type="submit" value="Cerca" class="btn btn-primary">
+
+          </form>
+          
+        </div>
+
+          
+
+      <div class="container-right">
+          <%
+          List<Treno> treni = (List<Treno>) session.getAttribute("treni");
+          AbstractApplicationContext context = null;
+          TrenoUtility tu = new TrenoUtility();
+          try {
+              context = new AnnotationConfigApplicationContext(JpaConfig.class);
+              VotoDAO votoDAO = context.getBean(VotoDAO.class);
+              TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+              List<Treno> listaTreniOrderByVotazione = trenoDAO.getTreniOrderByVotazione();
+
+              if (listaTreniOrderByVotazione != null && !listaTreniOrderByVotazione.isEmpty()) {
+                  for (Treno treno : listaTreniOrderByVotazione) {
+          %>
+
+                  <div class="card">
+                      <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
+                      
+                      <div class="card-body">
+                          <h5 class="card-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
+                           	<p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
+                          <p class="card-text">Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
+                            <p>Sigla di composizione: <%= (treno != null) ? tu.getSigla(treno) : "N/A" %></p>
+                          <p class="card-text">Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
+                          <p class="card-text">Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
+                          <p class="card-text">Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> tonnellate</p>
+                          <p class="card-text">Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
+                            <p>Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
+                          <p class="card-text">Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long)treno.getId()) : 0 %></p>
+                          <div class="buttons">
+                              <form method="get" action="trainDetails">
+                                  <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
+                                  <button type="submit" class="btn btn-info">Dettagli</button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+
+          <%
+                  }
+              } else {
+          %>
+                  <p>Nessun treno trovato.</p>
+          <%
+              }
+          } catch (Exception e) {
+              e.printStackTrace();
+          } finally {
+              if (context != null) {
+                  context.close();
+              }
+          }
+          %>
+      </div>
+  </div>   
+
 </body>
 </html>

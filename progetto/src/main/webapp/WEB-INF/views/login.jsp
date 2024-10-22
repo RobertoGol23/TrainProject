@@ -9,6 +9,66 @@
 <%-- 	<link rel="icon" href="${pageContext.request.contextPath}/images/icons/favicon-32x32.png" type="image/png"> --%>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userPagesStyle.css">
     <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2e2b4f;
+            color: #ffffff;
+            display: flex; /* Usa flexbox per centrare */
+            justify-content: center; /* Allinea orizzontalmente al centro */
+            align-items: center; /* Allinea verticalmente al centro */
+            height: 100vh; /* Altezza della pagina */
+            margin: 0; /* Rimuovi margine di default */
+        }
+        h1 {
+            color: #8a79c7;
+        }
+        form {
+            background-color: #49456d;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            height: auto; /* Permette al contenuto di determinare l'altezza */
+            margin: 0 auto; /* Centra orizzontalmente */
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #79c7e3;
+        }
+        input {
+            width: 94%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 10px;
+            background-color: #79c7e3;
+            border: none;
+            border-radius: 5px;
+            color: #2e2b4f;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #8a79c7;
+            color: #ffffff;
+        }
+        a {
+            color: #ffffff;
+        }
+
+
+        .container {
+            width: 25%;
+            border: 2px solid #79c7e3; /* Colore e spessore del bordo */
+            border-radius: 10px;
+            padding: 20px; /* Spaziatura interna */
+            margin-top: -12%;
+        }
     <style type="text/css">
     	.container {
 	   		margin-top: -10%;

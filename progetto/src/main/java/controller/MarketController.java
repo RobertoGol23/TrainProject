@@ -117,14 +117,6 @@ public class MarketController {
     public String viewTrain(@RequestParam("trenoId") Long trenoId, Model model, HttpSession session) {
         // Recupera il treno dall'ID
 
-
-        //TODO: capire se l'utente NON registrato può vedere i dettagli del treno o meno
-        User utente = (User) session.getAttribute("user");
-
-        if (utente == null) {
-            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
-        }
-
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
