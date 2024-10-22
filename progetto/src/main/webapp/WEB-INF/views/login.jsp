@@ -24,7 +24,7 @@
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
-            width: 300px;
+            width: 50%;
             height: auto; /* Permette al contenuto di determinare l'altezza */
             margin: 0 auto; /* Centra orizzontalmente */
         }
