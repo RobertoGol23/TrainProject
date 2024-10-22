@@ -124,7 +124,7 @@ public class MarketController {
         
         if (treno == null) {
             context.close();
-            return "redirect:/dashboard/user/viewTrains"; // Se il treno non esiste, reindirizza alla lista dei treni
+            return "market/trainDetails"; // Se il treno non esiste, reindirizza alla lista dei treni
         }
 
         // Aggiungi il treno al modello
@@ -132,7 +132,7 @@ public class MarketController {
         
         context.close();
 
-        return "dashboard/train/viewTrain"; // Nome della vista JSP
+        return "market/trainDetails"; // Nome della vista JSP
     }
     
  // GET per visualizzare la pagina di voto

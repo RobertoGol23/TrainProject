@@ -1,10 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ include file="../../navbar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Crea Treno</title>
     <style>
         .wagon-form {
@@ -23,7 +24,7 @@
     <h1>Crea il tuo Treno</h1>
     
     <!-- Form per inviare i dati -->
-    <form id="trainForm" action="creaTrenoProva" method="POST">
+    <form id="trainForm" action="creaTrenoDinamico" method="POST">
         <!-- Locomotiva -->
         <div class="wagon-form">
             <label>Locomotiva:</label>

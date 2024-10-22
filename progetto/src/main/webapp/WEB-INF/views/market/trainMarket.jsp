@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="entity.treno.Treno" %>
+<%@ page import="utility.TrenoUtility" %>
 <%@ page import="entity.dao.VotoDAO" %>
 <%@ page import="entity.dao.TrenoDAO" %>
 <%@ page import="java.util.List" %>
@@ -22,6 +23,7 @@
 
     <%@ include file="../navbar.jsp" %>
 
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Market dei Treni</title>
     <style>
           body {
@@ -265,7 +267,7 @@
           <%
           List<Treno> treni = (List<Treno>) session.getAttribute("treni");
           AbstractApplicationContext context = null;
-
+          TrenoUtility tu = new TrenoUtility();
           try {
               context = new AnnotationConfigApplicationContext(JpaConfig.class);
               VotoDAO votoDAO = context.getBean(VotoDAO.class);
@@ -277,16 +279,19 @@
           %>
 
                   <div class="card">
-                      <img src="${pageContext.request.contextPath}/images/treni/locomotivaFurryFast.jpg" class="card-img-top" alt="Treno">
+                      <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
                       
                       <div class="card-body">
                           <h5 class="card-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
+                           	<p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
                           <p class="card-text">Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
+                            <p>Sigla di composizione: <%= (treno != null) ? tu.getSigla(treno) : "N/A" %></p>
                           <p class="card-text">Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
                           <p class="card-text">Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
                           <p class="card-text">Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> tonnellate</p>
                           <p class="card-text">Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
-                          <p class="card-text">Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
+                            <p>Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
+                          <p class="card-text">Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long)treno.getId()) : 0 %></p>
                           <div class="buttons">
                               <form method="get" action="trainDetails">
                                   <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">

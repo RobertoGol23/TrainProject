@@ -4,6 +4,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import configuration.JpaConfig;
+import eccezioni.eccezioniGeneriche.AssociazioneServizioVagoneNonTrovataException;
 import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
 import entity.classi_astratte.FabbricaVagoni;
@@ -157,7 +159,6 @@ public class TrainController {
 	}
 	
 	
-	@SuppressWarnings("resource")
 	@PostMapping("/addWagons")
     public String aggiungiVagoni(
             @RequestParam("wagons[]") List<String> wagons, // Tutti i vagoni (preesistenti e nuovi)
@@ -223,18 +224,18 @@ public class TrainController {
     }
 
 	
-	@GetMapping("/creaTrenoProva")
-    public String mostraCreazioneTrenoProva(HttpServletRequest request, Model model) {
+	@GetMapping("/creaTrenoDinamico")
+    public String mostraCreazioneTrenoDinamico(HttpServletRequest request, Model model) {
 
         if ((User) request.getSession().getAttribute("user") == null) {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
 
-        return "dashboard/train/creaTrenoProva"; // Nome della JSP da visualizzare
+        return "dashboard/train/creaTrenoDinamico"; // Nome della JSP da visualizzare
     }
 	
-	@PostMapping("/creaTrenoProva")
-	public String creaTreno(@RequestParam("wagons[]") List<String> vagoni, Model model, HttpServletRequest request) {
+	@PostMapping("/creaTrenoDinamico")
+	public String creaTrenoDinamico(@RequestParam("wagons[]") List<String> vagoni, Model model, HttpServletRequest request) {
 	    
 		String stringFabbricaId = "1"; //arriva come parametro TODO aggiungere menù a tendina per marca
 		int fabbricaId = Integer.parseInt(stringFabbricaId);
@@ -278,24 +279,24 @@ public class TrainController {
                 request.setAttribute("idTreno", nuovoTreno.getId());
                 
                 // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
-                //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
+                //return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
+                return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
             } else {
                 request.setAttribute("error", "Errore durante la creazione del treno.");
                 System.out.println("Errore generico creazione treno");
-                return "dashboard/train/creaTrenoProva"; // Ritorna alla pagina di creazione del treno
+                return "dashboard/train/creaTrenoDinamico"; // Ritorna alla pagina di creazione del treno
             }
 
         } catch (SiglaTrenoException e) {
             request.setAttribute("error", "Sigla del treno non valida.");
             System.out.println("Errore sigla");
-            return "dashboard/train/creaTrenoProva"; // Ritorna alla pagina di creazione del treno
+            return "dashboard/train/creaTrenoDinamico"; // Ritorna alla pagina di creazione del treno
         }
         catch (Exception e) {
         	System.out.println(e.getMessage());
         	System.out.println("Errore generico");
         	request.setAttribute("error", "Si è verificato un errore, riprova.");
-        	return "dashboard/train/modifyWagons";
+        	return "dashboard/train/creaTrenoDinamico";
 		}
 	}
 	
@@ -351,9 +352,7 @@ public class TrainController {
                     context.close();
                     request.setAttribute("idTreno", nuovoTreno.getId());
                     
-                    // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                    return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
-                    //return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
+                    return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
                 } else {
                     request.setAttribute("error", "Errore durante la creazione del treno.");
                     return "dashboard/train/createTrain"; // Ritorna alla pagina di creazione del treno
@@ -366,7 +365,7 @@ public class TrainController {
         catch (Exception e) {
         	System.out.println(e.getMessage());
         	request.setAttribute("error", "Si è verificato un errore, riprova.");
-        	return "dashboard/train/modifyWagons";
+        	return "dashboard/train/createTrain";
 		}
     }
 
@@ -395,12 +394,39 @@ public class TrainController {
         return "dashboard/train/modifyWagons"; // Nome della JSP da visualizzare
     }
 
+    
+    @GetMapping("/modifyWagonServices")
+    public String mostraModificaServiziVagone(@RequestParam("idVagone") Long idVagone,
+    		Model model,
+    		@RequestParam("idTreno") Long idTreno) {
+        // Recupera il treno dal database
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+        Vagone vagone = vagoneDAO.getVagoneById(idVagone);
+        ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+
+        if (vagone == null) {
+            model.addAttribute("errorMessage", "Nessun vagone trovato con l'ID specificato.");
+            context.close();
+            return "dashboard/train/modifyWagonServices";
+        }
+
+        // Aggiungi il treno e i servizi al modello
+        model.addAttribute("vagone", vagone);
+        model.addAttribute("idTreno", idTreno);
+        // Recupera i servizi disponibili
+        List<Servizio> servizi = servizioDAO.trovaServiziDisponibili();
+        model.addAttribute("servizi", servizi);
+
+        context.close();
+        return "dashboard/train/modifyWagonServices"; // Nome della JSP da visualizzare
+    }
+    
     @PostMapping("/addService")
     public String aggiungiServizio(
             @RequestParam("vagoneId") Long vagoneId,
             @RequestParam("servizio") String servizio,
-            @RequestParam("idTreno") Long idTreno, // Aggiungi anche l'ID del treno qui
-            @RequestParam("vagoneIndex") int vagoneIndex, // Recupera l'indice del vagone
+            @RequestParam("idTreno") Long idTreno,
             HttpServletRequest request) {
 
         // Recupera il treno e il vagone dal database
@@ -421,15 +447,15 @@ public class TrainController {
         
         
         context.close();
-
+        
+        request.setAttribute("idTreno", idTreno);
         request.setAttribute("message", "Servizio aggiunto con successo!");
         return "dashboard/train/addServiceComplete";
     }
     
     @GetMapping("/viewTrain")
-    public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model) {
-        // Recupera il treno dall'ID
-    	
+    public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
+	
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
@@ -447,20 +473,152 @@ public class TrainController {
 
         return "dashboard/train/viewTrain"; // Nome della vista JSP
     }
-
-
-
-    @GetMapping("/trainMarket")
-    public String showTrainMarket(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("user");
-
-        if (loggedInUser == null) {
-            return "redirect:/login"; // Se non è loggato, reindirizza al login
+    
+    
+    @GetMapping("/deleteService")
+    public String cancellaServizio(@RequestParam("idTreno") Long idTreno,
+    							@RequestParam("idVagone") Long idVagone,
+    							@RequestParam("nomeServizio") String nomeServizio,
+    							HttpSession session) throws Exception
+    {
+    	User utente = (User) session.getAttribute("user");
+    	
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
-
-        model.addAttribute("user", loggedInUser);
-        return "/train-bazaar/trainMarket"; // Mostra la dashboard
+    	
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+	    VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+	    Vagone vagone = vagoneDAO.getVagoneById(idVagone);
+	   
+	    try
+	    {
+	    	vagoneDAO.removeServizioFromVagone(idVagone, nomeServizio);
+	    }
+	    catch(AssociazioneServizioVagoneNonTrovataException e)
+	    {
+	    	System.out.println("Errore: "+ e.getErrorePerUtente());
+	    }
+	       
+	    context.close();
+	
+    	
+    	return "redirect:viewTrain?idTreno="+ idTreno;
     }
     
+    
+ // GET per visualizzare la pagina di clonazione del treno
+    @GetMapping("/cloneTrain")
+    public String showCloneTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+        
+        Treno treno = trenoDAO.getTrenoById(idTreno);
+        if (treno == null) {
+            context.close();
+            return "redirect:/dashboard/home"; // Se il treno non esiste, torna alla home
+        }
+
+        // Aggiungi il treno alla model
+        model.addAttribute("treno", treno);
+        context.close();
+
+        return "dashboard/train/cloneTrain"; // Nome della JSP per la clonazione
+    }
+
+    // POST per clonare il treno
+    @PostMapping("/confirmClone")
+    public String confirmClone(@RequestParam("idTreno") Long idTreno,
+                               @RequestParam("nomeNuovo") String nomeNuovo,
+                               HttpSession session,
+                               Model model) {
+        User utente = (User) session.getAttribute("user");
+
+        if (utente == null) {
+            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+        }
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+        
+        Treno treno = trenoDAO.getTrenoById(idTreno);
+        if (treno != null) {
+            TrenoUtility tu = new TrenoUtility();
+            Treno trenoClonato = tu.clonaTreno(treno, nomeNuovo, utente); // Usa la tua funzione di clonazione
+
+            if (trenoClonato != null) {
+                model.addAttribute("successMessage", "Treno clonato con successo: " + trenoClonato.getNome());
+            } else {
+            	model.addAttribute("idTreno", idTreno);
+                model.addAttribute("error", "Errore nella clonazione del treno.");
+            }
+        } else {
+        	model.addAttribute("idTreno", idTreno);
+            model.addAttribute("error", "Treno non trovato.");
+        }
+
+        context.close();
+        return "dashboard/train/cloneSuccess"; // Pagina di successo per la clonazione
+    }
+
+    @GetMapping("/ribaltaTreno")
+    public String ribaltaTreno(@RequestParam("idTreno") Long idTreno, Model model) {
+        // Recupera il treno dal database utilizzando l'ID
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+        TrenoUtility trenoUtility = new TrenoUtility();
+        
+        Treno treno = trenoDAO.getTrenoById(idTreno);
+        
+        // Verifica se il treno esiste
+        if (treno != null) {
+            // Esegui il ribaltamento del treno
+            boolean successo = trenoUtility.ribaltaTreno(treno);
+            
+            if (successo) {
+                // Salva le modifiche nel database
+                trenoDAO.updateTreno(treno);
+                model.addAttribute("treno", treno);
+                context.close();
+                
+                // Reindirizza alla pagina con i dettagli aggiornati del treno
+                return "redirect:viewTrain?idTreno="+ idTreno; // Nome della tua JSP che mostra i dettagli del treno
+            } else {
+                // Se non è possibile ribaltare il treno (es. sigla finisce con 'h')
+            	model.addAttribute("idTreno", idTreno);
+            	model.addAttribute("error", "Non è possibile ribaltare questo treno.");
+                context.close();
+                return "dashboard/train/trainModifyFail"; // Pagina di errore o messaggio da gestire
+            }
+        } else {
+            // Treno non trovato
+        	model.addAttribute("idTreno", idTreno);
+            model.addAttribute("error", "Treno non trovato.");
+            context.close();
+            return "dashboard/train/trainModifyFail";
+        }
+    }
+    
+    @GetMapping("/deleteTrain")
+    public String deleteTrain(@RequestParam("idTreno") Long idTreno, Model model) {
+    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+    	Treno treno = trenoDAO.getTrenoById(idTreno);  // Recupera il treno dal DB tramite l'ID
+        if (treno != null) {
+            trenoDAO.eliminaTrenoById(idTreno);  // Cancella il treno dal database
+            context.close();
+            return "redirect:/dashboard/user/viewTrains";  // Reindirizza alla lista dei treni o a una pagina di conferma
+        } else {
+            // Treno non trovato, gestisci l'errore
+            model.addAttribute("error", "Treno non trovato.");
+            context.close();
+            return "dashboard/train/trainModifyFail";
+        }
+    }
 }

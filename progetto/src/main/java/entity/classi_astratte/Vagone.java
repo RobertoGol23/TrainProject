@@ -98,6 +98,10 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 
 	}
 	
+	public boolean deleteServizioByNameGPT(String nomeServizio) {
+	    return listaServizi.removeIf(servizio -> servizio.getNome().equals(nomeServizio));
+	}
+	
 	public void addServizio(Servizio s) {
 		
 		if(!listaServizi.contains(s)) {
@@ -110,6 +114,25 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	
 	public void deleteServizio(Servizio s) {
 		listaServizi.remove(s);
+	}
+	
+	/**
+	 * Metodo che rimuove un servizio dalla lista di un vagone
+	 * @param nomeServizio
+	 * @return boolean con l'esito dell'operazione
+	 */
+	public boolean deleteServizioByName(String nomeServizio)
+	{
+		for(int i=0; i<listaServizi.size();i++)
+		{
+			if(listaServizi.get(i).getNome().equalsIgnoreCase(nomeServizio))
+			{
+				listaServizi.remove(i);
+				return true;
+			}
+					
+		}
+		return false;
 	}
 
 	public String getTipo()
@@ -130,6 +153,10 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	public List<Servizio> getListaServizi()
 	{
 		return listaServizi;
+	}
+	
+	public void setListaServizi(List<Servizio> listaServizi) {
+		this.listaServizi = listaServizi;
 	}
 
 	public String getDettagli()

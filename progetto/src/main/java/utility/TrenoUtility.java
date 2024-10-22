@@ -3,6 +3,10 @@ package utility;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+
+import configuration.JpaConfig;
 import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniGeneriche.MarcaNonValidaException;
 import eccezioni.eccezioniGeneriche.TroppoPesoException;
@@ -16,11 +20,16 @@ import eccezioni.eccezioniSigla.StringaNonValidaException;
 import eccezioni.eccezioniSigla.TroppiRistorantiException;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.Vagone;
+import entity.dao.ServizioDAO;
+import entity.dao.TrenoDAO;
+import entity.dao.VagoneDAO;
+import entity.servizi.Servizio;
 import entity.treno.Locomotiva;
 import entity.treno.Treno;
 import entity.treno.VagoneCargo;
 import entity.treno.VagonePasseggeri;
 import entity.treno.VagoneRistorante;
+import entity.user.User;
 import fabbriche.FabbricaKargoModelz;
 import fabbriche.FabbricaRegionalGain;
 import fabbriche.FabbricaXFurryFast;
@@ -187,9 +196,9 @@ public class TrenoUtility {
 		return true;
 	}
 	
-	public static Boolean controllaRistoranteCentrale(String sigla)
+	public static boolean controllaRistoranteCentrale(String sigla)
 	{
-		Boolean flag = false;
+		boolean flag = false;
 		
 		if((sigla.length()%2)==0) //pari,  A A A R(3) R(4) A A A
 		{
@@ -252,10 +261,9 @@ public class TrenoUtility {
 	
 	
 	/**
-	 * Metodo usato per restituire il carattere in base al tipo.
-	 * Il carattere è maiuscolo per via di una gestione dell'aggiunta dei vagoni
-	 * @param tipo
-	 * @return
+	 * Metodo usato per restituire la stringa con le info in base al tipo di vagone
+	 * @param vagone
+	 * @return dettagli vagoni
 	 */
 	public String getDettagli(Vagone vagone){
 		
@@ -327,8 +335,83 @@ public class TrenoUtility {
 		
 		return siglaNuova;
 	}
-
 	
+	/**
+	 * Metodo che prende in input il treno e ne restituisce una copia con un nuovo id
+	 * @param treno
+	 * @param nome del treno nuovo
+	 * @param utente
+	 * @return treno clonato oppure null
+	 */
+	public Treno clonaTreno(Treno t, String nomeNuovo, User user) {
+		
+		TrenoUtility tu = new TrenoUtility();
+		FabbricaVagoni fabbrica = tu.getFabbricaById(tu.getIntByMarca(t.getMarca()));
+		Assemblatore assemblatore = new Assemblatore(fabbrica);
+		
+		Treno trenoClonato = assemblatore.costruisciTreno(nomeNuovo, tu.getSigla(t), user, tu.getIntByMarca(t.getMarca()));
+		if (trenoClonato != null) {
+			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+            TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+            trenoDAO.salvaTreno(trenoClonato);
+            VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+            ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+            
+            for(int i = 0; i < t.getListaVagoni().size(); i++) {
+            	Vagone v = t.getVagone(i);
+            	for(int j = 0; j < v.getListaServizi().size(); j++) {
+            		Servizio s = v.getListaServizi().get(j);
+            		trenoClonato.getVagone(i).addServizio(s);
+            		vagoneDAO.updateVagone(trenoClonato.getVagone(i));
+                    servizioDAO.updateServizio(s);
+            	}
+            }
+            context.close();	
+            return trenoClonato;
+		}
+		
+		return null;
+	}
 
+	/**
+	 * Metodo che verifica la presenza di un servizio nel vagone
+	 * @param vagone
+	 * @param servizio
+	 * @return true se è presente, false se non lo è
+	 */
+	public boolean isServicePresent(Vagone vagone, Servizio servizio)
+	{
+		for(Servizio s: vagone.getListaServizi())
+		{
+			if(s.getNome().equalsIgnoreCase(servizio.getNome()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Metodo ribalta il treno se possibile
+	 * @param treno
+	 * 
+	 * @return true se è riuscito, false se fallito
+	 */
+
+	public boolean ribaltaTreno(Treno t) {
+		TrenoUtility tu = new TrenoUtility();
+		List<Vagone> nuovaListaDiVagoni = new ArrayList<Vagone>();
+		if(!tu.getSigla(t).endsWith("h")) {
+			return false;
+		}
+		for(int j = t.getListaVagoni().size() - 1; j >= 0; j--) {
+			nuovaListaDiVagoni.add(t.getListaVagoni().get(j));
+		}
+		t.setListaVagoni((ArrayList<Vagone>) nuovaListaDiVagoni);
+		AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+	    trenoDAO.updateTreno(t);
+		return true;
+	}
 
 }

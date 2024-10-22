@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Vota il Treno</title>
     <style>
         body {
@@ -54,7 +55,7 @@ User user = (User) session.getAttribute("user");
         <p>Prezzo: <%= treno.getPrezzoTotaleTreno() %> €</p>
         <p>Peso: <%= treno.getPesoTotaleTreno() %> kg</p>
         <p>Numero di Persone: <%= treno.getPasseggeriTotali() %></p>
-        <p>Voto: <%= (treno != null) ? votoDAO.calcolaMediaPunteggioTreno(treno.getId()) : 0 %></p>
+        <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
 
         <!-- Form per votare il treno -->
         <form method="post" action="submitVote">

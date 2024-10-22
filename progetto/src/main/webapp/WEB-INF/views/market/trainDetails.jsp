@@ -9,11 +9,13 @@
 <%@ page import= "org.springframework.context.support.AbstractApplicationContext" %>
 <%@ page import= "configuration.JpaConfig" %>
 <%@ include file="../navbar.jsp" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Dettagli Treno</title>
     <style>
         body {
@@ -25,11 +27,12 @@
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
-            max-width: 800px;
+            max-width: 950px;
             margin: 20px auto;
         }
         h1, h2 {
             text-align: center;
+            padding-top:15px;
         }
         ul {
             list-style-type: none;
@@ -56,13 +59,15 @@
         td {
             background-color: #49456d;
         }
-        button {
+         button, a.button {
             background-color: #8a79c7;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
-            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #79c7e3;
@@ -78,15 +83,15 @@
         Treno treno = (Treno) request.getAttribute("treno");
         if (treno != null) {
     %>
-    	<% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    <% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     		VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
-        <p>Id: <%= treno.getId() %></p>
-        <p>Id: <%= treno.getMarca() %></p>
+<%--         <p>Id: <%= treno.getId() %></p> --%>
+        <p>Marca: <%= treno.getMarca() %></p>
         <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
         <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
-        <p>Voto: <%= (treno != null) ? votoDAO.calcolaMediaPunteggioTreno(treno.getId()) : 0 %></p>
+        <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
     </div>
 
     <h2>Lista dei Vagoni</h2>
@@ -97,6 +102,7 @@
                     <th>Tipo Vagone</th>
                     <th>Peso</th>
                     <th>Prezzo</th>
+                    <th>Dettagli</th>
                     <th>Servizi</th>
                 </tr>
             </thead>
@@ -110,6 +116,7 @@
                     <td><%= vagone.getTipo() %></td>
                     <td><%= vagone.getPeso() %> tonnellate</td>
                     <td><%= vagone.getPrezzo() %> euro</td>
+                    <td><%= vagone.getDettagli() %></td>
                     <td>
                         <%
                             List<Servizio> servizi = vagone.getListaServizi();
@@ -139,6 +146,13 @@
             </tbody>
         </table>
     </div>
+	<div align="center">
+        <a href="purchaseTrain?trenoId=${treno.id}" class="button">Compra il treno</a>
+
+        <a href="voteTrain?trenoId=${treno.id}" class="button">Vota il treno</a>
+		
+		
+    </div>
 	<% context.close(); %>
     <%
         } else {
@@ -147,6 +161,5 @@
     <%
         }
     %>
-
 </body>
 </html>

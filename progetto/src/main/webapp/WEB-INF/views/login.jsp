@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
+<%-- 	<link rel="icon" href="${pageContext.request.contextPath}/images/icons/favicon-32x32.png" type="image/png"> --%>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userPagesStyle.css">
     <title>Login</title>
     <style>
         body {
@@ -66,6 +69,10 @@
             padding: 20px; /* Spaziatura interna */
             margin-top: -12%;
         }
+    <style type="text/css">
+    	.container {
+	   		margin-top: -10%;
+		}
     </style>
 </head>
 <body>
@@ -78,9 +85,9 @@
             </h1>
         </div>
 
-        <h1 align="center" style="font-size: 3.0rem; margin-bottom: 5px;">Login</h1>
+        <h1 align="center">Login</h1>
 
-        <form action="login" method="POST" style="margin-top: 0;">
+        <form action="login" method="POST">
             <label for="email">Email</label>
             <%
                 String email = (String) session.getAttribute("email");
@@ -94,7 +101,7 @@
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="Inserisci qui la tua password" name="password" required>
 
-            <button type="submit">Login</button>
+            <button type="submit"><b>Login</b></button>
         </form>
 
         <%
