@@ -30,9 +30,9 @@
             max-width: 950px;
             margin: 20px auto;
         }
-        h1, h2 {
+        h1 {
             text-align: center;
-            padding-top:15px;
+            padding-top: 15px;
         }
         ul {
             list-style-type: none;
@@ -59,7 +59,7 @@
         td {
             background-color: #49456d;
         }
-         button, a.button {
+        button, a.button {
             background-color: #8a79c7;
             color: white;
             border: none;
@@ -72,11 +72,48 @@
         button:hover {
             background-color: #79c7e3;
         }
+        /* Flexbox layout for image and text */
+        .train-info-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .train-info {
+            max-width: 60%;
+        }
+        .train-details img {
+            max-width: 35%;
+            height: auto;
+            margin-left: 20px;
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /* Style for wagon images */
+        .wagon-image {
+            max-width: 100px;
+            height: auto;
+            border-radius: 5px;
+        }
+        @media (max-width: 768px) {
+            /* Stack layout for smaller screens */
+            .train-info-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            .train-details img {
+                max-width: 80%;
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <h1>Dettagli del Treno</h1>
+    <h1>Dettagli del Treno</h1> <!-- Titolo generale della pagina -->
 
     <%
         // Recupera il treno dalla richiesta
@@ -85,13 +122,28 @@
     %>
     <% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     		VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
+    
     <div class="train-details">
+        <!-- Nome del treno come titolo principale sopra tutto -->
         <h2>Treno: <%= treno.getNome() %></h2>
-<%--         <p>Id: <%= treno.getId() %></p> --%>
-        <p>Marca: <%= treno.getMarca() %></p>
-        <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
-        <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
-        <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
+
+        <div class="train-info-wrapper">
+            <div class="train-info">
+                <!-- Dettagli testuali del treno a sinistra -->
+                <p>Marca: <%= treno.getMarca() %></p>
+                <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
+                <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
+                <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
+            </div>
+            <!-- Immagine del treno a destra -->
+            <% if(treno.getMarca().equals("Treno RegionalGain")) { %>
+                <img src="${pageContext.request.contextPath}/images/treni/RG.jpg" class="card-img-top" alt="Treno">
+            <% } else if(treno.getMarca().equals("Treno xFurryFast")) { %>
+                <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
+            <% } else if(treno.getMarca().equals("Treno KargoModelz")) { %>
+                <img src="${pageContext.request.contextPath}/images/treni/KM.jpg" class="card-img-top" alt="Treno">
+            <% } %>
+        </div>
     </div>
 
     <h2>Lista dei Vagoni</h2>
@@ -100,6 +152,7 @@
             <thead>
                 <tr>
                     <th>Tipo Vagone</th>
+                    <th>Immagine del Vagone</th>
                     <th>Peso</th>
                     <th>Prezzo</th>
                     <th>Dettagli</th>
@@ -114,6 +167,39 @@
             %>
                 <tr>
                     <td><%= vagone.getTipo() %></td>
+                    <td>
+                        <% if(treno.getMarca().equals("Treno RegionalGain")) { 
+                            if(vagone.getTipo().equals("Locomotiva")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/LocomotivaRG.jpg" class="wagon-image" alt="LocomotivaRG">
+                            <% } else if(vagone.getTipo().equals("VagonePasseggeri")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagonePasseggeriRG.jpg" class="wagon-image" alt="VagonePasseggeriRG">
+                            <% } else if(vagone.getTipo().equals("VagoneRistorante")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagoneRistoranteRG.jpg" class="wagon-image" alt="VagoneRistoranteRG">
+                            <% } else if(vagone.getTipo().equals("VagoneCargo")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagoneCargoRG.jpg" class="wagon-image" alt="VagoneCargoRG">
+                            <% }
+                        } else if(treno.getMarca().equals("Treno xFurryFast")) { 
+                            if(vagone.getTipo().equals("Locomotiva")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/locomotivaFF.jpg" class="wagon-image" alt="LocomotivaFF">
+                            <% } else if(vagone.getTipo().equals("VagonePasseggeri")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagonePasseggeriFF.jpg" class="wagon-image" alt="VagonePasseggeriFF">
+                            <% } else if(vagone.getTipo().equals("VagoneRistorante")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagoneRistoranteFF.jpg" class="wagon-image" alt="VagoneRistoranteFF">
+                            <% } else if(vagone.getTipo().equals("VagoneCargo")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagoneCargoFF.jpg" class="wagon-image" alt="VagoneCargoFF">
+                            <% }
+                        } else if(treno.getMarca().equals("Treno KargoModelz")) {
+                            if(vagone.getTipo().equals("Locomotiva")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/locomotivaKM.jpg" class="wagon-image" alt="LocomotivaKM">
+                            <% } else if(vagone.getTipo().equals("VagonePasseggeri")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagonePasseggeriKM.jpg" class="wagon-image" alt="VagonePasseggeriKM">
+                            <% } else if(vagone.getTipo().equals("VagoneRistorante")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagoneRistoranteKM.jpg" class="wagon-image" alt="VagoneRistoranteKM">
+                            <% } else if(vagone.getTipo().equals("VagoneCargo")) { %>
+                                <img src="${pageContext.request.contextPath}/images/treni/VagoneCargoKM.jpg" class="wagon-image" alt="VagoneCargoKM">
+                            <% } 
+                        } %>
+                    </td>
                     <td><%= vagone.getPeso() %> tonnellate</td>
                     <td><%= vagone.getPrezzo() %> euro</td>
                     <td><%= vagone.getDettagli() %></td>
@@ -146,14 +232,11 @@
             </tbody>
         </table>
     </div>
-	<div align="center">
+    <div align="center">
         <a href="purchaseTrain?trenoId=${treno.id}" class="button">Compra il treno</a>
-
         <a href="voteTrain?trenoId=${treno.id}" class="button">Vota il treno</a>
-		
-		
     </div>
-	<% context.close(); %>
+    <% context.close(); %>
     <%
         } else {
     %>
