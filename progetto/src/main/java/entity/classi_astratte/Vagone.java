@@ -34,7 +34,7 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	@Column(name = "prezzo", nullable = false, unique = false)
 	private Double prezzo;
 
-	@ManyToMany(mappedBy = "listaVagoniS", fetch = FetchType.EAGER, cascade = CascadeType.ALL) // Indica che la relazione è gestita dall'altra entità (Servizio)
+	@ManyToMany(mappedBy = "listaVagoniS", fetch = FetchType.EAGER) // Indica che la relazione è gestita dall'altra entità (Servizio)
     private List<Servizio> listaServizi = new ArrayList<Servizio>();
 
 	@ManyToMany(mappedBy = "listaVagoni", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Indica che la relazione è gestita dall'altra entità (Treno)

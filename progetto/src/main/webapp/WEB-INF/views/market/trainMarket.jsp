@@ -247,7 +247,7 @@
             %>  
 
                     <div class="card">
-                        <img src="${pageContext.request.contextPath}/images/treni/locomotivaFurryFast.jpg" class="card-img-top" alt="...">
+                        <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="...">
                         
                         <div class="card-body">
                             <h5><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
