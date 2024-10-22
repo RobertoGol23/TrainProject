@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+	/* Contenitore per l'animazione */
+     .train-container {
+         position: relative;
+         width: 100%;
+         height: 200px; /* Altezza del contenitore */
+         overflow: hidden;
+         background-color: transparent; /* Rendi lo sfondo trasparente */
+     }
+
+     /* Definisci i vagoni del treno */
+     .train {
+         display: flex;
+         position: absolute;
+         animation: moveTrain 6s linear infinite;
+     }
+
+     /* Ogni vagone è rappresentato da un quadrato */
+     .train .wagon {
+         height: 150px;
+         width: auto;
+/*          background-color: #007bff; Colore del vagone */
+     }
+
+     /* Animazione per far muovere il treno da sinistra a destra */
+     @keyframes moveTrain {
+         0% {
+             transform: translateX(100%); /* Parte da fuori lo schermo */
+         }
+         100% {
+             transform: translateX(-100%); /* Scorre fuori dallo schermo a sinistra */
+         }
+     }
