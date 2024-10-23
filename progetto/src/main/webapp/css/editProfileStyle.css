@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+	.container {
+		width: 28%;
+		margin-top: 3%;
+	}
+	input {
+	    width: 100%;
+	}
+	form {
+		width: 340px;
+	}
+	.delete-section {
+		width: 300px;
+		margin: 0 auto;
+		margin-top: 20px;
+		text-align: center;
+	}
+	.confirmation-panel {
+		display: none;
+		background-color: #49456d;
+		padding: 20px;
+		border-radius: 10px;
+		margin-top: 20px;
+	}
+	.modal {
+		display: none; 
+		position: fixed; 
+		z-index: 1; 
+		left: 0;
+		top: 0;
+		width: 100%; 
+		height: 100%; 
+		overflow: auto; 
+		background-color: rgb(0,0,0); 
+		background-color: rgba(0,0,0,0.4); 
+		padding-top: 60px; 
+	}
+	.modal-content {
+		background-color: #49456d;
+		margin: 5% auto; 
+		padding: 20px;
+		border: 1px solid #888;
+		width: 80%; 
+		max-width: 400px;
+		color: #ffffff;
+	}
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+	.close:hover,
+	.close:focus {
+		color: red;
+		cursor: pointer;
+	}
+	.btn-primary {
+		background-color: #f5835e;
+	}
+	.btn-primary:hover {
+		background-color: #f96737;
+	}
+
+	.modal {
+		display: none; 
+		position: fixed; 
+		z-index: 1; 
+		left: 0;
+		top: 0;
+		width: 100%; 
+		height: 100%; 
+		background-color: rgba(0,0,0,0.4); 
+		padding-top: 60px; 
+	}
+	.modal-content {
+		background-color: #49456d;
+		margin: 5% auto; 
+		padding: 20px;
+		border: 1px solid #888;
+		width: 80%; 
+		max-width: 400px;
+		color: #ffffff;
+	}
+	.errore {
+		color: red;
+	}
