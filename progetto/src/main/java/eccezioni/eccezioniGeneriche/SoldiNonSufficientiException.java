@@ -15,7 +15,7 @@ public class SoldiNonSufficientiException extends GenericException {
 	}
 
 	public String getSuggerimento() {
-		return "\nCosto del treno: " + getCostoTreno()+
+		return "Soldi non sufficienti per l'acquisto" +"\nCosto del treno: " + getCostoTreno()+
 				"\nSoldi nel wallet: " + getSoldiWallet()
 				+ "\nHai bisogno di altri " + (getCostoTreno()-getSoldiWallet()) + " euro per comprare il treno";
 	}
@@ -39,7 +39,9 @@ public class SoldiNonSufficientiException extends GenericException {
 	@Override
 	public String getErrorePerUtente() {
 		
-		return "Soldi non sufficienti per l'acquisto";
+		return "Soldi non sufficienti per l'acquisto" + "<br>" + "Costo del treno: " + getCostoTreno()
+				+"<br>"+ "Soldi nel wallet: " + getSoldiWallet()
+				 + "<br>" + "Hai bisogno di altri " + (getCostoTreno()-getSoldiWallet()) + " euro per comprare il treno";
 	}
 	
 	
