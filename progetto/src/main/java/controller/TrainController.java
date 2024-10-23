@@ -358,7 +358,7 @@ public class TrainController {
                 }
 
         } catch (SiglaTrenoException e) {
-            request.setAttribute("error", "Sigla del treno non valida.");
+            request.setAttribute("error", "Sigla del treno non valida.<br>"+ e.getErrorePerUtente());
             return "dashboard/train/createTrain"; // Ritorna alla pagina di creazione del treno
         }
         catch (Exception e) {
