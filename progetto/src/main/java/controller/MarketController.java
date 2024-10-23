@@ -81,7 +81,7 @@ public class MarketController {
 
     // POST per confermare l'acquisto
     @PostMapping("/confirmPurchase")
-    public String confirmPurchase(@RequestParam("trenoId") Long trenoId, HttpSession session) throws SoldiNonSufficientiException {
+    public String confirmPurchase(@RequestParam("trenoId") Long trenoId, HttpSession session, Model model) throws SoldiNonSufficientiException {
         
         User utente = (User) session.getAttribute("user");
 
@@ -108,7 +108,10 @@ public class MarketController {
         	}
         	catch(SoldiNonSufficientiException e)
         	{
-        		System.out.println(e.getMessage()+e.getSuggerimento());
+        		e.printStackTrace();
+        		model.addAttribute("error", e.getErrorePerUtente());
+        		System.out.println("errore: "+ e);
+        		return "market/purchaseFail";
         	}
 
         }
