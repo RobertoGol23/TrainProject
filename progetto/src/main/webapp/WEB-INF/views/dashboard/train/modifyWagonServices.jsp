@@ -5,6 +5,7 @@
 <%@ page import="utility.TrenoUtility" %>
 <%@ page import="entity.servizi.Servizio" %>
 <%@ page import="java.util.List" %>
+<%@ page import="entity.dao.VagoneDAO" %>
 <%@ include file="../../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
@@ -85,7 +86,7 @@
                 List<Servizio> servizi = (List<Servizio>) request.getAttribute("servizi");
             	TrenoUtility tu = new TrenoUtility();
             	Vagone vagone = (Vagone) request.getAttribute("vagone");
-            	
+            	            	
             	
                 if (servizi != null) {
                     for (Servizio servizio : servizi) {
@@ -101,7 +102,7 @@
             %>
             </select><br/>
 			<!-- Campo nascosto per memorizzare l'indice del vagone -->
-            <input type="hidden" name="vagoneId" id="vagoneId" value="<%= vagone.getId()%>"></input>
+            <input type="hidden"  name="idVagoneRel" id="idVagoneRel" value="${idVagoneRel}"></input>
             <input type="hidden" name="idTreno" id="idTreno" value="<%= (request.getAttribute("idTreno")) %>"></input>
             <button type="submit">Aggiungi Servizio</button>
             <a href="viewTrain?idTreno=<%= (request.getAttribute("idTreno")) %>" class="button">Torna indietro</a> 

@@ -44,51 +44,65 @@ public class Test05 {
 			AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);			
 			
 			
-			User mazza = new User("Salvo","Mano", "salvo.mano@gmail.com", "Danzacudur0_04", 0.0);
+			//User mazza = new User("Salvo","Mano", "salvo.mano@gmail.com", "Danzacudur0_04", 0.0);
 			UserDAO userDAO = context.getBean(UserDAO.class);
-			userDAO.salvaUser(mazza);
+			User user = userDAO.getUserByEmail("salvo.mano@gmail.com");
 			
-			Treno trenoKM = builderKM.costruisciTreno(nomeTreno,sigla,mazza, 3);
+//			Treno trenoKM = builderKM.costruisciTreno(nomeTreno,sigla,user, 3);
+//			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//            trenoDAO.salvaTreno(trenoKM);
+			
 			TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-            trenoDAO.salvaTreno(trenoKM);
-
+            Treno treno = trenoDAO.getTrenoById((long)31);
+			
             
 
             // NON SI AGGIUNGONO COSÌ! -> USARE UN SEEDER
             // AGGIUNTA DI UN SERVIZIO
-            FabbricaServizi fabbricaServizi = new FabbricaServizi();
+            //FabbricaServizi fabbricaServizi = new FabbricaServizi();
             ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
 
-
-			// TODO: quando fai i test potrebbe dare erroe!!!!!!!!!!!!!!!!
 			
-			// RIMOZIONE DI UN SERVIZIO 
-			// servizioDAO.eliminaServizioByName("bagno");
-
-            // INSERIMENTO DI UN SERVIZIO
-            try {
-				servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
-			} catch (ServizioGiaPresenteException e) {
-				System.out.println(e.message());
-			}
+//			// RIMOZIONE DI UN SERVIZIO 
+//			 servizioDAO.eliminaServizioByName("bagno");
+//
+//            // INSERIMENTO DI UN SERVIZIO
+//            try {
+//				servizioDAO.salvaServizio(fabbricaServizi.creaBagno());
+//			} catch (ServizioGiaPresenteException e) {
+//				System.out.println(e.message());
+//			}
             
 
-            int indexVagone = 1;
+            int indexVagone1 = 1;
+            int indexVagone2 = 2;
 
             // AGGIUNTA DI UN SERVIZIO AD UN VAGONE
 
-            Vagone vagoneKM = trenoKM.getVagone(indexVagone);
-            //ERRORE: non va creato il servizio, va detto al DB di darcene uno!!
-            Servizio s = servizioDAO.getServizioByName("bagno");
+            Vagone vagone1 = treno.getVagone(indexVagone1);
+            Servizio cinema = servizioDAO.getServizioByName("cinema");
 
-            //vagoneKM.addServizio(servizioDAO.getServizioByName("bagno"));
-            vagoneKM.addServizio(s);
-             
-            servizioDAO.updateServizio(s);
-            trenoKM.setVagone(indexVagone, vagoneKM);
-            trenoDAO.updateTreno(trenoKM);
+            System.out.println("id vagone: "+ vagone1.getId());
+            vagone1.addServizio(cinema);
+            
+            
+            treno.setVagone(indexVagone1, vagone1);
+            trenoDAO.updateTreno(treno); 
+            
+            Vagone vagone2 = treno.getVagone(indexVagone2);
+            //Servizio s2 = servizioDAO.getServizioByName("cinema");
+            
+            System.out.println("id vagone: "+ vagone2.getId());
+            vagone2.addServizio(cinema);
 
-
+            servizioDAO.updateServizio(cinema);
+            
+            
+            //servizioDAO.updateServizio(s2);
+            treno.setVagone(indexVagone2, vagone2);
+            trenoDAO.updateTreno(treno);
+            
+            
 			context.close();
 		}
 		catch (SiglaTrenoException e)
