@@ -22,7 +22,26 @@ import entity.user.User;
 @RequestMapping("/dashboard/user")
 public class UserController {
     
+	
+	@PostMapping("/checkForDeleteAccount")
+	public String controlliPerCancellazioneAccount(HttpServletRequest request, Model model,
+													@RequestParam("password") String password)
+	{
+		HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user");
 
+        if (loggedInUser == null) {
+            return "redirect:/login"; // Se non è loggato, reindirizza al login
+        }
+		if(loggedInUser.getPassword().equalsIgnoreCase(password))
+		{
+			
+		}
+        
+		return "";
+	}
+	
+	
     // Mostra la dashboard dopo il login
     @GetMapping("/dashboard")
     public String showDashboard(HttpServletRequest request, Model model) {

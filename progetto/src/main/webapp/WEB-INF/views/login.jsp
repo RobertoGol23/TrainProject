@@ -8,11 +8,13 @@
     <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userPagesStyle.css">
     <title>Login</title>
+
     <style>  
 		.container {
             margin-top: -10%;
         }
     </style>
+    
 </head>
 <body>
 

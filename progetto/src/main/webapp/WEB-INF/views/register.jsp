@@ -72,6 +72,10 @@
 	        <label for="password">Password</label>
 	        <input type="password" id="password" placeholder="Inserisci qui la tua password" name="password" required>
 	
+
+			<label for="password">Conferma password</label>
+	        <input type="password" id="conferma_password" placeholder="Conferma password" name="conferma_password" required>
+
 	        <button type="submit">Registrati</button>
 	    </form>
 	    

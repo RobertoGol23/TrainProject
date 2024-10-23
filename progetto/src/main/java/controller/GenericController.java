@@ -27,25 +27,30 @@ public class GenericController {
     // Salva un nuovo utente registrato
     @Transactional
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, HttpSession session) {
+    public String registerUser(@ModelAttribute("user") User user, String conferma_password, HttpSession session) {
     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
     	
-    	if(userDAO.getUserByEmail(user.getEmail())==null)
-    	{
-    		userDAO.salvaUser(user);
-    		context.close();
-            return "redirect:/login";
-    	}
-    	else
-    	{
-    		session.setAttribute("email", user.getEmail());
-    		session.setAttribute("nome", user.getNome());
-    		session.setAttribute("cognome", user.getCognome());
-    		session.setAttribute("errorMessage", "E-mail già utilizzata. <br>Cambia e-mail o fai l'accesso se sei tu!");
-    		context.close();
-    		return "redirect:/register";
-    	}
+
+    	if (userDAO.getUserByEmail(user.getEmail()) == null) {
+            if (conferma_password.equals(user.getPassword())) {
+                userDAO.salvaUser(user);
+                context.close();
+                return "redirect:/login";
+            } else {
+                session.setAttribute("errorMessage", "Le password non coincidono!");
+            }
+        } else {
+            session.setAttribute("errorMessage", "E-mail già utilizzata. <br>Cambia e-mail o fai l'accesso se sei tu!");
+        }
+        
+        // Setta gli attributi comuni alla sessione
+        session.setAttribute("email", user.getEmail());
+        session.setAttribute("nome", user.getNome());
+        session.setAttribute("cognome", user.getCognome());
+        
+        context.close();
+        return "redirect:/register";
     }
     
     //Mostra il form di login
