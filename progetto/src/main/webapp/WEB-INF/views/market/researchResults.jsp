@@ -216,14 +216,11 @@
 
           <form action="researchResults" method="post">
 
-
-                //TODO: SISTEMARE I MAX - MIN E GLI STEP!!!
-
                 <!-- Range Peso -->
                 <div class="mb-4">
                     <label for="peso" class="form-label">Peso:</label>
                     <div class="d-flex">
-                        <input type="number" name="peso-min" id="peso-min" placeholder="Min" min="0" max="10000" step="1" class="form-control me-2">
+                        <input type="number" name="peso-min" id="peso-min" placeholder="Min" class="form-control me-2">
                         <input type="number" name="peso-max" id="peso-max" placeholder="Max" class="form-control">
                     </div>
                 </div>
@@ -269,31 +266,21 @@
 
       <div class="container-right">
           <%
-          List<Treno> treni = (List<Treno>) session.getAttribute("treni");
+          List<Treno> listaTreniRicercati = (List<Treno>) session.getAttribute("treni");
           AbstractApplicationContext context = null;
           TrenoUtility tu = new TrenoUtility();
           try {
               context = new AnnotationConfigApplicationContext(JpaConfig.class);
               VotoDAO votoDAO = context.getBean(VotoDAO.class);
               TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-              List<Treno> listaTreniOrderByVotazione = trenoDAO.getTreniOrderByVotazione();
 
-              if (listaTreniOrderByVotazione != null && !listaTreniOrderByVotazione.isEmpty()) {
-                  for (Treno treno : listaTreniOrderByVotazione) {
+              if (listaTreniRicercati != null && !listaTreniRicercati.isEmpty()) {
+                  for (Treno treno : listaTreniRicercati) {
           %>
 
                   <div class="card">
-                      <%if(treno.getMarca().equals("Treno RegionalGain")){%>
-                      		<img src="${pageContext.request.contextPath}/images/treni/RG.jpg" class="card-img-top" alt="Treno">
-                      <%}else{
-                    	  if(treno.getMarca().equals("Treno xFurryFast")){%>
-                    		  <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
-                      	<%}else{
-                      		if(treno.getMarca().equals("Treno KargoModelz")){%>
-                  		  <img src="${pageContext.request.contextPath}/images/treni/KM.jpg" class="card-img-top" alt="Treno">
-                    	<%}
-                      	}
-                      }%>
+                      <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
+                      
                       <div class="card-body">
                           <h5 class="card-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
                            	<p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>

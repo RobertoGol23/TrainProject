@@ -411,6 +411,7 @@ public class TrenoUtility {
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 	    trenoDAO.updateTreno(t);
+		context.close();
 		return true;
 	}
 
