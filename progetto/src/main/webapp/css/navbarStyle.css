@@ -1,10 +1,11 @@
 @charset "UTF-8";
-		.navbar-container {
+	.navbar-container {
         display: flex;
         justify-content: space-around;
     }
 
     .navbar-nav {
+        background-color: #2e2b4f;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -25,54 +26,40 @@
     .nav-link:hover {
         background-color: #8a79c7;
         transform: scale(1.05);
-    }
+   }
 
-    .left-navbar {
-        display: flex;
-        align-items: center; /* Allinea gli elementi verticalmente */
-        gap: 10px;
-        padding: 0 15px;
-    }
+   .left-navbar {
+       display: flex;
+       align-items: center; /* Allinea gli elementi verticalmente */
+     gap: 10px;
+     padding: 0 15px;
+   }
 
-    .right-navbar {
-        display: flex;
-        gap: 10px;
-        position: absolute;
-        right: 50px;
-        padding: 0 15px;
-    }
+   .right-navbar {
+       display: flex;
+       gap: 10px;
+       position: absolute;
+       right: 50px;
+       padding: 0 15px;
+   }
 
-    .custom-navbar {
-        background-color: #49456d;
-        padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-	button {
-	    width: 100%;
-	    margin-top: 25px;
-	    padding: 10px;
-	    background-color: #f5835e;
-	    border: none;
-	    border-radius: 5px;
-	    color: #2e2b4f;
-	    cursor: pointer;
-	}
-	button:hover {
-	    background-color: #f96737;
-	    color: #ffffff;
-	}
-    .btn {
-        border: none;
-        background-color: transparent;
-        color: ivory;
-    }
+   .custom-navbar {
+       background-color: #49456d;
+       padding: 10px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   }
 
-    .btn:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
+   .btn {
+       border: none;
+       background-color: transparent;
+   }
 
-    /* Stile per il logo */
-    .logo-img {
-        width: 50px; /* Dimensioni ridotte del logo */
-        height: auto; /* Mantieni le proporzioni */
-    }
+   .btn:hover {
+       background-color: rgba(255, 255, 255, 0.1);
+   }
+
+   /* Stile per il logo */
+   .logo-img {
+       width: 50px; /* Dimensioni ridotte del logo */
+       height: auto; /* Mantieni le proporzioni */
+   }
