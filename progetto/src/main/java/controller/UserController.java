@@ -150,7 +150,8 @@ public class UserController {
         model.addAttribute("user", loggedInUser); // Popola il form con i dati dell'utente
         return "dashboard/user/editProfile"; // Nome della vista JSP per modificare il profilo
     }
-
+    
+    
     // Gestisce l'aggiornamento del profilo utente
     @Transactional
     @PostMapping("/editProfile")
@@ -158,32 +159,41 @@ public class UserController {
                                 @RequestParam String cognome, 
                                 @RequestParam String email, 
                                 @RequestParam String password, 
-                                HttpSession session) {
+                                @RequestParam String passwordConfirm, 
+                                HttpSession session, Model model) {
 
         User loggedInUser = (User) session.getAttribute("user");
 
         if (loggedInUser == null) {
+        	System.out.println("Errore loggedInUser null.\nReindirizzamento al login...");
             return "redirect:/login"; // Se non è loggato, reindirizza al login
         }
         
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	UserDAO userDAO = context.getBean(UserDAO.class);
+
     	
-        // Aggiorna i dati dell'utente
-        loggedInUser.setNome(nome);
-        loggedInUser.setCognome(cognome);
-        loggedInUser.setEmail(email);
-        loggedInUser.setPassword(password); //TODO: Assicurati che la password sia gestita correttamente (hashing)
+    	if(loggedInUser.getPassword().equals(passwordConfirm)){
+    		// Aggiorna i dati dell'utente
+            loggedInUser.setNome(nome);
+            loggedInUser.setCognome(cognome);
+            loggedInUser.setEmail(email);
+            loggedInUser.setPassword(password);
 
-        // Salva le modifiche nel database
-        userDAO.updateUser(loggedInUser);
+            // Salva le modifiche nel database
+            userDAO.updateUser(loggedInUser);
+            context.close();
+            // Aggiorna l'utente nella sessione
+            session.setAttribute("user", loggedInUser);
 
-        context.close();
-        
-        // Aggiorna l'utente nella sessione
-        session.setAttribute("user", loggedInUser);
-
-        return "redirect:/dashboard/home"; // Reindirizza alla dashboard dopo l'aggiornamento
+            return "redirect:/dashboard/home"; // Reindirizza alla dashboard dopo l'aggiornamento
+        }
+        else{
+        	model.addAttribute("errorMessage", "Password non valida");
+            context.close();
+            System.out.println("Errore, le password non coincidono.\nReindirizzamento al login...");
+            return "/dashboard/user/editProfile";
+        }   
     }
     
     // Mostra la pagina di conferma cancellazione
