@@ -9,13 +9,17 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/trainAnimatioStyle.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/trainAnimatioStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-    	body {
-	    background-color: #2e2b4f;
+    	
+	.container-benvenuto {
+	    margin: 2%;
+	    display: center;
+	    flex-direction: column;
+	    align-items: center;
 	}
     </style>
     <!-- Audio del fischio del treno -->
@@ -49,15 +53,6 @@
                     <button type="submit">Crea Treno</button>
                 </form>
             </div>
-            
-            <div class="form-container">
-                <h2>Crea un Nuovo Treno dinamico</h2>
-                <form action="train/creaTrenoDinamico" method="get">
-                    <button type="submit">Crea Treno</button>
-                </form>
-            </div>
-        
-
             <!-- Visualizzazione treni creati e acquistati -->
             <div class="form-container">
                 <div><h2>I Miei Treni Creati</h2></div>
@@ -86,6 +81,12 @@
 	                <button type="submit">Gestisci Utenti</button>
 	            </form>
 	        </div>
+	        <div class="form-container">
+                <h2>Crea un Nuovo Treno dinamico</h2>
+                <form action="train/creaTrenoDinamico" method="get">
+                    <button type="submit">Crea Treno</button>
+                </form>
+            </div>
 	        <% } %>
        </div>
     </div>

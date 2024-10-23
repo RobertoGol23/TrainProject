@@ -8,57 +8,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
-    <title>I Miei Treni</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-        }
-
-        .container{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        h1 {
-            color: #8a79c7;
-            text-align: center;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #79c7e3;
-            border: none;
-            border-radius: 5px;
-            color: #2e2b4f;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #8a79c7;
-            color: #ffffff;
-        }
-        
-        table {
-            width: 100%; /* Imposta la larghezza della tabella al 100% */
-            background-color: #49456d;
-            color: #ffffff;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #79c7e3;
-            color: #2e2b4f;
-        }
+<%-- se non si legge bene la navbar    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x"> --%>  
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tablesStyle.css?v=1.x">
+    <style type="text/css">
+    	h1 {
+    		margin-top:20px;
+    	}
     </style>
+    <title>I Miei Treni</title>
 </head>
 <body>
     <h1>I Miei Treni</h1>

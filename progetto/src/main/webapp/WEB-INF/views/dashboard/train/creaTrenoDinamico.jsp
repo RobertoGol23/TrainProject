@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css">
     <title>Crea Treno</title>
     <style>
         .wagon-form {

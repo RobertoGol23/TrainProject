@@ -7,54 +7,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tablesStyle.css?v=1.x">
+	<style type="text/css">
+		h1 {
+    		margin-top:20px;
+    	}
+	</style>
+
     <title>Treni Acquistati</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-            text-align: center;
-        }
-
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background-color: #49456d;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ffffff;
-            text-align: center;
-        }
-        th {
-            background-color: #8a79c7;
-        }
-        td {
-            background-color: #3e3b5c;
-        }
-        .back-btn {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .back-btn:hover {
-            background-color: #45a049;
-        }
-
-
-        
-
-    </style>
+ 
 </head>
 <body>
 
     <h1>I Tuoi Treni Acquistati</h1>
-    
+    <div class="container">
     <table>
         <thead>
             <tr>
@@ -92,7 +59,7 @@
             <% } %>
         </tbody>
     </table>
-
+	</div>
 
 </body>
 </html>

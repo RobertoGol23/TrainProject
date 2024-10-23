@@ -6,20 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userPagesStyle.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userPagesStyle.css?v=1.x">
     <title>Login</title>
 
     <style>  
 		.container {
-            margin-top: -10%;
+             margin-top: -4%;
         }
+	    body {
+		    display: flex; /* Usa flexbox per centrare */
+		    justify-content: center; /* Allinea orizzontalmente al centro */
+		    align-items: center; /* Allinea verticalmente al centro */
+		}
     </style>
     
 </head>
 <body>
-
     <div class="container">
-
         <div style="margin: 20px; text-align: center;">
             <h1 style="margin: 0;">  
                 <img src="${pageContext.request.contextPath}/icons/logo2.jpg" alt="Train Bazaar Logo" style="width: 225px; height: auto;">
@@ -42,7 +45,7 @@
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="Inserisci qui la tua password" name="password" required>
 
-            <button type="submit"><b>Login</b></button>
+            <button type="submit">Login</button>
         </form>
 
         <%
