@@ -8,7 +8,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/trainAnimatioStyle.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -96,14 +96,14 @@
 	            <!-- Immagini dei vagoni -->
 <!-- 	            <img src="https://via.placeholder.com/150x100.png?text=Vagone+1" alt="Vagone Testa"> -->
 	            <img id="locomotiva" class="wagon" src="${pageContext.request.contextPath}/images/modellini/testa.png" alt="Vagone Testa" style="cursor: pointer;">
-	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_rosa.png" alt="Vagone">
-	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_verde.png" alt="Vagone">
-	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_giallo.png" alt="Vagone">
-	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_blu.png" alt="Vagone">
-	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_arancione.png" alt="Vagone">
-	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_viola.png" alt="Vagone">
-	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_azzurro.png" alt="Vagone">
-	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/coda.png" alt="Vagone Coda">
+	            <img class="wagon" src="${pageContext.request.contextPath}/modellini/vagone_rosa.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/modellini/vagone_verde.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/modellini/vagone_giallo.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/modellini/vagone_blu.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/modellini/vagone_arancione.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/modellini/vagone_viola.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/modellini/vagone_azzurro.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/modellini/coda.png" alt="Vagone Coda">
 	        </div>
 	    </div>
 	</div>

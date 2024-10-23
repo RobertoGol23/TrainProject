@@ -14,7 +14,15 @@ public class Test10 {
 	public static void main(String[] args) {
 	    String nomeServizio = "cinema";
 	    Long idVagone = (long) 303;
-
+	    
+	    /*
+	     * Test rimozione servizio da un vagone
+	     * 
+	     * 
+	     * 
+	     * 
+	     */
+	    
 	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 	    VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
 	    Vagone vagone = vagoneDAO.getVagoneById(idVagone);

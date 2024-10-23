@@ -137,11 +137,11 @@
             </div>
             <!-- Immagine del treno a destra -->
             <% if(treno.getMarca().equals("Treno RegionalGain")) { %>
-                <img src="${pageContext.request.contextPath}/images/treni/RG.jpg" class="card-img-top" alt="Treno">
+                <img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">
             <% } else if(treno.getMarca().equals("Treno xFurryFast")) { %>
-                <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
+                <img src="${pageContext.request.contextPath}/treni/FF.jpg" class="card-img-top" alt="Treno">
             <% } else if(treno.getMarca().equals("Treno KargoModelz")) { %>
-                <img src="${pageContext.request.contextPath}/images/treni/KM.jpg" class="card-img-top" alt="Treno">
+                <img src="${pageContext.request.contextPath}/treni/KM.jpg" class="card-img-top" alt="Treno">
             <% } %>
         </div>
     </div>
@@ -170,33 +170,33 @@
                     <td>
                         <% if(treno.getMarca().equals("Treno RegionalGain")) { 
                             if(vagone.getTipo().equals("Locomotiva")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/LocomotivaRG.jpg" class="wagon-image" alt="LocomotivaRG">
+                                <img src="${pageContext.request.contextPath}/treni/LocomotivaRG.jpg" class="wagon-image" alt="LocomotivaRG">
                             <% } else if(vagone.getTipo().equals("VagonePasseggeri")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagonePasseggeriRG.jpg" class="wagon-image" alt="VagonePasseggeriRG">
+                                <img src="${pageContext.request.contextPath}/treni/VagonePasseggeriRG.jpg" class="wagon-image" alt="VagonePasseggeriRG">
                             <% } else if(vagone.getTipo().equals("VagoneRistorante")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagoneRistoranteRG.jpg" class="wagon-image" alt="VagoneRistoranteRG">
+                                <img src="${pageContext.request.contextPath}/treni/VagoneRistoranteRG.jpg" class="wagon-image" alt="VagoneRistoranteRG">
                             <% } else if(vagone.getTipo().equals("VagoneCargo")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagoneCargoRG.jpg" class="wagon-image" alt="VagoneCargoRG">
+                                <img src="${pageContext.request.contextPath}/treni/VagoneCargoRG.jpg" class="wagon-image" alt="VagoneCargoRG">
                             <% }
                         } else if(treno.getMarca().equals("Treno xFurryFast")) { 
                             if(vagone.getTipo().equals("Locomotiva")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/locomotivaFF.jpg" class="wagon-image" alt="LocomotivaFF">
+                                <img src="${pageContext.request.contextPath}/treni/locomotivaFF.jpg" class="wagon-image" alt="LocomotivaFF">
                             <% } else if(vagone.getTipo().equals("VagonePasseggeri")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagonePasseggeriFF.jpg" class="wagon-image" alt="VagonePasseggeriFF">
+                                <img src="${pageContext.request.contextPath}/treni/VagonePasseggeriFF.jpg" class="wagon-image" alt="VagonePasseggeriFF">
                             <% } else if(vagone.getTipo().equals("VagoneRistorante")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagoneRistoranteFF.jpg" class="wagon-image" alt="VagoneRistoranteFF">
+                                <img src="${pageContext.request.contextPath}/treni/VagoneRistoranteFF.jpg" class="wagon-image" alt="VagoneRistoranteFF">
                             <% } else if(vagone.getTipo().equals("VagoneCargo")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagoneCargoFF.jpg" class="wagon-image" alt="VagoneCargoFF">
+                                <img src="${pageContext.request.contextPath}/treni/VagoneCargoFF.jpg" class="wagon-image" alt="VagoneCargoFF">
                             <% }
                         } else if(treno.getMarca().equals("Treno KargoModelz")) {
                             if(vagone.getTipo().equals("Locomotiva")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/locomotivaKM.jpg" class="wagon-image" alt="LocomotivaKM">
+                                <img src="${pageContext.request.contextPath}/treni/locomotivaKM.jpg" class="wagon-image" alt="LocomotivaKM">
                             <% } else if(vagone.getTipo().equals("VagonePasseggeri")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagonePasseggeriKM.jpg" class="wagon-image" alt="VagonePasseggeriKM">
+                                <img src="${pageContext.request.contextPath}/treni/VagonePasseggeriKM.jpg" class="wagon-image" alt="VagonePasseggeriKM">
                             <% } else if(vagone.getTipo().equals("VagoneRistorante")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagoneRistoranteKM.jpg" class="wagon-image" alt="VagoneRistoranteKM">
+                                <img src="${pageContext.request.contextPath}/treni/VagoneRistoranteKM.jpg" class="wagon-image" alt="VagoneRistoranteKM">
                             <% } else if(vagone.getTipo().equals("VagoneCargo")) { %>
-                                <img src="${pageContext.request.contextPath}/images/treni/VagoneCargoKM.jpg" class="wagon-image" alt="VagoneCargoKM">
+                                <img src="${pageContext.request.contextPath}/treni/VagoneCargoKM.jpg" class="wagon-image" alt="VagoneCargoKM">
                             <% } 
                         } %>
                     </td>

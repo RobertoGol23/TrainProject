@@ -15,6 +15,14 @@ public class ServizioDAO{
 	 	@PersistenceContext
 	    private EntityManager em;
 
+	 	public ServizioDAO(EntityManager em){
+	 		
+	 		this.em = em;
+	 	}
+	 	
+	 	public ServizioDAO()
+	 	{}
+	 	
 	    @Transactional
 	    public void salvaServizio(Servizio servizio) throws ServizioGiaPresenteException {
 	        em.persist(servizio);
@@ -35,7 +43,7 @@ public class ServizioDAO{
 
 	    @Transactional
 	    public void updateServizio(Servizio servizio) {
-	        em.merge(servizio);
+	    	em.merge(servizio);
 	    }
 	    
 	    @Transactional

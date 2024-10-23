@@ -289,13 +289,13 @@
 
                   <div class="card">
                       <%if(treno.getMarca().equals("Treno RegionalGain")){%>
-                      		<img src="${pageContext.request.contextPath}/images/treni/RG.jpg" class="card-img-top" alt="Treno">
+                      		<img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">
                       <%}else{
                     	  if(treno.getMarca().equals("Treno xFurryFast")){%>
-                    		  <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
+                    		  <img src="${pageContext.request.contextPath}/treni/FF.jpg" class="card-img-top" alt="Treno">
                       	<%}else{
                       		if(treno.getMarca().equals("Treno KargoModelz")){%>
-                  		  <img src="${pageContext.request.contextPath}/images/treni/KM.jpg" class="card-img-top" alt="Treno">
+                  		  <img src="${pageContext.request.contextPath}/treni/KM.jpg" class="card-img-top" alt="Treno">
                     	<%}
                       	}
                       }%>

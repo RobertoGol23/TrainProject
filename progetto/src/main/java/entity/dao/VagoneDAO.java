@@ -19,15 +19,19 @@ public class VagoneDAO {
         em.persist(vagone);
     }  
 
+    @Transactional
     public Vagone getVagoneById(Long id) {
+    	//em.flush();
         return em.find(Vagone.class, id);
     }
 
     @Transactional
     public void updateVagone(Vagone vagone) {
         em.merge(vagone);
+    	//em.persist(vagone);
+    	
     }
-    
+
     /**
      * Rimuove un servizio associato a un vagone dalla tabella vagone_servizio.
      *

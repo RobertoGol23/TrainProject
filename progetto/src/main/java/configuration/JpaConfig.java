@@ -69,8 +69,6 @@ public class JpaConfig {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
-    /*------- DAO --------*/
-//TODO: forse questi bean vanno messi prototype???
 
      @Bean(name="trenoDAO")
     public TrenoDAO getTrenoDao() {
