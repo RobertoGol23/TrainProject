@@ -26,183 +26,187 @@
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Market dei Treni</title>
     <style>
-          body {
-              font-family: Arial, sans-serif;
-              background-color: #2e2b4f;
-              color: #ffffff;
-              margin: 0;
-          }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2e2b4f;
+            color: #ffffff;
+            margin: 0;
+        }
 
-          h1 {
-              color: #8a79c7;
-              text-align: center;
-              margin: 20px 0;
-          }
-          
-          .form-select[multiple] {
-              height: auto; /* Imposta un'altezza fissa se necessario */
-              min-height: 100px; /* Altezza minima per visualizzare più opzioni */
-          }
-          
-          .container {
-              display: flex;
-              justify-content: flex-start; /* Allinea gli elementi a sinistra */
-              align-items: flex-start; /* Allinea gli elementi all'inizio */
-              max-width: 1200px;
-              margin: 10px auto;
-          }
+        h1 {
+            color: #8a79c7;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .form-select[multiple] {
+            height: auto; /* Imposta un'altezza fissa se necessario */
+            min-height: 100px; /* Altezza minima per visualizzare piÃ¹ opzioni */
+        }
+        
+        .container {
+            display: flex;
+            justify-content: flex-start; /* Allinea gli elementi a sinistra */
+            align-items: flex-start; /* Allinea gli elementi all'inizio */
+            max-width: 1200px;
+            margin: 10px auto;
+        }
 
-          .container-left, .container-right {
-              padding: 20px;
-              background-color: #3b3a5d;
-              border-radius: 10px;
-          }
+        .container-left, .container-right {
+            padding: 20px;
+            background-color: #3b3a5d;
+            border-radius: 10px;
+        }
 
-          .container-left {
-              width: 30%; /* Mantieni la larghezza desiderata */
-              margin-right: 20px; /* Margine per separare i due contenitori */
-          }
+        .container-left {
+            width: 30%; /* Mantieni la larghezza desiderata */
+            margin-right: 20px; /* Margine per separare i due contenitori */
+        }
 
-          .container-right {
-              width: 70%; /* Mantieni la larghezza desiderata */
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: flex-start;
-          }
+        .container-right {
+            width: 70%; /* Mantieni la larghezza desiderata */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
 
-          
-          input[type="number"] {
-              width: 110px;
-              height: 40px;
-              padding: 5px;
-              font-size: 14px;
-              
-              margin-top: 2%;
-              margin-right: 2%;
-          }
-          
+        
+        input[type="number"] {
+            width: 110px;
+            height: 40px;
+            padding: 5px;
+            font-size: 14px;
+            
+            margin-top: 2%;
+            margin-right: 2%;
+        }
+        
 
-          .input-container{
-              display: flex;
-              align-items: center; /* Allinea verticalmente gli elementi */
-              width: 70%; /* Utilizza tutta la larghezza disponibile */
-              margin: -10%;
-              margin-left: 10%;
-          }
-          
-          .single-input{
-              margin-left: 10%;
-          }
-          
-          .text-area {
-              flex: 1; /* Div flessibile e occupa spazio disponibile */
-              font-size: 1.8rem;
-          }
+        .input-container{
+            display: flex;
+            align-items: center; /* Allinea verticalmente gli elementi */
+            width: 70%; /* Utilizza tutta la larghezza disponibile */
+            margin: -10%;
+            margin-left: 10%;
+        }
+        
+        .single-input{
+            margin-left: 10%;
+        }
+        
+        .text-area {
+            flex: 1; /* Div flessibile e occupa spazio disponibile */
+            font-size: 1.8rem;
+        }
 
-          .card {
-              width: 30%;
-              margin: 10px;
-              background-color: #49456d;
-              border-radius: 10px;
-              overflow: hidden;
-          }
+        .card {
+            width: 30%;
+            margin: 10px;
+            background-color: #49456d;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative; /* Aggiunto per il posizionamento del figlio */
+        }
 
-          .card img {
-              width: 100%;
-              height: auto;
-          }
+        .card img {
+            width: 100%;
+            height: auto;
+        }
 
-          .buttons {
-              display: flex;
-              justify-content: flex-end;
-              padding: 10px;
-              margin-top: auto;
-          }
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+            margin-top: auto;
+        }
 
-          button {
-              background-color: #8a79c7;
-              border: none;
-              color: white;
-              padding: 10px;
-              border-radius: 5px;
-              cursor: pointer;
-              margin-left: 5px;
-              height: 40px;
-          }
+        button {
+            background-color: #8a79c7;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+            height: 40px;
+        }
 
-          button:hover {
-              background-color: #79c7e3;
-          }
+        button:hover {
+            background-color: #79c7e3;
+        }
 
-          .search-bar-container {
-              display: flex;
-              justify-content: center;
-              margin: 20px 0;
-          }
+        .search-bar-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
 
-          .search-bar {
-              position: relative;
-              width: 60%;
-          }
+        .search-bar {
+            position: relative;
+            width: 60%;
+        }
 
-          .search-bar input {
-              width: 100%;
-              height: 55px;
-              border-radius: 10px;
-              padding-left: 40px;
-          }
+        .search-bar input {
+            width: 100%;
+            height: 55px;
+            border-radius: 10px;
+            padding-left: 40px;
+        }
 
-          /* Stile di base per il form-select */
-          .form-select {
-            appearance: none; /* Rimuove il default del browser */
-            background-color: #3b3a5d; /* Colore di sfondo */
-            color: #ffffff; /* Colore del testo */
-            border: 1px solid #8a79c7; /* Bordo */
-            border-radius: 5px; /* Angoli arrotondati */
-            padding: 10px 15px; /* Padding */
-            width: 100%; /* Larghezza */
-            transition: background-color 0.3s ease, border-color 0.3s ease; /* Transizione */
-            font-size: 1rem; /* Dimensione del font */
-            cursor: pointer; /* Cambia il cursore */
-          }
+        /* Stile di base per il form-select */
+        .form-select {
+          appearance: none; /* Rimuove il default del browser */
+          background-color: #3b3a5d; /* Colore di sfondo */
+          color: #ffffff; /* Colore del testo */
+          border: 1px solid #8a79c7; /* Bordo */
+          border-radius: 5px; /* Angoli arrotondati */
+          padding: 10px 15px; /* Padding */
+          width: 100%; /* Larghezza */
+          transition: background-color 0.3s ease, border-color 0.3s ease; /* Transizione */
+          font-size: 1rem; /* Dimensione del font */
+          cursor: pointer; /* Cambia il cursore */
+        }
 
-          /* Stile quando il form-select è attivo */
-          .form-select:focus {
-            outline: none; /* Rimuove il contorno predefinito */
-            background-color: #49456d; /* Colore di sfondo quando in focus */
-            border-color: #79c7e3; /* Colore del bordo quando in focus */
-          }
+        /* Stile quando il form-select Ã¨ attivo */
+        .form-select:focus {
+          outline: none; /* Rimuove il contorno predefinito */
+          background-color: #49456d; /* Colore di sfondo quando in focus */
+          border-color: #79c7e3; /* Colore del bordo quando in focus */
+        }
 
-          /* Aggiunta di un'icona per la freccia del dropdown */
-          .form-select::after {
-            content: ''; /* Contenuto vuoto */
-            position: absolute; /* Posizione assoluta */
-            top: 50%; /* Centrato verticalmente */
-            right: 15px; /* Distanza da destra */
-            transform: translateY(-50%); /* Centra verticalmente */
-            border: solid transparent; /* Bordo trasparente */
-            border-width: 5px 5px 0; /* Freccia */
-            border-top-color: #8a79c7; /* Colore della freccia */
-            pointer-events: none; /* Ignora eventi sul pseudo-elemento */
-          }
+        /* Aggiunta di un'icona per la freccia del dropdown */
+        .form-select::after {
+          content: ''; /* Contenuto vuoto */
+          position: absolute; /* Posizione assoluta */
+          top: 50%; /* Centrato verticalmente */
+          right: 15px; /* Distanza da destra */
+          transform: translateY(-50%); /* Centra verticalmente */
+          border: solid transparent; /* Bordo trasparente */
+          border-width: 5px 5px 0; /* Freccia */
+          border-top-color: #8a79c7; /* Colore della freccia */
+          pointer-events: none; /* Ignora eventi sul pseudo-elemento */
+        }
 
-          /* Stile per opzioni quando vengono selezionate */
-          .form-select option {
-            background-color: #3b3a5d; /* Colore di sfondo delle opzioni */
-            color: #ffffff; /* Colore del testo delle opzioni */
-          }
+        /* Stile per opzioni quando vengono selezionate */
+        .form-select option {
+          background-color: #3b3a5d; /* Colore di sfondo delle opzioni */
+          color: #ffffff; /* Colore del testo delle opzioni */
+        }
 
-          /* Stile per opzioni al passaggio del mouse */
-          .form-select option:hover {
-            background-color: #49456d; /* Colore di sfondo al passaggio del mouse */
-          }
+        /* Stile per opzioni al passaggio del mouse */
+        .form-select option:hover {
+          background-color: #49456d; /* Colore di sfondo al passaggio del mouse */
+        }
 
-          .bottom-container{
-            margin-top: 2%
-          }
+        .container-bottom {
+            position: absolute; /* Posizionamento assoluto */
+            bottom: 10px; /* Margine dal fondo */
+            right: 10px; /* Margine dal lato destro */
+            width: auto; /* Puoi specificare una larghezza se necessario */
+            /* Assicurati di rimuovere eventuali margin-top */
+        }
 
-
-    </style>
+  </style>
 </head>
 <body>
 
@@ -220,13 +224,12 @@
 
           <form action="researchResults" method="post">
 
-
                 <!-- Range Peso -->
                 <div class="mb-4">
                     <label for="peso" class="form-label">Peso:</label>
                     <div class="d-flex">
-                        <input type="number" name="peso-min" id="peso-min" placeholder="Min" min="0" max="10000" step="1" class="form-control me-2">
-                        <input type="number" name="peso-max" id="peso-max" placeholder="Max" class="form-control">
+                        <input type="number" name="peso-min" id="peso-min" placeholder="Min" min="0" max="1000" step="10" class="form-control me-2">
+                        <input type="number" name="peso-max" id="peso-max" placeholder="Max" min="0" max="1000" step="10"  class="form-control">
                     </div>
                 </div>
 
@@ -234,8 +237,8 @@
                 <div class="mb-4">
                     <label for="lunghezza" class="form-label">Lunghezza:</label>
                     <div class="d-flex">
-                        <input type="number" name="lunghezza-min" id="lunghezza-min" placeholder="Min" class="form-control me-2">
-                        <input type="number" name="lunghezza-max" id="lunghezza-max" placeholder="Max" class="form-control">
+                        <input type="number" name="lunghezza-min" id="lunghezza-min" placeholder="Min" min="0" max="50" step="1" class="form-control me-2">
+                        <input type="number" name="lunghezza-max" id="lunghezza-max" placeholder="Max" min="0" max="50" step="1" class="form-control">
                     </div>
                 </div>
 
@@ -243,8 +246,8 @@
                 <div class="mb-4">
                     <label for="prezzo" class="form-label">Prezzo:</label>
                     <div class="d-flex">
-                        <input type="number" name="prezzo-min" id="prezzo-min" placeholder="Min" class="form-control me-2">
-                        <input type="number" name="prezzo-max" id="prezzo-max" placeholder="Max" class="form-control">
+                        <input type="number" name="prezzo-min" id="prezzo-min" placeholder="Min" min="0" max="9999999" step="100" class="form-control me-2">
+                        <input type="number" name="prezzo-max" id="prezzo-max" placeholder="Max" min="0" max="9999999" step="100" class="form-control">
                     </div>
                 </div>
 
@@ -296,30 +299,32 @@
                     	<%}
                       	}
                       }%>
+
                       <div class="card-body">
-                          <h5 class="card-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
-                           	<p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
-                          <p class="card-text">Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
-                            <p>Sigla di composizione: <%= (treno != null) ? tu.getSigla(treno) : "N/A" %></p>
-                          <p class="card-text">Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
-                          <p class="card-text">Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
-                          <p class="card-text">Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> tonnellate</p>
-                          <p class="card-text">Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
-                            <p>Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
-                          <p class="card-text">Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long)treno.getId()) : 0 %></p>
-                          <div class="buttons">
-                              <form method="get" action="trainDetails">
-                                  <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
-                                  
-                                  
-                                  <div class="bottom-container">
-                                    <button type="submit" class="btn btn-info">Dettagli</button>
-                                  </div>
-                                  
-                              </form>
-                          </div>
-                      </div>
-                  </div>
+                            <div class="container-top"></div>
+                                <h5 class="card-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
+                                    <p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
+                                <p class="card-text">Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
+                                    <p>Sigla di composizione: <%= (treno != null) ? tu.getSigla(treno) : "N/A" %></p>
+                                <p class="card-text">Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
+                                <p class="card-text">Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
+                                <p class="card-text">Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> tonnellate</p>
+                                <p class="card-text">Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
+                                    <p>Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
+                                <p class="card-text">Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long)treno.getId()) : 0 %></p>
+                                <div class="buttons">
+                            </div>
+
+                            <div class="container-bottom">
+                                <div class="buttons">
+                                    <form method="get" action="trainDetails">
+                                        <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
+                                        <button type="submit" class="btn btn-info">Dettagli</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
           <%
                   }
@@ -338,6 +343,24 @@
           %>
       </div>
   </div>   
+
+    <div class="pagination">
+        <% 
+            Integer currentPage = (Integer) session.getAttribute("currentPage");
+            Integer totalPages = (Integer) session.getAttribute("totalPages");
+            
+            if (currentPage == null) currentPage = 1;
+            if (totalPages == null) totalPages = 1;
+        %>
+        
+        <% for (int i = 1; i <= totalPages; i++) { %>
+            <% if (i == currentPage) { %>
+                <strong><%= i %></strong>
+            <% } else { %>
+                <a href="trainMarket?page=<%= i %>"><%= i %></a>
+            <% } %>
+        <% } %>
+    </div>
 
 </body>
 </html>
