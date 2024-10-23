@@ -2,7 +2,6 @@ package entity.dao;
 
 import eccezioni.eccezioniGeneriche.AssociazioneServizioVagoneNonTrovataException;
 import entity.classi_astratte.Vagone;
-import entity.servizi.Servizio;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;

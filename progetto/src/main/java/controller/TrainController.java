@@ -4,7 +4,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -489,7 +488,6 @@ public class TrainController {
     	
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 	    VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
-	    Vagone vagone = vagoneDAO.getVagoneById(idVagone);
 	   
 	    try
 	    {
@@ -621,4 +619,5 @@ public class TrainController {
             return "dashboard/train/trainModifyFail";
         }
     }
+
 }

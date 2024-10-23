@@ -278,7 +278,7 @@ public class TrenoDAO {
 		return false;
 	}
 
-	/* @Transactional
+	@Transactional
 	public double getVotazioneMedia(Treno treno){
 		double result = 0.0;
 
@@ -301,7 +301,7 @@ public class TrenoDAO {
 		result = result/listaVoti.size();
 
 		return result;
-	} */
+	}
 
 	// Restituisci la lista di tutti i treni
 	public List<Treno> getAllTrain() { 
@@ -344,5 +344,60 @@ public class TrenoDAO {
 		return em.createQuery(cq).getResultList();
 	}
 	
+
+
+	public List<Treno> cercaTreni(String ordinamento, Double pesoMin, Double pesoMax,
+								Integer lunghezzaMin, Integer lunghezzaMax,
+								Double prezzoMin, Double prezzoMax) {
+									
+		// I controlli sul massimo e minimo sono fatti dal Form
+		// I controlli sui valori inseriti o meno sono fatti nella post mapping
+									
+		System.out.println("CERCO I TRENI PER: pesoMin: " + pesoMin + " pesoMax: " + pesoMax + " lunghezzaMin: " + lunghezzaMin + " lunghezzaMax: " + lunghezzaMax + " prezzoMin: " + prezzoMin + " prezzoMax: " + prezzoMax);
+
+		String jpql = "SELECT t FROM Treno t " +
+               "JOIN t.listaVagoni v " +
+               "LEFT JOIN t.voti voti " + 
+               "GROUP BY t.id_treno " + 
+               "HAVING SUM(v.peso) BETWEEN :pesoMin AND :pesoMax " + 
+               "AND COUNT(v) BETWEEN :lunghezzaMin AND :lunghezzaMax " + 
+               "AND SUM(v.prezzo) BETWEEN :prezzoMin AND :prezzoMax";
+
+		if (ordinamento != null && !ordinamento.isEmpty()) {
+			switch (ordinamento) {
+				case "ordina_per_voto":
+					jpql += " ORDER BY AVG(voti.punteggio) DESC"; // Ordinamento per media voti
+					break;
+				case "ordina_per_prezzo":
+					jpql += " ORDER BY SUM(v.prezzo)";
+					break;
+				case "ordina_per_lunghezza":
+					jpql += " ORDER BY COUNT(v)";
+					break;
+				case "ordina_per_nome":
+					jpql += " ORDER BY t.nomeTreno";
+					break;
+				case "ordina_per_peso":
+					jpql += " ORDER BY SUM(v.peso)";
+					break;
+				default:
+					break;
+			}
+		}
+
+
+		TypedQuery<Treno> query = em.createQuery(jpql, Treno.class);
+		query.setParameter("pesoMin", pesoMin);
+		query.setParameter("pesoMax", pesoMax);
+		query.setParameter("lunghezzaMin", lunghezzaMin);
+		query.setParameter("lunghezzaMax", lunghezzaMax);
+		query.setParameter("prezzoMin", prezzoMin);
+		query.setParameter("prezzoMax", prezzoMax);
+
+		return query.getResultList();
+	}
+
+
+
 
 }

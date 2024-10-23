@@ -21,6 +21,7 @@ import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
 
 import jakarta.servlet.http.HttpSession; // Importa HttpSession
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MarketController {
@@ -113,6 +114,7 @@ public class MarketController {
         }
         return "market/purchaseSuccess"; // Dopo l'acquisto, torna al market
     }
+    
     @GetMapping("/trainDetails")
     public String viewTrain(@RequestParam("trenoId") Long trenoId, Model model, HttpSession session) {
         // Recupera il treno dall'ID
@@ -161,6 +163,7 @@ public class MarketController {
         }
     }
 
+    
     // POST per salvare il voto
     @PostMapping("/submitVote")
     public String submitVote(@RequestParam("trenoId") Long trenoId, @RequestParam("userId") Long userId, 
@@ -198,5 +201,47 @@ public class MarketController {
             context.close();
             return "redirect:/trainMarket"; // Se l'utente o il treno non esistono, torna al market
         }
+    }
+
+
+    // GET per visualizzare la pagina di ricerca
+    @GetMapping("researchResults")
+    public String showSearchForm() {
+        return "market/researchResults"; // Nome della vista JSP per il form di ricerca
+    }
+
+    // POST per cercare i treni
+    @PostMapping("/researchResults")
+    public String searchTrains(
+            @RequestParam("ordinamento") Optional<String> ordinamento,
+            @RequestParam("peso-min") Optional<Double> pesoMin,
+            @RequestParam("peso-max") Optional<Double> pesoMax,
+            @RequestParam("lunghezza-min") Optional<Integer> lunghezzaMin,
+            @RequestParam("lunghezza-max") Optional<Integer> lunghezzaMax,
+            @RequestParam("prezzo-min") Optional<Double> prezzoMin,
+            @RequestParam("prezzo-max") Optional<Double> prezzoMax,
+            HttpSession session) {
+
+        // Esegui la ricerca dei treni
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+
+        // Controllo sui valori non inseriti (altrimenti vengono impostati al max/min)
+        Double pesoMin_2 = pesoMin.orElse(0.0);
+        Double pesoMax_2 = pesoMax.orElse(Double.MAX_VALUE);
+        Integer lunghezzaMin_2 = lunghezzaMin.orElse(0);
+        Integer lunghezzaMax_2 = lunghezzaMax.orElse(Integer.MAX_VALUE);
+        Double prezzoMin_2 = prezzoMin.orElse(0.0);
+        Double prezzoMax_2 = prezzoMax.orElse(Double.MAX_VALUE);
+        String ordinamento_2 = ordinamento.orElse("");
+
+        // Recupera i risultati della ricerca
+        List<Treno> treni = trenoDAO.cercaTreni(ordinamento_2, pesoMin_2, pesoMax_2, lunghezzaMin_2, lunghezzaMax_2, prezzoMin_2, prezzoMax_2);
+
+        // Aggiungi i risultati al modello per la visualizzazione
+        session.setAttribute("treni", treni);
+
+        context.close();
+        return "market/researchResults"; // Nome della vista JSP per i risultati della ricerca
     }
 }
