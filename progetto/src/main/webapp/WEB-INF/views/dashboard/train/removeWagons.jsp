@@ -12,6 +12,13 @@
     <!-- Stampa direttamente l'HTML generato dal controller -->
     ${vagoniHtml}
      <input type="hidden" name="idTreno" value="${idTreno}">
+
+
+    <!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
+    
 </body>
 </html>
 

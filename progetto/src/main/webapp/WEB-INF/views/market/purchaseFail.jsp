@@ -50,5 +50,11 @@
         <a href="/train-bazaar/trainMarket" class="button">Torna al mercato</a>
     </div>
 
+
+ <!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
+    
 </body>
 </html>

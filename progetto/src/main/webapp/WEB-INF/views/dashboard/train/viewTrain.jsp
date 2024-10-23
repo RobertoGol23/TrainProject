@@ -297,7 +297,7 @@
           </div>
           <div class="modal-body">
             <p>Sei sicuro di voler cancellare il treno con ID: <strong><%= treno.getId() %></strong>?</p>
-            <p>Questa azione non può essere annullata.</p>
+            <p>Questa azione non puï¿½ essere annullata.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
@@ -322,5 +322,12 @@
     <%
         }
     %>
+
+
+    <!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
+    
 </body>
 </html>

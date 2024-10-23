@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	    pageEncoding="UTF-8"%>
 
-<%@ include file="../../navbar.jsp" %>
+
 
 
 
@@ -12,6 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
+
+
+    <%@ include file="../../navbar.jsp" %>
     <title>Modifica Profilo</title>
     <style>
         body {
@@ -20,7 +23,11 @@
             color: #ffffff;
         }
         h1 {
-            color: #8a79c7;
+            margin-top: 30px;
+            font-size: 2.5rem; 
+            color: #e1418b;
+            text-align: center;
+            font-weight: bold;
         }
         .form-container {
             background-color: #49456d;
@@ -37,7 +44,8 @@
         label {
             display: block;
             margin-bottom: 10px;
-            color: #79c7e3;
+            color: #e1418b;
+            font-weight: bold;
         }
         input {
             width: 94%;
@@ -49,14 +57,17 @@
         button {
             width: 100%;
             padding: 10px;
-            background-color: #79c7e3;
+            background-color: #f5835e;
             border: none;
             border-radius: 5px;
             color: #2e2b4f;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; /* Transizione */
         }
         button:hover {
-            background-color: #8a79c7;
+            background-color: #f96737;
+            color: #ffffff;
+            transform: translateY(-2px); /* Effetto sollevato */
         }
         a {
             color: #79c7e3;
@@ -109,8 +120,6 @@
             cursor: pointer;
         }
         
-        <!-- Aggiungi il CSS per il modale -->
-
 	    .modal {
 	        display: none; 
 	        position: fixed; 
@@ -200,67 +209,77 @@
 </head>
 <body>
 
-    <h1 align="center">Modifica Profilo</h1>
+    <div style="margin-top: 5%">
+        <h1 align="center">Modifica Profilo</h1>
 
-    <div class="form-container">
-    <!-- Form di aggiornamento del profilo -->
-    <form id="editProfileForm" action="editProfile" method="post">
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" value="${user.nome}" required>
+        <div class="form-container">
+            <!-- Form di aggiornamento del profilo -->
+            <form id="editProfileForm" action="editProfile" method="post">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" value="${user.nome}" required>
 
-        <label for="cognome">Cognome</label>
-        <input type="text" id="cognome" name="cognome" value="${user.cognome}" required>
+                <label for="cognome">Cognome</label>
+                <input type="text" id="cognome" name="cognome" value="${user.cognome}" required>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" value="${user.email}" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="${user.email}" required>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
 
-        <!-- Campo nascosto per la conferma della password che viene popolato dal modale -->
-        <input type="hidden" id="passwordConfirm" name="passwordConfirm" required>
+                <!-- Campo nascosto per la conferma della password che viene popolato dal modale -->
+                <input type="hidden" id="passwordConfirm" name="passwordConfirm" required>
 
-        <!-- Aggiungi un pulsante che apre il modale per confermare l'aggiornamento -->
-        <button type="button" onclick="showUpdateModal()">Aggiorna Profilo</button>
-    </form>
-</div>
-
-    <div class="delete-section">
-        <button type="button" onclick="showDeleteModal()">Cancella Profilo</button>
-
-        <%
-            if(request.getAttribute("errorMessage")!=null) {
-        %>
-            <div class="errore">${errorMessage}</div>
-        <%
-            }
-        %>
-    </div>
-
-    <!-- Modale per la conferma della cancellazione -->
-    <div id="confirmDeleteModal" class="modal">
-        <div class="modal-content">
-            <h2>Conferma Cancellazione</h2>
-            <p>Per favore, inserisci la tua password per confermare la cancellazione del profilo</p>
-            <form id="confirmDeleteForm">
-                <label for="deletePassword">Password:</label>
-                <input type="password" id="deletePassword" name="password" class="form-control" required>
+                <!-- Aggiungi un pulsante che apre il modale per confermare l'aggiornamento -->
+                <button type="button" onclick="showUpdateModal()">Aggiorna Profilo</button>
             </form>
-            <button type="button" class="btn btn-danger" onclick="confirmDelete()">Conferma</button>
+        </div>
+
+        <div class="delete-section">
+            <button type="button" onclick="showDeleteModal()">Cancella Profilo</button>
+
+            <%
+                if(request.getAttribute("errorMessage")!=null) {
+            %>
+                <div class="errore">${errorMessage}</div>
+            <%
+                }
+            %>
+        </div>
+
+        <!-- Modale per la conferma della cancellazione -->
+        <div id="confirmDeleteModal" class="modal">
+            <div class="modal-content">
+                <h2>Conferma Cancellazione</h2>
+                <p>Per favore, inserisci la tua password per confermare la cancellazione del profilo</p>
+                <form id="confirmDeleteForm">
+                    <label for="deletePassword">Password:</label>
+                    <input type="password" id="deletePassword" name="password" class="form-control" required>
+                </form>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Conferma</button>
+            </div>
+        </div>
+
+        <!-- Modale per la conferma dell'aggiornamento del profilo -->
+        <div id="confirmUpdateModal" class="modal">
+            <div class="modal-content">
+                <h2>Conferma Modifica</h2>
+                <p>Per favore, inserisci la tua password per confermare la modifica del profilo</p>
+                <label for="updatePassword">Password:</label>
+                <input type="password" id="updatePassword" class="form-control" required>
+                <button type="button" class="btn btn-primary" onclick="confirmUpdate()">Conferma</button>
+            </div>
         </div>
     </div>
 
-    <!-- Modale per la conferma dell'aggiornamento del profilo -->
-	<div id="confirmUpdateModal" class="modal">
-	    <div class="modal-content">
-	        <h2>Conferma Modifica</h2>
-	        <p>Per favore, inserisci la tua password per confermare la modifica del profilo</p>
-	        <label for="updatePassword">Password:</label>
-	        <input type="password" id="updatePassword" class="form-control" required>
-	        <button type="button" class="btn btn-primary" onclick="confirmUpdate()">Conferma</button>
-	    </div>
-	</div>
+
+    <!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
+
 
 </body>
+
 
 </html>

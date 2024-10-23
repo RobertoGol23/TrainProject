@@ -97,5 +97,11 @@
     <form action="/train-bazaar/dashboard/home" method="get">
         <button type="submit">Torna alla Dashboard</button>
     </form>
+
+    <!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
+    
 </body>
 </html>
