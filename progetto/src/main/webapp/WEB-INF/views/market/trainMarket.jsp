@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
 
  
 
@@ -48,7 +48,7 @@
             display: flex;
             justify-content: flex-start; /* Allinea gli elementi a sinistra */
             align-items: flex-start; /* Allinea gli elementi all'inizio */
-            max-width: 1200px;
+            max-width: 80%;
             margin: 10px auto;
         }
 
@@ -59,8 +59,9 @@
         }
 
         .container-left {
-            width: 30%; /* Mantieni la larghezza desiderata */
-            margin-right: 20px; /* Margine per separare i due contenitori */
+            width: 20%; /* Mantieni la larghezza desiderata */
+            margin-right: 2%; /* Margine per separare i due contenitori */
+            margin-left: 3%;
         }
 
         .container-right {
@@ -143,7 +144,7 @@
 
         .search-bar {
             position: relative;
-            width: 60%;
+            width: 80%;
         }
 
         .search-bar input {

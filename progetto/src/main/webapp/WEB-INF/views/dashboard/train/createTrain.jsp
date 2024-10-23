@@ -83,7 +83,7 @@
             <!-- action="createTrain" method="post" indica che chiama la pagina che restituisce (RequestMapping) /createTrain -->
             <form action="createTrain" method="post">
                 <label for="nomeTreno">Nome del Treno</label>
-                <input type="text" id="nomeTreno" name="nomeTreno" required>
+                <input type="text" maxlength="25" id="nomeTreno" name="nomeTreno" required>
 
                 <label for="sigla">Sigla del Treno (es. hrp)</label>
                 <input type="text" id="sigla" name="sigla" required>
