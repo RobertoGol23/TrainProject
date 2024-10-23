@@ -77,7 +77,7 @@
         <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
 
         <form action="confirmClone" method="post">
-            <input type="hidden" name="trenoId" value="<%= treno.getId() %>">
+            <input type="hidden" name="idTreno" value="<%= treno.getId() %>">
             <label for="nomeNuovo">Nome Nuovo Treno:</label>
             <input type="text" id="nomeNuovo" name="nomeNuovo" required>
             <button type="submit">Clona Treno</button>
