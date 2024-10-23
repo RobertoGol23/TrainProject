@@ -527,6 +527,7 @@ public class TrainController {
 
         // Aggiungi il treno alla model
         model.addAttribute("treno", treno);
+        model.addAttribute("idTreno", idTreno);
         context.close();
 
         return "dashboard/train/cloneTrain"; // Nome della JSP per la clonazione
