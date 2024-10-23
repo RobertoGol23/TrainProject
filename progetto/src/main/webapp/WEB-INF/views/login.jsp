@@ -8,6 +8,7 @@
     <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userPagesStyle.css?v=1.x">
     <title>Login</title>
+
     <style>  
 		.container {
              margin-top: -4%;
@@ -18,6 +19,7 @@
 		    align-items: center; /* Allinea verticalmente al centro */
 		}
     </style>
+    
 </head>
 <body>
     <div class="container">

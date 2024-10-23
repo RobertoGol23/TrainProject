@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
 
  
 
@@ -25,13 +25,13 @@
 
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Market dei Treni</title>
-    
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
             margin: 0;
+            padding-bottom: 80px; /* Spazio per i bottoni di paginazione */
         }
 
         h1 {
@@ -39,17 +39,13 @@
             text-align: center;
             margin: 20px 0;
         }
-        
-        .form-select[multiple] {
-            height: auto; /* Imposta un'altezza fissa se necessario */
-            min-height: 100px; /* Altezza minima per visualizzare piÃ¹ opzioni */
-        }
+   
         
         .container {
             display: flex;
             justify-content: flex-start; /* Allinea gli elementi a sinistra */
             align-items: flex-start; /* Allinea gli elementi all'inizio */
-            max-width: 1200px;
+            max-width: 80%;
             margin: 10px auto;
         }
 
@@ -60,8 +56,9 @@
         }
 
         .container-left {
-            width: 30%; /* Mantieni la larghezza desiderata */
-            margin-right: 20px; /* Margine per separare i due contenitori */
+            width: 20%; /* Mantieni la larghezza desiderata */
+            margin-right: 2%; /* Margine per separare i due contenitori */
+            margin-left: 3%;
         }
 
         .container-right {
@@ -70,8 +67,68 @@
             flex-wrap: wrap;
             justify-content: flex-start;
         }
-
         
+
+        .card {
+            width: 30%;
+            margin: 10px;
+            background-color: #49456d;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative; /* Aggiunto per il posizionamento del figlio */
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+
+          .container-top{
+            margin-bottom: 30%;
+          }
+
+        .container-bottom {
+            width: 90%;
+          
+            position: absolute; /* Posizionamento assoluto */
+            bottom: 10px; /* Margine dal fondo */
+            right: 10px; /* Margine dal lato destro */
+            display: flex; /* Abilita il Flexbox */
+            align-items: center; /* Allinea verticalmente gli elementi al centro */
+            
+            justify-content: space-between; 
+            padding: 10px;
+         }  
+
+        .star-container {
+          margin-top: 10%;
+          margin-right: 10%;
+          padding: 10px;
+        }
+               
+
+        .buttons {
+            padding: 10px;
+        }
+
+
+        button {
+            background-color: #8a79c7;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+            height: 40px;
+        }
+
+        button:hover {
+            background-color: #79c7e3;
+        }
+
+
         input[type="number"] {
             width: 110px;
             height: 40px;
@@ -95,46 +152,25 @@
             margin-left: 10%;
         }
         
+
+
+
+
+
+
         .text-area {
             flex: 1; /* Div flessibile e occupa spazio disponibile */
             font-size: 1.8rem;
         }
 
-        .card {
-            width: 30%;
-            margin: 10px;
-            background-color: #49456d;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative; /* Aggiunto per il posizionamento del figlio */
+
+
+      .form-select[multiple] {
+            height: auto; /* Imposta un'altezza fissa se necessario */
+            min-height: 100px; /* Altezza minima per visualizzare piÃ¹ opzioni */
         }
 
-        .card img {
-            width: 100%;
-            height: auto;
-        }
 
-        .buttons {
-            display: flex;
-            justify-content: flex-end;
-            padding: 10px;
-            margin-top: auto;
-        }
-
-        button {
-            background-color: #8a79c7;
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 5px;
-            height: 40px;
-        }
-
-        button:hover {
-            background-color: #79c7e3;
-        }
 
         .search-bar-container {
             display: flex;
@@ -144,7 +180,7 @@
 
         .search-bar {
             position: relative;
-            width: 60%;
+            width: 80%;
         }
 
         .search-bar input {
@@ -199,13 +235,33 @@
           background-color: #49456d; /* Colore di sfondo al passaggio del mouse */
         }
 
-        .container-bottom {
-            position: absolute; /* Posizionamento assoluto */
-            bottom: 10px; /* Margine dal fondo */
-            right: 10px; /* Margine dal lato destro */
-            width: auto; /* Puoi specificare una larghezza se necessario */
-            /* Assicurati di rimuovere eventuali margin-top */
-        }
+        
+        .pagination {
+    		display: flex;
+   	 		justify-content: center; /* Centra orizzontalmente */
+    		bottom: 20px; /* Spazio dal fondo della pagina */
+    		left: 50%; /* Centra rispetto alla pagina */
+    		transform: translateX(-50%); /* Sposta indietro per centrare */
+			  align-items: center; /* Centra verticalmente */
+         margin-top: 20px; /* Margine superiore per distanziarli dal contenuto */		
+		}
+
+		.paginator-button {
+    		background-color: #007BFF; /* Colore di sfondo blu */
+    		color: white; /* Colore del testo */
+   		 	border: none; /* Rimuove il bordo */
+    		border-radius: 5px; /* Rende gli angoli arrotondati */
+    		padding: 10px 20px; /* Spaziatura interna */
+    		margin: 0 10px; /* Spaziatura tra i bottoni */
+    		text-decoration: none; /* Rimuove la sottolineatura per i link */
+    		cursor: pointer; /* Cambia il cursore al passaggio */
+    		font-size: 16px; /* Dimensione del testo */
+    		transition: background-color 0.3s; /* Transizione del colore */
+		}
+
+		.paginator-button:hover {
+    		background-color: #0056b3; /* Colore al passaggio del mouse */
+		}
 
   </style>
 </head>
@@ -287,21 +343,22 @@
                 for (Treno treno : listaTreniRicercati) {
         %>
 
+
                   <div class="card">
                       <%if(treno.getMarca().equals("Treno RegionalGain")){%>
-                      		<img src="${pageContext.request.contextPath}/images/treni/RG.jpg" class="card-img-top" alt="Treno">
+                      		<img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">
                       <%}else{
                     	  if(treno.getMarca().equals("Treno xFurryFast")){%>
-                    		  <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
+                    		  <img src="${pageContext.request.contextPath}/treni/FF.jpg" class="card-img-top" alt="Treno">
                       	<%}else{
                       		if(treno.getMarca().equals("Treno KargoModelz")){%>
-                  		  <img src="${pageContext.request.contextPath}/images/treni/KM.jpg" class="card-img-top" alt="Treno">
+                  		  <img src="${pageContext.request.contextPath}/treni/KM.jpg" class="card-img-top" alt="Treno">
                     	<%}
                       	}
                       }%>
 
                       <div class="card-body">
-                            <div class="container-top"></div>
+                            <div class="container-top">
                                 <h5 class="card-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
                                     <p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
                                 <p class="card-text">Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
@@ -312,16 +369,25 @@
                                 <p class="card-text">Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
                                     <p>Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
                                 <p class="card-text">Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long)treno.getId()) : 0 %></p>
-                                <div class="buttons">
                             </div>
 
                             <div class="container-bottom">
+                                
+                                <div class="star-container">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            
                                 <div class="buttons">
                                     <form method="get" action="trainDetails">
                                         <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
                                         <button type="submit" class="btn btn-info">Dettagli</button>
                                     </form>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -342,25 +408,35 @@
           }
           %>
       </div>
-  </div>   
+  </div> 
+  
+</div>
 
-    <div class="pagination">
-        <% 
-            Integer currentPage = (Integer) session.getAttribute("currentPage");
-            Integer totalPages = (Integer) session.getAttribute("totalPages");
-            
-            if (currentPage == null) currentPage = 1;
-            if (totalPages == null) totalPages = 1;
-        %>
-        
-        <% for (int i = 1; i <= totalPages; i++) { %>
-            <% if (i == currentPage) { %>
-                <strong><%= i %></strong>
-            <% } else { %>
-                <a href="trainMarket?page=<%= i %>"><%= i %></a>
-            <% } %>
-        <% } %>
-    </div>
+
+
+
+<div class="star">
+    <br />
+    <span onclick="gfg(1)"
+          class="star">★
+    </span>
+    <span onclick="gfg(2)"
+          class="star">★
+    </span>
+    <span onclick="gfg(3)"
+          class="star">★
+    </span>
+    <span onclick="gfg(4)"
+          class="star">★
+    </span>
+    <span onclick="gfg(5)"
+          class="star">★
+    </span>
+    <h3 id="output">
+          Rating is: 0/5
+      </h3>
+</div>
+    
 
 </body>
 </html>

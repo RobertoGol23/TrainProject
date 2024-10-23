@@ -354,6 +354,7 @@ public class TrainController {
                     //context.close();
                     request.setAttribute("idTreno", nuovoTreno.getId());
                     
+                    context.close();
                     return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
                 } else {
                     request.setAttribute("error", "Errore durante la creazione del treno.");
