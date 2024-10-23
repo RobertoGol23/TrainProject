@@ -2,8 +2,10 @@ package utility;
 
 import java.util.ArrayList;
 
+import entity.classi_astratte.Vagone;
 import entity.dao.ServizioDAO;
 import entity.servizi.Servizio;
+import entity.treno.Treno;
 import fabbriche.FabbricaServizi;
 
 public class ServiziUtility {
@@ -27,6 +29,29 @@ public class ServiziUtility {
 		
 		return servizi;
 	}
+
+	
+	/**
+	 * Metodo che cerca un servizio dentro il treno, utilizzato per
+	 * aggiungere servizi già utilizzati ad un vagone
+	 * @return servizio se trovato, se n
+	 */
+	public Servizio cercaServizioInTreno(Treno treno, String nomeServizio)
+	{
+		for(Vagone v:treno.getListaVagoni())
+		{
+			for(Servizio s:v.getListaServizi())
+			{
+				if(s.getNome().equalsIgnoreCase(nomeServizio))
+				{
+					return s;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
 	
 	public void aggiungiServiziAlDB(ServizioDAO servizioDAO) throws Exception
 	{

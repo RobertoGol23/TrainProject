@@ -3,7 +3,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -27,6 +26,7 @@ import entity.treno.Treno;
 import entity.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import utility.Assemblatore;
 import utility.ServiziUtility;
 import utility.TrenoUtility;
@@ -34,6 +34,12 @@ import utility.TrenoUtility;
 @Controller
 @RequestMapping("/dashboard/train")
 public class TrainController {
+	
+	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+	
+	VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+    ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 	
 	@GetMapping("/removeWagons")
 	public String mostraRimuoviVagoniTreno(@RequestParam("idTreno") Long idTreno, HttpServletRequest request, Model model) {
@@ -43,8 +49,8 @@ public class TrainController {
 	        return "redirect:/login";
 	    }
 	    model.addAttribute("idTreno", idTreno);
-	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 	    Treno treno = trenoDAO.getTrenoById(idTreno);
 
 	    // Costruisci la tabella HTML con i vagoni e le checkbox
@@ -80,13 +86,12 @@ public class TrainController {
 	    model.addAttribute("trenoNome", treno.getNome());
 	    model.addAttribute("vagoniHtml", vagoniHtml.toString());
 
-	    context.close();
+	    //context.close();
 
 	    return "/dashboard/train/removeWagons"; // Nome della JSP da visualizzare
 	}
 
 	
-	@SuppressWarnings("resource")
 	@PostMapping("/removeWagons")
 	public String rimuoviVagoni(@RequestParam("vagoneId") List<Integer> vagoneIds, @RequestParam("idTreno") Long idTreno,
 			HttpServletRequest request, Model model) {
@@ -95,14 +100,14 @@ public class TrainController {
 	    if ((User) request.getSession().getAttribute("user") == null) {
 	        return "redirect:/login";
 	    }
-	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 
 		try
 		{
 			 trenoDAO.eliminaVagoni(idTreno,(ArrayList<Integer>)vagoneIds);
 			 model.addAttribute("idTreno", idTreno);
-			 context.close();
+			 //context.close();
 			 return "dashboard/train/trainModifySuccess";
 		}
 		catch (SiglaTrenoException e)
@@ -124,8 +129,8 @@ public class TrainController {
 	        return "redirect:/login";
 	    }
 	    model.addAttribute("idTreno", idTreno);
-	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 	    Treno treno = trenoDAO.getTrenoById(idTreno);
 
 	    TrenoUtility tu = new TrenoUtility();
@@ -152,7 +157,7 @@ public class TrainController {
 	    model.addAttribute("trenoNome", treno.getNome());
 	    model.addAttribute("vagoniHtml", vagoniHtml.toString());
 
-	    context.close();
+	    //context.close();
 
 	    return "/dashboard/train/addWagons"; // Nome della JSP da visualizzare
 	}
@@ -167,11 +172,9 @@ public class TrainController {
 		// Verifica se l'utente è autenticato
 	    if ((User) request.getSession().getAttribute("user") == null) {
 	        return "redirect:/login";
-	    }
-	    	    
-	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-		
+	    } 
+//	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 	    
 	    String siglaNuova = "";
 	    
@@ -199,7 +202,7 @@ public class TrainController {
 		try
 		{
 			trenoDAO.aggiungiVagoni(idTreno,listaId,siglaNuova.toLowerCase());
-			context.close();
+			//context.close();
 	        model.addAttribute("idTreno", idTreno);
 	        return "dashboard/train/trainModifySuccess";
         }
@@ -265,8 +268,8 @@ public class TrainController {
             
             if (nuovoTreno != null) {
                 // Salva il treno nel database
-                AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-                TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//                AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//                TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
                 trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
                 
                 //Aggiunge i servizi al sito se non esistono
@@ -274,7 +277,7 @@ public class TrainController {
         		ServiziUtility su = new ServiziUtility();
         		su.aggiungiServiziAlDB(servizioDAO);
         		
-        		context.close();
+        		//context.close();
                 request.setAttribute("idTreno", nuovoTreno.getId());
                 
                 // Reindirizza alla pagina di modifica vagoni con l'ID del treno
@@ -348,7 +351,7 @@ public class TrainController {
                     ServiziUtility su = new ServiziUtility();
                     su.aggiungiServiziAlDB(servizioDAO);
                     
-                    context.close();
+                    //context.close();
                     request.setAttribute("idTreno", nuovoTreno.getId());
                     
                     return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
@@ -371,14 +374,14 @@ public class TrainController {
     @GetMapping("/modifyWagons")
     public String mostraModificaVagoni(@RequestParam("idTreno") Long idTreno, Model model) {
         // Recupera il treno dal database
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         Treno treno = trenoDAO.getTrenoById(idTreno);
         ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
 
         if (treno == null) {
             model.addAttribute("errorMessage", "Nessun treno trovato con l'ID specificato.");
-            context.close();
+            //context.close();
             return "dashboard/train/modifyWagons";
         }
 
@@ -389,64 +392,73 @@ public class TrainController {
         List<Servizio> servizi = servizioDAO.trovaServiziDisponibili();
         model.addAttribute("servizi", servizi);
 
-        context.close();
+        //context.close();
         return "dashboard/train/modifyWagons"; // Nome della JSP da visualizzare
     }
 
     
-    @GetMapping("/modifyWagonServices")
+    @SuppressWarnings("resource")
+	@GetMapping("/modifyWagonServices")
     public String mostraModificaServiziVagone(@RequestParam("idVagone") Long idVagone,
-    		Model model,
-    		@RequestParam("idTreno") Long idTreno) {
+    		Model model, @RequestParam("idVagoneRel") int idVagoneRel,
+    		@RequestParam("idTreno") Long idTreno, HttpSession session) {
         // Recupera il treno dal database
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+        //AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        //VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
         Vagone vagone = vagoneDAO.getVagoneById(idVagone);
-        ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
 
         if (vagone == null) {
             model.addAttribute("errorMessage", "Nessun vagone trovato con l'ID specificato.");
-            context.close();
+            ////context.close();
             return "dashboard/train/modifyWagonServices";
         }
-
         // Aggiungi il treno e i servizi al modello
         model.addAttribute("vagone", vagone);
         model.addAttribute("idTreno", idTreno);
+        model.addAttribute("idVagoneRel", idVagoneRel);
         // Recupera i servizi disponibili
-        List<Servizio> servizi = servizioDAO.trovaServiziDisponibili();
+        ServiziUtility su = new ServiziUtility();
+        List<Servizio> servizi = su.creaListaServizi();
         model.addAttribute("servizi", servizi);
 
-        context.close();
         return "dashboard/train/modifyWagonServices"; // Nome della JSP da visualizzare
     }
     
+    @Transactional
     @PostMapping("/addService")
     public String aggiungiServizio(
-            @RequestParam("vagoneId") Long vagoneId,
-            @RequestParam("servizio") String servizio,
+            @RequestParam("idVagoneRel") int idVagoneRel,
+            @RequestParam("servizio") String nomeServizio,
             @RequestParam("idTreno") Long idTreno,
             HttpServletRequest request) {
 
         // Recupera il treno e il vagone dal database
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-       // TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-        VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
-        ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+        //AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//        VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+//        ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+        //VagoneDAO vagoneDAO = (VagoneDAO) session.getAttribute("vagoneDAO");
+        
+    	Treno treno = trenoDAO.getTrenoById(idTreno);
+    	
+    	Vagone vagone = treno.getVagone(idVagoneRel);
+    	
+    	ServiziUtility su = new ServiziUtility();
+        
+    	Servizio servizio = su.cercaServizioInTreno(treno, nomeServizio);
+    	
+        if(servizio==null)
+        {
+        	vagone.addServizio(servizioDAO.getServizioByName(nomeServizio));
+        }
+        else
+        {
+        	vagone.addServizio(servizio);
+        }
 
-    //    Treno treno = trenoDAO.getTrenoById(idTreno);
-        Vagone vagone = vagoneDAO.getVagoneById(vagoneId);
-        Servizio s = servizioDAO.getServizioByName(servizio);
-        // Aggiungi il servizio al vagone selezionato
-        vagone.addServizio(s);      //il prezzo viene modificato in vagone
-        //treno.setVagone(vagoneIndex, vagone);
-        // Salva le modifiche nel database
-        vagoneDAO.updateVagone(vagone);
-        servizioDAO.updateServizio(s);
-        
-        
-        context.close();
-        
+        trenoDAO.updateTreno(treno);
+
+         ////context.close();       
+
         request.setAttribute("idTreno", idTreno);
         request.setAttribute("message", "Servizio aggiunto con successo!");
         return "dashboard/train/addServiceComplete";
@@ -455,20 +467,20 @@ public class TrainController {
     @GetMapping("/viewTrain")
     public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
 	
-    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+    	//AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        //TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
         Treno treno = trenoDAO.getTrenoById(idTreno);
         
         if (treno == null) {
-            context.close();;
+            //context.close();;
             return "redirect:/dashboard/user/viewTrains"; // Se il treno non esiste, reindirizza alla lista dei treni
         }
 
         // Aggiungi il treno al modello
         model.addAttribute("treno", treno);
         
-        context.close();
+        ////context.close();
 
         return "dashboard/train/viewTrain"; // Nome della vista JSP
     }
@@ -486,8 +498,8 @@ public class TrainController {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
     	
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-	    VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
+//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//	    VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
 	   
 	    try
 	    {
@@ -498,7 +510,7 @@ public class TrainController {
 	    	System.out.println("Errore: "+ e.getErrorePerUtente());
 	    }
 	       
-	    context.close();
+	    //context.close();
 	
     	
     	return "redirect:viewTrain?idTreno="+ idTreno;
@@ -514,19 +526,18 @@ public class TrainController {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
 
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
         Treno treno = trenoDAO.getTrenoById(idTreno);
         if (treno == null) {
-            context.close();
+            //context.close();
             return "redirect:/dashboard/home"; // Se il treno non esiste, torna alla home
         }
 
         // Aggiungi il treno alla model
         model.addAttribute("treno", treno);
-        model.addAttribute("idTreno", idTreno);
-        context.close();
+        //context.close();
 
         return "dashboard/train/cloneTrain"; // Nome della JSP per la clonazione
     }
@@ -543,8 +554,8 @@ public class TrainController {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
 
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         
         Treno treno = trenoDAO.getTrenoById(idTreno);
         if (treno != null) {
@@ -562,15 +573,15 @@ public class TrainController {
             model.addAttribute("error", "Treno non trovato.");
         }
 
-        context.close();
+        //context.close();
         return "dashboard/train/cloneSuccess"; // Pagina di successo per la clonazione
     }
 
     @GetMapping("/ribaltaTreno")
     public String ribaltaTreno(@RequestParam("idTreno") Long idTreno, Model model) {
         // Recupera il treno dal database utilizzando l'ID
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         TrenoUtility trenoUtility = new TrenoUtility();
         
         Treno treno = trenoDAO.getTrenoById(idTreno);
@@ -584,7 +595,7 @@ public class TrainController {
                 // Salva le modifiche nel database
                 trenoDAO.updateTreno(treno);
                 model.addAttribute("treno", treno);
-                context.close();
+                //context.close();
                 
                 // Reindirizza alla pagina con i dettagli aggiornati del treno
                 return "redirect:viewTrain?idTreno="+ idTreno; // Nome della tua JSP che mostra i dettagli del treno
@@ -592,31 +603,31 @@ public class TrainController {
                 // Se non è possibile ribaltare il treno (es. sigla finisce con 'h')
             	model.addAttribute("idTreno", idTreno);
             	model.addAttribute("error", "Non è possibile ribaltare questo treno.");
-                context.close();
+                //context.close();
                 return "dashboard/train/trainModifyFail"; // Pagina di errore o messaggio da gestire
             }
         } else {
             // Treno non trovato
         	model.addAttribute("idTreno", idTreno);
             model.addAttribute("error", "Treno non trovato.");
-            context.close();
+            //context.close();
             return "dashboard/train/trainModifyFail";
         }
     }
     
     @GetMapping("/deleteTrain")
     public String deleteTrain(@RequestParam("idTreno") Long idTreno, Model model) {
-    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+//    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+//        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
     	Treno treno = trenoDAO.getTrenoById(idTreno);  // Recupera il treno dal DB tramite l'ID
         if (treno != null) {
             trenoDAO.eliminaTrenoById(idTreno);  // Cancella il treno dal database
-            context.close();
+            //context.close();
             return "redirect:/dashboard/user/viewTrains";  // Reindirizza alla lista dei treni o a una pagina di conferma
         } else {
             // Treno non trovato, gestisci l'errore
             model.addAttribute("error", "Treno non trovato.");
-            context.close();
+            //context.close();
             return "dashboard/train/trainModifyFail";
         }
     }
