@@ -93,7 +93,6 @@
         </tbody>
     </table>
 
-    <p align="center"><a href="/train-bazaar/dashboard/home">Torna alla Dashboard</a></p>
 
 </body>
 </html>

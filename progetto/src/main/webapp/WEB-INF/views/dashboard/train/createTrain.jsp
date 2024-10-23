@@ -98,7 +98,6 @@
                 <button type="submit">Crea Treno</button>
             </form>
         </div>
-        <p align="center">Torna alla dashboard <a href="/train-baazar/dashboard/home"></a> </p>
     </div>
 	
      <%

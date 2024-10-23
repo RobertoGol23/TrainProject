@@ -197,6 +197,10 @@
             background-color: #49456d; /* Colore di sfondo al passaggio del mouse */
           }
 
+          .bottom-container{
+            margin-top: 2%
+          }
+
 
     </style>
 </head>
@@ -216,8 +220,6 @@
 
           <form action="researchResults" method="post">
 
-
-                //TODO: SISTEMARE I MAX - MIN E GLI STEP!!!
 
                 <!-- Range Peso -->
                 <div class="mb-4">
@@ -308,7 +310,12 @@
                           <div class="buttons">
                               <form method="get" action="trainDetails">
                                   <input type="hidden" name="trenoId" value="<%= (treno != null) ? treno.getId() : 0 %>">
-                                  <button type="submit" class="btn btn-info">Dettagli</button>
+                                  
+                                  
+                                  <div class="bottom-container">
+                                    <button type="submit" class="btn btn-info">Dettagli</button>
+                                  </div>
+                                  
                               </form>
                           </div>
                       </div>
