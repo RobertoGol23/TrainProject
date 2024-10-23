@@ -19,7 +19,7 @@
 		lazy-init="true" scope="prototype">
 		<!-- <property name="id" value="FFL15"></property> -->
 		<property name="peso" value="101.0"></property>
-		<property name="prezzo" value="1500000"></property>
+		<property name="prezzo" value="35000"></property>
 		<property name="pesoTrainabile" value="350.0"></property>
 	</bean>
 
@@ -27,7 +27,7 @@
 		scope="prototype">
 		<!-- <property name="id" value="FFC15"></property> -->
 		<property name="peso" value="15.0"></property>
-		<property name="prezzo" value="3500000"></property>
+		<property name="prezzo" value="2500"></property>
 		<property name="pesoMassimoTrasportabile" value="5.0"></property>
 		<!-- 		aggiungere poi il controllo per considerare il peso totale come
 		peso+pesoMassimoTrasportabile -->
@@ -37,16 +37,16 @@
 		lazy-init="true" scope="prototype">
 		<!-- <property name="id" value="FFP15"></property> -->
 		<property name="peso" value="30.0"></property>
-		<property name="prezzo" value="1400000"></property>
-		<property name="postiASedere" value="50"></property>
+		<property name="prezzo" value="2500"></property>
+		<property name="postiASedere" value="55"></property>
 	</bean>
 
 	<bean name="vagoneFFR15" class="entity.treno.VagoneRistorante"
 		lazy-init="true" scope="prototype">
 		<!-- <property name="id" value="FFR15"></property> -->
 		<property name="peso" value="30.0"></property>
-		<property name="prezzo" value="1400000"></property>
-		<property name="coperti" value="30"></property>
+		<property name="prezzo" value="2500"></property>
+		<property name="coperti" value="35"></property>
 	</bean>
 </beans>
 

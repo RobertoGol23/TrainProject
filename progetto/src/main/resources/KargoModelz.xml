@@ -16,7 +16,7 @@
 		lazy-init="true" scope="prototype">
 		<!-- <property name="id" value="KML2000"></property> -->
 		<property name="peso" value="101.0"></property>
-		<property name="prezzo" value="200000000"></property>
+		<property name="prezzo" value="20000"></property>
 		<property name="pesoTrainabile" value="500.0"></property>
 	</bean>
 
@@ -24,24 +24,24 @@
 		scope="prototype">
 		<!-- <property name="id" value="KMC2000"></property> -->
 		<property name="peso" value="15.0"></property>
-		<property name="prezzo" value="3500000"></property>
-		<property name="pesoMassimoTrasportabile" value="5.0"></property>
+		<property name="prezzo" value="5000"></property>
+		<property name="pesoMassimoTrasportabile" value="10.0"></property>
 	</bean>
 
 	<bean name="vagoneKMP2000" class="entity.treno.VagonePasseggeri"
 		lazy-init="true" scope="prototype">
 		<!-- <property name="id" value="KMP2000"></property> -->
 		<property name="peso" value="30.0"></property>
-		<property name="prezzo" value="1400000"></property>
-		<property name="postiASedere" value="50"></property>
+		<property name="prezzo" value="1000"></property>
+		<property name="postiASedere" value="35"></property>
 	</bean>
 
 	<bean name="vagoneKMR2000" class="entity.treno.VagoneRistorante"
 		lazy-init="true" scope="prototype">
 		<!-- <property name="id" value="KMR2000"></property> -->
 		<property name="peso" value="10.0"></property>
-		<property name="prezzo" value="1400000"></property>
-		<property name="coperti" value="30"></property>
+		<property name="prezzo" value="1000"></property>
+		<property name="coperti" value="25"></property>
 	</bean>
 </beans>
 
