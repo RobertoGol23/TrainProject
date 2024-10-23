@@ -283,8 +283,17 @@
           %>
 
                   <div class="card">
-                      <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
-                      
+                      <%if(treno.getMarca().equals("Treno RegionalGain")){%>
+                      		<img src="${pageContext.request.contextPath}/images/treni/RG.jpg" class="card-img-top" alt="Treno">
+                      <%}else{
+                    	  if(treno.getMarca().equals("Treno xFurryFast")){%>
+                    		  <img src="${pageContext.request.contextPath}/images/treni/FF.jpg" class="card-img-top" alt="Treno">
+                      	<%}else{
+                      		if(treno.getMarca().equals("Treno KargoModelz")){%>
+                  		  <img src="${pageContext.request.contextPath}/images/treni/KM.jpg" class="card-img-top" alt="Treno">
+                    	<%}
+                      	}
+                      }%>
                       <div class="card-body">
                           <h5 class="card-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
                            	<p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>

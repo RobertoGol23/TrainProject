@@ -8,15 +8,23 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-	<link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
+    
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/trainAnimatioStyle.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--     <link rel="icon" href="/images/logo-icon.png" type="image/png"> -->
-	
+    <style>
+    	body {
+	    background-color: #2e2b4f;
+	}
+    </style>
+    <!-- Audio del fischio del treno -->
     <title>Dashboard</title>
 </head>
 <body>
-
+	<audio id="fischioAudio">
+    	<source src="${pageContext.request.contextPath}/resources/fischio.mp3" type="audio/mpeg">
+  	</audio>
     <div class="container-benvenuto">
         <h1>Benvenuto, ${user.nome}!</h1>
 
@@ -63,23 +71,53 @@
                     <button type="submit">Visualizza Treni</button>
                 </form>
             </div>
-        </div>
-
+        
         <!-- Sezione visibile solo agli admin -->
         <% 
             User user = (User) session.getAttribute("user");
             if (user != null && user.isSuperAdmin()) { 
         %>
-        <div class="form-container">
-            <h2>Gestione Admin</h2>
-            <form action="admin/showPurchases" method="get">
-                <button type="submit">Mostra Tutti gli Acquisti</button>
-            </form>
-            <form action="admin/manageUsers" method="get">
-                <button type="submit">Gestisci Utenti</button>
-            </form>
-        </div>
-        <% } %>
+	        <div class="form-container">
+	            <h2>Gestione Admin</h2>
+	            <form action="admin/showPurchases" method="get">
+	                <button type="submit">Mostra Tutti gli Acquisti</button>
+	            </form>
+	            <form action="admin/manageUsers" method="get">
+	                <button type="submit">Gestisci Utenti</button>
+	            </form>
+	        </div>
+	        <% } %>
+       </div>
     </div>
+    
+    <div class="container text-center my-5">
+	    <div class="train-container">
+	        <div class="train">
+	            <!-- Immagini dei vagoni -->
+<!-- 	            <img src="https://via.placeholder.com/150x100.png?text=Vagone+1" alt="Vagone Testa"> -->
+	            <img id="locomotiva" class="wagon" src="${pageContext.request.contextPath}/images/modellini/testa.png" alt="Vagone Testa" style="cursor: pointer;">
+	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_rosa.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_verde.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_giallo.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_blu.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_arancione.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_viola.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/vagone_azzurro.png" alt="Vagone">
+	            <img class="wagon" src="${pageContext.request.contextPath}/images/modellini/coda.png" alt="Vagone Coda">
+	        </div>
+	    </div>
+	</div>
+	<script>
+    // Ottieni l'elemento dell'immagine
+    const locomotiva = document.getElementById('locomotiva');
+
+    // Ottieni l'elemento audio
+    const fischioAudio = document.getElementById('fischioAudio');
+
+    // Aggiungi un gestore di eventi per il click sull'immagine
+    locomotiva.onclick = function() {
+      fischioAudio.play(); // Riproduci il suono
+    };
+  </script>
 </body>
 </html>
