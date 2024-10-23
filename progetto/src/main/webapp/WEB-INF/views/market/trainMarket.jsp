@@ -31,6 +31,7 @@
             background-color: #2e2b4f;
             color: #ffffff;
             margin: 0;
+            padding-bottom: 80px; /* Spazio per i bottoni di paginazione */
         }
 
         h1 {
@@ -205,6 +206,33 @@
             width: auto; /* Puoi specificare una larghezza se necessario */
             /* Assicurati di rimuovere eventuali margin-top */
         }
+        
+        .pagination {
+    		display: flex;
+   	 		justify-content: center; /* Centra orizzontalmente */
+    		bottom: 20px; /* Spazio dal fondo della pagina */
+    		left: 50%; /* Centra rispetto alla pagina */
+    		transform: translateX(-50%); /* Sposta indietro per centrare */
+			align-items: center; /* Centra verticalmente */
+            margin-top: 20px; /* Margine superiore per distanziarli dal contenuto */		
+		}
+
+		.paginator-button {
+    		background-color: #007BFF; /* Colore di sfondo blu */
+    		color: white; /* Colore del testo */
+   		 	border: none; /* Rimuove il bordo */
+    		border-radius: 5px; /* Rende gli angoli arrotondati */
+    		padding: 10px 20px; /* Spaziatura interna */
+    		margin: 0 10px; /* Spaziatura tra i bottoni */
+    		text-decoration: none; /* Rimuove la sottolineatura per i link */
+    		cursor: pointer; /* Cambia il cursore al passaggio */
+    		font-size: 16px; /* Dimensione del testo */
+    		transition: background-color 0.3s; /* Transizione del colore */
+		}
+
+		.paginator-button:hover {
+    		background-color: #0056b3; /* Colore al passaggio del mouse */
+		}
 
   </style>
 </head>
@@ -275,16 +303,17 @@
       <div class="container-right">
           <%
           List<Treno> treni = (List<Treno>) session.getAttribute("treni");
+          Integer currentPage = (Integer) session.getAttribute("currentPage");
+          Integer totalPages = (Integer) session.getAttribute("totalPages");
           AbstractApplicationContext context = null;
           TrenoUtility tu = new TrenoUtility();
+        
           try {
               context = new AnnotationConfigApplicationContext(JpaConfig.class);
               VotoDAO votoDAO = context.getBean(VotoDAO.class);
               TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-              List<Treno> listaTreniOrderByVotazione = trenoDAO.getTreniOrderByVotazione();
-
-              if (listaTreniOrderByVotazione != null && !listaTreniOrderByVotazione.isEmpty()) {
-                  for (Treno treno : listaTreniOrderByVotazione) {
+              if (treni != null && !treni.isEmpty()) {
+                  for (Treno treno : treni) {
           %>
 
                   <div class="card">
@@ -342,25 +371,28 @@
           }
           %>
       </div>
-  </div>   
+  </div> 
+    
+  <<%-- Aggiungi la paginazione --%>
+<div class="pagination">
+	<a class="paginator-button back-button" href="trainMarket?page=<%= currentPage - 1 %>" <% if (currentPage == 1) { %>style="display:none;"<% } %>>Indietro</a> <!-- Pulsante per tornare indietro -->
+    <%
+    if (currentPage == null) currentPage = 1;
+    if (totalPages == null) totalPages = 1;
 
-    <div class="pagination">
-        <% 
-            Integer currentPage = (Integer) session.getAttribute("currentPage");
-            Integer totalPages = (Integer) session.getAttribute("totalPages");
-            
-            if (currentPage == null) currentPage = 1;
-            if (totalPages == null) totalPages = 1;
-        %>
-        
-        <% for (int i = 1; i <= totalPages; i++) { %>
-            <% if (i == currentPage) { %>
-                <strong><%= i %></strong>
-            <% } else { %>
-                <a href="trainMarket?page=<%= i %>"><%= i %></a>
-            <% } %>
+    // Mostra i numeri di pagina
+    for (int i = 1; i <= totalPages; i++) {
+    %>
+        <% if (i == currentPage) { %>
+            <strong class="paginator-button"><%= i %></strong> <!-- Rendi il numero corrente un bottone -->
+        <% } else { %>
+            <a class="paginator-button" href="trainMarket?page=<%= i %>"><%= i %></a> <!-- Bottone per le altre pagine -->
         <% } %>
-    </div>
+    <%
+    }
+    %>
+</div>
+    
 
 </body>
 </html>
