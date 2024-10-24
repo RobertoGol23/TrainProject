@@ -372,24 +372,6 @@ public class TrenoUtility {
 		
 		return null;
 	}
-
-	/**
-	 * Metodo che verifica la presenza di un servizio nel vagone
-	 * @param vagone
-	 * @param servizio
-	 * @return true se è presente, false se non lo è
-	 */
-	public boolean isServicePresent(Vagone vagone, Servizio servizio)
-	{
-		for(Servizio s: vagone.getListaServizi())
-		{
-			if(s.getNome().equalsIgnoreCase(servizio.getNome()))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	/**
 	 * Metodo ribalta il treno se possibile

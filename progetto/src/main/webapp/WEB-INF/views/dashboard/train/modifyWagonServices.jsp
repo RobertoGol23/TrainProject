@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="entity.treno.Treno" %>
 <%@ page import="entity.classi_astratte.Vagone" %>
-<%@ page import="utility.TrenoUtility" %>
+<%@ page import="utility.ServiziUtility" %>
 <%@ page import="entity.servizi.Servizio" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.dao.VagoneDAO" %>
@@ -11,7 +11,7 @@
 <html lang="it">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <title>Modifica servizi vagone</title>
     <style>
         body {
@@ -53,6 +53,9 @@
         button:hover, a.button:hover {
             background-color: #79c7e3;
         }
+        .disabilitato, .disabilitato:hover{
+        	background-color: grey;
+        }
         h1, h2 {
             text-align: center;
         }
@@ -84,18 +87,36 @@
             <%
                 // Recupera i servizi disponibili dalla richiesta
                 List<Servizio> servizi = (List<Servizio>) request.getAttribute("servizi");
-            	TrenoUtility tu = new TrenoUtility();
+            	ServiziUtility su = new ServiziUtility();
             	Vagone vagone = (Vagone) request.getAttribute("vagone");
             	            	
-            	
+            	int serviziDisponibili = 0;
                 if (servizi != null) {
                     for (Servizio servizio : servizi) {
                     	
-                    	if(!tu.isServicePresent(vagone, servizio))
+                    	if(!su.isServicePresent(vagone, servizio))
                     	{
-                    		//stampo a schermo l'opzione del menu' a tendinda dei servizi
-                    		%><option value="<%= servizio.getNome() %>"><%= servizio.getNome() %></option><%
+                    		if(vagone.getTipo().equalsIgnoreCase("VagoneCargo"))
+                    		{
+                    			if(su.checkServiziCargo(servizio))
+                    			{
+                    				//stampo a schermo l'opzione del menu' a tendinda dei servizi
+                    				%><option value="<%= servizio.getNome() %>"><%= servizio.getNome() %></option><%
+                    				serviziDisponibili++;
+                    			}
+                    		}
+                    		else
+                    		{
+                    			//stampo a schermo l'opzione del menu' a tendinda dei servizi
+                				%><option value="<%= servizio.getNome() %>"><%= servizio.getNome() %></option><%
+                				serviziDisponibili++;
+                    		}
+                    		
                     	}
+                    }
+                    if(serviziDisponibili==0)
+                    {
+                    	%><option> Nessun servizio disponibile </option><%
                     }
                     
                 }
@@ -104,7 +125,17 @@
 			<!-- Campo nascosto per memorizzare l'indice del vagone -->
             <input type="hidden"  name="idVagoneRel" id="idVagoneRel" value="${idVagoneRel}"></input>
             <input type="hidden" name="idTreno" id="idTreno" value="<%= (request.getAttribute("idTreno")) %>"></input>
-            <button type="submit">Aggiungi Servizio</button>
+            <% 
+	            if(serviziDisponibili>0) //se non ci sono servizi da aggiungere tolgo il pulsante
+	            {
+	            	%><button type="submit">Aggiungi Servizio</button><%
+	            }
+	            else
+	            {
+	            	%><button disabled class="disabilitato" type="submit">Aggiungi Servizio</button><%
+	            }
+            
+            %>            
             <a href="viewTrain?idTreno=<%= (request.getAttribute("idTreno")) %>" class="button">Torna indietro</a> 
 
         </form>
