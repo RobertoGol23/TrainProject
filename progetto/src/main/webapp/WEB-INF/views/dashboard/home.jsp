@@ -194,7 +194,7 @@
                 <form action="user/editProfile" method="get">
                     <button type="submit">Modifica Profilo</button>
                 </form>
-            </div> -->
+            </div>
 
 
             <div class="form-container">
