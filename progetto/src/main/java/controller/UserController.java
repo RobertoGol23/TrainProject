@@ -267,7 +267,7 @@ public class UserController {
                     .append("<td>")
                     .append("<form action='/train-bazaar/dashboard/train/viewTrain' method='get'>") // Modulo con pulsante
                     .append("<input type='hidden' name='idTreno' value='").append(train.getId()).append("' />")
-                    .append("<button type='submit'>Visualizza</button>")
+                    .append("<button type='submit' style='margin: 0px'>Visualizza</button>")
                     .append("</form>")
                     .append("</td>")
                     .append("</tr>");

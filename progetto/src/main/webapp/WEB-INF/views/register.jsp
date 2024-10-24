@@ -6,12 +6,17 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userPagesStyle.css">    
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userPagesStyle.css?v=1.x">    
     <title>Registrazione</title>
     <style type="text/css">
     	.container {
-		    margin-top: -2.4%;
-	}
+/* 		    margin-top: -2.4%; */
+			}
+		body {
+		    display: flex; /* Usa flexbox per centrare */
+		    justify-content: center; /* Allinea orizzontalmente al centro */
+		    align-items: center; /* Allinea verticalmente al centro */
+		}
     </style>
 </head>
 <body>

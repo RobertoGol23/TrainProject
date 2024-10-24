@@ -1,0 +1,28 @@
+@charset "UTF-8";
+		
+		
+		.container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        table {
+            width: 100%; /* Imposta la larghezza della tabella al 100% */
+            background-color: #49456d;
+            color: ivory;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 18px;
+/* 	    	font-weight: bold; */
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            
+        }
+        th {
+            background-color: #db7a4e;
+            color: black;
+        }
