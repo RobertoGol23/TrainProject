@@ -22,6 +22,7 @@ import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
 import jakarta.servlet.http.HttpSession; // Importa HttpSession
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class MarketController {
@@ -30,28 +31,93 @@ public class MarketController {
 
     // GET per visualizzare il market dei treni
     @GetMapping("/trainMarket")
-    public String showTrainMarket(@RequestParam(value = "page", defaultValue = "1") int page, HttpSession session) {
-        
+    public String showTrainMarket(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "ordinamento", required = false) String ordinamento,
+            @RequestParam(value = "peso-min", required = false) Double pesoMin,
+            @RequestParam(value = "peso-max", required = false) Double pesoMax,
+            @RequestParam(value = "lunghezza-min", required = false) Integer lunghezzaMin,
+            @RequestParam(value = "lunghezza-max", required = false) Integer lunghezzaMax,
+            @RequestParam(value = "prezzo-min", required = false) Double prezzoMin,
+            @RequestParam(value = "prezzo-max", required = false) Double prezzoMax,
+            HttpSession session) {
+
+        // Crea il contesto per accedere al TrenoDAO
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 
-        // Calcola il numero totale di treni e pagine
-        int totalTreni = trenoDAO.getAllTrain().size();
+        // Recupera i parametri di ricerca dalla sessione se non sono stati passati nella richiesta
+        String ordinamento_2 = (ordinamento != null) ? ordinamento : (String) session.getAttribute("ordinamento");
+        Double pesoMin_2 = (pesoMin != null) ? pesoMin : (Double) session.getAttribute("pesoMin");
+        Double pesoMax_2 = (pesoMax != null) ? pesoMax : (Double) session.getAttribute("pesoMax");
+        Integer lunghezzaMin_2 = (lunghezzaMin != null) ? lunghezzaMin : (Integer) session.getAttribute("lunghezzaMin");
+        Integer lunghezzaMax_2 = (lunghezzaMax != null) ? lunghezzaMax : (Integer) session.getAttribute("lunghezzaMax");
+        Double prezzoMin_2 = (prezzoMin != null) ? prezzoMin : (Double) session.getAttribute("prezzoMin");
+        Double prezzoMax_2 = (prezzoMax != null) ? prezzoMax : (Double) session.getAttribute("prezzoMax");
+
+        // Se i parametri sono null, imposta i valori di default
+        if (ordinamento_2 == null) ordinamento_2 = "";
+        if (pesoMin_2 == null) pesoMin_2 = 0.0;
+        if (pesoMax_2 == null) pesoMax_2 = Double.MAX_VALUE;
+        if (lunghezzaMin_2 == null) lunghezzaMin_2 = 0;
+        if (lunghezzaMax_2 == null) lunghezzaMax_2 = Integer.MAX_VALUE;
+        if (prezzoMin_2 == null) prezzoMin_2 = 0.0;
+        if (prezzoMax_2 == null) prezzoMax_2 = Double.MAX_VALUE;
+
+        // Recupera i treni filtrati e ordinati
+        List<Treno> treni = trenoDAO.cercaTreni(ordinamento_2, pesoMin_2, pesoMax_2, lunghezzaMin_2, lunghezzaMax_2, prezzoMin_2, prezzoMax_2);
+
+        // Calcola il numero totale di treni e pagine dopo la ricerca
+        int totalTreni = treni.size();
         int totalPages = (int) Math.ceil((double) totalTreni / TRENTS_PER_PAGE);
 
-        // Recupera la lista di treni per la pagina corrente
-        List<Treno> treni = trenoDAO.getTreniPaginated((page - 1) * TRENTS_PER_PAGE, TRENTS_PER_PAGE);
+        // Pagina corrente (verifica se ci sono abbastanza treni per riempire la pagina)
+        List<Treno> treniPaginati = treni.stream()
+            .skip((page - 1) * TRENTS_PER_PAGE)
+            .limit(TRENTS_PER_PAGE)
+            .collect(Collectors.toList());
 
-        // Salva i dati nella sessione
-        session.setAttribute("treni", treni);
+        // Aggiungi i risultati filtrati e ordinati alla sessione
+        session.setAttribute("treni", treniPaginati);
         session.setAttribute("currentPage", page);
         session.setAttribute("totalPages", totalPages);
 
+        // Salva i parametri di ricerca nella sessione per le future richieste
+        session.setAttribute("ordinamento", ordinamento_2);
+        session.setAttribute("pesoMin", pesoMin_2);
+        session.setAttribute("pesoMax", pesoMax_2);
+        session.setAttribute("lunghezzaMin", lunghezzaMin_2);
+        session.setAttribute("lunghezzaMax", lunghezzaMax_2);
+        session.setAttribute("prezzoMin", prezzoMin_2);
+        session.setAttribute("prezzoMax", prezzoMax_2);
+
         context.close();
-        return "/market/trainMarket"; // Ritorna la JSP
+        return "market/trainMarket"; // Ritorna alla vista del market con i treni filtrati
     }
     
-    
+    @PostMapping("/trainMarket")
+    public String searchAndShowTrainMarket(
+            @RequestParam("ordinamento") Optional<String> ordinamento,
+            @RequestParam("peso-min") Optional<Double> pesoMin,
+            @RequestParam("peso-max") Optional<Double> pesoMax,
+            @RequestParam("lunghezza-min") Optional<Integer> lunghezzaMin,
+            @RequestParam("lunghezza-max") Optional<Integer> lunghezzaMax,
+            @RequestParam("prezzo-min") Optional<Double> prezzoMin,
+            @RequestParam("prezzo-max") Optional<Double> prezzoMax,
+            HttpSession session) {
+
+        // Salva i parametri di ricerca nella sessione
+        session.setAttribute("ordinamento", ordinamento.orElse(""));
+        session.setAttribute("pesoMin", pesoMin.orElse(0.0));
+        session.setAttribute("pesoMax", pesoMax.orElse(Double.MAX_VALUE));
+        session.setAttribute("lunghezzaMin", lunghezzaMin.orElse(0));
+        session.setAttribute("lunghezzaMax", lunghezzaMax.orElse(Integer.MAX_VALUE));
+        session.setAttribute("prezzoMin", prezzoMin.orElse(0.0));
+        session.setAttribute("prezzoMax", prezzoMax.orElse(Double.MAX_VALUE));
+
+        // Redirigi alla pagina del market con la pagina 1
+        return "redirect:/trainMarket?page=1";
+    }
 
     // GET per visualizzare la pagina di conferma acquisto
     @GetMapping("/purchaseTrain")
@@ -206,45 +272,4 @@ public class MarketController {
         }
     }
 
-
-    // GET per visualizzare la pagina di ricerca
-    @GetMapping("researchResults")
-    public String showSearchForm() {
-        return "market/researchResults"; // Nome della vista JSP per il form di ricerca
-    }
-
-    // POST per cercare i treni
-    @PostMapping("/researchResults")
-    public String searchTrains(
-            @RequestParam("ordinamento") Optional<String> ordinamento,
-            @RequestParam("peso-min") Optional<Double> pesoMin,
-            @RequestParam("peso-max") Optional<Double> pesoMax,
-            @RequestParam("lunghezza-min") Optional<Integer> lunghezzaMin,
-            @RequestParam("lunghezza-max") Optional<Integer> lunghezzaMax,
-            @RequestParam("prezzo-min") Optional<Double> prezzoMin,
-            @RequestParam("prezzo-max") Optional<Double> prezzoMax,
-            HttpSession session) {
-
-        // Esegui la ricerca dei treni
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-
-        // Controllo sui valori non inseriti (altrimenti vengono impostati al max/min)
-        Double pesoMin_2 = pesoMin.orElse(0.0);
-        Double pesoMax_2 = pesoMax.orElse(Double.MAX_VALUE);
-        Integer lunghezzaMin_2 = lunghezzaMin.orElse(0);
-        Integer lunghezzaMax_2 = lunghezzaMax.orElse(Integer.MAX_VALUE);
-        Double prezzoMin_2 = prezzoMin.orElse(0.0);
-        Double prezzoMax_2 = prezzoMax.orElse(Double.MAX_VALUE);
-        String ordinamento_2 = ordinamento.orElse("");
-
-        // Recupera i risultati della ricerca
-        List<Treno> treni = trenoDAO.cercaTreni(ordinamento_2, pesoMin_2, pesoMax_2, lunghezzaMin_2, lunghezzaMax_2, prezzoMin_2, prezzoMax_2);
-
-        // Aggiungi i risultati al modello per la visualizzazione
-        session.setAttribute("treni", treni);
-
-        context.close();
-        return "market/researchResults"; // Nome della vista JSP per i risultati della ricerca
-    }
 }
