@@ -1,11 +1,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ include file="../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
+    <%@ include file="../navbar.jsp" %>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <title>Acquisto Completato</title>
     <style>
         body {
