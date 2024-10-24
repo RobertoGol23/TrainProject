@@ -14,28 +14,25 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tablesStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Dettagli Treno</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-        }
         .train-details, .wagon-list {
-            background-color: #49456d;
-            padding: 20px;
+            background-color: #49456d;            
             border-radius: 10px;
             max-width: 70%;
             margin: 20px auto;
         }
-        h1, h2 {
-            text-align: center;
-            padding-top:15px;
+        .train-details {
+        	padding: 20px;
         }
+        
         ul {
             list-style-type: none;
             padding: 0;
@@ -46,25 +43,11 @@
             margin-bottom: 5px;
             border-radius: 5px;
         }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #6c6991;
-        }
-        td {
-            background-color: #49456d;
-        }
+        
         button, a.button {
             width: 180px;
-            background-color: #8a79c7;
-            color: white;
+            background-color: #f5835e;
+            color: black;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -74,9 +57,12 @@
             text-align:center;
             text-decoration: none;
             display: inline-block;
+            transition: background-color 0.3s, transform 0.3s; /* Transizione */
         }
         button:hover, a.button:hover {
-            background-color: #79c7e3;
+            background-color: #f96737;
+            color: #ffffff;
+			transform: translateY(-2px); /* Effetto sollevato */
         }
         .cestino {
             padding: 10px;
@@ -88,14 +74,6 @@
         .modal-content {
 		    background-color: #49456d; /* Colore di sfondo del modale */
 		    color: #ffffff; /* Colore del testo */
-		}
-		.close {
-			border-style: solid;
-			border-width: 2px;
-			border-color: black;
-			width: 50px;
-			height: 50px;
-			text-align: center;
 		}
 		.modal-footer {
 		  	margin: auto;
@@ -113,15 +91,28 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            
         }
         .train-info {
-            max-width: 60%;
+            max-width: 70%;
+            border-style: solid;
+			border-width: 2px;
+			border-color: black;
+			background-color: ivory;
+			color: black;
+			padding: 20px;
+			border-radius: 5px;
+			font-family: "Georgia";
+        	font-size: 16px;
         }
         .train-details img {
             max-width: 35%;
             height: auto;
-            margin-left: 20px;
             border-radius: 10px;
+            border-style: solid;
+			border-width: 2px;
+			border-color: black;
+			border-radius: 5px;
         }
         h2 {
             text-align: center;
@@ -145,6 +136,7 @@
                 margin-top: 20px;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -163,11 +155,12 @@
         
         <div class="train-info-wrapper">
             <div class="train-info">
-        <p>Id: <%= treno.getId() %></p>
-        <p>Marca: <%= treno.getMarca() %></p>
-        <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
-        <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
-        <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p>
+        <p> - Id treno: <%= treno.getId() %></p>
+        <p> - Marca del treno: <%= treno.getMarca() %></p>
+        <p> - Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
+        <p> - Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
+        <p> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p>
+        <p> - Passeggeri totali: <%= treno.getPasseggeriTotali() %> passeggeri</p>
     </div>
             <!-- Immagine del treno a destra -->
             <% if(treno.getMarca().equals("Treno RegionalGain")) { %>
@@ -297,11 +290,11 @@
           </div>
           <div class="modal-body">
             <p>Sei sicuro di voler cancellare il treno con ID: <strong><%= treno.getId() %></strong>?</p>
-            <p>Questa azione non pu� essere annullata.</p>
+            <p>Questa azione non piu' essere annullata.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-            <button type="button" class="btn btn-danger" onclick="confirmDelete()">Conferma</button>
+            <button type="button" class="button" data-dismiss="modal">Annulla</button>
+            <button type="button" class="button" onclick="confirmDelete()">Conferma</button>
           </div>
         </div>
       </div>

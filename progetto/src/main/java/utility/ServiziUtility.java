@@ -52,7 +52,52 @@ public class ServiziUtility {
 	}
 	
 	
+	/**
+	 * Metodo che verifica la presenza di un servizio nel vagone
+	 * @param vagone
+	 * @param servizio
+	 * @return true se è presente, false se non lo è
+	 */
+	public boolean isServicePresent(Vagone vagone, Servizio servizio)
+	{
+		for(Servizio s: vagone.getListaServizi())
+		{
+			if(s.getNome().equalsIgnoreCase(servizio.getNome()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	
+	
+	/**
+	 * Controlla se un servizio in input è adatto ad essere inserito in un vagone cargo
+	 * @param servizio
+	 * @return boolean in base all'esito dell'operazione
+	 */
+	public boolean checkServiziCargo(Servizio servizio)
+	{
+		ArrayList<String> serviziCargo = new ArrayList<String>();
+		serviziCargo.add("colore");
+		serviziCargo.add("temperatura");
+		serviziCargo.add("sicurezza");
+		
+		for(String s:serviziCargo)
+		{
+			if(s.equalsIgnoreCase(servizio.getNome()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Aggiunger servizi al database solo se non sono presenti
+	 * @param servizioDAO
+	 * @throws Exception
+	 */
 	public void aggiungiServiziAlDB(ServizioDAO servizioDAO) throws Exception
 	{
 		ArrayList<Servizio> servizi = creaListaServizi();
