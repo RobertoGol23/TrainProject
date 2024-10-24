@@ -56,11 +56,13 @@
 		color: red;
 		cursor: pointer;
 	}
-	.btn-primary {
+	.modal-button {
 		background-color: #f5835e;
+		color: black;
 	}
-	.btn-primary:hover {
+	.modal-button:hover {
 		background-color: #f96737;
+		color: black;
 	}
 
 	.modal {

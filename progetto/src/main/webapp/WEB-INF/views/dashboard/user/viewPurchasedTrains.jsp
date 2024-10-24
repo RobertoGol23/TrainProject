@@ -16,84 +16,7 @@
 	</style>
 
     <title>Treni Acquistati</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-            text-align: center;
-            margin: 0;
-        }
-
-        h1 {
-            color: #8a79c7;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        table {
-            width: 90%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background-color: #49456d;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        th, td {
-            padding: 15px;
-            border: 1px solid #ffffff;
-            text-align: center;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        th {
-            background-color: #8a79c7;
-            font-size: 1.2rem;
-        }
-
-        td {
-            background-color: #3e3b5c;
-            font-size: 1rem;
-        }
-
-        tr:hover {
-            background-color: #5a547c;
-            transform: scale(1.02); /* Leggera animazione al passaggio del mouse */
-        }
-
-        .no-data {
-            color: #ff4c4c;
-            font-size: 1.2rem;
-            padding: 20px;
-        }
-
-        .back-btn {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: background-color 0.3s, transform 0.3s;
-            font-size: 1rem;
-        }
-
-        .back-btn:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-
-        footer {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #cccccc;
-        }
-
-    </style>
+    
 </head>
 <body>
 
@@ -133,8 +56,7 @@
             <% } %>
         </tbody>
     </table>
-
-    <button class="back-btn" onclick="window.history.back();">Torna Indietro</button>
+	</div>
 
    <!-- TODO: footer -->
     <!-- <footer>

@@ -19,6 +19,7 @@
         padding: 10px 15px;
         border-radius: 5px;
         transition: background-color 0.3s, transform 0.2s;
+/*         transition: background-color 0.3s ease, color 0.3s ease; */
         margin-right: 5px;
         font-size: 16px;
     }
@@ -31,8 +32,8 @@
 	.left-navbar {
 	    display: flex;
 	    align-items: center; /* Allinea gli elementi verticalmente */
-	  gap: 10px;
-	  padding: 0 15px;
+		gap: 10px;
+		padding: 0 15px;
 	}
 	
 	.right-navbar {
@@ -46,13 +47,18 @@
 	.custom-navbar {
 	    background-color: #49456d;
 	    padding: 10px;
-	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* 	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	}
 	
 	.btn {
 		color: ivory;
+		border-radius: 25px; /* Angoli arrotondati per i pulsanti */
 	    border: none;
 	    background-color: transparent;
+	    
+        padding: 10px 20px; /* Padding per i pulsanti */
+        margin: 0 5px; /* Margine tra i pulsanti */
 	}
 	
 	.btn:hover {
