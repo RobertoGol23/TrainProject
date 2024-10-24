@@ -137,6 +137,7 @@
             transition: transform 0.3s;
             cursor: pointer;
             padding: 20px; /* Aggiungi un padding per evitare che il testo tocchi i bordi */
+
         }
         
         .card:hover {
@@ -205,30 +206,26 @@
             <div id="overlay" class="hidden" onclick="hideDiv()"></div>
             <div id="cardsContainer" style="display: none;">
 
-                <a href="train/createTrain" class="card">
-                    <div class="card" onclick="">
-                        <div class="card-title">
-                            <h1> Creazione statica </h1>
-                        </div>  
+                <a href="train/createTrain" class="card" style="text-decoration: none;">
+                    <div class="card-title">
+                        <h1> Creazione statica </h1>
+                    </div>  
+                    
+                    <div class="card-body">
+                        <h2 style= "margin-top: -7%; margin-bottom: 4%; text-align: center";> Per coloro che sono alle prime armi. </h2>
+                        <h3> Strumento che offre la possibilità di creare un treno in pochi semplicissimi passi, inserendo pochi caratteri otterrai il treno che desideri. 
+                        </h3>
                         
-                        <div class="card-body">
-                            <h2 style= "margin-top: -7%; margin-bottom: 4%; text-align: center";> Per coloro che sono alle prime armi. </h2>
-                            <h3> Strumento che offre la possibilità di creare un treno in pochi semplicissimi passi, inserendo pochi caratteri otterrai il treno che desideri. 
-                            </h3>
-                            
-                        </div>
                     </div>
                 </a>
-                <a href="train/creaTrenoDinamico" class="card">
-                    <div class="card" onclick="">
-                        <div class="card-title">
-                            <h1> Creazione dinamica </h1>
-                        </div>  
-                        
-                        <div class="card-body">
-                            <h2 style="margin-top: -7%; margin-bottom: 4%; text-align: center"> Per chi ha già esperienza con questo tool </h2> 
-                            <h3> Pensato per chi ha dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno.</h3>
-                        </div>
+                <a href="train/creaTrenoDinamico" class="card" style="text-decoration: none;">
+                    <div class="card-title">
+                        <h1> Creazione dinamica </h1>
+                    </div>  
+                    
+                    <div class="card-body">
+                        <h2 style="margin-top: -7%; margin-bottom: 4%; text-align: center"> Per chi ha già esperienza con questo tool </h2> 
+                        <h3> Pensato per chi ha dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno.</h3>
                     </div>
                 </a>
             </div>
