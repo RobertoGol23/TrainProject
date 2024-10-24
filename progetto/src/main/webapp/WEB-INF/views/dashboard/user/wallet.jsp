@@ -2,14 +2,14 @@
     pageEncoding="UTF-8"%>
 
 <%@ page import="entity.user.User" %>
-<%@ include file="../../navbar.jsp" %> <!-- con .. si va indietro di una cartella-->
 
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
+    <%@ include file="../../navbar.jsp" %>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <title>Wallet</title>
     <style>
         body {
