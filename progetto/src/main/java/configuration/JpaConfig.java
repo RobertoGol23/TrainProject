@@ -8,7 +8,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+//ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
 import entity.dao.TrenoDAO;
 import entity.dao.UserDAO;
 import entity.dao.VagoneDAO;
@@ -31,7 +31,7 @@ public class JpaConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/Hibernate_db");
         dataSource.setUsername("root");
-        dataSource.setPassword("Mauro01"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
+        dataSource.setPassword("Mauro01"); 
 
         return dataSource;
     }
