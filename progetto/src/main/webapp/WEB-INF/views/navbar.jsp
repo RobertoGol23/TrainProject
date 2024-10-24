@@ -12,41 +12,17 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Inclusione di Font Awesome per le ICONE -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">	
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css">
-
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle?v=1.x">
+	<!-- ?v=1.x.css -->
     <style>
-        body {
-            background-color: #f5f5f5; /* Colore di sfondo per il body */
-        }
-        .custom-navbar {
-            background-color: #4b4a72; /* Colore di sfondo navbar */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra */
-        }
-        .nav-link {
-            color: #ffffff; /* Colore del testo */
-            transition: background-color 0.3s ease, color 0.3s ease; /* Transizione */
-        }
-        .nav-link:hover {
-            background-color: #3b3a5d; /* Colore di sfondo al passaggio del mouse */
-            color: #79c7e3; /* Colore del testo al passaggio del mouse */
-        }
-        .logo-img {
-            height: 50px; /* Dimensione dell'immagine del logo */
-        }
-        .left-navbar {
-            display: flex;
-            align-items: center; /* Allinea verticalmente gli elementi */
-        }
+
+ 
         .right-navbar {
             margin-left: auto; /* Sposta a destra */
             display: flex;
             align-items: center; /* Allinea verticalmente */
         }
-        .btn {
-            border-radius: 25px; /* Angoli arrotondati per i pulsanti */
-            padding: 10px 20px; /* Padding per i pulsanti */
-            margin: 0 5px; /* Margine tra i pulsanti */
-        }
+
     </style>
 </head>
 
