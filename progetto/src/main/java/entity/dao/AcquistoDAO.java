@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
@@ -51,5 +52,23 @@ public class AcquistoDAO {
 	        Root<Acquisto> root = cq.from(Acquisto.class);
 	        cq.select(root);
 	        return em.createQuery(cq).getResultList();
+	    }
+	    
+	    public boolean existsAcquistoByUserIdAndTrenoId(Long userId, Long trenoId) {
+	        CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+	        Root<Acquisto> root = cq.from(Acquisto.class);
+
+	        // Crea le condizioni per userId e trenoId
+	        Predicate userPredicate = cb.equal(root.get("user").get("id"), userId);
+	        Predicate trenoPredicate = cb.equal(root.get("treno").get("id"), trenoId);
+
+	        // Costruisci la query con il conteggio
+	        cq.select(cb.count(root)).where(cb.and(userPredicate, trenoPredicate));
+
+	        // Esegui la query e controlla se il conteggio è maggiore di 0
+	        Long count = em.createQuery(cq).getSingleResult();
+	        
+	        return count > 0;
 	    }
 }
