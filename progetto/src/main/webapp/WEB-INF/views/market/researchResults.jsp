@@ -1,9 +1,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <%@ page import="entity.treno.Treno" %>
 <%@ page import="utility.TrenoUtility" %>
 <%@ page import="entity.dao.VotoDAO" %>
 <%@ page import="entity.dao.TrenoDAO" %>
 <%@ page import="java.util.List" %>
+
 <%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
 <%@ page import="org.springframework.context.support.AbstractApplicationContext" %>
 <%@ page import="configuration.JpaConfig" %>
@@ -11,7 +13,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"&#9733;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -68,29 +70,13 @@
             justify-content: flex-start;
         }
         
-
-        .card {
-            width: 30%;
-            margin: 10px;
-            background-color: #49456d;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative; /* Aggiunto per il posizionamento del figlio */
-        }
-
-        .card img {
-            width: 100%;
-            height: auto;
-        }
-
-
-          .container-top{
+        .container-top{
             margin-bottom: 30%;
-          }
-
+        }
+    
         .container-bottom {
             width: 90%;
-          
+            
             position: absolute; /* Posizionamento assoluto */
             bottom: 10px; /* Margine dal fondo */
             right: 10px; /* Margine dal lato destro */
@@ -99,14 +85,85 @@
             
             justify-content: space-between; 
             padding: 10px;
-         }  
+            }  
 
-        .star-container {
-          margin-top: 10%;
-          margin-right: 10%;
-          padding: 10px;
+        .star-container {          
+            height: 20%;
+            padding: 10px;
         }
-               
+
+
+
+
+
+        /* Stile delle CARD */
+        .card {
+            width: 30%;
+            margin: 10px;
+            background-color: #49456d;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative; /* Aggiunto per il posizionamento del figlio */
+
+            background-color: #3b3a5d; /* Colore di sfondo */
+            border-radius: 15px; /* Angoli arrotondati */
+            transition: transform 0.3s, box-shadow 0.3s; /* Transizione per effetto hover */
+            overflow: hidden; /* Nasconde il contenuto in eccesso */
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .card:hover {
+            transform: scale(1.05); /* Ingigantisce la card al passaggio del mouse */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Ombra più intensa */
+        }
+        
+        .card-body {
+            padding: 20px; /* Maggiore spaziatura interna */
+        }
+        
+        .card-title {
+            font-size: 1.5rem; /* Dimensione del titolo */
+            color: #ffffff; /* Colore del titolo */
+            margin-bottom: 10px; /* Margine sotto il titolo */
+        }
+        
+        .card-code {
+            font-weight: bold; /* Grassetto per il codice */
+            color: #79c7e3; /* Colore del codice */
+        }
+        
+        .card-text {
+            color: #d1d1d1; /* Colore del testo */
+            margin: 5px 0; /* Margine verticale */
+        }
+
+
+
+
+
+        /* Stile del testo nelle card */
+        .elegant-title {
+            font-family: 'Georgia', serif; /* Font elegante per il titolo */
+            font-size: 1.8rem; /* Dimensione del titolo */
+            color: #ffffff; /* Colore del titolo */
+            margin-bottom: 10px; /* Margine sotto il titolo */
+            text-align: center; /* Allinea il titolo al centro */
+        }
+        
+        .elegant-text {
+            font-family: 'Arial', sans-serif; /* Font elegante per il testo */
+            font-size: 1rem; /* Dimensione del testo */
+            color: #d1d1d1; /* Colore del testo */
+            line-height: 1.5; /* Altezza della linea per migliorare la leggibilità */
+            margin: 5px 0; /* Margine verticale */
+            text-align: justify; /* Giustifica il testo */
+        }
+
+
 
         .buttons {
             padding: 10px;
@@ -128,7 +185,6 @@
             background-color: #79c7e3;
         }
 
-
         input[type="number"] {
             width: 110px;
             height: 40px;
@@ -138,7 +194,6 @@
             margin-top: 2%;
             margin-right: 2%;
         }
-        
 
         .input-container{
             display: flex;
@@ -152,23 +207,11 @@
             margin-left: 10%;
         }
         
-
-
-
-
-
-
         .text-area {
             flex: 1; /* Div flessibile e occupa spazio disponibile */
             font-size: 1.8rem;
         }
 
-
-
-      .form-select[multiple] {
-            height: auto; /* Imposta un'altezza fissa se necessario */
-            min-height: 100px; /* Altezza minima per visualizzare piÃ¹ opzioni */
-        }
 
 
 
@@ -177,62 +220,103 @@
             justify-content: center;
             margin: 20px 0;
         }
-
+        
         .search-bar {
             position: relative;
             width: 80%;
         }
-
+        
         .search-bar input {
             width: 100%;
             height: 55px;
             border-radius: 10px;
-            padding-left: 40px;
+            padding-left: 50px; /* Maggiore padding per l'icona */
+            border: 1px solid #a29dcf; /* Bordo chiaro */
+            background-color: #4b4a72; /* Colore di sfondo moderno */
+            color: #ffffff; /* Colore del testo */
+            font-size: 16px; /* Dimensione del font */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transizioni */
         }
+        
+        /* Stile quando il campo è attivo */
+        .search-bar input:focus {
+            outline: none; /* Rimuove il contorno predefinito */
+            border-color: #79c7e3; /* Colore del bordo in focus */
+            box-shadow: 0 0 5px rgba(121, 199, 227, 0.5); /* Ombra in focus */
+        }
+        
+        /* Icona della ricerca */
+        .search-bar::before {
+            position: absolute;
+            left: 15px; /* Distanza dalla sinistra */
+            top: 50%; /* Centrata verticalmente */
+            transform: translateY(-50%); /* Centra verticalmente */
+            font-size: 20px; /* Dimensione dell'icona */
+            color: #ffffff; /* Colore dell'icona */
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px; /* Distanza dalla sinistra */
+            top: 50%; /* Centrata verticalmente */
+            transform: translateY(-50%); /* Centra verticalmente */
+            font-size: 20px; /* Dimensione dell'icona */
+        }
+
+
 
         /* Stile di base per il form-select */
         .form-select {
-          appearance: none; /* Rimuove il default del browser */
-          background-color: #3b3a5d; /* Colore di sfondo */
-          color: #ffffff; /* Colore del testo */
-          border: 1px solid #8a79c7; /* Bordo */
-          border-radius: 5px; /* Angoli arrotondati */
-          padding: 10px 15px; /* Padding */
-          width: 100%; /* Larghezza */
-          transition: background-color 0.3s ease, border-color 0.3s ease; /* Transizione */
-          font-size: 1rem; /* Dimensione del font */
-          cursor: pointer; /* Cambia il cursore */
+            appearance: none; /* Rimuove il default del browser */
+            background-color: #4b4a72; /* Colore di sfondo moderno */
+            color: #ffffff; /* Colore del testo */
+            border: 1px solid #a29dcf; /* Bordo chiaro */
+            border-radius: 5px; /* Angoli arrotondati */
+            padding: 10px 40px 10px 15px; /* Padding con spazio per la freccia */
+            width: 100%; /* Larghezza */
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transizioni */
+            font-size: 1rem; /* Dimensione del font */
+            cursor: pointer; /* Cambia il cursore */
+            position: relative; /* Posizionamento per l'icona */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombra per effetto profondità */
         }
 
-        /* Stile quando il form-select Ã¨ attivo */
+        /* Stile quando il form-select è attivo */
         .form-select:focus {
-          outline: none; /* Rimuove il contorno predefinito */
-          background-color: #49456d; /* Colore di sfondo quando in focus */
-          border-color: #79c7e3; /* Colore del bordo quando in focus */
+            outline: none; /* Rimuove il contorno predefinito */
+            background-color: #585676; /* Colore di sfondo in focus */
+            border-color: #79c7e3; /* Colore del bordo in focus */
+            box-shadow: 0 0 5px rgba(121, 199, 227, 0.5); /* Ombra in focus */
         }
 
         /* Aggiunta di un'icona per la freccia del dropdown */
         .form-select::after {
-          content: ''; /* Contenuto vuoto */
-          position: absolute; /* Posizione assoluta */
-          top: 50%; /* Centrato verticalmente */
-          right: 15px; /* Distanza da destra */
-          transform: translateY(-50%); /* Centra verticalmente */
-          border: solid transparent; /* Bordo trasparente */
-          border-width: 5px 5px 0; /* Freccia */
-          border-top-color: #8a79c7; /* Colore della freccia */
-          pointer-events: none; /* Ignora eventi sul pseudo-elemento */
+            content: ''; /* Contenuto vuoto */
+            position: absolute; /* Posizione assoluta */
+            top: 50%; /* Centrato verticalmente */
+            right: 15px; /* Distanza da destra */
+            transform: translateY(-50%); /* Centra verticalmente */
+            border: solid transparent; /* Bordo trasparente */
+            border-width: 5px 5px 0; /* Freccia */
+            border-top-color: #a29dcf; /* Colore della freccia */
+            pointer-events: none; /* Ignora eventi sul pseudo-elemento */
         }
 
         /* Stile per opzioni quando vengono selezionate */
         .form-select option {
-          background-color: #3b3a5d; /* Colore di sfondo delle opzioni */
-          color: #ffffff; /* Colore del testo delle opzioni */
+            background-color: #4b4a72; /* Colore di sfondo delle opzioni */
+            color: #ffffff; /* Colore del testo delle opzioni */
         }
 
         /* Stile per opzioni al passaggio del mouse */
         .form-select option:hover {
-          background-color: #49456d; /* Colore di sfondo al passaggio del mouse */
+            background-color: #585676; /* Colore di sfondo al passaggio del mouse */
+        }
+
+        /* Altezza per selezione multipla */
+        .form-select[multiple] {
+            height: auto; /* Imposta un'altezza fissa se necessario */
+            min-height: 100px; /* Altezza minima per visualizzare più opzioni */
         }
 
         
@@ -270,10 +354,11 @@
   <h1><b>Train Market</b></h1>
 
   <div class="search-bar-container">
-      <div class="search-bar">
-          <input type="text" placeholder="Search anything...">
-      </div>
-  </div>
+    <div class="search-bar">
+        <i class="fas fa-magnifying-glass search-icon"></i>
+        <input type="text" placeholder="Cerca..." aria-label="Search">
+    </div>
+ </div>
 
   <div class="container">
 
@@ -359,16 +444,17 @@
 
                       <div class="card-body">
                             <div class="container-top">
-                                <h5 class="card-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
-                                    <p>Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
-                                <p class="card-text">Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
-                                    <p>Sigla di composizione: <%= (treno != null) ? tu.getSigla(treno) : "N/A" %></p>
-                                <p class="card-text">Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
-                                <p class="card-text">Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
-                                <p class="card-text">Peso Trasportabile: <%= (treno != null && treno.getLocomotiva() != null) ? treno.getLocomotiva().getPesoTrainabile() : 0 %> tonnellate</p>
-                                <p class="card-text">Numero di Persone: <%= (treno != null) ? treno.getPasseggeriTotali() : 0 %></p>
-                                    <p>Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
-                                <p class="card-text">Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long)treno.getId()) : 0 %></p>
+
+                                <div class="primo-rigo">
+                                    <h5 class="card-title elegant-title"><%= (treno != null) ? treno.getNome() : "Treno non disponibile" %></h5>
+                                    <p class="card-code elegant-text"> Codice: <%= (treno != null) ? treno.getId() : "N/A" %></p>
+                                </div>
+
+                                <p class="card-text elegant-text">Marca: <%= (treno != null) ? treno.getMarca() : "N/A" %></p>
+                                <p class="card-text elegant-text">Sigla di composizione: <%= (treno != null) ? tu.getSigla(treno) : "N/A" %></p>
+                                <p class="card-text elegant-text">Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
+                                <p class="card-text elegant-text">Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
+                                <p class="card-text elegant-text">Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
                             </div>
 
                             <div class="container-bottom">
@@ -413,30 +499,10 @@
 </div>
 
 
-
-
-<div class="star">
-    <br />
-    <span onclick="gfg(1)"
-          class="star">★
-    </span>
-    <span onclick="gfg(2)"
-          class="star">★
-    </span>
-    <span onclick="gfg(3)"
-          class="star">★
-    </span>
-    <span onclick="gfg(4)"
-          class="star">★
-    </span>
-    <span onclick="gfg(5)"
-          class="star">★
-    </span>
-    <h3 id="output">
-          Rating is: 0/5
-      </h3>
-</div>
-    
+<!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
 
 </body>
 </html>

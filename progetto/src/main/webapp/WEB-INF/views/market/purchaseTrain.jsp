@@ -11,19 +11,23 @@
     <title>Conferma Acquisto Treno</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background-color: #2e2b4f;
             color: #ffffff;
+            margin: 0;
+            padding: 0;
         }
 
         h1 {
             color: #8a79c7;
             text-align: center;
-            margin: 0;
+            margin: 20px 0;
+            font-size: 2.5rem; /* Dimensione del titolo */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .content {
-            width: 80%;
+            width: 90%;
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
@@ -46,9 +50,15 @@
             background-color: #49456d;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .treno:hover {
+            transform: scale(1.02); /* Leggera animazione al passaggio del mouse */
         }
 
         .treno img {
@@ -60,6 +70,7 @@
 
         .details {
             flex: 1;
+            text-align: left; /* Allinea il testo a sinistra */
         }
 
         button {
@@ -69,10 +80,14 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.3s; /* Transizione */
+            margin-top: 20px;
         }
 
         button:hover {
             background-color: #79c7e3;
+            transform: translateY(-2px); /* Effetto sollevato */
         }
 
         .back-button {
@@ -80,28 +95,19 @@
             margin-top: 20px;
             background-color: #d45a5a;
         }
+
+        .error-message {
+            color: #ff4c4c; /* Rosso per messaggi di errore */
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-<h1 style="margin-top: 20px; margin-bottom: 20px">Procedi con l'acquisto</h1>
+<h1>Procedi con l'acquisto</h1>
 
 <div class="content">
     
-   <!--  <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="..." class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-          </div>
-        </div>
-    </div> -->
-
     <% Treno treno = (Treno) session.getAttribute("treno"); %>
 
     <% if (treno != null) { %>
@@ -123,9 +129,15 @@
         </form>
 
     <% } else { %>
-        <p>Treno non trovato.</p>
+        <p class="error-message">Treno non trovato.</p>
     <% } %>
 </div>
+
+
+<!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
 
 </body>
 </html>

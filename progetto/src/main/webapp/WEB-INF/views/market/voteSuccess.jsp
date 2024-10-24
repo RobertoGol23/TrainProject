@@ -21,5 +21,11 @@
 
 <a href="trainMarket">Torna al market</a>
 
+
+<!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
+
 </body>
 </html>

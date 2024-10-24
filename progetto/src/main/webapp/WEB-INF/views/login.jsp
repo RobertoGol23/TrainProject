@@ -11,6 +11,10 @@
 
     <style>  
 		.container {
+            margin-top: -10%;
+        }
+
+        
              margin-top: -4%;
         }
 	    body {
@@ -62,6 +66,11 @@
 
     </div>
     
+
+    <!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
 
 </body>
 </html>

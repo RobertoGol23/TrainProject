@@ -97,5 +97,14 @@
 	
 	    <p align="center">Hai già un account? <a href="login">Login</a></p>
 	</div>
+
+
+
+	<!-- TODO: footer -->
+    <!-- <footer>
+        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+    </footer> -->
+
+	
 </body>
 </html>
