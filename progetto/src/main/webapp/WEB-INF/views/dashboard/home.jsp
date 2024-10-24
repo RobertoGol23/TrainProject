@@ -138,7 +138,17 @@
                 </form>
             </div> -->
 
+
             <div class="form-container">
+                <h2>Crea un Nuovo Treno con sigla</h2>
+                <form action="train/createTrain" method="get">
+                    <button type="submit">Crea Treno</button>
+                </form>
+            </div>
+
+
+            <!-- TODO: cancellare se non piu necessario-->
+           <!--  <div class="form-container">
                 <h2>Crea un Nuovo Treno con sigla</h2>
                 <form action="train/createTrain" method="get">
                     <button type="submit">Crea Treno</button>
@@ -150,7 +160,7 @@
                 <form action="train/creaTrenoDinamico" method="get">
                     <button type="submit">Crea Treno</button>
                 </form>
-            </div>
+            </div> -->
 
             <!-- Visualizzazione treni creati e acquistati -->
             <div class="form-container">

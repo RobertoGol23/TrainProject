@@ -15,8 +15,7 @@
         }
 
         
-             margin-top: -4%;
-        }
+
 	    body {
 		    display: flex; /* Usa flexbox per centrare */
 		    justify-content: center; /* Allinea orizzontalmente al centro */

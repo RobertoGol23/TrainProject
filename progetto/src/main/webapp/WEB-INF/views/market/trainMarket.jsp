@@ -96,8 +96,6 @@
 
 
 
-
-
         /* Stile delle CARD */
         .card {
             width: 30%;
