@@ -200,7 +200,7 @@
 
 
             <div class="form-container">
-                <h2>Crea un nuovo treno</h2>
+                <h2 style="margin-top: 2%; margin-bottom: -2%">Crea un nuovo treno</h2>
                 <button id="showCardsButton" onclick="showDiv()">Crea Treno</button>
             </div>
 
@@ -210,11 +210,11 @@
 
                 <a href="train/createTrain" class="card" style="text-decoration: none;">
                     <div class="card-title">
-                        <h1> Creazione statica </h1>
+                        <h1> Creazione veloce </h1>
                     </div>  
                     
                     <div class="card-body">
-                        <h2 style= "margin-top: -7%; margin-bottom: 4%; text-align: center";> Per coloro che sono alle prime armi. </h2>
+                        <h2 style= "margin-top: -6%; margin-bottom: 4%; text-align: center";> Per coloro che sono alle prime armi. </h2>
                         <h3> Strumento che offre la possibilità di creare un treno in pochi semplicissimi passi, inserendo pochi caratteri otterrai il treno che desideri. 
                         </h3>
                         
@@ -222,12 +222,12 @@
                 </a>
                 <a href="train/creaTrenoDinamico" class="card" style="text-decoration: none;">
                     <div class="card-title">
-                        <h1> Creazione dinamica </h1>
+                        <h1> Creazione personalizzata </h1>
                     </div>  
                     
                     <div class="card-body">
-                        <h2 style="margin-top: -7%; margin-bottom: 4%; text-align: center"> Per chi ha già esperienza con questo tool </h2> 
-                        <h3> Pensato per chi ha dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno.</h3>
+                        <h2 style="margin-top: -6%; margin-bottom: 4%; text-align: center"> Per chi ha già esperienza con questo tool </h2> 
+                        <h3> Pensato per chi ha già dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno.</h3>
                     </div>
                 </a>
             </div>
@@ -284,30 +284,17 @@
             </script>
 
 
-            <!-- TODO: cancellare se non piu necessario-->
-           <!--  <div class="form-container">
-                <h2>Crea un Nuovo Treno con sigla</h2>
-                <form action="train/createTrain" method="get">
-                    <button type="submit">Crea Treno</button>
-                </form>
-            </div>
-            
-            <div class="form-container">
-                <h2>Crea un Nuovo Treno dinamico</h2>
-                <form action="train/creaTrenoDinamico" method="get">
-                    <button type="submit">Crea Treno</button>
-                </form>
-            </div> -->
 
             <!-- Visualizzazione treni creati e acquistati -->
             <div class="form-container">
-                <div><h2>I Miei Treni Creati</h2></div>
+                <h2 style="margin-top: 2%; margin-bottom: -2%">I miei treni</h2>
                 <form action="user/viewTrains" method="get">
                     <button type="submit">Visualizza Treni</button>
                 </form>
             </div>
+
             <div class="form-container">
-                <h2>I Miei Treni Comprati</h2>
+                <h2 style="margin-top: 2%; margin-bottom: -2%">Treni acquistati</h2>
                 <form action="user/viewPurchasedTrains" method="get">
                     <button type="submit">Visualizza Treni</button>
                 </form>
