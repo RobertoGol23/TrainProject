@@ -1,8 +1,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
+<%@ page import="entity.user.User" %>
 <%@ page import="entity.treno.Treno" %>
 <%@ page import="utility.TrenoUtility" %>
 <%@ page import="entity.dao.VotoDAO" %>
+<%@ page import="entity.dao.UserDAO" %>
+<%@ page import="entity.dao.AcquistoDAO" %>
 <%@ page import="entity.dao.TrenoDAO" %>
 <%@ page import="java.util.List" %>
 
@@ -345,6 +347,14 @@
     		background-color: #6a5fbf; /* Colore per il bottone attivo */
     		font-weight: bold; /* Rende il testo del bottone attivo in grassetto */
 		}
+		
+		.badge {
+            font-size: 0.75rem; /* Dimensione del testo badge */
+            padding: 0.3em 0.5em; /* Spaziatura interna */
+            border-radius: 0.2rem; /* Angoli arrotondati */
+            position: absolute; /* Posizionamento assoluto per sovrapposizione */
+            z-index: 10; /* Assicurati che il badge sia sopra l'immagine */
+        }
 
   </style>
 </head>
@@ -416,19 +426,34 @@
       <div class="container-right">
         <%
           List<Treno> treni = (List<Treno>) session.getAttribute("treni");
-          AbstractApplicationContext context = null;
+        User user = (User) session.getAttribute("user"); 
+        AbstractApplicationContext context = null;
           TrenoUtility tu = new TrenoUtility();
         
           try {
               context = new AnnotationConfigApplicationContext(JpaConfig.class);
               VotoDAO votoDAO = context.getBean(VotoDAO.class);
               TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+              AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class);
               if (treni != null && !treni.isEmpty()) {
                   for (Treno treno : treni) {
           %>
 
 
                   <div class="card">
+                  <% 
+                        // Controllo se il treno è stato creato dall'utente
+                        boolean creatoDalloUser = (treno.getUtente().getId_user() == user.getId_user());
+                        // Controllo se il treno è stato acquistato
+                        boolean hasAcquisto = acquistoDAO.existsAcquistoByUserIdAndTrenoId(user.getId_user(), treno.getId());
+                    %>
+                    <!-- Badge per indicare se il treno è stato creato o acquistato -->
+                    <% if (creatoDalloUser) { %>
+                        <span class="badge badge-primary" style="top: 10px; left: 10px;">Creato da te</span>
+                    <% } %>
+                    <% if (hasAcquisto) { %>
+                        <span class="badge badge-danger" style="top: 10px; left: 180px;">Acquistato</span>
+                    <% } %>
                       <%if(treno.getMarca().equals("Treno RegionalGain")){%>
                       		<img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">
                       <%}else{
@@ -454,6 +479,8 @@
                                 <p class="card-text elegant-text">Prezzo: <%= (treno != null) ? treno.getPrezzoTotaleTreno() : 0 %> euro</p>
                                 <p class="card-text elegant-text">Peso: <%= (treno != null) ? treno.getPesoTotaleTreno() : 0 %> tonnellate</p>
                                 <p class="card-text elegant-text">Lunghezza del treno: <%= (treno != null) ? (tu.getSigla(treno)).length() : 0 %></p>
+
+                          		
                             </div>
 
                             <div class="container-bottom">
@@ -513,6 +540,10 @@
         </button>
     <% } %>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- TODO: footer -->
     <!-- <footer>
