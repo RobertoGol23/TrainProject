@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
  
 
     <%@ include file="../navbar.jsp" %>
@@ -89,14 +89,38 @@
             padding: 10px;
             }  
 
-        .star-container {          
-            height: 20%;
-            padding: 10px;
-        }
+        .star-container {
+    		display: inline-block;
+    		font-size: 1.5em;
+    		position: relative;
+			}
 
+		.stars-outer {
+    		display: inline-block;
+			}
 
+		.stars-inner {
+    		position: absolute;
+    		top: 0;
+    		left: 0;
+    		white-space: nowrap;
+    		overflow: hidden;
+    		width: 0;
+		}
 
+		.stars-outer::before {
+    		content: "\f005 \f005 \f005 \f005 \f005";
+    		font-family: "Font Awesome 5 Free";
+    		font-weight: 900;
+    		color: #ccc;
+		}
 
+		.stars-inner::before {
+    		content: "\f005 \f005 \f005 \f005 \f005";
+    		font-family: "Font Awesome 5 Free";
+    		font-weight: 900;
+    		color: #ffd700;
+		}
 
         /* Stile delle CARD */
         .card {
@@ -143,10 +167,6 @@
             margin: 5px 0; /* Margine verticale */
         }
 
-
-
-
-
         /* Stile del testo nelle card */
         .elegant-title {
             font-family: 'Georgia', serif; /* Font elegante per il titolo */
@@ -165,12 +185,9 @@
             text-align: justify; /* Giustifica il testo */
         }
 
-
-
         .buttons {
             padding: 10px;
         }
-
 
         button {
             background-color: #8a79c7;
@@ -213,9 +230,6 @@
             flex: 1; /* Div flessibile e occupa spazio disponibile */
             font-size: 1.8rem;
         }
-
-
-
 
         .search-bar-container {
             display: flex;
@@ -264,8 +278,6 @@
             transform: translateY(-50%); /* Centra verticalmente */
             font-size: 20px; /* Dimensione dell'icona */
         }
-
-
 
         /* Stile di base per il form-select */
         .form-select {
@@ -488,12 +500,14 @@
                             <div class="container-bottom">
                                 
                                 <div class="star-container">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
+    							<%
+        							double mediaVoti = votoDAO.getVotazioneMedia(treno.getId());
+        							double percentuale = (mediaVoti / 5) * 100;
+    							%>
+    								<div class="stars-outer">
+        								<div class="stars-inner" style="width: <%= percentuale %>%;"></div>
+    									</div>
+   									</div>
                             
                                 <div class="buttons">
                                     <form method="get" action="trainDetails">
