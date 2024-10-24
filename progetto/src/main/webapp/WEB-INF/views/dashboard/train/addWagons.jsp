@@ -4,32 +4,124 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <title>Aggiungi vagoni</title>
     <style>
         .wagon-form {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
+	    margin-bottom: 10px;
+	    padding: 10px;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    background-color: #f9f9f9;
+	    height: 100px;
+	    width: 350px;
+	    color: black;
+	}
         .wagon-form span {
-            margin-left: 10px;
+            margin-left: 20px;
         }
-        .add-button {
-            display: inline-block;
-            margin: 5px;
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
+
+		.add-button {
+		  align-self: center;
+		  background-color: #fff;
+		  background-image: none;
+		  background-position: 0 90%;
+		  background-repeat: repeat no-repeat;
+		  background-size: 4px 3px;
+		  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+		  border-style: solid;
+		  border-width: 2px;
+		  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+		  box-sizing: border-box;
+		  color: #41403e;
+		  cursor: pointer;
+		  display: inline-block;
+		  font-family: Neucha, sans-serif;
+		  font-size: 1rem;
+		  line-height: 23px;
+		  outline: none;
+		  padding: .75rem;
+		  text-decoration: none;
+		  transition: all 235ms ease-in-out;
+		  border-bottom-left-radius: 15px 255px;
+		  border-bottom-right-radius: 225px 15px;
+		  border-top-left-radius: 255px 15px;
+		  border-top-right-radius: 15px 225px;
+		  user-select: none;
+		  -webkit-user-select: none;
+		  touch-action: manipulation;
+		  float: right;
+		}
+		
+		.add-button:hover {
+		  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+		  transform: translate3d(0, 2px, 0);
+		}
+		
+		.add-button:focus {
+		  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+		}
+		
+		
+		.remove-button {
+		  align-self: center;
+		  background-color: #ffffff;
+		  background-image: none;
+		  background-position: 0 90%;
+		  background-repeat: repeat no-repeat;
+		  background-size: 4px 3px;
+		  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+		  border-style: solid;
+		  border-width: 2px;
+		  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+		  box-sizing: border-box;
+		  color: #41403e;
+		  cursor: pointer;
+		  display: inline-block;
+		  font-family: Neucha, sans-serif;
+		  font-size: 1rem;
+		  line-height: 23px;
+		  outline: none;
+		  padding: .75rem;
+		  text-decoration: none;
+		  transition: all 235ms ease-in-out;
+		  border-bottom-left-radius: 15px 255px;
+		  border-bottom-right-radius: 225px 15px;
+		  border-top-left-radius: 255px 15px;
+		  border-top-right-radius: 15px 225px;
+		  user-select: none;
+		  -webkit-user-select: none;
+		  touch-action: manipulation;
+		  float: right;
+		}
+		
+		.remove-button:hover {
+		  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+		  transform: translate3d(0, 2px, 0);
+		}
+		
+		.remove-button:focus {
+		  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+		}
+		
+		
+		.container {
+			width: 20%;
+		}
+		
+		/* Style for wagon images */
+        .wagon-image {
+            max-width: 100px;
+            height: auto;
+            border-radius: 5px;
         }
+        
     </style>
 </head>
 <body>
     <h1>Aggiungi vagoni al tuo Treno</h1>
-
+	<div class="container">
     <!-- Form per inviare i dati -->
     <form id="trainForm" action="addWagons" method="POST">
     	<input type="hidden" name="idTreno" value="${idTreno}">
@@ -45,7 +137,7 @@
         <!-- Pulsante per inviare il form -->
         <button type="submit">Modifica treno</button>
     </form>
-
+	</div>
     <script>
         // Funzione per aggiungere un nuovo vagone dopo la posizione specificata
         function addWagonAfter(position) {
@@ -71,16 +163,23 @@
             let option3 = document.createElement('option');
             option3.value = 'r';
             option3.text = 'Vagone Ristorante';
+            
+         	// Opzione Locomotiva
+            let option4 = document.createElement('option');
+            option4.value = 'h';
+            option4.text = 'Locomotiva';
 
             // Aggiungi le opzioni al menu a tendina
             select.appendChild(option1);
             select.appendChild(option2);
             select.appendChild(option3);
+            select.appendChild(option4);
 
             // Pulsante per rimuovere il vagone
-            let removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.innerText = 'Rimuovi';
+            let removeButton = document.createElement('span');
+            removeButton.type = 'span';
+            removeButton.classList.add('remove-button');
+            removeButton.innerText = ' - ';
             removeButton.addEventListener('click', function() {
                 div.remove();
                 updatePositions();
@@ -93,7 +192,7 @@
             // Aggiungi un pulsante "Aggiungi dopo" anche per il nuovo vagone
             let addButton = document.createElement('span');
             addButton.classList.add('add-button');
-            addButton.innerText = '+ Aggiungi dopo';
+            addButton.innerText = ' + ';
             addButton.dataset.position = position + 1;
             addButton.addEventListener('click', function() {
                 addWagonAfter(parseInt(this.dataset.position, 10));

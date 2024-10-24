@@ -95,14 +95,14 @@
         }
         .train-info {
             max-width: 70%;
-            border-style: solid;
-			border-width: 2px;
-			border-color: black;
-			background-color: ivory;
-			color: black;
+/*             border-style: solid; */
+/* 			border-width: 2px; */
+/* 			border-color: black; */
+/* 			background-color: ivory; */
+			color: ivory;
 			padding: 20px;
-			border-radius: 5px;
-			font-family: "Georgia";
+/* 			border-radius: 5px; */
+/* 			font-family: "Georgia"; */
         	font-size: 16px;
         }
         .train-details img {

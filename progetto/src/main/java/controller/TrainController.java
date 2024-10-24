@@ -142,14 +142,43 @@ public class TrainController {
 	        vagone = vagoni.get(i);
 	           
 	        vagoniHtml.append("<div class='wagon-form'>");
+	        if(treno.getMarca().equals("Treno RegionalGain")) { 
+	        	if(vagone.getTipo().equals("Locomotiva")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/LocomotivaRG.jpg' class='wagon-image' alt='LocomotivaRG'>");
+	        	 } else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagonePasseggeriRG.jpg' class='wagon-image' alt='VagonePasseggeriRG'>");
+	        	 } else if(vagone.getTipo().equals("VagoneRistorante")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneRistoranteRG.jpg' class='wagon-image' alt='VagoneRistoranteRG'>");
+	        	 } else if(vagone.getTipo().equals("VagoneCargo")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneCargoRG.jpg' class='wagon-image' alt='VagoneCargoRG'>");
+	        	 }
+	        	} else if(treno.getMarca().equals("Treno xFurryFast")) { 
+	        	if(vagone.getTipo().equals("Locomotiva")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/locomotivaFF.jpg' class='wagon-image' alt='LocomotivaFF'>");
+	        	 } else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagonePasseggeriFF.jpg' class='wagon-image' alt='VagonePasseggeriFF'>");
+	        	 } else if(vagone.getTipo().equals("VagoneRistorante")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneRistoranteFF.jpg' class='wagon-image' alt='VagoneRistoranteFF'>");
+	        	 } else if(vagone.getTipo().equals("VagoneCargo")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneCargoFF.jpg' class='wagon-image' alt='VagoneCargoFF'>");
+	        	 }
+	        	} else if(treno.getMarca().equals("Treno KargoModelz")) {
+	        	if(vagone.getTipo().equals("Locomotiva")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/locomotivaKM.jpg' class='wagon-image' alt='LocomotivaKM'>");
+	        	 } else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagonePasseggeriKM.jpg' class='wagon-image' alt='VagonePasseggeriKM'>");
+	        	 } else if(vagone.getTipo().equals("VagoneRistorante")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneRistoranteKM.jpg' class='wagon-image' alt='VagoneRistoranteKM'>");
+	        	 } else if(vagone.getTipo().equals("VagoneCargo")) { 
+	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneCargoKM.jpg' class='wagon-image' alt='VagoneCargoKM'>");
+	        	 } 
+	        	}
 	        vagoniHtml.append("<label>").append(vagone.getTipo()).append("</label>");
-	        System.out.println("tipo: "+vagone.getTipo());
 	        car = tu.getCharByTipo(vagone.getTipo());
 	        vagoniHtml.append("<input type='hidden' name='wagons[]' value='").append(car).append("'>");
-	        vagoniHtml.append("<span>Vagone</span>");
-	        vagoniHtml.append("<span class='add-button'>+ Aggiungi dopo</span>");
+//	        vagoniHtml.append("<span>Vagone</span>");
+	        vagoniHtml.append("<span class='add-button'> + </span>");
 	        vagoniHtml.append("</div>");
-	        System.out.println("car: "+car);
 	       
 	    }
 

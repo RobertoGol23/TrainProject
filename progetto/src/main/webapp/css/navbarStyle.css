@@ -1,4 +1,10 @@
 	
+	body {
+	    font-family: Arial, sans-serif;
+	    background-color: #2e2b4f;
+	    color: #ffffff;
+	}
+	
 	.navbar-container {
         display: flex;
         justify-content: space-around;
