@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="../../navbar.jsp" %>
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
+	<%@ include file="../../navbar.jsp" %>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,7 +33,6 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
     <title>Wallet Aggiornato</title>
 
 </head>
