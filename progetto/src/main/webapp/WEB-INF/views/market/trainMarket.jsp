@@ -442,6 +442,7 @@
 
                   <div class="card">
                   <% 
+                  	if(user!= null){
                         // Controllo se il treno è stato creato dall'utente
                         boolean creatoDalloUser = (treno.getUtente().getId_user() == user.getId_user());
                         // Controllo se il treno è stato acquistato
@@ -453,7 +454,8 @@
                     <% } %>
                     <% if (hasAcquisto) { %>
                         <span class="badge badge-danger" style="top: 10px; left: 180px;">Acquistato</span>
-                    <% } %>
+                    <% } 
+                    }%>
                       <%if(treno.getMarca().equals("Treno RegionalGain")){%>
                       		<img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">
                       <%}else{
