@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8"&#9733;
+    <meta charset="UTF-8"&#9733>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -320,31 +320,30 @@
         }
 
         
-        .pagination {
-    		display: flex;
-   	 		justify-content: center; /* Centra orizzontalmente */
-    		bottom: 20px; /* Spazio dal fondo della pagina */
-    		left: 50%; /* Centra rispetto alla pagina */
-    		transform: translateX(-50%); /* Sposta indietro per centrare */
-			  align-items: center; /* Centra verticalmente */
-         margin-top: 20px; /* Margine superiore per distanziarli dal contenuto */		
+        .pagination-buttons {
+    		display: flex; /* Utilizza Flexbox per allineare i bottoni */
+    		justify-content: center; /* Centra i bottoni orizzontalmente */
+    		margin-top: 20px; /* Margine superiore per separare dai contenuti */
 		}
 
-		.paginator-button {
-    		background-color: #007BFF; /* Colore di sfondo blu */
-    		color: white; /* Colore del testo */
-   		 	border: none; /* Rimuove il bordo */
-    		border-radius: 5px; /* Rende gli angoli arrotondati */
-    		padding: 10px 20px; /* Spaziatura interna */
-    		margin: 0 10px; /* Spaziatura tra i bottoni */
-    		text-decoration: none; /* Rimuove la sottolineatura per i link */
-    		cursor: pointer; /* Cambia il cursore al passaggio */
-    		font-size: 16px; /* Dimensione del testo */
-    		transition: background-color 0.3s; /* Transizione del colore */
+		.page-button {
+    		background-color: #8a79c7; /* Colore di sfondo dei bottoni */
+    		color: #ffffff; /* Colore del testo */
+    		border: none; /* Rimuove il bordo predefinito */
+    		padding: 10px 15px; /* Padding per i bottoni */
+    		margin: 0 5px; /* Margine tra i bottoni */
+    		border-radius: 5px; /* Angoli arrotondati */
+    		cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    		transition: background-color 0.3s; /* Transizione per il colore di sfondo */
 		}
 
-		.paginator-button:hover {
-    		background-color: #0056b3; /* Colore al passaggio del mouse */
+		.page-button:hover {
+    		background-color: #79c7e3; /* Colore di sfondo al passaggio del mouse */
+		}
+
+		.page-button.active {
+    		background-color: #6a5fbf; /* Colore per il bottone attivo */
+    		font-weight: bold; /* Rende il testo del bottone attivo in grassetto */
 		}
 
   </style>
@@ -364,7 +363,7 @@
 
       <div class="container-left">
 
-          <form action="researchResults" method="post">
+          <form action="trainMarket" method="post">
 
                 <!-- Range Peso -->
                 <div class="mb-4">
@@ -417,8 +416,6 @@
       <div class="container-right">
         <%
           List<Treno> treni = (List<Treno>) session.getAttribute("treni");
-          Integer currentPage = (Integer) session.getAttribute("currentPage");
-          Integer totalPages = (Integer) session.getAttribute("totalPages");
           AbstractApplicationContext context = null;
           TrenoUtility tu = new TrenoUtility();
         
@@ -498,6 +495,23 @@
       </div>
   </div> 
   
+<!-- Aggiungi i bottoni di navigazione -->
+<div class="pagination-buttons">
+    <% 
+        Integer currentPage = (Integer) session.getAttribute("currentPage");
+        Integer totalPages = (Integer) session.getAttribute("totalPages");
+        
+        if (currentPage == null) currentPage = 1;
+        if (totalPages == null) totalPages = 1;
+    %>
+    
+    <% for (int i = 1; i <= totalPages; i++) { %>
+        <button 
+            class="page-button <%= (i == currentPage) ? "active" : "" %>" 
+            onclick="location.href='trainMarket?page=<%= i %>'">
+            <%= i %>
+        </button>
+    <% } %>
 </div>
 
 <!-- TODO: footer -->
