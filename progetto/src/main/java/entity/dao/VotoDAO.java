@@ -2,6 +2,7 @@ package entity.dao;
 
 import entity.votazioni.Voto;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -54,5 +55,17 @@ public class VotoDAO {
 
 	        // Controlliamo se la media è nulla (nessun voto presente)
 	        return mediaPunteggio != null ? mediaPunteggio : 0.0;
+	    }
+	    
+	    public Voto trovaVotoPerUtenteETreno(Long userId, Long trenoId) {
+	        try {
+	            String query = "SELECT v FROM Voto v WHERE v.user.id_user = :userId AND v.treno.id = :trenoId";
+	            return em.createQuery(query, Voto.class)
+	                                .setParameter("userId", userId)
+	                                .setParameter("trenoId", trenoId)
+	                                .getSingleResult();
+	        } catch (NoResultException e) {
+	            return null; // Se non trova risultati, ritorna null
+	        }
 	    }
 }

@@ -235,7 +235,7 @@ public class MarketController {
     
     // POST per salvare il voto
     @PostMapping("/submitVote")
-    public String submitVote(@RequestParam("trenoId") Long trenoId, @RequestParam("userId") Long userId, 
+    public String submitVote(@RequestParam("trenoId") Long trenoId, @RequestParam("userId") Long userId,
                              @RequestParam("punteggio") int punteggio, HttpSession session) {
 
         User utente = (User) session.getAttribute("user");
@@ -243,18 +243,28 @@ public class MarketController {
         if (utente == null) {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
-        
+
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         VotoDAO votoDAO = context.getBean(VotoDAO.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 
-        // Recupera l'utente e il treno dalla sessione
+        // Recupera l'utente e il treno dalla sessione o dal database
         User user = (User) session.getAttribute("user");
         Treno treno = trenoDAO.getTrenoById(trenoId);
 
         if (user != null && treno != null) {
+            // Controlla se l'utente ha già votato questo treno
+            Voto votoEsistente = votoDAO.trovaVotoPerUtenteETreno(user.getId_user(), treno.getId());
+
+            if (votoEsistente != null) {
+                // Se esiste già un voto, reindirizza alla pagina di errore
+                session.setAttribute("errorMessage", "Hai già votato questo treno.");
+                context.close();
+                return "market/voteFailure"; // Pagina di errore (da creare)
+            }
+
             try {
-                // Crea un nuovo voto
+                // Se non esiste un voto, salva il nuovo voto
                 Voto voto = new Voto(punteggio, user, treno);
                 votoDAO.salvaVoto(voto);
             } catch (IllegalArgumentException e) {
