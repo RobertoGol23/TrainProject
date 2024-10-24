@@ -140,7 +140,7 @@
 
 
             <div class="form-container">
-                <h2>Crea un Nuovo Treno con sigla</h2>
+                <h2>Crea un Nuovo Treno</h2>
                 <form action="train/createTrain" method="get">
                     <button type="submit">Crea Treno</button>
                 </form>

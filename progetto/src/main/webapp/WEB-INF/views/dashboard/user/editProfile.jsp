@@ -205,6 +205,7 @@
             updateModal.style.display = "none";
         }
     }
+    
 </script>
 </head>
 <body>
