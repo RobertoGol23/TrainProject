@@ -139,10 +139,11 @@
             cursor: pointer;
             padding: 20px; /* Aggiungi un padding per evitare che il testo tocchi i bordi */
 
+            transform: scale(0.8); /* Scala al 80% della dimensione originale */
         }
         
         .card:hover {
-            transform: scale(1.05);
+            transform: scale(0.95);
         }
         
         /* Stile per il container delle card */
@@ -156,7 +157,7 @@
             display: flex; /* Permette di centrare le card */
             justify-content: center; /* Centro orizzontale */
             align-items: center; /* Centro verticale */
-            gap: 6%; /* Spaziatura tra le card */
+            gap: 3%; /* Spaziatura tra le card */
             display: none; /* Nascondi per default */
         }
         
@@ -188,13 +189,14 @@
     <div class="container-pulsanti">
         <!-- Sezione visibile a tutti gli utenti -->
         <div class="form-wrapper">
+            
             <!-- TODO: cancellare se non piu necessario-->
-            <div class="form-container">
+            <!-- <div class="form-container">
                 <h2>Modifica il tuo Profilo</h2>
                 <form action="user/editProfile" method="get">
                     <button type="submit">Modifica Profilo</button>
                 </form>
-            </div>
+            </div> -->
 
 
             <div class="form-container">
@@ -333,7 +335,7 @@
     </div>
     
     <div class="container text-center my-5">
-        <div class="train-container">
+        <div class="train-container" style="margin-top: 15%;">
             <div class="train">
                 <img id="locomotiva" class="wagon" src="${pageContext.request.contextPath}/images/modellini/testa.png" alt="Vagone Testa" style="cursor: pointer;">
                 <img class="wagon" src="${pageContext.request.contextPath}/modellini/vagone_rosa.png" alt="Vagone">
