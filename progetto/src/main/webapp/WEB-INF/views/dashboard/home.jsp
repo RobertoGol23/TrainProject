@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/trainAnimatioStyle.css?v=1.x">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -177,7 +178,7 @@
     <audio id="fischioAudio">
         <source src="${pageContext.request.contextPath}/resources/fischio.mp3" type="audio/mpeg">
     </audio>
-    <div class="container-benvenuto">
+    <div>
         <h1>Benvenuto, ${user.nome}!</h1>
         <div class="content">
             <p>Questa è la tua dashboard. Qui puoi vedere i tuoi treni, acquisti e voti.</p>
@@ -187,9 +188,8 @@
     <div class="container-pulsanti">
         <!-- Sezione visibile a tutti gli utenti -->
         <div class="form-wrapper">
-
             <!-- TODO: cancellare se non piu necessario-->
-           <!--  <div class="form-container">
+            <div class="form-container">
                 <h2>Modifica il tuo Profilo</h2>
                 <form action="user/editProfile" method="get">
                     <button type="submit">Modifica Profilo</button>
@@ -318,6 +318,9 @@
             %>
                 <div class="form-container">
                     <h2>Gestione Admin</h2>
+                    <form action="train/creaTrenoDinamico" method="get">
+	                    <button type="submit">Crea Treno Dinamico</button>
+	                </form>
                     <form action="admin/showPurchases" method="get">
                         <button type="submit">Mostra Tutti gli Acquisti</button>
                     </form>

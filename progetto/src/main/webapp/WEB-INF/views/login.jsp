@@ -11,16 +11,15 @@
 
     <style>  
 		.container {
-            margin-top: -10%;
+             margin-top: -4%;
         }
-
         
-
 	    body {
 		    display: flex; /* Usa flexbox per centrare */
 		    justify-content: center; /* Allinea orizzontalmente al centro */
 		    align-items: center; /* Allinea verticalmente al centro */
 		}
+		
     </style>
     
 </head>
