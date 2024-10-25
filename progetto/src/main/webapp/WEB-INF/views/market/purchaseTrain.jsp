@@ -8,51 +8,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <title>Conferma Acquisto Treno</title>
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
+        
 
         h1 {
-            color: #8a79c7;
-            text-align: center;
-            margin: 20px 0;
-            font-size: 2.5rem; /* Dimensione del titolo */
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 40px;
         }
-
-        .content {
-            width: 90%;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+		
+        h2 {
+        	height: auto;
+        	text-align: left;
+        	font-weight: bold;
         }
-
-        .carousel {
-            display: flex;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .carousel img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            transition: transform 0.5s ease;
-        }
+        
+        form, .form-button {
+		    padding: 0px;
+		    border-radius: 10px;
+		    width: 15%;
+		    height: auto; /* Permette al contenuto di determinare l'altezza */
+		    margin-top: 10px;
+		    margin: 0 auto; /* Centra orizzontalmente */
+		    font-weight: normal;
+		}
+		
+		button, a.button {
+			margin-top: 10px;
+		}
 
         .treno {
             background-color: #49456d;
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
+            padding: 30px;
+            margin: 20px auto;
+            min-width: 30%;
+            max-width: 40%;
+            display: flex; 
+            align-items: center; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s;
         }
@@ -71,47 +65,27 @@
         .details {
             flex: 1;
             text-align: left; /* Allinea il testo a sinistra */
-        }
-
-        button {
-            background-color: #8a79c7;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s, transform 0.3s; /* Transizione */
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #79c7e3;
-            transform: translateY(-2px); /* Effetto sollevato */
-        }
-
-        .back-button {
-            display: block;
-            margin-top: 20px;
-            background-color: #d45a5a;
+            margin-left: 6%;
         }
 
         .error-message {
             color: #ff4c4c; /* Rosso per messaggi di errore */
             margin-top: 20px;
         }
+        
     </style>
 </head>
 <body>
 
-<h1>Procedi con l'acquisto</h1>
 
-<div class="content">
+
+<div>
     
     <% Treno treno = (Treno) session.getAttribute("treno"); %>
-
+	<h1>Procedi con l'acquisto</h1>
     <% if (treno != null) { %>
         <div class="treno">
+        
             <img src="${pageContext.request.contextPath}/images/treni/locomotivaFurryFast.jpg" alt="<%= treno.getNome() %>">
             <div class="details">
                 <h2><%= treno.getNome() %></h2>
@@ -122,8 +96,7 @@
                 <p>Numero di Passeggeri: <%= treno.getPasseggeriTotali() %></p>
             </div>
         </div>
-
-        <form method="post" action="confirmPurchase">
+        <form method="post" action="confirmPurchase" class="form-button">
             <input type="hidden" name="trenoId" value="<%= treno.getId() %>">
             <button type="submit">Conferma Acquisto</button>
         </form>

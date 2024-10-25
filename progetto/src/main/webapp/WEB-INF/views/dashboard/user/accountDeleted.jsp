@@ -1,61 +1,59 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="../../navbar.jsp" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo-icon.png" type="image/icon type">
+    <%@ include file="../../navbar.jsp" %>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">    
     <title>Account Cancellato</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-        }
+        
         h1 {
-            color: #e37479;
+       		margin-bottom: 50px;
+       		margin-top: 10px;
+       }
+       
+		h2 {
+            margin: 0 0 30px;
         }
-        p {
-            color: #79c7e3;
-            margin-bottom: 20px;
+        
+		.content {
+            background-color: #49456d;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px auto;
+            width: 20%;
+            text-align: center;
+            font-size: 16px;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #79c7e3;
-            border: none;
-            border-radius: 5px;
-            color: #2e2b4f;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #8a79c7;
-        }
-        a {
-            color: #2e2b4f;
-            text-decoration: none;
-        }
+
+ 		form, .form-button {
+		    background-color: #49456d;
+		    padding: 0px;
+		    border-radius: 10px;
+		    width: 100%;
+		    height: auto; /* Permette al contenuto di determinare l'altezza */
+		    margin: 0 auto; /* Centra orizzontalmente */
+		    font-weight: normal;
+		}
     </style>
 </head>
 <body>
+	<div class="content">
+		<h1>Ci mancherai!</h1>
+	    <p>Il tuo account è stato cancellato con successo.</p>
+	    <p>Ci piacerebbe rivederti presto, ti invitiamo a iscriverti nuovamente.</p>
 
-    <h1>Ci mancherai!</h1>
-    <p>Il tuo account è stato cancellato con successo.</p>
-    <p>Ci piacerebbe rivederti presto, ti invitiamo a iscriverti nuovamente.</p>
-    
-    <!-- TODO: /train-baazar/register -->
-    <form action="/train-bazaar/register" method="get">
-        <button type="submit">Registrati</button>
-    </form>
-
+	    <!-- TODO: /train-baazar/register -->
+	    <form action="/train-bazaar/register" method="get" class="form-button">
+	        <button type="submit">Registrati</button>
+	    </form>
+	</div>
 
     <!-- TODO: footer -->
     <!-- <footer>
