@@ -18,11 +18,8 @@
         @charset "UTF-8";
         body {
             background-color: #2e2b4f;
-              color: #ffffff;
-          
+            color: #ffffff;
             font-family: Arial, sans-serif;
-          
-            
         }
         
         .hidden {

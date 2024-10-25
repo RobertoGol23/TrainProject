@@ -347,44 +347,45 @@ public class TrenoDAO {
 
 
 	public List<Treno> cercaTreni(String ordinamento, Double pesoMin, Double pesoMax,
-								Integer lunghezzaMin, Integer lunghezzaMax,
-								Double prezzoMin, Double prezzoMax) {
-									
-		// I controlli sul massimo e minimo sono fatti dal Form
-		// I controlli sui valori inseriti o meno sono fatti nella post mapping
-									
-		System.out.println("CERCO I TRENI PER: pesoMin: " + pesoMin + " pesoMax: " + pesoMax + " lunghezzaMin: " + lunghezzaMin + " lunghezzaMax: " + lunghezzaMax + " prezzoMin: " + prezzoMin + " prezzoMax: " + prezzoMax);
+                                Integer lunghezzaMin, Integer lunghezzaMax,
+                                Double prezzoMin, Double prezzoMax, Boolean versoOrdinamento) {
+
+
+		// Ensure versoOrdinamento has a default value
+		if (versoOrdinamento == null) {
+			versoOrdinamento = false; 
+		}
 
 		String jpql = "SELECT t FROM Treno t " +
-               "JOIN t.listaVagoni v " +
-               "LEFT JOIN t.voti voti " + 
-               "GROUP BY t.id_treno " + 
-               "HAVING SUM(v.peso) BETWEEN :pesoMin AND :pesoMax " + 
-               "AND COUNT(v) BETWEEN :lunghezzaMin AND :lunghezzaMax " + 
-               "AND SUM(v.prezzo) BETWEEN :prezzoMin AND :prezzoMax";
+					"JOIN t.listaVagoni v " +
+					"LEFT JOIN t.voti voti " + 
+					"GROUP BY t.id_treno " + 
+					"HAVING SUM(v.peso) BETWEEN :pesoMin AND :pesoMax " + 
+					"AND COUNT(v.id) BETWEEN :lunghezzaMin AND :lunghezzaMax " + 
+					"AND SUM(v.prezzo) BETWEEN :prezzoMin AND :prezzoMax";
+
 
 		if (ordinamento != null && !ordinamento.isEmpty()) {
 			switch (ordinamento) {
 				case "ordina_per_voto":
-					jpql += " ORDER BY AVG(voti.punteggio) DESC"; // Ordinamento per media voti
+					jpql += " ORDER BY AVG(voti.punteggio) " + (versoOrdinamento ? "ASC" : "DESC"); // TRUE: 1-10 FALSE: 10-1
 					break;
 				case "ordina_per_prezzo":
-					jpql += " ORDER BY SUM(v.prezzo)";
+					jpql += " ORDER BY SUM(v.prezzo) " + (versoOrdinamento ? "ASC" : "DESC");
 					break;
 				case "ordina_per_lunghezza":
-					jpql += " ORDER BY COUNT(v)";
+					jpql += " ORDER BY COUNT(v.id) " + (versoOrdinamento ? "ASC" : "DESC");
 					break;
 				case "ordina_per_nome":
-					jpql += " ORDER BY t.nomeTreno";
+					jpql += " ORDER BY t.nomeTreno " + (versoOrdinamento ? "ASC" : "DESC");
 					break;
 				case "ordina_per_peso":
-					jpql += " ORDER BY SUM(v.peso)";
+					jpql += " ORDER BY SUM(v.peso) " + (versoOrdinamento ? "ASC" : "DESC");
 					break;
 				default:
 					break;
 			}
 		}
-
 
 		TypedQuery<Treno> query = em.createQuery(jpql, Treno.class);
 		query.setParameter("pesoMin", pesoMin);
@@ -396,6 +397,9 @@ public class TrenoDAO {
 
 		return query.getResultList();
 	}
+
+
+
 
 
 

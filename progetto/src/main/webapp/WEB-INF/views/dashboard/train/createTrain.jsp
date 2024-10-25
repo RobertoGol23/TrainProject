@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+
     <title>Crea Treno</title>
     <style>
         body {
@@ -75,7 +76,7 @@
 </head>
 <body>
 
-    <h1>Crea un Nuovo Treno</h1>
+    <h1 style="margin-top: 5%;">Crea un Nuovo Treno</h1>
 
     <div class="container">
         <div class="form-container">

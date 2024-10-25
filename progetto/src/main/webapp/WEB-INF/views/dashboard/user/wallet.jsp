@@ -167,8 +167,8 @@
     </div>
 
     <div class="right-content">
-        <h2>Contenuto Aggiuntivo</h2>
-        <p>Questo è un esempio di contenuto aggiuntivo che apparirà a destra.</p>
+        <h2>Ricarica il tuo wallet</h2>
+        <p>Aggiungi saldo al tuo wallet per poter acquisire i tuoi treni e i treni creati dagli altri utenti.</p>
     </div>
 </div>
 
