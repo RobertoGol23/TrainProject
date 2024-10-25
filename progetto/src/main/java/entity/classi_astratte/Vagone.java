@@ -25,7 +25,7 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)    
-	@Column(name = "id_vagone")
+	@Column(name = "id_vagone", nullable = false, unique = true)
 	private Long id_vagone;
 	
 	@Column(name = "peso", nullable = false, unique = false)

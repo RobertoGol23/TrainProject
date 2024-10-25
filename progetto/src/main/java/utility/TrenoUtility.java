@@ -397,4 +397,70 @@ public class TrenoUtility {
 		return true;
 	}
 
+	
+	public String getHtmlImgByVagone(Vagone vagone, String marca)
+	{
+		if(marca.equals("Treno RegionalGain"))
+		{ 
+	        if(vagone.getTipo().equals("Locomotiva"))
+	        { 
+	        	return "<img src='/train-bazaar/treni/LocomotivaRG.jpg' class='wagon-image' alt='LocomotivaRG'>";
+        	} else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+        		return "<img src='/train-bazaar/treni/VagonePasseggeriRG.jpg' class='wagon-image' alt='VagonePasseggeriRG'>";
+        	} else if(vagone.getTipo().equals("VagoneRistorante")) { 
+        		return "<img src='/train-bazaar/treni/VagoneRistoranteRG.jpg' class='wagon-image' alt='VagoneRistoranteRG'>";
+        	} else if(vagone.getTipo().equals("VagoneCargo"))
+        	{ 
+        		return "<img src='/train-bazaar/treni/VagoneCargoRG.jpg' class='wagon-image' alt='VagoneCargoRG'>";
+        	}
+	    }
+		else if(marca.equals("Treno xFurryFast"))
+		{ 
+	        if(vagone.getTipo().equals("Locomotiva"))
+	        { 
+	        	return "<img src='/train-bazaar/treni/locomotivaFF.jpg' class='wagon-image' alt='LocomotivaFF'>";
+        	} else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+        		return "<img src='/train-bazaar/treni/VagonePasseggeriFF.jpg' class='wagon-image' alt='VagonePasseggeriFF'>";
+        	} else if(vagone.getTipo().equals("VagoneRistorante")) { 
+        		return "<img src='/train-bazaar/treni/VagoneRistoranteFF.jpg' class='wagon-image' alt='VagoneRistoranteFF'>";
+        	} else if(vagone.getTipo().equals("VagoneCargo")) { 
+        		return "<img src='/train-bazaar/treni/VagoneCargoFF.jpg' class='wagon-image' alt='VagoneCargoFF'>";
+        	}
+	    }
+		else if(marca.equals("Treno KargoModelz"))
+		{
+	        if(vagone.getTipo().equals("Locomotiva"))
+	        { 
+	        	return "<img src='/train-bazaar/treni/locomotivaKM.jpg' class='wagon-image' alt='LocomotivaKM'>";
+        	} else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+        		return "<img src='/train-bazaar/treni/VagonePasseggeriKM.jpg' class='wagon-image' alt='VagonePasseggeriKM'>";
+        	} else if(vagone.getTipo().equals("VagoneRistorante")) { 
+        		return "<img src='/train-bazaar/treni/VagoneRistoranteKM.jpg' class='wagon-image' alt='VagoneRistoranteKM'>";
+        	} else if(vagone.getTipo().equals("VagoneCargo")) { 
+        		return "<img src='/train-bazaar/treni/VagoneCargoKM.jpg' class='wagon-image' alt='VagoneCargoKM'>";
+        	} 
+	    }
+
+		return "";
+	}
+	
+	public Servizio cercaServizioInTreni(List<Treno> listaTreni, String nomeServizio)
+	{
+		Servizio servizio;
+		ServiziUtility su = new ServiziUtility();
+		
+		for(Treno treno:listaTreni)
+		{
+			servizio = su.cercaServizioInTreno(treno, nomeServizio);
+			if(servizio!=null)
+			{	
+				System.out.println("Servizio trovato! Servizio: "+ servizio +"\nEsco dal trenoUtility...");
+				return servizio;
+			}
+		}
+		System.out.println("Nessun servizio trovato\nEsco dal trenoUtility...");
+		return null;
+	}
+	
+	
 }

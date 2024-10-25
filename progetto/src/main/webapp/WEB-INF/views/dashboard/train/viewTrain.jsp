@@ -4,6 +4,7 @@
 <%@ page import="entity.servizi.Servizio" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.votazioni.Voto" %>
+<%@ page import="utility.TrenoUtility" %>
 <%@ page import="entity.dao.VotoDAO" %>
 <%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
 <%@ page import="org.springframework.context.support.AbstractApplicationContext" %>
@@ -147,9 +148,10 @@
         // Recupera il treno dalla richiesta
         Treno treno = (Treno) request.getAttribute("treno");
         if (treno != null) {
-    %>
-    <% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        VotoDAO votoDAO = context.getBean(VotoDAO.class); %>
+    
+        TrenoUtility tu = new TrenoUtility();
+     	//AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        //VotoDAO votoDAO = context.getBean(VotoDAO.class); %>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
         
@@ -159,7 +161,7 @@
         <p> - Marca del treno: <%= treno.getMarca() %></p>
         <p> - Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
         <p> - Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
-        <p> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p>
+<%--         <p> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p> --%>
         <p> - Passeggeri totali: <%= treno.getPasseggeriTotali() %> passeggeri</p>
     </div>
             <!-- Immagine del treno a destra -->
@@ -233,7 +235,7 @@
                     </td>
                     <td><%= vagone.getPeso() %> tonnellate</td>
                     <td><%= vagone.getPrezzo() %> euro</td>
-                    <td><%= vagone.getDettagli() %></td>
+                    <td><%= (vagone != null && tu.getDettagli(vagone) != null) ? tu.getDettagli(vagone) : "N/A" %></td>
                     <td>
                         <%
                             List<Servizio> servizi = vagone.getListaServizi();
@@ -242,6 +244,7 @@
                             <ul>
                             <%
                                 for (Servizio servizio : servizi) {
+                                	System.out.println(servizio.getNome() + " " + servizio);
                             %>
                                 <li> 
                                     <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&idVagoneRel=<%= i %>" class="button">
@@ -267,7 +270,7 @@
                 </tr>
             <%
                 }
-                context.close();
+                //context.close();
             %>
             </tbody>
         </table>

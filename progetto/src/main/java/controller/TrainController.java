@@ -24,6 +24,7 @@ import entity.dao.VagoneDAO;
 import entity.servizi.Servizio;
 import entity.treno.Treno;
 import entity.user.User;
+import fabbriche.FabbricaServizi;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -141,38 +142,7 @@ public class TrainController {
 	    for (int i = 0; i < vagoni.size(); i++) {
 	        vagone = vagoni.get(i);
 	           
-	        vagoniHtml.append("<div class='wagon-form'>");
-	        if(treno.getMarca().equals("Treno RegionalGain")) { 
-	        	if(vagone.getTipo().equals("Locomotiva")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/LocomotivaRG.jpg' class='wagon-image' alt='LocomotivaRG'>");
-	        	 } else if(vagone.getTipo().equals("VagonePasseggeri")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagonePasseggeriRG.jpg' class='wagon-image' alt='VagonePasseggeriRG'>");
-	        	 } else if(vagone.getTipo().equals("VagoneRistorante")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneRistoranteRG.jpg' class='wagon-image' alt='VagoneRistoranteRG'>");
-	        	 } else if(vagone.getTipo().equals("VagoneCargo")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneCargoRG.jpg' class='wagon-image' alt='VagoneCargoRG'>");
-	        	 }
-	        	} else if(treno.getMarca().equals("Treno xFurryFast")) { 
-	        	if(vagone.getTipo().equals("Locomotiva")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/locomotivaFF.jpg' class='wagon-image' alt='LocomotivaFF'>");
-	        	 } else if(vagone.getTipo().equals("VagonePasseggeri")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagonePasseggeriFF.jpg' class='wagon-image' alt='VagonePasseggeriFF'>");
-	        	 } else if(vagone.getTipo().equals("VagoneRistorante")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneRistoranteFF.jpg' class='wagon-image' alt='VagoneRistoranteFF'>");
-	        	 } else if(vagone.getTipo().equals("VagoneCargo")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneCargoFF.jpg' class='wagon-image' alt='VagoneCargoFF'>");
-	        	 }
-	        	} else if(treno.getMarca().equals("Treno KargoModelz")) {
-	        	if(vagone.getTipo().equals("Locomotiva")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/locomotivaKM.jpg' class='wagon-image' alt='LocomotivaKM'>");
-	        	 } else if(vagone.getTipo().equals("VagonePasseggeri")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagonePasseggeriKM.jpg' class='wagon-image' alt='VagonePasseggeriKM'>");
-	        	 } else if(vagone.getTipo().equals("VagoneRistorante")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneRistoranteKM.jpg' class='wagon-image' alt='VagoneRistoranteKM'>");
-	        	 } else if(vagone.getTipo().equals("VagoneCargo")) { 
-	        		vagoniHtml.append("<img src='/train-bazaar/treni/VagoneCargoKM.jpg' class='wagon-image' alt='VagoneCargoKM'>");
-	        	 } 
-	        	}
+	        vagoniHtml.append(tu.getHtmlImgByVagone(vagone,treno.getMarca()));
 	        vagoniHtml.append("<label>").append(vagone.getTipo()).append("</label>");
 	        car = tu.getCharByTipo(vagone.getTipo());
 	        vagoniHtml.append("<input type='hidden' name='wagons[]' value='").append(car).append("'>");
@@ -302,9 +272,9 @@ public class TrainController {
                 trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
                 
                 //Aggiunge i servizi al sito se non esistono
-                ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-        		ServiziUtility su = new ServiziUtility();
-        		su.aggiungiServiziAlDB(servizioDAO);
+                //ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+        		//ServiziUtility su = new ServiziUtility();
+        		//su.aggiungiServiziAlDB(servizioDAO);
         		
         		//context.close();
                 request.setAttribute("idTreno", nuovoTreno.getId());
@@ -371,19 +341,19 @@ public class TrainController {
             
                 if (nuovoTreno != null) {
                     // Salva il treno nel database
-                    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-                    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+                    //AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+                    //TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
                     trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
                     
                     
-                    ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-                    ServiziUtility su = new ServiziUtility();
-                    su.aggiungiServiziAlDB(servizioDAO);
+                    //ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+                    //ServiziUtility su = new ServiziUtility();
+                    //su.aggiungiServiziAlDB(servizioDAO);
                     
                     //context.close();
                     request.setAttribute("idTreno", nuovoTreno.getId());
                     
-                    context.close();
+                    //context.close();
                     return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
                 } else {
                     request.setAttribute("error", "Errore durante la creazione del treno.");
@@ -407,7 +377,7 @@ public class TrainController {
 //        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
 //        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
         Treno treno = trenoDAO.getTrenoById(idTreno);
-        ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
+        //ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
 
         if (treno == null) {
             model.addAttribute("errorMessage", "Nessun treno trovato con l'ID specificato.");
@@ -449,6 +419,10 @@ public class TrainController {
         // Recupera i servizi disponibili
         ServiziUtility su = new ServiziUtility();
         List<Servizio> servizi = su.creaListaServizi();
+        
+//        servizioDAO.trovaServiziDisponibili();  
+//        List<Servizio> servizi = servizioDAO.trovaServiziDisponibili();
+        
         model.addAttribute("servizi", servizi);
 
         return "dashboard/train/modifyWagonServices"; // Nome della JSP da visualizzare
@@ -472,19 +446,14 @@ public class TrainController {
     	
     	Vagone vagone = treno.getVagone(idVagoneRel);
     	
+    	//TrenoUtility tu = new TrenoUtility();
     	ServiziUtility su = new ServiziUtility();
-        
-    	Servizio servizio = su.cercaServizioInTreno(treno, nomeServizio);
     	
-        if(servizio==null)
-        {
-        	vagone.addServizio(servizioDAO.getServizioByName(nomeServizio));
-        }
-        else
-        {
-        	vagone.addServizio(servizio);
-        }
-
+    	FabbricaServizi fabbricaServizi = new FabbricaServizi();
+ 
+    	Servizio servizio = su.creaServizioByNome(fabbricaServizi, nomeServizio);
+    	
+    	vagone.addServizio(servizio);
         trenoDAO.updateTreno(treno);
 
          ////context.close();       
