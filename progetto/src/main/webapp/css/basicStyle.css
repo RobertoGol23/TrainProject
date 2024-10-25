@@ -10,6 +10,7 @@
 /*         color: #e1418b; */
         color: ivory;
         height: 80px;
+        text-align: center;
     }
     
 	body {
@@ -70,10 +71,15 @@
 		vertical-align: bottom;
 	}
 	
-	a {
-	    color: #79c7e3;
-	    text-decoration: none;
+	form {
+/* 	    background-color: #49456d; */
+	    padding: 20px;
+	    border-radius: 10px;
+	    width: 300px;
+	    height: auto; /* Permette al contenuto di determinare l'altezza */
+	    margin: 0 auto; /* Centra orizzontalmente */
 	}
+	
 	button, a.button {
 	    width: 100%;
 	    padding: 10px;
@@ -81,12 +87,14 @@
 	    border: none;
 	    border-radius: 5px;
 	    color: #2e2b4f;
+	    text-align: center;
 	    cursor: pointer;
 		padding: 10px 20px;
 		transition: background-color 0.3s, transform 0.3s; /* Transizione */
 	}
-	button:hover {
+	button:hover, a.button:hover {
 	    background-color: #f96737;
 	    color: #ffffff;
 		transform: translateY(-2px); /* Effetto sollevato */
 	}
+	
