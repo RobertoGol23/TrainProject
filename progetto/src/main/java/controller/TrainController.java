@@ -142,8 +142,11 @@ public class TrainController {
 	    for (int i = 0; i < vagoni.size(); i++) {
 	        vagone = vagoni.get(i);
 	           
-	        vagoniHtml.append(tu.getHtmlImgByVagone(vagone,treno.getMarca()));
-	        vagoniHtml.append("<label>").append(vagone.getTipo()).append("</label>");
+	        String tipoStampa = vagone.getTipoStampa();
+	        
+	        vagoniHtml.append("<div class='wagon-form'>");
+	        vagoniHtml.append(tu.getHtmlImgByVagone(vagone.getTipo(),treno.getMarca()));
+	        vagoniHtml.append("<label>").append(tipoStampa).append("</label>");
 	        car = tu.getCharByTipo(vagone.getTipo());
 	        vagoniHtml.append("<input type='hidden' name='wagons[]' value='").append(car).append("'>");
 //	        vagoniHtml.append("<span>Vagone</span>");
@@ -151,10 +154,19 @@ public class TrainController {
 	        vagoniHtml.append("</div>");
 	       
 	    }
+	    String pathPasseggeri = tu.getImgPathByVagone("VagonePasseggeri",treno.getMarca());
+	    String pathCargo = tu.getImgPathByVagone("VagoneCargo",treno.getMarca());
+	    String pathRisorante = tu.getImgPathByVagone("VagoneRistorante",treno.getMarca());
+	    String pathLocomotiva = tu.getImgPathByVagone("Locomotiva",treno.getMarca());
+	    
 
 	    // Aggiungi la tabella HTML generata al modello
 	    model.addAttribute("trenoNome", treno.getNome());
 	    model.addAttribute("vagoniHtml", vagoniHtml.toString());
+	    model.addAttribute("imgVagonePasseggeriPath", pathPasseggeri);
+	    model.addAttribute("imgVagoneCargoPath", pathCargo);
+	    model.addAttribute("imgVagoneRistorantePath", pathRisorante);
+	    model.addAttribute("imgLocomotivaPath", pathLocomotiva);
 
 	    //context.close();
 
@@ -436,31 +448,37 @@ public class TrainController {
             @RequestParam("idTreno") Long idTreno,
             HttpServletRequest request) {
 
-        // Recupera il treno e il vagone dal database
-        //AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-//        VagoneDAO vagoneDAO = context.getBean(VagoneDAO.class);
-//        ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-        //VagoneDAO vagoneDAO = (VagoneDAO) session.getAttribute("vagoneDAO");
         
     	Treno treno = trenoDAO.getTrenoById(idTreno);
     	
     	Vagone vagone = treno.getVagone(idVagoneRel);
-    	
-    	//TrenoUtility tu = new TrenoUtility();
+
     	ServiziUtility su = new ServiziUtility();
+    	TrenoUtility tu = new TrenoUtility();
     	
     	FabbricaServizi fabbricaServizi = new FabbricaServizi();
  
     	Servizio servizio = su.creaServizioByNome(fabbricaServizi, nomeServizio);
     	
-    	vagone.addServizio(servizio);
-        trenoDAO.updateTreno(treno);
-
-         ////context.close();       
-
-        request.setAttribute("idTreno", idTreno);
-        request.setAttribute("message", "Servizio aggiunto con successo!");
-        return "dashboard/train/addServiceComplete";
+	    
+    	
+    	try
+    	{
+    		vagone.addServizio(servizio);
+    		tu.controllaPesoTrainabile("", treno.getListaVagoni());
+	    	trenoDAO.updateTreno(treno);     
+	
+	        request.setAttribute("idTreno", idTreno);
+	        request.setAttribute("message", "Servizio aggiunto con successo!");
+	        return "dashboard/train/addServiceComplete";
+    	}
+    	catch(Exception e)
+    	{
+	        request.setAttribute("idTreno", idTreno);
+	        request.setAttribute("message", "Non è stato possibile aggiungere il servizio.<br>Il treno è troppo pesante per essere trainato!");
+	        return "dashboard/train/addServiceFailed";
+    	}
+	    	
     }
     
     @GetMapping("/viewTrain")
@@ -488,7 +506,7 @@ public class TrainController {
     @GetMapping("/deleteService")
     public String cancellaServizio(@RequestParam("idTreno") Long idTreno,
     							@RequestParam("idVagone") Long idVagone,
-    							@RequestParam("nomeServizio") String nomeServizio,
+    							@RequestParam("idServizio") Long idServizio,
     							HttpSession session) throws Exception
     {
     	User utente = (User) session.getAttribute("user");
@@ -502,7 +520,7 @@ public class TrainController {
 	   
 	    try
 	    {
-	    	vagoneDAO.removeServizioFromVagone(idVagone, nomeServizio);
+	    	vagoneDAO.removeServizioFromVagone(idVagone, idServizio);
 	    }
 	    catch(AssociazioneServizioVagoneNonTrovataException e)
 	    {

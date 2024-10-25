@@ -136,6 +136,8 @@ public abstract class Vagone { //pensare se si puo' levare abstract per il dao
 	{
 		return this.getClass().getSimpleName();
 	}
+	
+	public abstract String getTipoStampa();
 
 	@Override
 	public String toString()

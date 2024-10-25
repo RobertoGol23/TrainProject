@@ -397,46 +397,51 @@ public class TrenoUtility {
 		return true;
 	}
 
-	
-	public String getHtmlImgByVagone(Vagone vagone, String marca)
+	/**
+	 * Metodo che restituisce un tag img html per l'inserimento in una pagina
+	 * @param vagone
+	 * @param marca
+	 * @return
+	 */
+	public String getHtmlImgByVagone(String tipoVagone, String marca)
 	{
 		if(marca.equals("Treno RegionalGain"))
 		{ 
-	        if(vagone.getTipo().equals("Locomotiva"))
+	        if(tipoVagone.equals("Locomotiva"))
 	        { 
 	        	return "<img src='/train-bazaar/treni/LocomotivaRG.jpg' class='wagon-image' alt='LocomotivaRG'>";
-        	} else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+        	} else if(tipoVagone.equals("VagonePasseggeri")) { 
         		return "<img src='/train-bazaar/treni/VagonePasseggeriRG.jpg' class='wagon-image' alt='VagonePasseggeriRG'>";
-        	} else if(vagone.getTipo().equals("VagoneRistorante")) { 
+        	} else if(tipoVagone.equals("VagoneRistorante")) { 
         		return "<img src='/train-bazaar/treni/VagoneRistoranteRG.jpg' class='wagon-image' alt='VagoneRistoranteRG'>";
-        	} else if(vagone.getTipo().equals("VagoneCargo"))
+        	} else if(tipoVagone.equals("VagoneCargo"))
         	{ 
         		return "<img src='/train-bazaar/treni/VagoneCargoRG.jpg' class='wagon-image' alt='VagoneCargoRG'>";
         	}
 	    }
 		else if(marca.equals("Treno xFurryFast"))
 		{ 
-	        if(vagone.getTipo().equals("Locomotiva"))
+	        if(tipoVagone.equals("Locomotiva"))
 	        { 
 	        	return "<img src='/train-bazaar/treni/locomotivaFF.jpg' class='wagon-image' alt='LocomotivaFF'>";
-        	} else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+        	} else if(tipoVagone.equals("VagonePasseggeri")) { 
         		return "<img src='/train-bazaar/treni/VagonePasseggeriFF.jpg' class='wagon-image' alt='VagonePasseggeriFF'>";
-        	} else if(vagone.getTipo().equals("VagoneRistorante")) { 
+        	} else if(tipoVagone.equals("VagoneRistorante")) { 
         		return "<img src='/train-bazaar/treni/VagoneRistoranteFF.jpg' class='wagon-image' alt='VagoneRistoranteFF'>";
-        	} else if(vagone.getTipo().equals("VagoneCargo")) { 
+        	} else if(tipoVagone.equals("VagoneCargo")) { 
         		return "<img src='/train-bazaar/treni/VagoneCargoFF.jpg' class='wagon-image' alt='VagoneCargoFF'>";
         	}
 	    }
 		else if(marca.equals("Treno KargoModelz"))
 		{
-	        if(vagone.getTipo().equals("Locomotiva"))
+	        if(tipoVagone.equals("Locomotiva"))
 	        { 
 	        	return "<img src='/train-bazaar/treni/locomotivaKM.jpg' class='wagon-image' alt='LocomotivaKM'>";
-        	} else if(vagone.getTipo().equals("VagonePasseggeri")) { 
+        	} else if(tipoVagone.equals("VagonePasseggeri")) { 
         		return "<img src='/train-bazaar/treni/VagonePasseggeriKM.jpg' class='wagon-image' alt='VagonePasseggeriKM'>";
-        	} else if(vagone.getTipo().equals("VagoneRistorante")) { 
+        	} else if(tipoVagone.equals("VagoneRistorante")) { 
         		return "<img src='/train-bazaar/treni/VagoneRistoranteKM.jpg' class='wagon-image' alt='VagoneRistoranteKM'>";
-        	} else if(vagone.getTipo().equals("VagoneCargo")) { 
+        	} else if(tipoVagone.equals("VagoneCargo")) { 
         		return "<img src='/train-bazaar/treni/VagoneCargoKM.jpg' class='wagon-image' alt='VagoneCargoKM'>";
         	} 
 	    }
@@ -444,6 +449,64 @@ public class TrenoUtility {
 		return "";
 	}
 	
+
+	
+	public String getImgPathByVagone(String tipoVagone, String marca)
+	{
+		if(marca.equals("Treno RegionalGain"))
+		{ 
+	        if(tipoVagone.equals("Locomotiva"))
+	        { 
+	        	return "/train-bazaar/treni/LocomotivaRG.jpg";
+        	} else if(tipoVagone.equals("VagonePasseggeri")) { 
+        		return "/train-bazaar/treni/VagonePasseggeriRG.jpg";
+        	} else if(tipoVagone.equals("VagoneRistorante")) { 
+        		return "/train-bazaar/treni/VagoneRistoranteRG.jpg";
+        	} else if(tipoVagone.equals("VagoneCargo"))
+        	{ 
+        		return "/train-bazaar/treni/VagoneCargoRG.jpg";
+        	}
+	    }
+		else if(marca.equals("Treno xFurryFast"))
+		{ 
+	        if(tipoVagone.equals("Locomotiva"))
+	        { 
+	        	return "/train-bazaar/treni/locomotivaFF.jpg";
+        	} else if(tipoVagone.equals("VagonePasseggeri")) { 
+        		return "/train-bazaar/treni/VagonePasseggeriFF.jpg";
+        	} else if(tipoVagone.equals("VagoneRistorante")) { 
+        		return "/train-bazaar/treni/VagoneRistoranteFF.jpg";
+        	} else if(tipoVagone.equals("VagoneCargo")) { 
+        		return "/train-bazaar/treni/VagoneCargoFF.jpg";
+        	}
+	    }
+		else if(marca.equals("Treno KargoModelz"))
+		{
+	        if(tipoVagone.equals("Locomotiva"))
+	        { 
+	        	return "/train-bazaar/treni/locomotivaKM.jpg";
+        	} else if(tipoVagone.equals("VagonePasseggeri")) { 
+        		return "/train-bazaar/treni/VagonePasseggeriKM.jpg";
+        	} else if(tipoVagone.equals("VagoneRistorante")) { 
+        		return "/train-bazaar/treni/VagoneRistoranteKM.jpg";
+        	} else if(tipoVagone.equals("VagoneCargo")) { 
+        		return "/train-bazaar/treni/VagoneCargoKM.jpg";
+        	} 
+	    }
+
+		return "";
+	}
+	
+	
+	
+	
+	/**
+	 * Metodo che cerca un servizio in tutta la lista dei treni per vedere se è già presente
+	 * Al primo elemento trovato esce dal ciclo
+	 * @param listaTreni
+	 * @param nomeServizio
+	 * @return servizio se presente almeno uno, altrimenti null
+	 */
 	public Servizio cercaServizioInTreni(List<Treno> listaTreni, String nomeServizio)
 	{
 		Servizio servizio;

@@ -34,4 +34,10 @@ public class VagoneCargo extends Vagone{ //pensare se si puo' levare abstract pe
 	{
 		return super.toString() + "	Peso massimo trasportabile: " + getPesoMassimoTrasportabile() + "\n";
 	}
+	
+	@Override
+	public String getTipoStampa() {
+		
+		return "Vagone Cargo";
+	}
 }

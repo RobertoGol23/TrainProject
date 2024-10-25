@@ -13,79 +13,105 @@
 <html lang="it">
 <head>
 	<%@ include file="../navbar.jsp" %>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tablesStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Dettagli Treno</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-        }
         .train-details, .wagon-list {
-            background-color: #49456d;
-            padding: 20px;
+            background-color: #49456d;            
             border-radius: 10px;
-            max-width: 950px;
+            max-width: 70%;
             margin: 20px auto;
         }
-        h1 {
-            text-align: center;
-            padding-top: 15px;
+        .train-details {
+        	padding: 20px;
         }
+        
         ul {
             list-style-type: none;
             padding: 0;
         }
         ul li {
-            background-color: #6c6991;
+/*             background-color: #6c6991; */
             padding: 10px;
             margin-bottom: 5px;
             border-radius: 5px;
         }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #6c6991;
-        }
-        td {
-            background-color: #49456d;
-        }
+        
         button, a.button {
-            background-color: #8a79c7;
-            color: white;
+            width: 180px;
+            background-color: #f5835e;
+            color: black;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: white;
+            text-align:center;
             text-decoration: none;
             display: inline-block;
-            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.3s; /* Transizione */
         }
-        button:hover {
-            background-color: #79c7e3;
+        button:hover, a.button:hover {
+            background-color: #f96737;
+            color: #ffffff;
+			transform: translateY(-2px); /* Effetto sollevato */
         }
-        /* Flexbox layout for image and text */
+        .cestino {
+            padding: 10px;
+            color: pink;
+        }
+        .cestino:hover {
+            color: purple;
+        }
+        .modal-content {
+		    background-color: #49456d; /* Colore di sfondo del modale */
+		    color: #ffffff; /* Colore del testo */
+		}
+		.modal-footer {
+		  	margin: auto;
+		  	
+		}
+		.modal-header {
+			margin: auto;
+			padding-left: 90px;
+		  	padding-right: 90px;
+		}
+		.modal-body {
+			margin: auto;
+		}/* Flexbox layout for image and text */
         .train-info-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            
         }
         .train-info {
-            max-width: 60%;
+            max-width: 70%;
+/*             border-style: solid; */
+/* 			border-width: 2px; */
+/* 			border-color: black; */
+/* 			background-color: ivory; */
+			color: ivory;
+			padding: 20px;
+/* 			border-radius: 5px; */
+/* 			font-family: "Georgia"; */
+        	font-size: 16px;
         }
         .train-details img {
             max-width: 35%;
             height: auto;
-            margin-left: 20px;
             border-radius: 10px;
+            border-style: solid;
+			border-width: 2px;
+			border-color: black;
+			border-radius: 5px;
         }
         h2 {
             text-align: center;
@@ -101,7 +127,7 @@
             /* Stack layout for smaller screens */
             .train-info-wrapper {
                 flex-direction: column;
-                align-items: center;
+                 align-items: center; 
             }
             .train-details img {
                 max-width: 80%;
@@ -109,6 +135,7 @@
                 margin-top: 20px;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -128,13 +155,14 @@
         <h2>Treno: <%= treno.getNome() %></h2>
 
         <div class="train-info-wrapper">
-            <div class="train-info">
-                <!-- Dettagli testuali del treno a sinistra -->
-                <p>Marca: <%= treno.getMarca() %></p>
-                <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
-                <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
-                <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>
-            </div>
+        <div class="train-info">
+        <p> - Id treno: <%= treno.getId() %></p>
+        <p> - Marca del treno: <%= treno.getMarca() %></p>
+        <p> - Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
+        <p> - Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
+        <p> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p>
+        <p> - Passeggeri totali: <%= treno.getPasseggeriTotali() %> passeggeri</p>
+    	</div>
             <!-- Immagine del treno a destra -->
             <% if(treno.getMarca().equals("Treno RegionalGain")) { %>
                 <img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">

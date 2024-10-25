@@ -15,7 +15,6 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
@@ -150,8 +149,8 @@
         if (treno != null) {
     
         TrenoUtility tu = new TrenoUtility();
-     	//AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        //VotoDAO votoDAO = context.getBean(VotoDAO.class); %>
+     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        VotoDAO votoDAO = context.getBean(VotoDAO.class); %>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
         
@@ -161,9 +160,9 @@
         <p> - Marca del treno: <%= treno.getMarca() %></p>
         <p> - Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
         <p> - Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
-<%--         <p> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p> --%>
+        <p> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p>
         <p> - Passeggeri totali: <%= treno.getPasseggeriTotali() %> passeggeri</p>
-    </div>
+    	</div>
             <!-- Immagine del treno a destra -->
             <% if(treno.getMarca().equals("Treno RegionalGain")) { %>
                 <img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">
@@ -244,13 +243,13 @@
                             <ul>
                             <%
                                 for (Servizio servizio : servizi) {
-                                	System.out.println(servizio.getNome() + " " + servizio);
+                                	//System.out.println(servizio.getNome() + " " + servizio);
                             %>
                                 <li> 
                                     <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&idVagoneRel=<%= i %>" class="button">
                                         <%= servizio.getNome() %>
                                     </a>
-                                    <a class="cestino" href="deleteService?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&nomeServizio=<%= servizio.getNome() %>">
+                                    <a class="cestino" href="deleteService?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&idServizio=<%= servizio.getId() %>">
                                     <i class="fas fa-trash"></i></a>
                                 </li>
                             <%

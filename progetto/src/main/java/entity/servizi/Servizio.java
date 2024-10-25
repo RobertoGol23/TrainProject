@@ -82,6 +82,14 @@ public class Servizio { //da creare xml per inserire i dati dei servizi direttam
 		this.prezzoS = prezzoS;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public void aggiungiVagone(Vagone v) {
 		if(!listaVagoniS.contains(v)) {
 			listaVagoniS.add(v);
