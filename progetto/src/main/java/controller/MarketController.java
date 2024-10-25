@@ -264,6 +264,14 @@ public class MarketController {
         Treno treno = trenoDAO.getTrenoById(trenoId);
 
         if (user != null && treno != null) {
+        	
+        	if(treno.getUtente().getId_user() == user.getId_user()) {
+           	 // Se stai votando un treno creato da te, reindirizza alla pagina di errore
+               session.setAttribute("errorMessage", "Non puoi votare il tuo treno.");
+               context.close();
+               return "market/voteFailure"; // Pagina di errore
+        	}
+        	
             // Controlla se l'utente ha già votato questo treno
             Voto votoEsistente = votoDAO.trovaVotoPerUtenteETreno(user.getId_user(), treno.getId());
 
@@ -271,7 +279,7 @@ public class MarketController {
                 // Se esiste già un voto, reindirizza alla pagina di errore
                 session.setAttribute("errorMessage", "Hai già votato questo treno.");
                 context.close();
-                return "market/voteFailure"; // Pagina di errore (da creare)
+                return "market/voteFailure"; // Pagina di errore 
             }
 
             try {
@@ -286,7 +294,7 @@ public class MarketController {
             }
 
             context.close();
-            return "market/voteSuccess"; // Pagina di successo del voto (da creare)
+            return "market/voteSuccess"; // Pagina di successo del voto 
         } else {
             context.close();
             return "redirect:/trainMarket"; // Se l'utente o il treno non esistono, torna al market

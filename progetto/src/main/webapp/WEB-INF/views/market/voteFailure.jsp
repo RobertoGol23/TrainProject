@@ -14,16 +14,17 @@
             text-align: center;
         }
         .error-message {
-            background-color: #ff4d4d;
-            color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
+    		color: #ff4c4c; /* rosso brillante per contrasto */
+    		margin-top: 20px;
+    		padding: 10px;
+    		border: 1px solid #ff4c4c; /* bordi per migliorare visibilità */
+    		border-radius: 5px;
+   		 	background-color: rgba(255, 76, 76, 0.1); /* sfondo semi-trasparente */
+    		display: inline-block;
+    		text-align: center;
+		}
         a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
+            color: #79c7e3;
         }
     </style>
 </head>
@@ -31,10 +32,18 @@
 
 <h1>Errore Voto</h1>
 
-<div class="error-message">
-    <p>Hai già votato questo treno!</p>
-    <a href="${pageContext.request.contextPath}/trainMarket">Torna al mercato dei treni</a>
-</div>
+     <%
+        String error = (String) session.getAttribute("errorMessage");
+        if (error != null && !error.isEmpty()) {
+    %>
+        <div class="error-message">
+            <p><%= error %></p>
+            <a href="${pageContext.request.contextPath}/trainMarket">Torna al mercato dei treni</a>
+        </div>
+    <%
+        }
+    %>
+
 
 </body>
 </html>
