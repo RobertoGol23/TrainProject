@@ -11,16 +11,6 @@
     <title>Clonazione Avvenuta</title>
     <style>
         
-        .container {
-            background-color: #49456d;
-            padding: 30px;
-            border-radius: 10px;
-            width: 25%;
-            margin: auto;
-            margin-top: 100px;
-        }
-        
-        
         h1, h2 {
             margin: 0 0 30px;
         }
@@ -49,7 +39,6 @@
             width: 20%;
             margin: 20px auto;
             text-align: center;
-            font-weight: bold;
         }
         
     </style>
@@ -57,7 +46,7 @@
 <body>
 
 	<div>
-    <h1>Clonazione Treno</h1>
+    
 
     <%
         String successMessage = (String) request.getAttribute("successMessage");
@@ -66,6 +55,7 @@
         if (successMessage != null) { 
     %>
         <div class="success-message">
+        	<h1>Treno Clonato!</h1>
             <p><%= successMessage %></p>
             <div class="form-button">
             	<a href="/train-bazaar/dashboard/home" class="button">Torna alla dashboard</a>
@@ -73,6 +63,7 @@
      	</div>
     <% } else if (errorMessage != null) { %>
         <div class="error-message">
+        	<h1>Treno Non Clonato</h1>
             <p style="color: red;"><%= errorMessage %></p>
             <div class="form-button">
             	<a href="/train-bazaar/dashboard/home" class="button">Torna alla dashboard</a>

@@ -35,7 +35,7 @@
 	.form-wrapper {
 		display: flex;
 		margin: auto;
-	    gap: 20px;
+/* 	    gap: 20px; */
 /* 	    padding: 20px; */
 	}
 	
@@ -91,10 +91,12 @@
 	    cursor: pointer;
 		padding: 10px 20px;
 		transition: background-color 0.3s, transform 0.3s; /* Transizione */
+		text-decoration: none;
 	}
 	button:hover, a.button:hover {
 	    background-color: #f96737;
 	    color: #ffffff;
 		transform: translateY(-2px); /* Effetto sollevato */
+		text-decoration: none;
 	}
 	

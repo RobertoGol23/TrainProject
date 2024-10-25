@@ -6,28 +6,46 @@
 <head>
 	<%@ include file="../../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-        }
-
         h1 {
-            color: #8a79c7;
-            text-align: center;
+       		margin-bottom: 50px;
+       		margin-top: 10px;
+       }
+       
+		h2 {
+            margin: 0 0 30px;
         }
-
-        .container {
+        
+        .content {
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
-
-            margin-top: 50px;
-            margin-bottom: 20px;
+            margin: 20px auto;
+            width: 20%;
+            text-align: center;
+            font-size: 16px;
         }
-
+        
+        a {
+            color: #79c7e3;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .error {
+        	color: #fc032c;
+        	font-weight: bold;
+        }
+        form, .form-button {
+		    background-color: #49456d;
+		    padding: 0px;
+		    border-radius: 10px;
+		    width: 100%;
+		    height: auto; /* Permette al contenuto di determinare l'altezza */
+		    margin: 0 auto; /* Centra orizzontalmente */
+		    font-weight: normal;
+		}
 
     </style>
     
@@ -40,7 +58,7 @@
 
     
 
-    <div class="container">
+    <div class="content">
         <h1>Wallet Aggiornato!</h1>
         <p>I tuoi fondi sono stati aggiunti con successo al tuo wallet.</p>
     </div>
