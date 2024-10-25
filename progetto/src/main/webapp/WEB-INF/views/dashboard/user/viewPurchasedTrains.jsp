@@ -15,6 +15,12 @@
 		h1 {
     		margin-top:20px;
     	}
+
+        body {
+            background-color: #2e2b4f;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
 	</style>
 
     <title>Treni Acquistati</title>

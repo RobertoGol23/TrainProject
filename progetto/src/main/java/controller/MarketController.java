@@ -40,6 +40,7 @@ public class MarketController {
             @RequestParam(value = "lunghezza-max", required = false) Integer lunghezzaMax,
             @RequestParam(value = "prezzo-min", required = false) Double prezzoMin,
             @RequestParam(value = "prezzo-max", required = false) Double prezzoMax,
+            @RequestParam(value = "versoOrdinamento", required = false) Boolean versoOrdinamento,
             HttpSession session) {
 
         // Crea il contesto per accedere al TrenoDAO
@@ -54,6 +55,7 @@ public class MarketController {
         Integer lunghezzaMax_2 = (lunghezzaMax != null) ? lunghezzaMax : (Integer) session.getAttribute("lunghezzaMax");
         Double prezzoMin_2 = (prezzoMin != null) ? prezzoMin : (Double) session.getAttribute("prezzoMin");
         Double prezzoMax_2 = (prezzoMax != null) ? prezzoMax : (Double) session.getAttribute("prezzoMax");
+        Boolean versoOrdinamento_2 = (versoOrdinamento != null) ? versoOrdinamento : (Boolean) session.getAttribute("versoOrdinamento");
 
         // Se i parametri sono null, imposta i valori di default
         if (ordinamento_2 == null) ordinamento_2 = "";
@@ -63,9 +65,11 @@ public class MarketController {
         if (lunghezzaMax_2 == null) lunghezzaMax_2 = Integer.MAX_VALUE;
         if (prezzoMin_2 == null) prezzoMin_2 = 0.0;
         if (prezzoMax_2 == null) prezzoMax_2 = Double.MAX_VALUE;
+        if (versoOrdinamento_2 == null) versoOrdinamento_2 = true;
+
 
         // Recupera i treni filtrati e ordinati
-        List<Treno> treni = trenoDAO.cercaTreni(ordinamento_2, pesoMin_2, pesoMax_2, lunghezzaMin_2, lunghezzaMax_2, prezzoMin_2, prezzoMax_2);
+        List<Treno> treni = trenoDAO.cercaTreni(ordinamento_2, pesoMin_2, pesoMax_2, lunghezzaMin_2, lunghezzaMax_2, prezzoMin_2, prezzoMax_2, versoOrdinamento_2);
 
         // Calcola il numero totale di treni e pagine dopo la ricerca
         int totalTreni = treni.size();
@@ -90,11 +94,13 @@ public class MarketController {
         session.setAttribute("lunghezzaMax", lunghezzaMax_2);
         session.setAttribute("prezzoMin", prezzoMin_2);
         session.setAttribute("prezzoMax", prezzoMax_2);
+        session.setAttribute("versoOrdinamento", versoOrdinamento_2);
 
         context.close();
         return "market/trainMarket"; // Ritorna alla vista del market con i treni filtrati
     }
     
+
     @PostMapping("/trainMarket")
     public String searchAndShowTrainMarket(
             @RequestParam("ordinamento") Optional<String> ordinamento,
@@ -104,9 +110,11 @@ public class MarketController {
             @RequestParam("lunghezza-max") Optional<Integer> lunghezzaMax,
             @RequestParam("prezzo-min") Optional<Double> prezzoMin,
             @RequestParam("prezzo-max") Optional<Double> prezzoMax,
+            @RequestParam("versoOrdinamento") Boolean versoOrdinamento,
             HttpSession session) {
+        
 
-        // Salva i parametri di ricerca nella sessione
+        // Save search parameters in the session
         session.setAttribute("ordinamento", ordinamento.orElse(""));
         session.setAttribute("pesoMin", pesoMin.orElse(0.0));
         session.setAttribute("pesoMax", pesoMax.orElse(Double.MAX_VALUE));
@@ -114,10 +122,13 @@ public class MarketController {
         session.setAttribute("lunghezzaMax", lunghezzaMax.orElse(Integer.MAX_VALUE));
         session.setAttribute("prezzoMin", prezzoMin.orElse(0.0));
         session.setAttribute("prezzoMax", prezzoMax.orElse(Double.MAX_VALUE));
+        session.setAttribute("versoOrdinamento", versoOrdinamento);
 
-        // Redirigi alla pagina del market con la pagina 1
+        // Redirect to the market page with page 1
         return "redirect:/trainMarket?page=1";
     }
+
+
 
     // GET per visualizzare la pagina di conferma acquisto
     @GetMapping("/purchaseTrain")

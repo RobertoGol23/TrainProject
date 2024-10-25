@@ -21,6 +21,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tablesStyle.css?v=1.x">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    
     <title>Dettagli Treno</title>
     <style>
         .train-details, .wagon-list {

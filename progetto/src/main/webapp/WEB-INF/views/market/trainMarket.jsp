@@ -367,6 +367,19 @@
             z-index: 10; /* Assicurati che il badge sia sopra l'immagine */
         }
 
+
+        .arrow-button {
+            background-color: transparent;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: white;
+        }
+        
+        .arrow-button:focus {
+            outline: none;
+        }
+
   </style>
 </head>
 <body>
@@ -384,52 +397,81 @@
 
       <div class="container-left">
 
-          <form action="trainMarket" method="post">
-
-                <!-- Range Peso -->
-                <div class="mb-4">
-                    <label for="peso" class="form-label">Peso:</label>
-                    <div class="d-flex">
-                        <input type="number" name="peso-min" id="peso-min" placeholder="Min" min="0" max="1000" step="10" class="form-control me-2">
-                        <input type="number" name="peso-max" id="peso-max" placeholder="Max" min="0" max="1000" step="10"  class="form-control">
-                    </div>
+        <form action="trainMarket" method="post">
+            <!-- Range Peso -->
+            <div class="mb-4">
+                <label for="peso" class="form-label">Peso:</label>
+                <div class="d-flex">
+                    <input type="number" name="peso-min" id="peso-min" placeholder="Min" min="0" max="1000" step="10" class="form-control me-2">
+                    <input type="number" name="peso-max" id="peso-max" placeholder="Max" min="0" max="1000" step="10" class="form-control">
                 </div>
-
-                <!-- Range Lunghezza -->
-                <div class="mb-4">
-                    <label for="lunghezza" class="form-label">Lunghezza:</label>
-                    <div class="d-flex">
-                        <input type="number" name="lunghezza-min" id="lunghezza-min" placeholder="Min" min="0" max="50" step="1" class="form-control me-2">
-                        <input type="number" name="lunghezza-max" id="lunghezza-max" placeholder="Max" min="0" max="50" step="1" class="form-control">
-                    </div>
+            </div>
+        
+            <!-- Range Lunghezza -->
+            <div class="mb-4">
+                <label for="lunghezza" class="form-label">Lunghezza:</label>
+                <div class="d-flex">
+                    <input type="number" name="lunghezza-min" id="lunghezza-min" placeholder="Min" min="0" max="50" step="1" class="form-control me-2">
+                    <input type="number" name="lunghezza-max" id="lunghezza-max" placeholder="Max" min="0" max="50" step="1" class="form-control">
                 </div>
-
-                <!-- Range Prezzo -->
-                <div class="mb-4">
-                    <label for="prezzo" class="form-label">Prezzo:</label>
-                    <div class="d-flex">
-                        <input type="number" name="prezzo-min" id="prezzo-min" placeholder="Min" min="0" max="9999999" step="100" class="form-control me-2">
-                        <input type="number" name="prezzo-max" id="prezzo-max" placeholder="Max" min="0" max="9999999" step="100" class="form-control">
-                    </div>
+            </div>
+        
+            <!-- Range Prezzo -->
+            <div class="mb-4">
+                <label for="prezzo" class="form-label">Prezzo:</label>
+                <div class="d-flex">
+                    <input type="number" name="prezzo-min" id="prezzo-min" placeholder="Min" min="0" max="9999999" step="100" class="form-control me-2">
+                    <input type="number" name="prezzo-max" id="prezzo-max" placeholder="Max" min="0" max="9999999" step="100" class="form-control">
                 </div>
+            </div>
+        
+            <!-- Select Ordinamento -->
+            <div class="mb-4">
+                <label for="ordinamento" class="form-label">Ordinamento:</label>
+                <select class="form-select" name="ordinamento" id="ordinamento" aria-label="Default select example" style="width: 70%;">
+                    <option value="ordina_per_voto" selected>Per Voto</option>
+                    <option value="ordina_per_prezzo">Per Prezzo</option>
+                    <option value="ordina_per_nome">Per Nome</option>
+                    <option value="ordina_per_peso">Per Peso</option>
+                    <option value="ordina_per_lunghezza">Per Lunghezza</option>
+                </select>
+        
+                <button type="button" id="arrowButton" class="button">
+                    <i id="versoOrdinamentoButton" class="fa-solid fa-arrow-down"></i> <!-- Default arrow down -->
+                </button>
+        
+                <input type="hidden" name="versoOrdinamento" id="versoOrdinamento" value="false"> <!-- Default value -->
+            </div>
+        
+            <script>
+                const button = document.getElementById('arrowButton'); // alla pressione di arrowButton
+                const icon = document.getElementById('versoOrdinamentoButton');
+                const versoOrdinamentoInput = document.getElementById('versoOrdinamento');
+        
+                button.addEventListener('click', () => {
+                    if (icon.classList.contains('fa-arrow-down')) {
+                        icon.classList.remove('fa-arrow-down');
+                        icon.classList.add('fa-arrow-up');
+                        versoOrdinamentoInput.value = "true"; // Set to false when the arrow is up
 
-                <!-- Select Ordinamento -->
-                <div class="mb-4">
-                    <label for="ordinamento" class="form-label">Ordinamento:</label>
-                    <select class="form-select" name="ordinamento" id="ordinamento" aria-label="Default select example">
-                        <option value="ordina_per_voto" selected>Per Voto</option>
-                        <option value="ordina_per_prezzo">Per Prezzo</option>
-                        <option value="ordina_per_nome">Per Nome</option>
-                        <option value="ordina_per_peso">Per Peso</option>
-                        <option value="ordina_per_lunghezza">Per Peso</option>
-                    </select>
-                </div>
+                        console.log("INPUT SETTATO SU: " + versoOrdinamentoInput.value);
 
-                
-                <input type="submit" value="Cerca" class="btn btn-primary">
+                    } else {
+                        icon.classList.remove('fa-arrow-up');
+                        icon.classList.add('fa-arrow-down');
+                        versoOrdinamentoInput.value = "false"; // Set to true when the arrow is down
 
-          </form>
-          
+                        console.log("INPUT SETTATO SU: " + versoOrdinamentoInput.value);
+                    }
+                });
+            </script>
+        
+            <input type="submit" value="Cerca" class="btn btn-primary">
+        </form>
+        
+        
+        
+            
         </div>
 
           

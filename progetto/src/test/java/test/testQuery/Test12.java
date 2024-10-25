@@ -64,7 +64,7 @@ public class Test12 {
             
             
             // RISULTATI PER PESO:   MIN: 200 MAX: 300 -> mi aspetto Primo Treno e Secondo Treno
-            List<Treno> listaTreniTrovati_PRIMA = trenoDAO.cercaTreni("ordinamento", 200.0, 300.0, 0,  100, 0.0, 99999999999.0 );
+            List<Treno> listaTreniTrovati_PRIMA = trenoDAO.cercaTreni("ordinamento", 200.0, 300.0, 0,  100, 0.0, 99999999999.0, true );
 
             System.out.println("\n RICERCA TRENI TROVATI (peso): " + listaTreniTrovati_PRIMA.size() + "\n" );
             for(Treno treno : listaTreniTrovati_PRIMA){
@@ -72,7 +72,7 @@ public class Test12 {
             }
 
             // RISULTATI PER PESO: LUNGHEZZA   MIN: 7  MAX: 8 -> mi aspetto Primo Treno
-            List<Treno> listaTreniTrovati_SECONDA = trenoDAO.cercaTreni("ordinamento", 0.0, 99999999999.0, 7,  8, 0.0, 99999999999.0 );
+            List<Treno> listaTreniTrovati_SECONDA = trenoDAO.cercaTreni("ordinamento", 0.0, 99999999999.0, 7,  8, 0.0, 99999999999.0, true );
 
             System.out.println("\n RICERCA TRENI TROVATI (lunghezza): " + listaTreniTrovati_SECONDA.size() + "\n" );
             for(Treno treno : listaTreniTrovati_SECONDA){
@@ -80,7 +80,7 @@ public class Test12 {
             }
 
             // RISULTATI PER PREZZO: MIN: 200   PESO MAX: 300 -> mi aspetto Terzo treno
-            List<Treno> listaTreniTrovati_TERZA = trenoDAO.cercaTreni("ordinamento", 0.0, 99999999999.0, 0,  999999999, 0.0, 200000000.0 );
+            List<Treno> listaTreniTrovati_TERZA = trenoDAO.cercaTreni("ordinamento", 0.0, 99999999999.0, 0,  999999999, 0.0, 200000000.0, true );
 
             System.out.println("\n RICERCA TRENI TROVATI (prezzo): " + listaTreniTrovati_TERZA.size() + "\n" );
             for(Treno treno : listaTreniTrovati_TERZA){
@@ -91,7 +91,7 @@ public class Test12 {
 
 
             // RISULTATI PER PESO: LUNGHEZZA   MIN: null  MAX: null -> mi aspetto TUTTI i treni
-            List<Treno> listaTreniTrovati_PROVA_1 = trenoDAO.cercaTreni("ordinamento", null, null, 0,  999999999, 0.0, 99999999999.0 );
+            List<Treno> listaTreniTrovati_PROVA_1 = trenoDAO.cercaTreni("ordinamento", null, null, 0,  999999999, 0.0, 99999999999.0, true );
 
             System.out.println("\n RICERCA TRENI TROVATI (lunghezza): " + listaTreniTrovati_PROVA_1.size() + "\n" );
             for(Treno treno : listaTreniTrovati_PROVA_1){
@@ -101,7 +101,7 @@ public class Test12 {
 
 
             // RISULTATI PER PESO: LUNGHEZZA   MIN: null  MAX: null -> mi aspetto TUTTI i treni
-            List<Treno> listaTreniTrovati_PROVA_2 = trenoDAO.cercaTreni("ordinamento", 0.0, 99999999999.0, null,  null, 0.0, 99999999999.0 );
+            List<Treno> listaTreniTrovati_PROVA_2 = trenoDAO.cercaTreni("ordinamento", 0.0, 99999999999.0, null,  null, 0.0, 99999999999.0, true );
 
             System.out.println("\n RICERCA TRENI TROVATI (lunghezza): " + listaTreniTrovati_PROVA_2.size() + "\n" );
             for(Treno treno : listaTreniTrovati_PROVA_2){
@@ -110,7 +110,7 @@ public class Test12 {
 
 
             // RISULTATI PER PREZZO: MIN: null   PESO MAX: null -> mi aspetto TUTTI i treni
-            List<Treno> listaTreniTrovati_PROVA_3 = trenoDAO.cercaTreni("ordinamento", 0.0, 99999999999.0, 0,  999999999, null, null );
+            List<Treno> listaTreniTrovati_PROVA_3 = trenoDAO.cercaTreni("ordinamento", 0.0, 99999999999.0, 0,  999999999, null, null, true );
 
             System.out.println("\n RICERCA TRENI TROVATI (prezzo): " + listaTreniTrovati_PROVA_3.size() + "\n" );
             for(Treno treno : listaTreniTrovati_PROVA_3){
@@ -119,7 +119,7 @@ public class Test12 {
 
             
             // ORDINAMENTO PER VOTO
-            List<Treno> listaTreniTrovati_ORDINAMENTO_1 = trenoDAO.cercaTreni("ordina_per_voto", null, null, null,  null, null, null );
+            List<Treno> listaTreniTrovati_ORDINAMENTO_1 = trenoDAO.cercaTreni("ordina_per_voto", null, null, null,  null, null, null , null);
 
             System.out.println("\n RICERCA TRENI TROVATI (prezzo): " + listaTreniTrovati_ORDINAMENTO_1.size() + "\n" );
             for(Treno treno : listaTreniTrovati_ORDINAMENTO_1){
@@ -127,7 +127,7 @@ public class Test12 {
             } 
 
             // ORDINAMENTO PER PREZZO
-            List<Treno> listaTreniTrovati_ORDINAMENTO_2 = trenoDAO.cercaTreni("ordina_per_prezzo", null, null, null,  null, null, null );
+            List<Treno> listaTreniTrovati_ORDINAMENTO_2 = trenoDAO.cercaTreni("ordina_per_prezzo", null, null, null,  null, null, null, null );
 
             System.out.println("\n RICERCA TRENI TROVATI (prezzo): " + listaTreniTrovati_ORDINAMENTO_2.size() + "\n" );
             for(Treno treno : listaTreniTrovati_ORDINAMENTO_2){
@@ -135,7 +135,7 @@ public class Test12 {
             } 
 
             // ORDINAMENTO PER NOME
-            List<Treno> listaTreniTrovati_ORDINAMENTO_3 = trenoDAO.cercaTreni("ordina_per_nome", null, null, null,  null, null, null );
+            List<Treno> listaTreniTrovati_ORDINAMENTO_3 = trenoDAO.cercaTreni("ordina_per_nome", null, null, null,  null, null, null, null );
 
             System.out.println("\n RICERCA TRENI TROVATI (prezzo): " + listaTreniTrovati_ORDINAMENTO_3.size() + "\n" );
             for(Treno treno : listaTreniTrovati_ORDINAMENTO_3){
@@ -143,7 +143,7 @@ public class Test12 {
             } 
 
             // ORDINAMENTO PER PESO
-            List<Treno> listaTreniTrovati_ORDINAMENTO_4 = trenoDAO.cercaTreni("ordina_per_peso", null, null, null,  null, null, null );
+            List<Treno> listaTreniTrovati_ORDINAMENTO_4 = trenoDAO.cercaTreni("ordina_per_peso", null, null, null,  null, null, null, null );
 
             System.out.println("\n RICERCA TRENI TROVATI (prezzo): " + listaTreniTrovati_ORDINAMENTO_4.size() + "\n" );
             for(Treno treno : listaTreniTrovati_ORDINAMENTO_4){
