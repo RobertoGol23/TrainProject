@@ -4,6 +4,7 @@
 <%@ page import="entity.servizi.Servizio" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.votazioni.Voto" %>
+<%@ page import="utility.TrenoUtility" %>
 <%@ page import="entity.dao.VotoDAO" %>
 <%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
 <%@ page import="org.springframework.context.support.AbstractApplicationContext" %>
@@ -14,7 +15,6 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
@@ -97,14 +97,14 @@
         }
         .train-info {
             max-width: 70%;
-            border-style: solid;
-			border-width: 2px;
-			border-color: black;
-			background-color: ivory;
-			color: black;
+/*             border-style: solid; */
+/* 			border-width: 2px; */
+/* 			border-color: black; */
+/* 			background-color: ivory; */
+			color: ivory;
 			padding: 20px;
-			border-radius: 5px;
-			font-family: "Georgia";
+/* 			border-radius: 5px; */
+/* 			font-family: "Georgia"; */
         	font-size: 16px;
         }
         .train-details img {
@@ -149,8 +149,9 @@
         // Recupera il treno dalla richiesta
         Treno treno = (Treno) request.getAttribute("treno");
         if (treno != null) {
-    %>
-    <% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+    
+        TrenoUtility tu = new TrenoUtility();
+     	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         VotoDAO votoDAO = context.getBean(VotoDAO.class); %>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
@@ -163,7 +164,7 @@
         <p> - Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
         <p> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p>
         <p> - Passeggeri totali: <%= treno.getPasseggeriTotali() %> passeggeri</p>
-    </div>
+    	</div>
             <!-- Immagine del treno a destra -->
             <% if(treno.getMarca().equals("Treno RegionalGain")) { %>
                 <img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">
@@ -235,7 +236,7 @@
                     </td>
                     <td><%= vagone.getPeso() %> tonnellate</td>
                     <td><%= vagone.getPrezzo() %> euro</td>
-                    <td><%= vagone.getDettagli() %></td>
+                    <td><%= (vagone != null && tu.getDettagli(vagone) != null) ? tu.getDettagli(vagone) : "N/A" %></td>
                     <td>
                         <%
                             List<Servizio> servizi = vagone.getListaServizi();
@@ -244,12 +245,13 @@
                             <ul>
                             <%
                                 for (Servizio servizio : servizi) {
+                                	//System.out.println(servizio.getNome() + " " + servizio);
                             %>
                                 <li> 
                                     <a href="modifyWagonServices?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&idVagoneRel=<%= i %>" class="button">
                                         <%= servizio.getNome() %>
                                     </a>
-                                    <a class="cestino" href="deleteService?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&nomeServizio=<%= servizio.getNome() %>">
+                                    <a class="cestino" href="deleteService?idVagone=<%= vagone != null ? vagone.getId() : "" %>&idTreno=<%= treno != null ? treno.getId() : "" %>&idServizio=<%= servizio.getId() %>">
                                     <i class="fas fa-trash"></i></a>
                                 </li>
                             <%
@@ -269,7 +271,7 @@
                 </tr>
             <%
                 }
-                context.close();
+                //context.close();
             %>
             </tbody>
         </table>

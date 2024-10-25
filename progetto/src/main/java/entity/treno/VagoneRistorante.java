@@ -33,5 +33,9 @@ public class VagoneRistorante extends Vagone{ //pensare se si puo' levare abstra
 		return coperti;
 	}
 
-	
+	@Override
+	public String getTipoStampa() {
+		
+		return "Vagone Ristorante";
+	}
 }

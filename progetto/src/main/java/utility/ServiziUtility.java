@@ -30,6 +30,61 @@ public class ServiziUtility {
 		return servizi;
 	}
 
+	/**
+	 * Metodo che crea un servizio in base al nome passato
+	 * @param fabbrica
+	 * @param nomeServizio
+	 * @return servizio se il nome coincide con un servizio vero o null se non coincide
+	 */
+	public Servizio creaServizioByNome(FabbricaServizi fabbrica, String nomeServizio)
+	{
+		Servizio servizio;
+		switch(nomeServizio)
+		{
+			case("bagno"):
+			{
+				servizio = fabbrica.creaBagno();
+				break;
+			}
+			case("cinema"):
+			{
+				servizio = fabbrica.creaCinema();
+				break;
+			}
+			case("colore"):
+			{
+				servizio = fabbrica.creaColore();
+				break;
+			}
+			case("menu"):
+			{
+				servizio = fabbrica.creaMenu();
+				break;
+			}
+			case("sicurezza"):
+			{
+				servizio = fabbrica.creaSicurezza();
+				break;
+			}
+			case("temperatura"):
+			{
+				servizio = fabbrica.creaTemperatura();
+				break;
+			}
+			case("wifi"):
+			{
+				servizio = fabbrica.creaWifi();
+				break;
+			}
+			default:
+			{
+				servizio = null;
+			}
+		}
+		return servizio;
+	}
+	
+	
 	
 	/**
 	 * Metodo che cerca un servizio dentro il treno, utilizzato per

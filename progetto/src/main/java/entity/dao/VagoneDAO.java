@@ -39,12 +39,12 @@ public class VagoneDAO {
      * @param nomeServizio Il nome del servizio da rimuovere.
      */
     @Transactional
-    public boolean removeServizioFromVagone(Long idVagone, String nomeServizio) {
+    public boolean removeServizioFromVagone(Long idVagone, Long idServizio) {
         // Crea la query per rimuovere l'associazione dalla tabella 'servizi_utilizzati'
     	Query query = em.createNativeQuery(
     		    "DELETE FROM servizi_utilizzati WHERE nome = :nome AND id_vagone = :id_vagone"
     		);
-    		query.setParameter("nome", nomeServizio);
+    		query.setParameter("nome", idServizio);
     		query.setParameter("id_vagone", idVagone);
 
         // Esegui la query

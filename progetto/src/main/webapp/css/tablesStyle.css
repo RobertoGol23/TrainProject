@@ -14,6 +14,7 @@
             border-collapse: collapse;
             margin-top: 10px;
             font-size: 18px;
+            text-align: center;
 /* 	    	font-weight: bold; */
         }
         th, td {
