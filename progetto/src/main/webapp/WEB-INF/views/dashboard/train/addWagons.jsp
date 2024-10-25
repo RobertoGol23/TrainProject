@@ -120,11 +120,15 @@
         label, select {
         	margin-left: 20px;
         }
+        
         .container {
-        	width:430px;
+        	width: 450px;
         	padding: 0px;
         }
         
+        form {
+        	width: 470px;
+        }
     </style>
 </head>
 <body>

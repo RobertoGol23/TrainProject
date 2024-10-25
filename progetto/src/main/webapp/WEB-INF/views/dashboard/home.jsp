@@ -27,7 +27,7 @@
         }
         
         
-        h1 {
+        	h1 {
                 margin-top: 30px;
                 font-size: 2.5rem; 
                 color: #e1418b;
@@ -61,11 +61,11 @@
             }
             .form-container {
                 display: block;
-            background-color: #49456d;
-            padding: 20px;
-            border-radius: 10px;
-            width: 280px;
-            text-align: center;
+	            background-color: #49456d;
+	            padding: 20px;
+	            border-radius: 10px;
+	            width: 280px;
+	            text-align: center;
         
                 margin: 10px;
                 padding: 20px;
@@ -186,16 +186,7 @@
     <div class="container-pulsanti">
         <!-- Sezione visibile a tutti gli utenti -->
         <div class="form-wrapper">
-            
-            <!-- TODO: cancellare se non piu necessario-->
-            <!-- <div class="form-container">
-                <h2>Modifica il tuo Profilo</h2>
-                <form action="user/editProfile" method="get">
-                    <button type="submit">Modifica Profilo</button>
-                </form>
-            </div> -->
-
-
+        
             <div class="form-container">
                 <h2>Crea un nuovo treno</h2>
                 <button id="showCardsButton" onclick="showDiv()">Crea Treno</button>
