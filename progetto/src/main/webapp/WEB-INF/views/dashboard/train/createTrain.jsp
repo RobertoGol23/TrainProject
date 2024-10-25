@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="entity.user.User" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -64,6 +64,9 @@
         .form-container button:hover {
             background-color: #8a79c7;
         }
+        .disabilitato, .disabilitato:hover{
+        	background-color: grey;
+        }
         .error-message {
             color: red;
             margin-top: 20px;
@@ -94,8 +97,19 @@
                     <option value="2">KargoModelz</option>
                     <option value="3">RegionalGain</option>
                 </select>
-
-                <button type="submit">Crea Treno</button>
+<% 
+				User user = (User) session.getAttribute("user");
+                		
+	            if(user!= null) //se non ci sono servizi da aggiungere tolgo il pulsante
+	            {
+	            	%><button type="submit">Crea Treno</button><%
+	            }
+	            else
+	            {
+	            	%><button onclick="window.location.href='/train-bazaar/register';" class="btn btn-primary">Crea il tuo profilo per salvare il treno</button><%
+	            }
+            
+            %>  
             </form>
         </div>
     </div>
