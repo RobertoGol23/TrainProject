@@ -162,9 +162,18 @@
         <!-- Sezione visibile a tutti gli utenti -->
         <div class="form-wrapper">
         
+            <!-- <div class="form-container">
+                <h2>I Miei Treni Comprati</h2>
+                <form action="user/viewPurchasedTrains" method="get">
+                    <button type="submit">Visualizza Treni</button>
+                </form>
+            </div> -->
             <div class="form-container">
                 <h2>Crea un nuovo treno</h2>
-                <button id="showCardsButton" onclick="showDiv()">Crea Treno</button>
+                <form>
+                    <button id="showCardsButton" onclick="showDiv()">Crea Treno</button>
+                </form>
+                
             </div>
 
 
@@ -249,21 +258,7 @@
             </script>
 
 
-            <!-- TODO: cancellare se non piu necessario-->
-           <!--  <div class="form-container">
-                <h2>Crea un Nuovo Treno con sigla</h2>
-                <form action="train/createTrain" method="get">
-                    <button type="submit">Crea Treno</button>
-                </form>
-            </div>
             
-            <div class="form-container">
-                <h2>Crea un Nuovo Treno dinamico</h2>
-                <form action="train/creaTrenoDinamico" method="get">
-                    <button type="submit">Crea Treno</button>
-                </form>
-            </div> -->
-
             <!-- Visualizzazione treni creati e acquistati -->
             <div class="form-container">
                 <div><h2>I Miei Treni Creati</h2></div>
@@ -271,6 +266,7 @@
                     <button type="submit">Visualizza Treni</button>
                 </form>
             </div>
+
             <div class="form-container">
                 <h2>I Miei Treni Comprati</h2>
                 <form action="user/viewPurchasedTrains" method="get">
