@@ -6,65 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <title>Acquisto Completato</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-            text-align: center;
-        }
-        .message {
+		.container {
             background-color: #49456d;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
-            display: inline-block;
+            width: 25%;
             margin: 20px auto;
+            text-align: center;
+            margin-top: 100px;
         }
-        .message h1 {
-            font-size: 24px;
+
+        
+        h1, h2 {
+            margin: 0 0 30px;
+        }
+
+        .message {
             margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
         }
-        button {
-            background-color: #8a79c7;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 10px;
-        }
-        button:hover {
-            background-color: #79c7e3;
-        }
-        .dashboard-btn {
-            background-color: #4caf50;
-        }
-        .dashboard-btn:hover {
-            background-color: #45a049;
-        }
-        .market-btn {
-            background-color: #8a79c7;
-        }
-        .market-btn:hover {
-            background-color: #79c7e3;
-        }
+        
+        
+        form, .form-button {
+		    background-color: #49456d;
+		    padding: 0px;
+		    border-radius: 10px;
+		    width: 100%;
+		    height: auto; /* Permette al contenuto di determinare l'altezza */
+		    margin-top: 10px;
+		    margin: 0 auto; /* Centra orizzontalmente */
+		    font-weight: normal;
+		}
+		
+		button, a.button {
+			margin-top: 10px;
+		}
+
     </style>
 </head>
 <body>
 
-    <div class="message">
+    <div class="container">
         <h1>Acquisto Completato con Successo!</h1>
-        <p>Grazie per il tuo acquisto. Cosa desideri fare ora?</p>
-        
-        <form action="/train-bazaar/dashboard/home" method="get">
-            <button type="submit" class="dashboard-btn">Vai alla Dashboard Personale</button>
-        </form>
-        
-        <form action="/train-bazaar/trainMarket" method="get">
-            <button type="submit" class="market-btn">Compra altri Treni</button>
-        </form>
+        <p>Grazie per il tuo acquisto.</p>
+        <div class="form-button">
+        	<a href="/train-bazaar/dashboard/home" class="button">Vai alla Dashboard</a>
+        	<a href="/train-bazaar/trainMarket" class="button">Compra altri Treni</a>
+    	</div>
+    
     </div>
 
 

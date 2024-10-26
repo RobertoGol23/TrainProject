@@ -51,6 +51,12 @@
             max-width: 80%;
             margin: 10px auto;
         }
+        
+        .container-search{
+        	display: block;
+        	width: 20%;
+        	margin-right: 3%;
+        }
 
         .container-left, .container-right {
             padding: 20px;
@@ -59,9 +65,10 @@
         }
 
         .container-left {
-            width: 20%; /* Mantieni la larghezza desiderata */
-            margin-right: 2%; /* Margine per separare i due contenitori */
-            margin-left: 3%;
+            width: 100%; /* Mantieni la larghezza desiderata */
+            margin-right: 1%; /* Margine per separare i due contenitori */
+/*             margin-left: 3%; */
+            margin-bottom: 30px;
         }
 
         .container-right {
@@ -286,7 +293,8 @@
             border: 1px solid #a29dcf; /* Bordo chiaro */
             border-radius: 5px; /* Angoli arrotondati */
             padding: 10px 40px 10px 15px; /* Padding con spazio per la freccia */
-            width: 100%; /* Larghezza */
+            width: 125px; /* Larghezza */
+            max-width: 125px; /* Larghezza */
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transizioni */
             font-size: 1rem; /* Dimensione del font */
             cursor: pointer; /* Cambia il cursore */
@@ -394,7 +402,7 @@
  </div>
 
   <div class="container">
-
+	<div class="container-search">
       <div class="container-left">
 
         <form action="trainMarket" method="post">
@@ -467,15 +475,17 @@
             </script>
         
             <input type="submit" value="Cerca" class="btn btn-primary">
-        </form>
-        
-        
-        
-            
+        </form> 
         </div>
 
-          
-
+         <!-- Nuova Card Sotto il Container -->
+    	<div class="container-left">
+        	<div class="card-body text-center">
+            	<h5 class="card-title elegant-title">Ti piacciono questi treni ma vuoi crearne uno tuo?</h5>
+            	<a href="/train-bazaar/dashboard/train/createTrain" class="btn btn-primary">Crea il tuo Treno</a>
+        	</div>
+    	</div> 
+	</div>
       <div class="container-right">
         <%
           List<Treno> treni = (List<Treno>) session.getAttribute("treni");

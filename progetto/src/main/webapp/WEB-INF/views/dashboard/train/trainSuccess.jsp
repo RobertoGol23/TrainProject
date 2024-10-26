@@ -6,55 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
-
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <title>Treno Creato con Successo</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-        }
+        
         h1 {
-            color: #8a79c7;
             text-align: center;
+            margin-bottom: 50px;
+       		margin-top: 10px;
         }
         .content {
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
-            margin-bottom: 20px;
             text-align: center;
+            margin: 20px auto;
+            width: 20%;
+            text-align: center;
+            font-size: 16px;
         }
         a {
             color: #79c7e3;
             text-decoration: none;
             margin-top: 20px;
         }
-        button {
-            padding: 10px;
-            background-color: #79c7e3;
-            border: none;
-            border-radius: 5px;
-            color: #2e2b4f;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #8a79c7;
-        }
+        
+        form, .form-button {
+		    background-color: #49456d;
+		    padding: 0px;
+		    border-radius: 10px;
+		    width: 100%;
+		    height: auto; /* Permette al contenuto di determinare l'altezza */
+		    margin: 0 auto; /* Centra orizzontalmente */
+		    font-weight: normal;
+		}
     </style>
 </head>
 <body>
 
-    <h1>Treno Creato con Successo!</h1>
+    
 
     <div class="content">
+    	<h1>Treno Creato con Successo!</h1>
         <p>Il tuo treno è stato creato con successo!</p>
-        <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o creare un altro treno.</p>
-        <form action="createTrain" method="get">
+        <p>Puoi tornare alla dashboard o creare un altro treno.</p>
+        <form action="createTrain" method="get" class="form-button">
             <button type="submit">Crea un altro treno</button>
+            <a href="/train-bazaar/dashboard/home" class="button"> Torna alla dashboard </a>
         </form>
     </div>
-
 
     <!-- TODO: footer -->
     <!-- <footer>

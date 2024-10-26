@@ -33,4 +33,10 @@ public class VagonePasseggeri extends Vagone{ //pensare se si puo' levare abstra
 	{
 		return super.toString() + "	Posti a sedere: " + getPostiASedere() + "\n";
 	}
+	
+	@Override
+	public String getTipoStampa() {
+		
+		return "Vagone Passeggeri";
+	}
 }

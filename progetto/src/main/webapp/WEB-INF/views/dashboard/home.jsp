@@ -10,7 +10,7 @@
     <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/trainAnimatioStyle.css?v=1.x">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=2.x">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -27,7 +27,7 @@
         }
         
         
-        h1 {
+        	h1 {
                 margin-top: 30px;
                 font-size: 2.5rem; 
                 color: #e1418b;
@@ -40,6 +40,11 @@
                 height: 80px;
             }
             
+            h2.card {
+            	margin-top: -7%;
+            	margin-bottom: 4%;
+            	text-align: center;
+            }
             
             .content {
                 background-color: #49456d;
@@ -57,21 +62,15 @@
             .form-wrapper {
                 display: flex;
                 justify-content: center;
-                gap: 20px;
+/*                 gap: 20px; */
             }
             .form-container {
                 display: block;
-            background-color: #49456d;
-            padding: 20px;
-            border-radius: 10px;
-            width: 280px;
-            text-align: center;
-        
-                margin: 10px;
                 padding: 20px;
-                flex: 1 0 300px; /* Dimensione minima dei contenitori */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra */
-                transition: transform 0.3s, box-shadow 0.3s; /* Transizione per hover */
+	            width: 320px;
+                margin: 10px;
+                flex: 1 0 320px; /* Dimensione minima dei contenitori */
+                
             }
             .form-container:hover {
                 transform: translateY(-5px); /* Effetto sollevato al passaggio del mouse */
@@ -81,46 +80,23 @@
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center; /* Centratura dei pulsanti */
-                margin: 20px 0;
-        
+                margin: 0px;
+                margin-left: 0px;
+        		text-decoration: none;
                 vertical-align: bottom;
             }
-            a {
-                color: #79c7e3;
-                text-decoration: none;
-            }
-            button {
-                width: 100%;
-                margin-top: 25px;
-                padding: 10px;
-                background-color: #f5835e;
-                border: none;
-                border-radius: 5px;
-                color: #2e2b4f;
-                cursor: pointer;
-                padding: 10px 20px;
-                transition: background-color 0.3s, transform 0.3s; /* Transizione */
-            }
-            button:hover {
-                background-color: #f96737;
-                color: #ffffff;
-                transform: translateY(-2px); /* Effetto sollevato */
-            }
-            
-            .container-benvenuto {
-            margin: 2%;
-            display: center;
-            flex-direction: column;
-            align-items: center;
-        
+           
+         .container-benvenuto {
+	            margin: 2%;
+	            display: center;
+	            flex-direction: column;
+	            align-items: center;
                 text-align: center;
                 padding: 20px;
                 background: rgba(255, 255, 255, 0.1);
                 border-radius: 10px; /* Angoli arrotondati */
             }
-        
-        
-        
+
         .card {
             width: 30%; /* Larghezza delle card */
             height: 40%; /* Altezza delle card */
@@ -158,7 +134,6 @@
             display: none; /* Nascondi per default */
         }
         
-        
         .card-title {
             text-align: center; /* Centra il testo */
             font-size: 2.5em; /* Dimensione del testo */
@@ -186,16 +161,7 @@
     <div class="container-pulsanti">
         <!-- Sezione visibile a tutti gli utenti -->
         <div class="form-wrapper">
-            
-            <!-- TODO: cancellare se non piu necessario-->
-            <!-- <div class="form-container">
-                <h2>Modifica il tuo Profilo</h2>
-                <form action="user/editProfile" method="get">
-                    <button type="submit">Modifica Profilo</button>
-                </form>
-            </div> -->
-
-
+        
             <div class="form-container">
                 <h2>Crea un nuovo treno</h2>
                 <button id="showCardsButton" onclick="showDiv()">Crea Treno</button>
@@ -205,28 +171,30 @@
             <div id="overlay" class="hidden" onclick="hideDiv()"></div>
             <div id="cardsContainer" style="display: none;">
 
-                <a href="train/createTrain" class="card" style="text-decoration: none;">
+                <div class="card">
                     <div class="card-title">
                         <h1> Creazione statica </h1>
                     </div>  
                     
                     <div class="card-body">
-                        <h2 style= "margin-top: -7%; margin-bottom: 4%; text-align: center";> Per coloro che sono alle prime armi. </h2>
-                        <h3> Strumento che offre la possibilità di creare un treno in pochi semplicissimi passi, inserendo pochi caratteri otterrai il treno che desideri. 
+                        <h2> Per coloro che sono alle prime armi. </h2>
+                        <h3>
+                        	<a href="train/createTrain"> Strumento che offre la possibilità di creare un treno in pochi semplicissimi passi, inserendo pochi caratteri otterrai il treno che desideri. </a>
                         </h3>
-                        
                     </div>
-                </a>
-                <a href="train/creaTrenoDinamico" class="card" style="text-decoration: none;">
+               </div>
+               <div class="card">
                     <div class="card-title">
                         <h1> Creazione dinamica </h1>
                     </div>  
                     
                     <div class="card-body">
-                        <h2 style="margin-top: -7%; margin-bottom: 4%; text-align: center"> Per chi ha già esperienza con questo tool </h2> 
-                        <h3> Pensato per chi ha dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno.</h3>
+                        <h2> Per chi ha già esperienza con questo strumento </h2>
+                        <h3>
+                        	<a href="train/creaTrenoDinamico">	Pensato per chi ha dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno. </a>
+                        </h3>
                     </div>
-                </a>
+               </div>
             </div>
 
             <script>
@@ -317,14 +285,9 @@
             %>
                 <div class="form-container">
                     <h2>Gestione Admin</h2>
-                    <form action="train/creaTrenoDinamico" method="get">
-	                    <button type="submit">Crea Treno Dinamico</button>
-	                </form>
-                    <form action="admin/showPurchases" method="get">
-                        <button type="submit">Mostra Tutti gli Acquisti</button>
-                    </form>
-                    <form action="admin/manageUsers" method="get">
-                        <button type="submit">Gestisci Utenti</button>
+	                <form class="form-button">
+                        <a href="admin/showPurchases" class="button"> Mostra Tutti gli Acquisti </a>
+                		<a href="admin/manageUsers" class="button"> Gestisci Utenti </a>
                     </form>
                 </div>
             <% } %>

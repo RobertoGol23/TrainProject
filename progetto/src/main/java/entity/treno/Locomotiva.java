@@ -34,4 +34,10 @@ public class Locomotiva extends Vagone{ //pensare se si puo' levare abstract per
 	{
 		return super.toString() + "	Peso trainabile: " + getPesoTrainabile() +"\n";
 	}
+
+	@Override
+	public String getTipoStampa() {
+		
+		return "Locomotiva";
+	}
 }

@@ -67,27 +67,26 @@
 <body>
 
     <div class="container">
-        <h1>Aggiunta Servizio Completata</h1>
+        <h1>Aggiunta Servizio Non Riuscita</h1>
         <div class="message">
             <% 
                 // Recupera il messaggio dalla richiesta
                 String message = (String) request.getAttribute("message");
                 if (message != null) { 
             %>
-                <p><%= message %></p>
+                <p style="color:red"><%= message %></p>
             <% 
                 } else { 
             %>
-                <p>Il servizio è stato aggiunto con successo!</p>
+                <p>Non è stato possibile aggiungere il servizio!</p>
             <% 
                 } 
             %>
         </div>
-        <p>Puoi tornare alla dashboard o continuare a modificare.</p>
-        <form action="viewTrain" method="get" class="form-button">
+        <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o continua a modificare.</p>
+        <form action="viewTrain" method="get">
  			<input type="hidden" name="idTreno" value="${idTreno}">
             <button type="submit">Continua a modificare</button>
-            <a href="/train-bazaar/dashboard/home" class="button"> Torna alla dashboard </a>
         </form>
     </div>
 

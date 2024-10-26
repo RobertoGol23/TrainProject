@@ -1,4 +1,4 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>clude file="../../navbar.jsp" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -7,39 +7,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <title>Clonazione Avvenuta</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
+        
+        h1, h2 {
+            margin: 0 0 30px;
         }
+
+        .message {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        
+        form, .form-button {
+		    background-color: #49456d;
+		    padding: 0px;
+		    border-radius: 10px;
+		    width: 100%;
+		    height: auto; /* Permette al contenuto di determinare l'altezza */
+		    margin: 0 auto; /* Centra orizzontalmente */
+		    font-weight: normal;
+		}
+        
         .success-message, .error-message {
             background-color: #49456d;
             padding: 20px;
             border-radius: 10px;
-            max-width: 600px;
+            width: 20%;
             margin: 20px auto;
             text-align: center;
         }
-        a.button {
-            background-color: #8a79c7;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        a.button:hover {
-            background-color: #79c7e3;
-        }
+        
     </style>
 </head>
 <body>
 
-    <h1>Clonazione Treno</h1>
+	<div>
+    
 
     <%
         String successMessage = (String) request.getAttribute("successMessage");
@@ -48,18 +55,25 @@
         if (successMessage != null) { 
     %>
         <div class="success-message">
-            <p style="color: green;"><%= successMessage %></p>
-            <a href="/train-bazaar/dashboard/home" class="button">Torna al tuo profilo</a>
-        </div>
+        	<h1>Treno Clonato!</h1>
+            <p><%= successMessage %></p>
+            <div class="form-button">
+            	<a href="/train-bazaar/dashboard/home" class="button">Torna alla dashboard</a>
+        	</div>
+     	</div>
     <% } else if (errorMessage != null) { %>
         <div class="error-message">
+        	<h1>Treno Non Clonato</h1>
             <p style="color: red;"><%= errorMessage %></p>
-            <a href="/train-bazaar/dashboard/home" class="button">Torna al tuo profilo</a>
+            <div class="form-button">
+            	<a href="/train-bazaar/dashboard/home" class="button">Torna alla dashboard</a>
+        	</div>
         </div>
     <% } else { %>
         <p>Nessuna informazione disponibile.</p>
     <% } %>
-
+    
+	</div>
 
    <!-- TODO: footer -->
     <!-- <footer>

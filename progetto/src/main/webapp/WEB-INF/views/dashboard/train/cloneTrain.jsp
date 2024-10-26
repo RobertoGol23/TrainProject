@@ -4,7 +4,7 @@
 <%@ page import="entity.dao.TrenoDAO" %>
 <%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
 <%@ page import="org.springframework.context.support.AbstractApplicationContext" %>
-<%@ page import="configuration.JpaConfig" %>vbar.jsp" %>
+<%@ page import="configuration.JpaConfig" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -13,54 +13,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <title>Clona Treno</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-        }
+        
         .clone-train-form {
             background-color: #49456d;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
-            max-width: 600px;
+            width: 25%;
             margin: 20px auto;
         }
+        
+        input {
+		    width: 100%;
+		    padding: 10px;
+		    margin-bottom: 10px;
+		    font-size: 15px;
+		    border: none;
+		    border-radius: 5px;
+		}
+        
         h1 {
-            text-align: center;
-            padding-top: 15px;
+        	margin-top: 0px;
         }
-        label {
-            display: block;
-            margin: 10px 0 5px;
+        
+        h2 {
+        	margin-top: 50px;
         }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #8a79c7;
-            border-radius: 5px;
-            background-color: #6c6991;
-            color: white;
+        
+        .text {
+        	padding: 20xp;
         }
-        button {
-            background-color: #8a79c7;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto;
-        }
-        button:hover {
-            background-color: #79c7e3;
-        }
+        
+        form {
+        	margin-top: 50px;
+		    padding: 0px;
+		    width: 100%;
+		   
+		}
+        
     </style>
 </head>
 <body>
 
-    <h1>Clona Treno</h1>
+    
 
     <%
         // Recupera il treno dalla richiesta
@@ -69,13 +66,15 @@
         if (treno != null) {
     %>
     <div class="clone-train-form">
+    	<h1>Clona Treno</h1>
         <h2>Dettagli Treno Originale</h2>
-        <p>Nome Treno Originale: <%= treno.getNome() %></p>
-        <p>Sigla Treno Originale: <%= tu.getSigla(treno) %></p>
-        <p>Marca: <%= treno.getMarca() %></p>
-        <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
-        <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
-
+        <div class="text">
+	        <p>Nome Treno Originale: <%= treno.getNome() %></p>
+	        <p>Sigla Treno Originale: <%= tu.getSigla(treno) %></p>
+	        <p>Marca: <%= treno.getMarca() %></p>
+	        <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
+	        <p>Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
+		</div>
         <form action="confirmClone" method="post">
             <input type="hidden" name="idTreno" value="<%= treno.getId() %>">
             <label for="nomeNuovo">Nome Nuovo Treno:</label>

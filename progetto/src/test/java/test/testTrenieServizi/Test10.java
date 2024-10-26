@@ -12,7 +12,7 @@ public class Test10 {
 
 	@Transactional
 	public static void main(String[] args) {
-	    String nomeServizio = "cinema";
+	    Long idServizio = (long)1;
 	    Long idVagone = (long) 303;
 	    
 	    /*
@@ -28,7 +28,7 @@ public class Test10 {
 	    Vagone vagone = vagoneDAO.getVagoneById(idVagone);
 	   
 	    System.out.println("lista servizi prima della modifica: " + vagone.getListaServizi());
-	    vagoneDAO.removeServizioFromVagone(idVagone, nomeServizio);
+	    vagoneDAO.removeServizioFromVagone(idVagone, idServizio);
 	    System.out.println("lista servizi: " + vagone.getListaServizi());
 	    context.close();
 	}
