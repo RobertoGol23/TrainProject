@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import configuration.JpaConfig;
 import eccezioni.eccezioniGeneriche.AssociazioneServizioVagoneNonTrovataException;
@@ -475,7 +476,7 @@ public class TrainController {
     	catch(Exception e)
     	{
 	        request.setAttribute("idTreno", idTreno);
-	        request.setAttribute("message", "Non è stato possibile aggiungere il servizio.<br>Il treno è troppo pesante per essere trainato!");
+    		request.setAttribute("message", "Non è stato possibile aggiungere il servizio.<br>Il treno è troppo pesante per essere trainato!");
 	        return "dashboard/train/addServiceFailed";
     	}
 	    	
@@ -595,40 +596,35 @@ public class TrainController {
     }
 
     @GetMapping("/ribaltaTreno")
-    public String ribaltaTreno(@RequestParam("idTreno") Long idTreno, Model model) {
+    public String ribaltaTreno(@RequestParam("idTreno") Long idTreno, RedirectAttributes redirectAttributes) {
         // Recupera il treno dal database utilizzando l'ID
-//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-//        TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-        TrenoUtility trenoUtility = new TrenoUtility();
-        
         Treno treno = trenoDAO.getTrenoById(idTreno);
         
         // Verifica se il treno esiste
         if (treno != null) {
             // Esegui il ribaltamento del treno
+            TrenoUtility trenoUtility = new TrenoUtility();
             boolean successo = trenoUtility.ribaltaTreno(treno);
             
             if (successo) {
                 // Salva le modifiche nel database
                 trenoDAO.updateTreno(treno);
-                model.addAttribute("treno", treno);
-                //context.close();
-                
+                redirectAttributes.addFlashAttribute("treno", treno);
+                // Aggiungi il messaggio di successo agli attributi del redirect
+                redirectAttributes.addFlashAttribute("success", "Il treno è stato ribaltato con successo!");
                 // Reindirizza alla pagina con i dettagli aggiornati del treno
-                return "redirect:viewTrain?idTreno="+ idTreno; // Nome della tua JSP che mostra i dettagli del treno
+                return "redirect:viewTrain?idTreno=" + idTreno; // Nome della tua JSP che mostra i dettagli del treno
             } else {
+            	redirectAttributes.addAttribute("idTreno", idTreno);
                 // Se non è possibile ribaltare il treno (es. sigla finisce con 'h')
-            	model.addAttribute("idTreno", idTreno);
-            	model.addAttribute("error", "Non è possibile ribaltare questo treno.");
-                //context.close();
-                return "dashboard/train/trainModifyFail"; // Pagina di errore o messaggio da gestire
+                redirectAttributes.addFlashAttribute("error", "Non è possibile ribaltare questo treno.");
+                return "redirect:dashboard/train/trainModifyFail"; // Pagina di errore o messaggio da gestire
             }
         } else {
             // Treno non trovato
-        	model.addAttribute("idTreno", idTreno);
-            model.addAttribute("error", "Treno non trovato.");
-            //context.close();
-            return "dashboard/train/trainModifyFail";
+        	redirectAttributes.addAttribute("idTreno", idTreno);
+            redirectAttributes.addFlashAttribute("error", "Treno non trovato.");
+            return "redirect:dashboard/train/trainModifyFail";
         }
     }
     

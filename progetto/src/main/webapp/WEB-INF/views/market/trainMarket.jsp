@@ -509,7 +509,12 @@
                         // Controllo se il treno è stato creato dall'utente
                         boolean creatoDalloUser = (treno.getUtente().getId_user() == user.getId_user());
                         // Controllo se il treno è stato acquistato
+                        
                         boolean hasAcquisto = acquistoDAO.existsAcquistoByUserIdAndTrenoId(user.getId_user(), treno.getId());
+						
+                        if(votoDAO.trovaVotoPerUtenteETreno(user.getId_user(), treno.getId())!= null){%>
+                        	 <span class="badge badge-warning" style="top: 10px; left: 10px;">Lo hai votato</span>
+                        <%}
                     %>
                     <!-- Badge per indicare se il treno è stato creato o acquistato -->
                     <% if (creatoDalloUser) { %>
