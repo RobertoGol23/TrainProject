@@ -141,68 +141,68 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="content">
-        <div class="showSaldo">
-            <h1>Saldo Train-Bazaar</h1>
-            <div class="saldo" id="formatted-saldo"></div>
-            <h1>Disponibile</h1>
-            <button class="reload-button" onclick="showDiv()">Ricarica</button>
-        </div>
+        <div class="container">
+            <div class="content">
+                <div class="showSaldo">
+                    <h1>Saldo Train-Bazaar</h1>
+                    <div class="saldo" id="formatted-saldo"></div>
+                    <h1>Disponibile</h1>
+                    <button class="reload-button" onclick="showDiv()">Ricarica</button>
+                </div>
 
-        <div class="container-aggiungiFondi" id="container-aggiungiFondi">
-            <div class="form-container">
-                <h1 class="scritta-aggiungiFondi">Aggiungi Fondi al Tuo Wallet</h1>
-                <form action="ricarica" method="post" onsubmit="showSuccessMessage();" style="margin-top: 4%;">
-                    <input type="number" id="amount" name="amount" required min="0" step="100" placeholder="Importo da aggiungere">
-                    <button type="submit">Aggiungi Fondi</button>
-                </form>
+                <div class="container-aggiungiFondi" id="container-aggiungiFondi">
+                    <div class="form-container">
+                        <h1 class="scritta-aggiungiFondi">Aggiungi Fondi al Tuo Wallet</h1>
+                        <form action="ricarica" method="post" onsubmit="showSuccessMessage();" style="margin-top: 4%;">
+                            <input type="number" id="amount" name="amount" required min="0" step="100" placeholder="Importo da aggiungere">
+                            <button type="submit">Aggiungi Fondi</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="transazioni">
+                    <h1>Attività recenti</h1>
+                    <!-- Aggiungi qui le transazioni recenti -->
+                </div>
+            </div>
+
+            <div class="right-content">
+                <h2>Ricarica il tuo wallet</h2>
+                <p>Aggiungi saldo al tuo wallet per poter acquisire i tuoi treni e i treni creati dagli altri utenti.</p>
             </div>
         </div>
 
-        <div class="transazioni">
-            <h1>Attività recenti</h1>
-            <!-- Aggiungi qui le transazioni recenti -->
-        </div>
-    </div>
+        <script>
+            // Funzione per formattare il saldo con punto ogni tre cifre
+            function formatSaldo(saldo) {
+                return saldo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
+            }
 
-    <div class="right-content">
-        <h2>Ricarica il tuo wallet</h2>
-        <p>Aggiungi saldo al tuo wallet per poter acquisire i tuoi treni e i treni creati dagli altri utenti.</p>
-    </div>
-</div>
+            // Ottieni il saldo dal server e formatta
+            const saldo = ${user.wallet}; // Assicurati che questo valore sia un numero
+            document.getElementById('formatted-saldo').innerText = formatSaldo(saldo);
 
-<script>
-    // Funzione per formattare il saldo con punto ogni tre cifre
-    function formatSaldo(saldo) {
-        return saldo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
-    }
-
-    // Ottieni il saldo dal server e formatta
-    const saldo = ${user.wallet}; // Assicurati che questo valore sia un numero
-    document.getElementById('formatted-saldo').innerText = formatSaldo(saldo);
-
-    function showDiv() {
-        const myDiv = document.getElementById('container-aggiungiFondi');
-        if (myDiv.style.display === 'flex') {
-            myDiv.style.opacity = 0; // Rendi invisibile con transizione
-            setTimeout(() => {
-                myDiv.style.display = 'none';
-            }, 500); // Cambiato il timeout per l'animazione
-        } else {
-            myDiv.style.display = 'flex';
-            setTimeout(() => {
-                myDiv.style.opacity = 1;
-            }, 50);
-        }
-    }
-</script>
+            function showDiv() {
+                const myDiv = document.getElementById('container-aggiungiFondi');
+                if (myDiv.style.display === 'flex') {
+                    myDiv.style.opacity = 0; // Rendi invisibile con transizione
+                    setTimeout(() => {
+                        myDiv.style.display = 'none';
+                    }, 500); // Cambiato il timeout per l'animazione
+                } else {
+                    myDiv.style.display = 'flex';
+                    setTimeout(() => {
+                        myDiv.style.opacity = 1;
+                    }, 50);
+                }
+            }
+        </script>
 
 
-<!-- TODO: footer -->
-    <!-- <footer>
-        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
-    </footer> -->
+        <!-- TODO: footer -->
+        <!-- <footer>
+            &copy; 2024 Sistema Treni. Tutti i diritti riservati.
+        </footer> -->
 
 </body>
 </html>
