@@ -17,7 +17,7 @@
 		<!-- <property name="id" value="KML2000"></property> -->
 		<property name="peso" value="101.0"></property>
 		<property name="prezzo" value="20000"></property>
-		<property name="pesoTrainabile" value="500.0"></property>
+		<property name="pesoTrainabile" value="650.0"></property>
 	</bean>
 
 	<bean name="vagoneKMC2000" class="entity.treno.VagoneCargo" lazy-init="true"
@@ -44,16 +44,3 @@
 		<property name="coperti" value="25"></property>
 	</bean>
 </beans>
-
-
-
-
-
-
-
-
-
-
-
-
-

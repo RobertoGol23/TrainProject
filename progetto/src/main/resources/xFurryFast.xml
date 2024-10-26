@@ -20,7 +20,7 @@
 		<!-- <property name="id" value="FFL15"></property> -->
 		<property name="peso" value="101.0"></property>
 		<property name="prezzo" value="35000"></property>
-		<property name="pesoTrainabile" value="350.0"></property>
+		<property name="pesoTrainabile" value="450.0"></property>
 	</bean>
 
 	<bean name="vagoneFFC15" class="entity.treno.VagoneCargo" lazy-init="true"
@@ -49,16 +49,3 @@
 		<property name="coperti" value="35"></property>
 	</bean>
 </beans>
-
-
-
-
-
-
-
-
-
-
-
-
-
