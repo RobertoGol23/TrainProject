@@ -138,15 +138,35 @@
                 margin-top: 20px;
             }
         }
-        
+        .confirm-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #49456d;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 1000;
+}
     </style>
 </head>
 <body>
 
     <h1>Dettagli del Treno</h1>
+    
+    <div id="ribaltaPopup" class="confirm-popup">
+        <p>Il treno è stato ribaltato con successo!</p>
+        <button onclick="closeRibaltaPopup()">OK</button>
+    </div>
+    
 
     <%
         // Recupera il treno dalla richiesta
+        String successMessage = (String) request.getAttribute("success");
         Treno treno = (Treno) request.getAttribute("treno");
         if (treno != null) {
     
@@ -319,7 +339,21 @@
     <%
         }
     %>
+    
+    <script>
+        function showRibaltaPopup() {
+            document.getElementById("ribaltaPopup").style.display = "block";
+        }
 
+        function closeRibaltaPopup() {
+            document.getElementById("ribaltaPopup").style.display = "none";
+        }
+
+        // Mostra il popup di conferma se successMessage è presente
+        <% if (successMessage != null) { %>
+            showRibaltaPopup();
+        <% } %>
+    </script>
 
     <!-- TODO: footer -->
     <!-- <footer>
