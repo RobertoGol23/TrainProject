@@ -88,7 +88,7 @@
             .form-button {
                 display: flex;
                 flex-wrap: wrap;
-                width: 80%;
+                width: 100%;
                 justify-content: center; /* Centratura dei pulsanti */
                 margin: 0px;
                 margin-left: 0px;
@@ -201,7 +201,7 @@
                         </h4>
                     </div>
                     <div class="form-button">
-                    	<a href="train/createTrain" class="button">	Crea </a>
+                    	<a href="train/createTrain" class="button" style="width: 80%; font-size: 20px;">	Crea </a>
                     </div>
                </div>
                <div class="card">
@@ -216,7 +216,7 @@
                        	</h4>
                     </div>
                     <div class="form-button">
-                    	<a href="train/creaTrenoDinamico" class="button">	Crea </a>
+                    	<a href="train/creaTrenoDinamico" class="button" style="width: 80%; font-size: 20px;">	Crea </a>
                     </div>
                </div>
             </div>

@@ -244,15 +244,15 @@ public class TrainController {
         if ((User) request.getSession().getAttribute("user") == null) {
             return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
         }
-
+        
         return "dashboard/train/creaTrenoDinamico"; // Nome della JSP da visualizzare
     }
 	
 	@PostMapping("/creaTrenoDinamico")
-	public String creaTrenoDinamico(@RequestParam("wagons[]") List<String> vagoni, Model model, HttpServletRequest request) {
+	public String creaTrenoDinamico(@RequestParam("wagons[]") List<String> vagoni, Model model, HttpServletRequest request,
+			@RequestParam("nomeTreno") String nomeTreno,
+            @RequestParam("fabbrica") String fabbricaId) {
 	    
-		String stringFabbricaId = "1"; //arriva come parametro TODO aggiungere menù a tendina per marca
-		int fabbricaId = Integer.parseInt(stringFabbricaId);
 		
 		String sigla = "";
 		for(String v: vagoni)
@@ -263,54 +263,37 @@ public class TrainController {
 		HttpSession session = request.getSession();
         User utente = (User) session.getAttribute("user");
 
-        if (utente == null) {
-            return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
-        }
         
         TrenoUtility tu = new TrenoUtility();
-        FabbricaVagoni fabbrica = tu.getFabbricaById(1/*fabbricaId*/);
+        FabbricaVagoni fabbrica = tu.getFabbricaById(Integer.parseInt(fabbricaId));
         
         System.out.println("Sigla dal sito: " + sigla);
         
         try {
+        	if (utente == null) {
+                return "redirect:/login"; // Reindirizza alla pagina di login se l'utente non è autenticato
+            }
             // Crea il treno usando il builder
             Assemblatore assemblatore = new Assemblatore(fabbrica);
-            Treno nuovoTreno = assemblatore.costruisciTreno("Nome treno", sigla, utente, fabbricaId);
-   
+            Treno nuovoTreno = assemblatore.costruisciTreno(nomeTreno, sigla, utente, Integer.parseInt(fabbricaId));
+ 
+            trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
+            request.setAttribute("idTreno", nuovoTreno.getId());
+
             
-            if (nuovoTreno != null) {
-                // Salva il treno nel database
-//                AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-//                TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
-                trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
-                
-                //Aggiunge i servizi al sito se non esistono
-                //ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-        		//ServiziUtility su = new ServiziUtility();
-        		//su.aggiungiServiziAlDB(servizioDAO);
-        		
-        		//context.close();
-                request.setAttribute("idTreno", nuovoTreno.getId());
-                
-                // Reindirizza alla pagina di modifica vagoni con l'ID del treno
-                //return "redirect:/dashboard/train/modifyWagons?idTreno=" + nuovoTreno.getId();
-                return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
-            } else {
-                request.setAttribute("error", "Errore durante la creazione del treno.");
-                System.out.println("Errore generico creazione treno");
-                return "dashboard/train/creaTrenoDinamico"; // Ritorna alla pagina di creazione del treno
-            }
+            return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
 
         } catch (SiglaTrenoException e) {
-            request.setAttribute("error", "Sigla del treno non valida.");
+        	request.setAttribute("error", "Sigla del treno non valida.<br>"+ e.getErrorePerUtente());
             System.out.println("Errore sigla");
             return "dashboard/train/creaTrenoDinamico"; // Ritorna alla pagina di creazione del treno
         }
-        catch (Exception e) {
-        	System.out.println(e.getMessage());
-        	System.out.println("Errore generico");
-        	request.setAttribute("error", "Si è verificato un errore, riprova.");
-        	return "dashboard/train/creaTrenoDinamico";
+        catch (GenericException e)
+		{
+			e.printStackTrace();
+			request.setAttribute("error", "Sigla del treno non valida.<br>"+ e.getErrorePerUtente());
+	    	System.out.println("errore: "+ e);
+			return "dashboard/train/creaTrenoDinamico";
 		}
 	}
 	
@@ -353,20 +336,11 @@ public class TrainController {
    
             
                 if (nuovoTreno != null) {
-                    // Salva il treno nel database
-                    //AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-                    //TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
+
                     trenoDAO.salvaTreno(nuovoTreno);  // Salva il treno
-                    
-                    
-                    //ServizioDAO servizioDAO = context.getBean(ServizioDAO.class);
-                    //ServiziUtility su = new ServiziUtility();
-                    //su.aggiungiServiziAlDB(servizioDAO);
-                    
-                    //context.close();
+
                     request.setAttribute("idTreno", nuovoTreno.getId());
                     
-                    //context.close();
                     return "dashboard/train/trainSuccess"; // Ritorna alla pagina di successo
                 } else {
                     request.setAttribute("error", "Errore durante la creazione del treno.");
@@ -377,10 +351,11 @@ public class TrainController {
             request.setAttribute("error", "Sigla del treno non valida.<br>"+ e.getErrorePerUtente());
             return "dashboard/train/createTrain"; // Ritorna alla pagina di creazione del treno
         }
-        catch (Exception e) {
-        	System.out.println(e.getMessage());
-        	request.setAttribute("error", "Si è verificato un errore, riprova.");
-        	return "dashboard/train/createTrain";
+        catch (GenericException e)
+		{
+			e.printStackTrace();
+			request.setAttribute("error", "Sigla del treno non valida.<br>"+ e.getErrorePerUtente());
+	    	return "dashboard/train/createTrain";
 		}
     }
 

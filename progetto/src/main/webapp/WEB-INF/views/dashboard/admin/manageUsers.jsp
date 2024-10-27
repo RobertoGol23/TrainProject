@@ -8,61 +8,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tablesStyle.css?v=1.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <title>Gestione Utenti</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-/*             display: flex; */
-/*             flex-direction: column; */
-/*             align-items: center; */
+ 
+        ul {
+            list-style-type: none;
+            padding: 0;
         }
-        h1 {
-            color: #8a79c7;
-            text-align: center;
-        }
-        .content {
-            background-color: #49456d;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        table {
-            width: 80%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        th, td {
+        ul li {
+/*             background-color: #6c6991; */
             padding: 10px;
-            text-align: center;
-            border: 1px solid #8a79c7;
-        }
-        th {
-            background-color: #79c7e3;
-            color: #2e2b4f;
-        }
-        td {
-            background-color: #6b678d;
-        }
-        button {
-            padding: 10px;
-            background-color: #79c7e3;
-            border: none;
+            margin-bottom: 5px;
             border-radius: 5px;
-            color: #2e2b4f;
-            cursor: pointer;
         }
-        button:hover {
-            background-color: #8a79c7;
+        
+        button, a.button {
+            width: 220px;
+            background-color: #f5835e;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: white;
+            text-align:center;
+            text-decoration: none;
+            font-size: 18px;
+            display: inline-block;
+            transition: background-color 0.3s, transform 0.3s; /* Transizione */
+        }
+        button:hover, a.button:hover {
+            background-color: #f96737;
+            color: #ffffff;
+			transform: translateY(-2px); /* Effetto sollevato */
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+        	padding: 0px;
         }
     </style>
 </head>
 <body>
     <h1>Gestione Utenti</h1>
 
-    <div class="content">
+    <div class="container">
         <p>Gestisci gli utenti iscritti e blocca/sblocca profili.</p>
 
         <table>
@@ -94,9 +91,9 @@
         </table>
     </div>
 
-    <form action="/train-bazaar/dashboard/home" method="get">
-        <button type="submit">Torna alla Dashboard</button>
-    </form>
+    <div align="center">
+        <a class="button" style=" margin-top: 20px" href="/train-bazaar/dashboard/home" type="submit">Torna alla Dashboard</a>
+    </div>
 
     <!-- TODO: footer -->
     <!-- <footer>
