@@ -13,33 +13,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <title>Vota il Treno</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2e2b4f;
-            color: #ffffff;
-        }
-        .treno {
-            background-color: #49456d;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        .buttons button {
-            margin-top: 10px;
-        }
+        
         .rating {
             margin-top: 10px;
         }
         .rating label {
             margin-right: 5px;
         }
+        
+        .content {
+        	width: 25%;
+        }
     </style>
 </head>
 <body>
 
-<h1>Vota il Treno</h1>
+
 
 <% 
 Treno treno = (Treno) session.getAttribute("treno");
@@ -49,10 +41,10 @@ User user = (User) session.getAttribute("user");
 <% if (treno != null) { %>
 <% AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
     	VotoDAO votoDAO = context.getBean(VotoDAO.class);%>
-    <div class="treno">
-        <h3><%= treno.getNome() %></h3>
+    	<h1>Vota il Treno <br><%= treno.getNome() %></h1>
+    <div class="content">
         <p>Marca: <%= treno.getMarca() %></p>
-        <p>Prezzo: <%= treno.getPrezzoTotaleTreno() %> €</p>
+        <p>Prezzo: <%= treno.getPrezzoTotaleTreno() %> euro</p>
         <p>Peso: <%= treno.getPesoTotaleTreno() %> kg</p>
         <p>Numero di Persone: <%= treno.getPasseggeriTotali() %></p>
         <p>Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia(treno.getId()) : 0 %></p>

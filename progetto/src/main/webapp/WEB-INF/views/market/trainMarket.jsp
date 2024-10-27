@@ -38,7 +38,7 @@
         }
 
         h1 {
-            color: #8a79c7;
+            color: #e1418b;
             text-align: center;
             margin: 20px 0;
         }
@@ -196,7 +196,7 @@
         }
 
         button {
-            background-color: #8a79c7;
+            background-color: #e1418b;
             border: none;
             color: white;
             padding: 10px;
@@ -348,7 +348,7 @@
 		}
 
 		.page-button {
-    		background-color: #8a79c7; /* Colore di sfondo dei bottoni */
+    		background-color: #e6a1c0; /* Colore di sfondo dei bottoni */
     		color: #ffffff; /* Colore del testo */
     		border: none; /* Rimuove il bordo predefinito */
     		padding: 10px 15px; /* Padding per i bottoni */
@@ -359,11 +359,11 @@
 		}
 
 		.page-button:hover {
-    		background-color: #79c7e3; /* Colore di sfondo al passaggio del mouse */
+    		background-color: #e1418b; /* Colore di sfondo al passaggio del mouse */
 		}
 
 		.page-button.active {
-    		background-color: #6a5fbf; /* Colore per il bottone attivo */
+    		background-color: #e1418b; /* Colore per il bottone attivo */
     		font-weight: bold; /* Rende il testo del bottone attivo in grassetto */
 		}
 		
@@ -481,7 +481,7 @@
          <!-- Nuova Card Sotto il Container -->
     	<div class="container-left">
         	<div class="card-body text-center">
-            	<h5 class="card-title elegant-title">Ti piacciono questi treni ma vuoi crearne uno tuo?</h5>
+            	<h5 class="card-title elegant-title" style="color: #e1418b">Ti piacciono questi treni ma vuoi crearne uno tuo?</h5>
             	<a href="/train-bazaar/dashboard/train/createTrain" class="btn btn-primary">Crea il tuo Treno</a>
         	</div>
     	</div> 
