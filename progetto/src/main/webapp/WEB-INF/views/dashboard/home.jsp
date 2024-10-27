@@ -84,7 +84,7 @@
             .form-button {
                 display: flex;
                 flex-wrap: wrap;
-                width: 80%;
+                width: 100%;
                 justify-content: center; /* Centratura dei pulsanti */
                 margin: 20px 0;
         
@@ -210,8 +210,11 @@
                         </h3>
                         
                     </div>
-                </a>
-                <a href="train/creaTrenoDinamico" class="card" style="text-decoration: none;">
+                    <div class="form-button">
+                    	<a href="train/createTrain" class="button" style="width: 80%; font-size: 20px;">	Crea </a>
+                    </div>
+               </div>
+               <div class="card">
                     <div class="card-title">
                         <h1> Creazione dinamica </h1>
                     </div>  
@@ -220,7 +223,10 @@
                         <h2 style="margin-top: -7%; margin-bottom: 4%; text-align: center"> Per chi ha già esperienza con questo tool </h2> 
                         <h3> Pensato per chi ha dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno.</h3>
                     </div>
-                </a>
+                    <div class="form-button">
+                    	<a href="train/creaTrenoDinamico" class="button" style="width: 80%; font-size: 20px;">	Crea </a>
+                    </div>
+               </div>
             </div>
 
             <script>

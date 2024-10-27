@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ include file="../../navbar.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <title>Crea Treno</title>
     <style>
         body {
@@ -44,9 +44,9 @@
         }
         
         .container {
-            width: 300px; /* Larghezza fissa per il contenitore del modulo */
+            width: 350px; /* Larghezza fissa per il contenitore del modulo */
             background-color: #49456d; /* Colore di sfondo */
-            padding: 30px;
+            padding: 0px;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             position: relative; /* Posizionamento relativo per il contenitore */
@@ -95,32 +95,22 @@
             cursor: pointer;
         }
         
-        input[type="number"], 
-        input[type="text"], 
+        input {
+		    width: 100%;
+		    padding: 10px;
+		    margin-bottom: 10px;
+		    font-size: 15px;
+		    border: none;
+		    border-radius: 5px;
+		}
+        
         select {
             padding: 12px;
             margin-bottom: 20px;
             border-radius: 5px;
             border: none;
             font-size: 16px;
-            width: calc(100% - 20px); /* Larghezza totale meno il padding */
-        }
-        
-        button {
-            background-color: #f5835e; /* Colore del pulsante */
-            color: #2e2b4f; /* Colore del testo del pulsante */
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s, transform 0.3s; /* Transizione */
-        }
-        
-        button:hover {
-            background-color: #f96737; /* Colore al passaggio del mouse */
-            color: #ffffff; /* Colore del testo al passaggio del mouse */
-            transform: translateY(-2px); /* Effetto sollevato */
+            width: 100%;
         }
         
         .error-message {
@@ -131,25 +121,30 @@
         a {
             color: #79c7e3;
         }
+        
+        form {
+        	padding: 20px;
+        	width: 340px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="title-container" style="font-size: 3rem; margin-top: 5%;";>
-        <h1> Crea il tuo treno </h1>
-      </div>
+   	<div class="title-container" style="font-size: 3rem; margin-top: 5%;">
+       <h1> Crea il tuo treno </h1>
+   	</div>
       
 
-      <div class="main-container">
+     <div class="main-container">
         <div class="left-content" id="left-content" style="opacity: 0; visibility: hidden;">
             <h2>Sigla del treno</h2>
             <p>È una stringa che descrive in pochi semplici caratteri da quali vagoni sarà costruito il tuo treno.
                 La locomotiva è indicata dalla lettera h, mentre gli altri vagoni (passeggeri, ristorante e cargo) sono 
                 descritti dalla loro prima lettera (p, r, c).</p>
-        </div>
+     </div>
     
         <div class="container">
-            <div class="form-container" style="margin-top: 2%;">
+            <div>
                 <form action="createTrain" method="post">
                     <label for="nomeTreno">Nome del Treno</label>
                     <input type="text" maxlength="25" id="nomeTreno" name="nomeTreno" required>
@@ -163,6 +158,16 @@
                     </select>
                     <button type="submit">Crea Treno</button>
                 </form>
+                <%
+		        String error = (String) request.getAttribute("error");
+		        if (error != null && !error.isEmpty()) {
+			    %>
+			        <div class="error-message">
+			            <p><%= error %></p>
+			        </div>
+			    <%
+			        }
+			    %>
             </div>
         </div>
     
@@ -176,20 +181,6 @@
             <p>Attualmente in questo tool sono previste 3 fabbriche per la creazione di treni standard (modificabili successivamente). Le fabbriche attualmente disponibili sono: xFurryFast, RegionalGain, KargoModelz.</p>
         </div>
     </div>
-    
-
-	
-     <%
-        String error = (String) request.getAttribute("error");
-        if (error != null && !error.isEmpty()) {
-    %>
-        <div class="error-message">
-            <p><%= error %></p>
-        </div>
-    <%
-        }
-    %>
-
 
         <script>
             const toggleInput = document.getElementById('nomeTreno');

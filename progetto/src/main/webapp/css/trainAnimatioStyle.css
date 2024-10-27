@@ -13,7 +13,7 @@
      .train {
          display: flex;
          position: absolute;
-         animation: moveTrain 9s linear infinite;
+         animation: moveTrain 10s linear infinite;
      }
 
      /* Ogni vagone è rappresentato da un quadrato */
