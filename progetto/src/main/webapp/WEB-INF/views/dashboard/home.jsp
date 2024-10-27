@@ -45,12 +45,6 @@
                 height: 80px;
             }
             
-            
-            h4 {
-            	width: 80%;
-            	margin: auto;
-            	margin-top: 15px;
-            }
             .content {
                 background-color: #49456d;
                 padding: 20px;
