@@ -59,7 +59,7 @@ public class TrainController {
 	    StringBuilder vagoniHtml = new StringBuilder();
 	    vagoniHtml.append("<form action='removeWagons' method='POST'>");
 	    vagoniHtml.append("<table>");
-	    vagoniHtml.append("<thead><tr><th>Posizione</th><th>Tipo</th><th>Checkbox</th></tr></thead>");
+	    vagoniHtml.append("<thead><tr><th>Posizione</th><th>Tipo</th><th>Rimuovi</th></tr></thead>");
 	    vagoniHtml.append("<tbody>");
 	    
 	    List<Vagone> vagoni = treno.getListaVagoni();
@@ -68,11 +68,11 @@ public class TrainController {
 	        Vagone vagone = vagoni.get(i);
 	        vagoniHtml.append("<tr>");
 	        vagoniHtml.append("<td>").append(i + 1).append("</td>");
-	        vagoniHtml.append("<td>").append(vagone.getTipo()).append("</td>");
+	        vagoniHtml.append("<td>").append(vagone.getTipoStampa()).append("</td>");
 	        
 	        if(!vagone.getTipo().equalsIgnoreCase("Locomotiva"))
 	        {
-	        	vagoniHtml.append("<td><input type='checkbox' name='vagoneId' value='").append(i).append("' /></td>");
+	        	vagoniHtml.append("<td><input class='custom-checkbox' type='checkbox' name='vagoneId' value='").append(i).append("' /></td>");
 	        }
 	        
 	        vagoniHtml.append("</tr>");
@@ -80,7 +80,8 @@ public class TrainController {
 
 	    vagoniHtml.append("</tbody>");
 	    vagoniHtml.append("</table>");
-	    vagoniHtml.append("<button type='submit'>Rimuovi Vagoni</button>");
+	    vagoniHtml.append("<div class='form-button'><button type='submit'>Rimuovi Vagoni</button>");
+	    vagoniHtml.append("<a class='button' style='margin-top:5px' href='viewTrain?idTreno=").append(treno.getId()).append("'>Annulla Modifica</a></div>");
 	    vagoniHtml.append("<input type='hidden' name='idTreno' value='").append(treno.getId()).append("' />");
 	    vagoniHtml.append("</form>");
 

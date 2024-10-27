@@ -83,10 +83,10 @@
                 } 
             %>
         </div>
-        <p>Puoi tornare alla <a href="/train-bazaar/dashboard/home">dashboard</a> o continua a modificare.</p>
-        <form action="viewTrain" method="get">
+        <form action="viewTrain" method="get" class="form-button">
  			<input type="hidden" name="idTreno" value="${idTreno}">
             <button type="submit">Continua a modificare</button>
+            <a href="/train-bazaar/dashboard/home" class="button"> Torna alla dashboard </a>
         </form>
     </div>
 
