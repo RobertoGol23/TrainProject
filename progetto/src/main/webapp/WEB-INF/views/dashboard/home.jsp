@@ -10,7 +10,7 @@
     <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/trainAnimatioStyle.css?v=1.x">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=2.x">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -34,6 +34,10 @@
                 text-align: center;
                 font-weight: bold;
             }
+            
+            h1.card {
+            	margin-top: 20px;
+            }
             h2 {
         /*         color: #e1418b; */
                 color: ivory;
@@ -46,6 +50,11 @@
             	text-align: center;
             }
             
+            h4 {
+            	width: 80%;
+            	margin: auto;
+            	margin-top: 15px;
+            }
             .content {
                 background-color: #49456d;
                 padding: 20px;
@@ -79,6 +88,7 @@
             .form-button {
                 display: flex;
                 flex-wrap: wrap;
+                width: 80%;
                 justify-content: center; /* Centratura dei pulsanti */
                 margin: 0px;
                 margin-left: 0px;
@@ -99,7 +109,7 @@
 
         .card {
             width: 30%; /* Larghezza delle card */
-            height: 40%; /* Altezza delle card */
+            height: 50%; /* Altezza delle card */
             background-color: #2e2b4f;
             color: white;
             display: flex;
@@ -109,7 +119,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s;
-            cursor: pointer;
             padding: 20px; /* Aggiungi un padding per evitare che il testo tocchi i bordi */
 
             transform: scale(0.8); /* Scala al 80% della dimensione originale */
@@ -171,7 +180,7 @@
             <div class="form-container">
                 <h2>Crea un nuovo treno</h2>
                 <form>
-                    <button id="showCardsButton" onclick="showDiv()">Crea Treno</button>
+                    <button id="showCardsButton" onclick="showDiv(); event.preventDefault();">Crea Treno</button>
                 </form>
                 
             </div>
@@ -187,9 +196,12 @@
                     
                     <div class="card-body">
                         <h2> Per coloro che sono alle prime armi. </h2>
-                        <h3>
-                        	<a href="train/createTrain"> Strumento che offre la possibilità di creare un treno in pochi semplicissimi passi, inserendo pochi caratteri otterrai il treno che desideri. </a>
-                        </h3>
+                        <h4>
+                        	Strumento che offre la possibilità di creare un treno in pochi semplicissimi passi, inserendo pochi caratteri otterrai il treno che desideri.
+                        </h4>
+                    </div>
+                    <div class="form-button">
+                    	<a href="train/createTrain" class="button">	Crea </a>
                     </div>
                </div>
                <div class="card">
@@ -199,9 +211,12 @@
                     
                     <div class="card-body">
                         <h2> Per chi ha già esperienza con questo strumento </h2>
-                        <h3>
-                        	<a href="train/creaTrenoDinamico">	Pensato per chi ha dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno. </a>
-                        </h3>
+                        <h4>
+                        	Pensato per chi ha dimestichezza con la creazione dei trei, permette di definire sin da subito più dettagli durante la creazione del treno.
+                       	</h4>
+                    </div>
+                    <div class="form-button">
+                    	<a href="train/creaTrenoDinamico" class="button">	Crea </a>
                     </div>
                </div>
             </div>
@@ -213,38 +228,36 @@
                 }
             
                 function showDiv() {
-                        const myDiv = document.getElementById('cardsContainer');
-                        const overlay = document.getElementById("overlay");
-                        cardsContainer.classList.toggle("hidden");
-                        overlay.classList.toggle("hidden");
-                
-                        if (myDiv.style.display === 'flex') {
-                            myDiv.style.opacity = 0; // Rendi invisibile con transizione
-                            setTimeout(() => {
-                                myDiv.style.display = 'none';
-                            }, 500); // Cambiato il timeout per l'animazione
-                        } else {
-                            myDiv.style.display = 'flex';
-                            setTimeout(() => {
-                                myDiv.style.opacity = 1;
-                            }, 50);
-                        }
+                    const myDiv = document.getElementById('cardsContainer');
+                    const overlay = document.getElementById("overlay");
+
+                    // Verifica se `myDiv` è già visibile
+                    if (myDiv.style.display === 'flex') {
+                        myDiv.style.opacity = 0; 
+                        setTimeout(() => {
+                            myDiv.style.display = 'none';
+                            overlay.classList.add("hidden");
+                        }, 500); 
+                    } else {
+                        myDiv.style.display = 'flex';
+                        overlay.classList.remove("hidden"); 
+                        setTimeout(() => {
+                            myDiv.style.opacity = 1;
+                        }, 50);
                     }
+                }
                 
                 
                 function hideDiv() {
-                        const myDiv = document.getElementById('cardsContainer');
-                        const overlay = document.getElementById("overlay");
-                        cardsContainer.classList.toggle("hidden");
-                        overlay.classList.toggle("hidden");
-                
-                        if (myDiv.style.display === 'flex') {
-                            myDiv.style.opacity = 0; // Rendi invisibile con transizione
-                            setTimeout(() => {
-                                myDiv.style.display = 'none';
-                            }, 500); // Cambiato il timeout per l'animazione
-                        } 
-                    }
+                    const myDiv = document.getElementById('cardsContainer');
+                    const overlay = document.getElementById("overlay");
+
+                    myDiv.style.opacity = 0; 
+                    setTimeout(() => {
+                        myDiv.style.display = 'none';
+                        overlay.classList.add("hidden");
+                    }, 500); 
+                }
                 
                 
                 window.onclick = function(event) {

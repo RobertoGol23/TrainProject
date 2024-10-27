@@ -30,7 +30,7 @@ public class JpaConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/Hibernate_db");
         dataSource.setUsername("root");
-        dataSource.setPassword("46U34%ubsIp2"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
+        dataSource.setPassword("M1c0ll3g0_"); //ognuno deve mettere la propria password 46U34%ubsIp2 M1c0ll3g0_ Mauro01
 
         return dataSource;
     }
