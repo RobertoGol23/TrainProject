@@ -15,6 +15,12 @@
     	h1 {
     		margin-top:20px;
     	}
+    	form {
+    		padding: 0px;
+    	}
+    	button, a.button {
+    		width: 230px;
+    	}
     </style>
     <title>I Miei Treni</title>
 </head>
