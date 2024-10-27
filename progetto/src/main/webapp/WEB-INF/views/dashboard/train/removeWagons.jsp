@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <style>
     	form {
-    		width: 450px;;
+    		width: 450px;
     	}
 
     	td {
@@ -70,12 +70,7 @@
 
     <!-- Stampa direttamente l'HTML generato dal controller -->
     ${vagoniHtml}
-     
-
-    <!-- TODO: footer -->
-    <!-- <footer>
-        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
-    </footer> -->
+    
     
 </body>
 </html>

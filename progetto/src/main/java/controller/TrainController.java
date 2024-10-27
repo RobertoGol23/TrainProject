@@ -83,6 +83,7 @@ public class TrainController {
 	    vagoniHtml.append("<div class='form-button'><button type='submit'>Rimuovi Vagoni</button>");
 	    vagoniHtml.append("<a class='button' style='margin-top:5px' href='viewTrain?idTreno=").append(treno.getId()).append("'>Annulla Modifica</a></div>");
 	    vagoniHtml.append("<input type='hidden' name='idTreno' value='").append(treno.getId()).append("' />");
+	    vagoniHtml.append("<input class='custom-checkbox' style='display: none' type='checkbox' name='vagoneId' value=0 checked>");
 	    vagoniHtml.append("</form>");
 
 	    // Aggiungi la tabella HTML generata al modello
@@ -103,15 +104,22 @@ public class TrainController {
 	    if ((User) request.getSession().getAttribute("user") == null) {
 	        return "redirect:/login";
 	    }
-//	    AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-//	    TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 
 		try
 		{
-			 trenoDAO.eliminaVagoni(idTreno,(ArrayList<Integer>)vagoneIds);
-			 model.addAttribute("idTreno", idTreno);
-			 //context.close();
-			 return "dashboard/train/trainModifySuccess";
+			if(vagoneIds.size()>1)
+		    {
+		    	vagoneIds.removeLast();
+		    	trenoDAO.eliminaVagoni(idTreno,(ArrayList<Integer>)vagoneIds);
+				model.addAttribute("idTreno", idTreno);
+				return "dashboard/train/trainModifySuccess";
+		    }
+		    else
+		    {
+		    	model.addAttribute("idTreno", idTreno);
+				model.addAttribute("error", "Selezionare almeno un vagone da rimuovere");
+		    	return "dashboard/train/trainModifyFail";
+		    } 
 		}
 		catch (SiglaTrenoException e)
 		{
