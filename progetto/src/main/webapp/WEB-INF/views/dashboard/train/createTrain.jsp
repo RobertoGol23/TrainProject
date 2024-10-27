@@ -25,8 +25,12 @@
         h1 {
             color: #e1418b; /* Colore dei titoli */
             margin: 0;
-            font-size: 1.5rem; /* Dimensione del titolo */
+            font-size: 35px; /* Dimensione del titolo */
             font-weight: bold; /* Grassetto */
+        }
+        
+        h2 {
+        	color: #e1418b; /* Colore dei titoli */
         }
         
         .main-container {
