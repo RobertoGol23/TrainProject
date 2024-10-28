@@ -159,7 +159,7 @@
             <% } %>
         </table>
 
-                <!-- Paginazione -->
+        <!-- Paginazione -->
         <div align="center" style="margin-top: 20px; margin-bottom: 150px">
             <%
                 Integer currentPage = (Integer) request.getAttribute("currentPage");

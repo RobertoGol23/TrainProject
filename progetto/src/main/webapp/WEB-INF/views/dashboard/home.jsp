@@ -7,11 +7,11 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="${pageContext.request.contextPath}/resources/logo-icon.png?v=1" type="image/png">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle.css?v=1.x">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/trainAnimatioStyle.css?v=1.x">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basicStyle.css?v=1.x">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
@@ -152,10 +152,11 @@
             text-align: left;
         }
     </style>
-
+    
     <title>Dashboard</title>
 </head>
 <body>
+
     <audio id="fischioAudio">
         <source src="${pageContext.request.contextPath}/resources/fischio.mp3" type="audio/mpeg">
     </audio>

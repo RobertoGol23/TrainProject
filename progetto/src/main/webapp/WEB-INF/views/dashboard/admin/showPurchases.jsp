@@ -18,7 +18,6 @@
             padding: 0;
         }
         ul li {
-/*             background-color: #6c6991; */
             padding: 10px;
             margin-bottom: 5px;
             border-radius: 5px;
@@ -44,6 +43,12 @@
             background-color: #f96737;
             color: #ffffff;
 			transform: translateY(-2px); /* Effetto sollevato */
+        }
+
+        a.button.btn-pages {
+        	width: 100px;
+        	height: 30px;
+        	padding: 0px;
         }
         
         h2 {
@@ -116,7 +121,7 @@
          
         <div class="search-bar-container">
             <div class="search-bar">
-                <form action="manageUsers" method="get" style="width:100%">
+                <form action="showPurchases" method="get" style="width:100%">
                     <label for="userIdSearch" style="display:none;">Cerca per ID Utente:</label>
                     <i class="fas fa-search search-icon"></i> <!-- Aggiungi l'icona qui -->
                     <input type="text" id="userIdSearch" name="userIdSearch" placeholder="Inserisci ID utente">
@@ -147,14 +152,29 @@
         </table>
     </div>
 
-    <div align="center" style="margin-bottom: 150px">
-        <a class="button" style=" margin-top: 20px" href="/train-bazaar/dashboard/home" type="submit">Torna alla Dashboard</a>
-    </div>
+    <!-- Paginazione -->
+    <div align="center" style="margin-top: 20px; margin-bottom: 150px">
+        <%
+            Integer currentPage = (Integer) request.getAttribute("currentPage");
+            Integer totalPages = (Integer) request.getAttribute("totalPages");
 
-    <!-- TODO: footer -->
-    <!-- <footer>
-        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
-    </footer> -->
+            if (currentPage != null && totalPages != null) {
+                if (currentPage > 1) {
+        %>
+                    <a class="button btn-pages" style="margin-right: 20px" href="showPurchases?page=<%= currentPage - 1 %>">Precedente</a>
+        <%
+                }
+        %>
+                <span>Pagina <%= currentPage %> di <%= totalPages %></span>
+        <%
+                if (currentPage < totalPages) {
+        %>
+                    <a class="button btn-pages" style="margin-left: 20px" href="showPurchases?page=<%= currentPage + 1 %>">Successiva</a>
+        <%
+                }
+            }
+        %>
+    </div>
     
 </body>
 </html>
