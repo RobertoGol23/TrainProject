@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Controller
 public class MarketController {
 
-    private static final int TRENTS_PER_PAGE = 10; // Numero di treni per pagina
+    private static final int TRENTS_PER_PAGE = 12; // Numero di treni per pagina
 
     // GET per visualizzare il market dei treni
     @GetMapping("/trainMarket")
