@@ -147,7 +147,7 @@
         </table>
     </div>
 
-    <div align="center">
+    <div align="center" style="margin-bottom: 150px">
         <a class="button" style=" margin-top: 20px" href="/train-bazaar/dashboard/home" type="submit">Torna alla Dashboard</a>
     </div>
 

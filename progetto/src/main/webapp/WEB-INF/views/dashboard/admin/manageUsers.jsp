@@ -45,6 +45,12 @@
             transform: translateY(-2px);
         }
         
+        a.button.btn-pages {
+        	width: 100px;
+        	height: 30px;
+        	padding: 0px;
+        }
+        
         h2 {
             text-align: center;
             margin-bottom: 20px;
@@ -154,7 +160,7 @@
         </table>
 
                 <!-- Paginazione -->
-        <div align="center" style="margin-top: 20px;">
+        <div align="center" style="margin-top: 20px; margin-bottom: 150px">
             <%
                 Integer currentPage = (Integer) request.getAttribute("currentPage");
                 Integer totalPages = (Integer) request.getAttribute("totalPages");
@@ -162,7 +168,7 @@
                 if (currentPage != null && totalPages != null) {
                     if (currentPage > 1) {
             %>
-                        <a class="button" href="manageUsers?page=<%= currentPage - 1 %>">Precedente</a>
+                        <a class="button btn-pages" style="margin-right: 20px" href="manageUsers?page=<%= currentPage - 1 %>">Precedente</a>
             <%
                     }
             %>
@@ -170,7 +176,7 @@
             <%
                     if (currentPage < totalPages) {
             %>
-                        <a class="button" href="manageUsers?page=<%= currentPage + 1 %>">Successiva</a>
+                        <a class="button btn-pages" style="margin-left: 20px" href="manageUsers?page=<%= currentPage + 1 %>">Successiva</a>
             <%
                     }
                 }
