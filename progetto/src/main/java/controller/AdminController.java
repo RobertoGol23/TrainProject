@@ -35,13 +35,35 @@ public class AdminController {
 
     // Mostra la pagina per gestire gli utenti (bloccare/sbloccare)
     @GetMapping("/manageUsers")
-    public String manageUsers(Model model) {
-    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-    	UserDAO userDAO = context.getBean(UserDAO.class);
-        List<User> users = userDAO.getAllUsers();
+    public String manageUsers(
+        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "userIdSearch", required = false) Long userIdSearch,
+        Model model) {
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        UserDAO userDAO = context.getBean(UserDAO.class);
+
+        List<User> users;
+        int totalPages = 1;
+        int currentPage = 1;
+
+        if (userIdSearch != null) {
+            User user = userDAO.getUserById(userIdSearch);
+            users = (user != null) ? List.of(user) : List.of();
+        } else {
+            int pageSize = 10;
+            users = userDAO.getUsersByPage(page, pageSize);
+            int totalUsers = userDAO.getTotalUsers();
+            totalPages = (int) Math.ceil((double) totalUsers / pageSize);
+            currentPage = page;
+        }
+
         model.addAttribute("users", users);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        
         context.close();
-        return "/dashboard/admin/manageUsers"; // Nome della JSP da visualizzare
+        return "/dashboard/admin/manageUsers";
     }
 
     // Blocca o sblocca un utente tramite il pulsante
