@@ -13,12 +13,11 @@
     <!-- Inclusione di Font Awesome per le ICONE -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">	
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarStyle">
-<!-- 	?v=2.x -->
 </head>
 
 <body>
     <div class="container-navbar">
-        <nav class="navbar navbar-expand-xl navbar-light custom-navbar">
+        <nav class="navbar navbar-expand-xl navbar-light custom-navbar fixed-top">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -56,6 +55,11 @@
                 </div>
             </div>
         </nav>
+    </div>
+
+    <!-- Aggiungi un div per il padding -->
+    <div style="padding-top: 70px;">
+        <!-- Contenuto della tua pagina -->
     </div>
 </body>
 
