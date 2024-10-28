@@ -195,7 +195,7 @@
             padding: 10px;
         }
 
-        button, button.btn.btn-info, a.btn.btn-primary {
+        button, button.btn.btn-info, a.btn.btn-primary, input.btn.btn-primary {
         	background-color: #f5835e;
 /*             background-color: #e1418b; */
             border: none;
@@ -210,7 +210,7 @@
         }
 
 
-		button:hover, button.btn.btn-info:hover, a.btn.btn-primary:hover {
+		button:hover, button.btn.btn-info:hover, a.btn.btn-primary:hover, input.btn.btn-primary:hover {
 		    background-color: #f96737;
 	/* 	    background-color: #79c7e3; */
 		    color: #ffffff;
