@@ -260,7 +260,7 @@
             </tbody>
         </table>
     </div>
-    <div align="center">
+    <div align="center" style="margin-bottom: 150px">
         <a href="purchaseTrain?trenoId=${treno.id}" class="button">Compra il treno</a>
         <a href="voteTrain?trenoId=${treno.id}" class="button">Vota il treno</a>
     </div>

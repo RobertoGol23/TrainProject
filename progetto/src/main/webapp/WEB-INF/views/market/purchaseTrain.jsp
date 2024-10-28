@@ -55,12 +55,12 @@
             transform: scale(1.02); /* Leggera animazione al passaggio del mouse */
         }
 
-        .treno img {
-            width: 150px;
-            height: auto;
-            border-radius: 5px;
-            margin-right: 20px;
-        }
+/*         .treno img { */
+/*             width: 150px; */
+/*             height: auto; */
+/*             border-radius: 5px; */
+/*             margin-right: 20px; */
+/*         } */
 
         .details {
             flex: 1;
@@ -71,6 +71,16 @@
         .error-message {
             color: #ff4c4c; /* Rosso per messaggi di errore */
             margin-top: 20px;
+        }
+        
+        .treno img {
+            max-width: 50%;
+            height: auto;
+            border-radius: 10px;
+            border-style: solid;
+			border-width: 2px;
+			border-color: black;
+			border-radius: 5px;
         }
         
     </style>
@@ -86,11 +96,18 @@
     <% if (treno != null) { %>
         <div class="treno">
         
-            <img src="${pageContext.request.contextPath}/images/treni/locomotivaFurryFast.jpg" alt="<%= treno.getNome() %>">
+            <!-- Immagine del treno a destra -->
+            <% if(treno.getMarca().equals("Treno RegionalGain")) { %>
+                <img src="${pageContext.request.contextPath}/treni/RG.jpg" class="card-img-top" alt="Treno">
+            <% } else if(treno.getMarca().equals("Treno xFurryFast")) { %>
+                <img src="${pageContext.request.contextPath}/treni/FF.jpg" class="card-img-top" alt="Treno">
+            <% } else if(treno.getMarca().equals("Treno KargoModelz")) { %>
+                <img src="${pageContext.request.contextPath}/treni/KM.jpg" class="card-img-top" alt="Treno">
+            <% } %>
             <div class="details">
                 <h2><%= treno.getNome() %></h2>
                 <p>Marca: <%= treno.getMarca() %></p>
-                <p>Prezzo: <%= treno.getPrezzoTotaleTreno() %> €</p>
+                <p>Prezzo: <%= treno.getPrezzoTotaleTreno() %> euro</p>
                 <p>Peso Totale: <%= treno.getPesoTotaleTreno() %> kg</p>
                 <p>Peso Trasportabile: <%= treno.getLocomotiva() != null ? treno.getLocomotiva().getPesoTrainabile() : 0 %> kg</p>
                 <p>Numero di Passeggeri: <%= treno.getPasseggeriTotali() %></p>

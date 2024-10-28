@@ -299,7 +299,7 @@
         </table>
     </div>
 
-    <div align="center">
+    <div align="center" style="margin-bottom: 150px">
         <a href="addWagons?idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Aggiungi vagoni</a>
         <a href="removeWagons?idTreno=<%= treno != null ? treno.getId() : "" %>" class="button">Rimuovi vagoni</a>
         <a href="cloneTrain?idTreno=${treno.id}" class="button">Clona il Treno</a>
