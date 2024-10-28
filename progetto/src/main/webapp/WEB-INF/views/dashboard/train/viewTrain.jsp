@@ -152,6 +152,24 @@
 		    text-align: center;
 		    z-index: 1000;
 		}
+
+        /* Stile del titolo nelle card */
+        .elegant-title {
+            font-family: 'Georgia', serif; /* Font elegante per il titolo */
+            font-size: 2.8rem; /* Dimensione del titolo */
+            color: #ffffff; /* Colore del titolo */
+            margin-bottom: 10px; /* Margine sotto il titolo */
+            text-align: center; /* Allinea il titolo al centro */
+        }
+        
+        .elegant-text {
+            font-family: 'Arial', sans-serif; /* Font elegante per il testo */
+            font-size: 1.5rem; /* Dimensione del testo */
+            color: ivory; /* Colore del testo */
+            line-height: 1.5; /* Altezza della linea per migliorare la leggibilitÃ  */
+            margin: 5px 0; /* Margine verticale */
+            text-align: justify; /* Giustifica il testo */
+        }
     </style>
 </head>
 <body>
@@ -159,7 +177,7 @@
     <h1>Dettagli del Treno</h1>
     
     <div id="ribaltaPopup" class="confirm-popup">
-        <p>Il treno è stato ribaltato con successo!</p>
+        <p>Il treno ï¿½ stato ribaltato con successo!</p>
         <button onclick="closeRibaltaPopup()">OK</button>
     </div>
     
@@ -176,16 +194,16 @@
         VotoDAO votoDAO = context.getBean(VotoDAO.class);
     %>
     <div class="train-details">
-        <h2>Treno: <%= treno.getNome() %></h2>
+        <div class="elegant-title">Treno: <%= treno.getNome() %></div>
         
         <div class="train-info-wrapper">
             <div class="train-info">
-        <p> - Id treno: <%= treno.getId() %></p>
-        <p> - Marca del treno: <%= treno.getMarca() %></p>
-        <p> - Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
-        <p> - Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
-        <p> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p>
-        <p> - Passeggeri totali: <%= treno.getPasseggeriTotali() %> passeggeri</p>
+                <p class="elegant-text"> - Marca del treno: <%= treno.getMarca() %></p>
+                <p class="elegant-text"> - Peso Totale: <%= treno.getPesoTotaleTreno() %> tonnellate</p>
+                <p class="elegant-text"> - Prezzo Totale: <%= treno.getPrezzoTotaleTreno() %> euro</p>
+                <p class="elegant-text"> - Voto: <%= (treno != null) ? votoDAO.getVotazioneMedia((Long) treno.getId()) : 0 %></p>
+                <p class="elegant-text"> - Passeggeri totali: <%= treno.getPasseggeriTotali() %> passeggeri</p>
+                <p class="elegant-text"> - Id treno: <%= treno.getId() %></p>
     	</div>
             <!-- Immagine del treno a destra -->
             <% if(treno.getMarca().equals("Treno RegionalGain")) { %>
@@ -351,7 +369,7 @@
             document.getElementById("ribaltaPopup").style.display = "none";
         }
 
-        // Mostra il popup di conferma se successMessage è presente
+        // Mostra il popup di conferma se successMessage ï¿½ presente
         <% if (successMessage != null) { %>
             showRibaltaPopup();
         <% 
