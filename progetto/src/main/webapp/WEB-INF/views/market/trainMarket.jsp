@@ -626,9 +626,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- TODO: footer -->
-    <!-- <footer>
-        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
-    </footer> -->
 </body>
 </html>
