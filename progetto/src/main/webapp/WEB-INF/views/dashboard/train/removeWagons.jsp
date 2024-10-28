@@ -14,6 +14,11 @@
 
     	td {
     		border-top: 1px solid white;
+    		border-bottom: 1px solid white;
+    	}
+    	
+    	table {
+    		border-bottom: 1px solid white;
     	}
     	
 	

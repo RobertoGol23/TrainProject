@@ -13,7 +13,7 @@
      .train {
          display: flex;
          position: absolute;
-         animation: moveTrain 10s linear infinite;
+         animation: moveTrain 15s linear infinite;
      }
 
      /* Ogni vagone è rappresentato da un quadrato */
@@ -26,7 +26,7 @@
      /* Animazione per far muovere il treno da sinistra a destra */
      @keyframes moveTrain {
          0% {
-             transform: translateX(100%); /* Parte da fuori lo schermo */
+             transform: translateX(200%); /* Parte da fuori lo schermo */
          }
          100% {
              transform: translateX(-100%); /* Scorre fuori dallo schermo a sinistra */
