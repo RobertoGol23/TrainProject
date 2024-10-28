@@ -40,7 +40,7 @@
             flex-wrap: wrap; /* Permette il wrapping degli elementi */
             width: 100%; /* Assicurati che occupi tutta la larghezza */
             margin: 0 auto; /* Margine automatico per centrare */
-            max-width: 800px; /* Larghezza massima per il contenitore principale */
+            max-width: 1300px; /* Larghezza massima per il contenitore principale */
         }
         
         .container {
@@ -65,8 +65,10 @@
         }
         
         .bottom-content {
-            margin-top: 20px; /* Spazio sopra il bottom-content */
+            margin-top: 5%; /* Spazio sopra il bottom-content */
             width: 100%; /* Larghezza totale per il div */
+            max-width: 1000px; /* Larghezza massima per il contenitore principale */
+
             padding: 20px; /* Padding interno */
             background-color: #3b3a5d; /* Colore di sfondo */
             color: #ffffff; /* Colore del testo */
@@ -78,10 +80,12 @@
         
         .left-content {
             margin-right: 20px; /* Spazio tra left-content e container */
+            width: 400px;
         }
         
         .right-content {
             margin-left: 20px; /* Spazio tra right-content e container */
+            width: 400px;
         }
         
         
@@ -141,7 +145,7 @@
             <p>È una stringa che descrive in pochi semplici caratteri da quali vagoni sarà costruito il tuo treno.
                 La locomotiva è indicata dalla lettera h, mentre gli altri vagoni (passeggeri, ristorante e cargo) sono 
                 descritti dalla loro prima lettera (p, r, c).</p>
-     </div>
+        </div>
     
         <div class="container">
             <div>
@@ -177,7 +181,7 @@
         </div>
     
         <div class="bottom-content" id="bottom-content" style="opacity: 0; visibility: hidden;">
-            <h2>Selezione della Fabbrica</h2>
+            <h2 style="margin-bottom: -2%;">Selezione della Fabbrica</h2>
             <p>Attualmente in questo tool sono previste 3 fabbriche per la creazione di treni standard (modificabili successivamente). Le fabbriche attualmente disponibili sono: xFurryFast, RegionalGain, KargoModelz.</p>
         </div>
     </div>
@@ -226,11 +230,5 @@
 
         </script>
 
-
-    <!-- TODO: footer -->
-    <!-- <footer>
-        &copy; 2024 Sistema Treni. Tutti i diritti riservati.
-    </footer> -->
-    
 </body>
 </html>

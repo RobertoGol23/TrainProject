@@ -102,7 +102,7 @@
             flex-wrap: wrap; /* Permette il wrapping degli elementi */
             width: 100%; /* Assicurati che occupi tutta la larghezza */
             margin: 0 auto; /* Margine automatico per centrare */
-            max-width: 900px; /* Larghezza massima per il contenitore principale */
+            max-width: 1300px; /* Larghezza massima per il contenitore principale */
         }
         
         .left-content,
@@ -119,10 +119,12 @@
         
         .left-content {
             margin-right: 20px; /* Spazio tra left-content e container */
+            width: 400px;
         }
         
         .right-content {
             margin-left: 20px; /* Spazio tra right-content e container */
+            width: 400px;
         }
         
         .container {
