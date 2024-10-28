@@ -26,6 +26,7 @@ import entity.servizi.Servizio;
 import entity.treno.Treno;
 import entity.user.User;
 import fabbriche.FabbricaServizi;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -394,7 +395,6 @@ public class TrainController {
     }
 
     
-    @SuppressWarnings("resource")
 	@GetMapping("/modifyWagonServices")
     public String mostraModificaServiziVagone(@RequestParam("idVagone") Long idVagone,
     		Model model, @RequestParam("idVagoneRel") int idVagoneRel,
@@ -467,7 +467,7 @@ public class TrainController {
     }
     
     @GetMapping("/viewTrain")
-    public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
+    public String viewTrain(@RequestParam("idTreno") Long idTreno, Model model) {
 	
     	//AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         //TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
@@ -481,7 +481,7 @@ public class TrainController {
 
         // Aggiungi il treno al modello
         model.addAttribute("treno", treno);
-        
+ 
         ////context.close();
 
         return "dashboard/train/viewTrain"; // Nome della vista JSP
@@ -580,7 +580,7 @@ public class TrainController {
     }
 
     @GetMapping("/ribaltaTreno")
-    public String ribaltaTreno(@RequestParam("idTreno") Long idTreno, RedirectAttributes redirectAttributes) {
+    public String ribaltaTreno(@RequestParam("idTreno") Long idTreno, Model model, HttpSession session) {
         // Recupera il treno dal database utilizzando l'ID
         Treno treno = trenoDAO.getTrenoById(idTreno);
         
@@ -593,22 +593,21 @@ public class TrainController {
             if (successo) {
                 // Salva le modifiche nel database
                 trenoDAO.updateTreno(treno);
-                redirectAttributes.addFlashAttribute("treno", treno);
                 // Aggiungi il messaggio di successo agli attributi del redirect
-                redirectAttributes.addFlashAttribute("success", "Il treno è stato ribaltato con successo!");
+                session.setAttribute("success", "Il treno è stato ribaltato con successo!");
                 // Reindirizza alla pagina con i dettagli aggiornati del treno
                 return "redirect:viewTrain?idTreno=" + idTreno; // Nome della tua JSP che mostra i dettagli del treno
             } else {
-            	redirectAttributes.addAttribute("idTreno", idTreno);
+            	model.addAttribute("idTreno", idTreno);
                 // Se non è possibile ribaltare il treno (es. sigla finisce con 'h')
-                redirectAttributes.addFlashAttribute("error", "Non è possibile ribaltare questo treno.");
-                return "redirect:dashboard/train/trainModifyFail"; // Pagina di errore o messaggio da gestire
+            	model.addAttribute("error", "Non è possibile ribaltare questo treno.");
+                return "dashboard/train/trainModifyFail"; // Pagina di errore o messaggio da gestire
             }
         } else {
             // Treno non trovato
-        	redirectAttributes.addAttribute("idTreno", idTreno);
-            redirectAttributes.addFlashAttribute("error", "Treno non trovato.");
-            return "redirect:dashboard/train/trainModifyFail";
+        	model.addAttribute("idTreno", idTreno);
+        	model.addAttribute("error", "Treno non trovato.");
+            return "dashboard/train/trainModifyFail";
         }
     }
     
