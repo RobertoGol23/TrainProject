@@ -33,6 +33,7 @@ public class MarketController {
     @GetMapping("/trainMarket")
     public String showTrainMarket(
             @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "searchQuery", required = false) String searchQuery,
             @RequestParam(value = "ordinamento", required = false) String ordinamento,
             @RequestParam(value = "peso-min", required = false) Double pesoMin,
             @RequestParam(value = "peso-max", required = false) Double pesoMax,
@@ -43,62 +44,48 @@ public class MarketController {
             @RequestParam(value = "versoOrdinamento", required = false) Boolean versoOrdinamento,
             HttpSession session) {
 
-        // Crea il contesto per accedere al TrenoDAO
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
 
-        // Recupera i parametri di ricerca dalla sessione se non sono stati passati nella richiesta
-        String ordinamento_2 = (ordinamento != null) ? ordinamento : (String) session.getAttribute("ordinamento");
-        Double pesoMin_2 = (pesoMin != null) ? pesoMin : (Double) session.getAttribute("pesoMin");
-        Double pesoMax_2 = (pesoMax != null) ? pesoMax : (Double) session.getAttribute("pesoMax");
-        Integer lunghezzaMin_2 = (lunghezzaMin != null) ? lunghezzaMin : (Integer) session.getAttribute("lunghezzaMin");
-        Integer lunghezzaMax_2 = (lunghezzaMax != null) ? lunghezzaMax : (Integer) session.getAttribute("lunghezzaMax");
-        Double prezzoMin_2 = (prezzoMin != null) ? prezzoMin : (Double) session.getAttribute("prezzoMin");
-        Double prezzoMax_2 = (prezzoMax != null) ? prezzoMax : (Double) session.getAttribute("prezzoMax");
-        Boolean versoOrdinamento_2 = (versoOrdinamento != null) ? versoOrdinamento : (Boolean) session.getAttribute("versoOrdinamento");
+        List<Treno> treni;
 
-        // Se i parametri sono null, imposta i valori di default
-        if (ordinamento_2 == null) ordinamento_2 = "";
-        if (pesoMin_2 == null) pesoMin_2 = 0.0;
-        if (pesoMax_2 == null) pesoMax_2 = Double.MAX_VALUE;
-        if (lunghezzaMin_2 == null) lunghezzaMin_2 = 0;
-        if (lunghezzaMax_2 == null) lunghezzaMax_2 = Integer.MAX_VALUE;
-        if (prezzoMin_2 == null) prezzoMin_2 = 0.0;
-        if (prezzoMax_2 == null) prezzoMax_2 = Double.MAX_VALUE;
-        if (versoOrdinamento_2 == null) versoOrdinamento_2 = true;
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            // Esegui solo la ricerca per ID, nome o sigla se searchQuery è presente
+            treni = trenoDAO.findByQuery(searchQuery);
+        } else {
+            // Determina ordinamento di default per il primo accesso
+            String ordinamento_2 = (ordinamento != null) ? ordinamento : 
+                                   (session.getAttribute("ordinamento") != null ? (String) session.getAttribute("ordinamento") : "voto");
 
+            Double pesoMin_2 = (pesoMin != null) ? pesoMin : (Double) session.getAttribute("pesoMin");
+            Double pesoMax_2 = (pesoMax != null) ? pesoMax : (Double) session.getAttribute("pesoMax");
+            Integer lunghezzaMin_2 = (lunghezzaMin != null) ? lunghezzaMin : (Integer) session.getAttribute("lunghezzaMin");
+            Integer lunghezzaMax_2 = (lunghezzaMax != null) ? lunghezzaMax : (Integer) session.getAttribute("lunghezzaMax");
+            Double prezzoMin_2 = (prezzoMin != null) ? prezzoMin : (Double) session.getAttribute("prezzoMin");
+            Double prezzoMax_2 = (prezzoMax != null) ? prezzoMax : (Double) session.getAttribute("prezzoMax");
+            Boolean versoOrdinamento_2 = (versoOrdinamento != null) ? versoOrdinamento : (Boolean) session.getAttribute("versoOrdinamento");
 
-        // Recupera i treni filtrati e ordinati
-        List<Treno> treni = trenoDAO.cercaTreni(ordinamento_2, pesoMin_2, pesoMax_2, lunghezzaMin_2, lunghezzaMax_2, prezzoMin_2, prezzoMax_2, versoOrdinamento_2);
+            treni = trenoDAO.cercaTreni(ordinamento_2, pesoMin_2, pesoMax_2, lunghezzaMin_2, lunghezzaMax_2, prezzoMin_2, prezzoMax_2, versoOrdinamento_2);
+        }
 
-        // Calcola il numero totale di treni e pagine dopo la ricerca
         int totalTreni = treni.size();
         int totalPages = (int) Math.ceil((double) totalTreni / TRENTS_PER_PAGE);
 
-        // Pagina corrente (verifica se ci sono abbastanza treni per riempire la pagina)
         List<Treno> treniPaginati = treni.stream()
             .skip((page - 1) * TRENTS_PER_PAGE)
             .limit(TRENTS_PER_PAGE)
             .collect(Collectors.toList());
 
-        // Aggiungi i risultati filtrati e ordinati alla sessione
         session.setAttribute("treni", treniPaginati);
         session.setAttribute("currentPage", page);
         session.setAttribute("totalPages", totalPages);
 
-        // Salva i parametri di ricerca nella sessione per le future richieste
-        session.setAttribute("ordinamento", ordinamento_2);
-        session.setAttribute("pesoMin", pesoMin_2);
-        session.setAttribute("pesoMax", pesoMax_2);
-        session.setAttribute("lunghezzaMin", lunghezzaMin_2);
-        session.setAttribute("lunghezzaMax", lunghezzaMax_2);
-        session.setAttribute("prezzoMin", prezzoMin_2);
-        session.setAttribute("prezzoMax", prezzoMax_2);
-        session.setAttribute("versoOrdinamento", versoOrdinamento_2);
-
         context.close();
-        return "market/trainMarket"; // Ritorna alla vista del market con i treni filtrati
+        return "market/trainMarket";
     }
+
+
+
     
 
     @PostMapping("/trainMarket")
@@ -111,22 +98,35 @@ public class MarketController {
             @RequestParam("prezzo-min") Optional<Double> prezzoMin,
             @RequestParam("prezzo-max") Optional<Double> prezzoMax,
             @RequestParam("versoOrdinamento") Boolean versoOrdinamento,
+            @RequestParam("ricercaGenerica") Optional<String> ricercaGenerica,
             HttpSession session) {
-        
 
-        // Save search parameters in the session
-        session.setAttribute("ordinamento", ordinamento.orElse(""));
-        session.setAttribute("pesoMin", pesoMin.orElse(0.0));
-        session.setAttribute("pesoMax", pesoMax.orElse(Double.MAX_VALUE));
-        session.setAttribute("lunghezzaMin", lunghezzaMin.orElse(0));
-        session.setAttribute("lunghezzaMax", lunghezzaMax.orElse(Integer.MAX_VALUE));
-        session.setAttribute("prezzoMin", prezzoMin.orElse(0.0));
-        session.setAttribute("prezzoMax", prezzoMax.orElse(Double.MAX_VALUE));
-        session.setAttribute("versoOrdinamento", versoOrdinamento);
+        // Se ricercaGenerica è presente, salva solo quel parametro e ignora i filtri
+        if (ricercaGenerica.isPresent() && !ricercaGenerica.get().isEmpty()) {
+            session.setAttribute("ricercaGenerica", ricercaGenerica.get());
+            session.removeAttribute("ordinamento");
+            session.removeAttribute("pesoMin");
+            session.removeAttribute("pesoMax");
+            session.removeAttribute("lunghezzaMin");
+            session.removeAttribute("lunghezzaMax");
+            session.removeAttribute("prezzoMin");
+            session.removeAttribute("prezzoMax");
+            session.removeAttribute("versoOrdinamento");
+        } else {
+            session.setAttribute("ordinamento", ordinamento.orElse(""));
+            session.setAttribute("pesoMin", pesoMin.orElse(0.0));
+            session.setAttribute("pesoMax", pesoMax.orElse(Double.MAX_VALUE));
+            session.setAttribute("lunghezzaMin", lunghezzaMin.orElse(0));
+            session.setAttribute("lunghezzaMax", lunghezzaMax.orElse(Integer.MAX_VALUE));
+            session.setAttribute("prezzoMin", prezzoMin.orElse(0.0));
+            session.setAttribute("prezzoMax", prezzoMax.orElse(Double.MAX_VALUE));
+            session.setAttribute("versoOrdinamento", versoOrdinamento);
+            session.removeAttribute("ricercaGenerica");
+        }
 
-        // Redirect to the market page with page 1
         return "redirect:/trainMarket?page=1";
     }
+
 
 
 

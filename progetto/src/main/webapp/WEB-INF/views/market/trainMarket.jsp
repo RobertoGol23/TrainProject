@@ -405,10 +405,12 @@
 
   <div class="search-bar-container">
     <div class="search-bar">
-        <i class="fas fa-magnifying-glass search-icon"></i>
-        <input type="text" placeholder="Cerca..." aria-label="Search">
+    	<form action="trainMarket" method="get">
+        <input type="text" name="searchQuery" placeholder="Cerca per ID, nome o sigla..." aria-label="Search">
+        <button type="submit" class="btn btn-primary">Ricerca</button>
+    </form>
     </div>
- </div>
+</div>
 
   <div class="container">
 	<div class="container-search">

@@ -398,8 +398,22 @@ public class TrenoDAO {
 		return query.getResultList();
 	}
 
-
-
+	
+	public List<Treno> findByQuery(String query) {
+	    try {
+	        // Prova a interpretare `query` come un Long per la ricerca tramite ID
+	        Long idTreno = Long.parseLong(query);
+	        // Se `query` è un numero valido, cerca per ID
+	        return em.createQuery("SELECT t FROM Treno t WHERE t.id_treno = :idTreno", Treno.class)
+	                 .setParameter("idTreno", idTreno)
+	                 .getResultList();
+	    } catch (NumberFormatException e) {
+	        // Se `query` non è un numero, cerca per nome
+	        return em.createQuery("SELECT t FROM Treno t WHERE t.nomeTreno LIKE :queryLike", Treno.class)
+	                 .setParameter("queryLike", "%" + query + "%")
+	                 .getResultList();
+	    }
+	}
 
 
 
