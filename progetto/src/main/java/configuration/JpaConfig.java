@@ -99,7 +99,6 @@ public class JpaConfig {
     	VotoDAO dao = new VotoDAO();
         return dao;
     }
-
     
     @Bean(name="acquistoDAO")
     public AcquistoDAO getAcquistoDAO() {

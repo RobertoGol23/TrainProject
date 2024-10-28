@@ -406,8 +406,7 @@
   <div class="search-bar-container">
     <div class="search-bar">
     	<form action="trainMarket" method="get">
-        <input type="text" name="searchQuery" placeholder="Cerca per ID, nome o sigla..." aria-label="Search">
-        <button type="submit" class="btn btn-primary">Ricerca</button>
+        <input type="text" name="searchQuery" placeholder="Cerca per ID, nome..." aria-label="Search">
     </form>
     </div>
 </div>
