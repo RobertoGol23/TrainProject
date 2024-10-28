@@ -71,4 +71,20 @@ public class AcquistoDAO {
 	        
 	        return count > 0;
 	    }
+
+		public List<Acquisto> getAcquistoByPage(int page, int pageSize) {
+			// Implementazione per ottenere un subset di acquisti per pagina
+			int offset = (page - 1) * pageSize;
+			// Query per ottenere gli acquisti con offset e limit
+				return em.createQuery("SELECT u FROM Acquisto u", Acquisto.class)
+						.setFirstResult(offset)  // Salta i primi "offset" risultati
+						.setMaxResults(pageSize) // Limita il numero di risultati a "pageSize"
+						.getResultList();
+		}
+
+		public int getTotalAcquisti() {
+			Long totalAcquisti = em.createQuery("SELECT COUNT(u) FROM Acquisto u", Long.class)
+					.getSingleResult();
+			return totalAcquisti.intValue();
+		}
 }

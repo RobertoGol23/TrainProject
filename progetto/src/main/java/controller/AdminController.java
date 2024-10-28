@@ -22,16 +22,48 @@ import java.util.List;
 @RequestMapping("/dashboard/admin")
 public class AdminController {
 
-    // Mostra la pagina con tutti gli acquisti di tutti gli utenti
     @GetMapping("/showPurchases")
-    public String showPurchases(Model model) {
-    	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-    	AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class);
-        List<Acquisto> purchases = acquistoDAO.getAllAcquisti();
+    public String showPurchases(
+        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "userIdSearch", required = false) Long userIdSearch,
+        Model model) {
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
+        AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class);
+        UserDAO userDAO = context.getBean(UserDAO.class);
+
+        List<User> users;
+        List<Acquisto> purchases;
+        int totalPages = 1;
+        int currentPage = 1;
+
+        if (userIdSearch != null) {
+            User user = userDAO.getUserById(userIdSearch);
+            users = (user != null) ? List.of(user) : List.of();
+            
+            // Recupera gli acquisti filtrati per userId
+            purchases = (user != null) ? acquistoDAO.getAcquistiByUserId(userIdSearch) : List.of();
+            totalPages = 1; // Non stiamo facendo paginazione qui
+            currentPage = 1; // Non stiamo facendo paginazione qui
+        } else {
+            int pageSize = 10;
+            users = userDAO.getUsersByPage(page, pageSize);
+            int totalAcquisti = acquistoDAO.getTotalAcquisti();
+            totalPages = (int) Math.ceil((double) totalAcquisti / pageSize);
+            currentPage = page;
+
+            // Recupera tutti gli acquisti
+            purchases = acquistoDAO.getAllAcquisti();
+        }
+
+        model.addAttribute("users", users);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("purchases", purchases);
+        
         context.close();
         return "/dashboard/admin/showPurchases"; // Nome della JSP da visualizzare
     }
+
 
     // Mostra la pagina per gestire gli utenti (bloccare/sbloccare)
     @GetMapping("/manageUsers")
