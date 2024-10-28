@@ -11,6 +11,7 @@
     <style>
     	h2 {
         	color: #e1418b; /* Colore dei titoli */
+        	height: 40px;
         }
     
         .wagon-form {
@@ -155,7 +156,7 @@
     <div class="main-container">
     	<div class="left-content" id="left-content" style="opacity: 0; visibility: hidden;">
        	 	<h2>Selezione della Fabbrica</h2>
-       		<p style="margin-top: 50px">Attualmente in questo tool sono previste 3 fabbriche per la creazione di treni standard (modificabili successivamente). Le fabbriche attualmente disponibili sono: xFurryFast, RegionalGain, KargoModelz.</p>
+       		<p>Attualmente in questo tool sono previste 3 fabbriche per la creazione di treni standard (modificabili successivamente). Le fabbriche attualmente disponibili sono: xFurryFast, RegionalGain, KargoModelz.</p>
     	</div>
     	<div class="container">
             <div >
