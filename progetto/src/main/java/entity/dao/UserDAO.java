@@ -173,4 +173,19 @@ public class UserDAO {
 		return em.createQuery(cq).getResultList();
 	}
 
+    public List<User> getUsersByPage(int page, int pageSize) {
+        // Implementazione per ottenere un subset di utenti per pagina
+        int offset = (page - 1) * pageSize;
+     // Query per ottenere gli utenti con offset e limit
+        return em.createQuery("SELECT u FROM User u", User.class)
+                .setFirstResult(offset)  // Salta i primi "offset" risultati
+                .setMaxResults(pageSize) // Limita il numero di risultati a "pageSize"
+                .getResultList();
+    }
+
+    public int getTotalUsers() {
+    	Long totalUsers = em.createQuery("SELECT COUNT(u) FROM User u", Long.class)
+                .getSingleResult();
+        return totalUsers.intValue();
+    }
 }
