@@ -31,6 +31,7 @@
         
         h2 {
         	color: #e1418b; /* Colore dei titoli */
+        	height: 40px;
         }
         
         .main-container {

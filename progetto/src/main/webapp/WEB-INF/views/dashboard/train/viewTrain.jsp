@@ -165,14 +165,16 @@
     
 
     <%
+    	String successMessage = (String) session.getAttribute("success");
+    	System.out.println(successMessage);
         // Recupera il treno dalla richiesta
-        String successMessage = (String) request.getAttribute("success");
         Treno treno = (Treno) request.getAttribute("treno");
         if (treno != null) {
     
         TrenoUtility tu = new TrenoUtility();
      	AbstractApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
-        VotoDAO votoDAO = context.getBean(VotoDAO.class); %>
+        VotoDAO votoDAO = context.getBean(VotoDAO.class);
+    %>
     <div class="train-details">
         <h2>Treno: <%= treno.getNome() %></h2>
         
@@ -352,7 +354,10 @@
         // Mostra il popup di conferma se successMessage è presente
         <% if (successMessage != null) { %>
             showRibaltaPopup();
-        <% } %>
+        <% 
+	        session.removeAttribute("success");
+	        successMessage = null;
+        } %>
     </script>
 
     <!-- TODO: footer -->
