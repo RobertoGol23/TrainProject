@@ -54,7 +54,7 @@
         
         .container-search{
         	display: block;
-        	width: 20%;
+        	width: 21%;
         	margin-right: 3%;
         }
 
@@ -195,8 +195,9 @@
             padding: 10px;
         }
 
-        button {
-            background-color: #e1418b;
+        button, button.btn.btn-info, a.btn.btn-primary {
+        	background-color: #f5835e;
+/*             background-color: #e1418b; */
             border: none;
             color: white;
             padding: 10px;
@@ -204,11 +205,19 @@
             cursor: pointer;
             margin-left: 5px;
             height: 40px;
+            transition: background-color 0.3s, transform 0.3s; /* Transizione */
+			text-decoration: none;
         }
 
-        button:hover {
-            background-color: #79c7e3;
-        }
+
+		button:hover, button.btn.btn-info:hover, a.btn.btn-primary:hover {
+		    background-color: #f96737;
+	/* 	    background-color: #79c7e3; */
+		    color: #ffffff;
+			transform: translateY(-2px); /* Effetto sollevato */
+			text-decoration: none;
+		}
+
 
         input[type="number"] {
             width: 110px;
@@ -513,7 +522,7 @@
                         boolean hasAcquisto = acquistoDAO.existsAcquistoByUserIdAndTrenoId(user.getId_user(), treno.getId());
 						
                         if(votoDAO.trovaVotoPerUtenteETreno(user.getId_user(), treno.getId())!= null){%>
-                        	 <span class="badge badge-warning" style="top: 10px; left: 10px;">Lo hai votato</span>
+                        	 <span class="badge badge-warning" style="top: 10px; left: 10px;">Treno votato</span>
                         <%}
                     %>
                     <!-- Badge per indicare se il treno è stato creato o acquistato -->
