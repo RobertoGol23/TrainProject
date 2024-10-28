@@ -68,7 +68,7 @@ public class User {
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
-		this.wallet = 0.0;
+		this.wallet = wallet;
 		}
 	
 	public User(String nome, String cognome, String email, String password) {

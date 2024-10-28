@@ -7,8 +7,10 @@ import configuration.JpaConfig;
 import eccezioni.eccezioniGeneriche.GenericException;
 import eccezioni.eccezioniGeneriche.SoldiNonSufficientiException;
 import eccezioni.eccezioniSigla.SiglaTrenoException;
+import entity.acquisto.Acquisto;
 import entity.classi_astratte.FabbricaVagoni;
 import entity.classi_astratte.TrenoBuilder;
+import entity.dao.AcquistoDAO;
 import entity.dao.AdminDAO;
 import entity.dao.TrenoDAO;
 import entity.dao.UserDAO;
@@ -73,14 +75,14 @@ public class RiempiDatabase {
             User user9 = new User("F. Scott", "Fitzgerald", "f.scott.fitzgerald@gmail.com", "1234", 10000000000.0);
             userDAO.salvaUser(user9);
 
-            User user10 = new User("Gabriel", "Garcia Marquez", "gabriel.garcia.marquez@gmail.com", "1234", 10000000000.0);
+            User user10 = new User("Gabriel", "Garcia Marquez", "gabriel.garcia.marquez@gmail.com", "1234", 1000000000.0);
             userDAO.salvaUser(user10);
 
 
             // 2 - CREAZIONE TRENI e VOTAZIONI
             TrenoDAO trenoDAO = context.getBean(TrenoDAO.class);
             VotoDAO votoDAO = context.getBean(VotoDAO.class);
-            
+            AcquistoDAO acquistoDAO = context.getBean(AcquistoDAO.class); 
 
 			Treno treno = builderKM.costruisciTreno("Foscolo's train", "hrp", user1, 2);
             trenoDAO.salvaTreno(treno);
@@ -113,6 +115,15 @@ public class RiempiDatabase {
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
 
+            
+        	Acquisto acquisto = new Acquisto(user1, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user2, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user4, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
 
             treno = builderKM.costruisciTreno("Foscolo's Express", "hrp", user1, 2);
@@ -138,6 +149,17 @@ public class RiempiDatabase {
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user10, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user7, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user3, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user6, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
             
             treno = builderRG.costruisciTreno("Foscolo's Journey", "hrph", user1, 3);
@@ -163,7 +185,11 @@ public class RiempiDatabase {
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user9, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
+            acquisto = new Acquisto(user1, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
             
             treno = builderFF.costruisciTreno("Foscolo's Adventure", "hpprppp", user1, 1);
             trenoDAO.salvaTreno(treno);
@@ -191,6 +217,10 @@ public class RiempiDatabase {
             voto = new Voto(3, user8, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user2, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+
 
             treno = builderKM.costruisciTreno("Pirandello's Train", "hpprpp", user2, 2);
             trenoDAO.salvaTreno(treno);
@@ -208,6 +238,11 @@ public class RiempiDatabase {
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user8, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user5, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
             treno = builderRG.costruisciTreno("Pirandello's Express", "hppph", user2, 3);
             trenoDAO.salvaTreno(treno);
@@ -218,6 +253,9 @@ public class RiempiDatabase {
 
             voto = new Voto(3, user3, treno);
             votoDAO.salvaVoto(voto);
+
+            acquisto = new Acquisto(user7, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
 
             treno = builderFF.costruisciTreno("Pirandello's Cargo", "hcccch", user2, 1);
@@ -244,6 +282,11 @@ public class RiempiDatabase {
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user9, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user10, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
             treno = builderKM.costruisciTreno("D'Annunzio's Express", "hrp", user3, 2);
             trenoDAO.salvaTreno(treno);
@@ -264,6 +307,8 @@ public class RiempiDatabase {
             voto = new Voto(1, user6, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user4, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
             treno = builderRG.costruisciTreno("D'Annunzio's Journey", "hpppp", user3, 3);
             trenoDAO.salvaTreno(treno);
@@ -278,6 +323,16 @@ public class RiempiDatabase {
 
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
+
+            acquisto = new Acquisto(user1, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user5, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user6, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
 
 
             treno = builderFF.costruisciTreno("D'Annunzio's Adventure", "hpprppp", user3, 1);
@@ -298,7 +353,13 @@ public class RiempiDatabase {
             voto = new Voto(2, user7, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user8, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
+            acquisto = new Acquisto(user9, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+        
             treno = builderKM.costruisciTreno("Kafka's Express", "hccc", user4, 2);
             trenoDAO.salvaTreno(treno);
             voto = new Voto(1, user1, treno);
@@ -330,6 +391,12 @@ public class RiempiDatabase {
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user9, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user10, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
 
             treno = builderRG.costruisciTreno("Kafka's Journey", "hpprpp", user4, 3);
             trenoDAO.salvaTreno(treno);
@@ -349,6 +416,12 @@ public class RiempiDatabase {
 
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
+
+            acquisto = new Acquisto(user1, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user9, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
 
             treno = builderKM.costruisciTreno("Dumas's Express", "hrp", user5, 2);
@@ -370,6 +443,11 @@ public class RiempiDatabase {
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user10, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user7, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
             treno = builderRG.costruisciTreno("Dumas's Journey", "hpprpp", user5, 3);
             trenoDAO.salvaTreno(treno);
@@ -390,6 +468,18 @@ public class RiempiDatabase {
 
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
+
+            acquisto = new Acquisto(user6, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user7, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user8, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
+
+            acquisto = new Acquisto(user3, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
 
             treno = builderFF.costruisciTreno("Dumas's Adventure", "hprph", user5, 1);
@@ -419,6 +509,8 @@ public class RiempiDatabase {
             voto = new Voto(5, user10, treno);
             votoDAO.salvaVoto(voto);
 
+            acquisto = new Acquisto(user3, treno);
+			acquistoDAO.salvaAcquisto(acquisto);
 
             treno = builderKM.costruisciTreno("Woolf's Express", "hc", user6, 2);
             trenoDAO.salvaTreno(treno);
