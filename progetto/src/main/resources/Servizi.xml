@@ -23,7 +23,7 @@
 	<bean name="cinema" class="entity.servizi.Servizio" scope="prototype">
 		<property name="nome" value="cinema"></property>
 		<property name="pesoS" value="0.3"></property>
-		<property name="prezzoS" value="15000.0"></property>
+		<property name="prezzoS" value="1500.0"></property>
 	</bean>
 
 	<bean name="colore" class="entity.servizi.Servizio" scope="prototype">
@@ -52,7 +52,7 @@
 
 	<bean name="wifi" class="entity.servizi.Servizio" scope="prototype">
 		<property name="nome" value="wifi"></property>
-		<property name="pesoS" value="0.1"></property>
+		<property name="pesoS" value="0.0"></property>
 		<property name="prezzoS" value="900.0"></property>
 	</bean>
 

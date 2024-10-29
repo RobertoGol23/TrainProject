@@ -451,7 +451,8 @@ public class TrainController {
     	{
     		vagone.addServizio(servizio);
     		tu.controllaPesoTrainabile("", treno.getListaVagoni());
-	    	trenoDAO.updateTreno(treno);     
+	    	vagoneDAO.updateVagone(vagone);
+    		//trenoDAO.updateTreno(treno);     
 	
 	        request.setAttribute("idTreno", idTreno);
 	        request.setAttribute("message", "Servizio aggiunto con successo!");
@@ -506,6 +507,21 @@ public class TrainController {
 	    try
 	    {
 	    	vagoneDAO.removeServizioFromVagone(idVagone, idServizio);
+	    	
+	    	String nomeS = servizioDAO.getServizioById(idServizio).getNome();
+	    	ServiziUtility su = new ServiziUtility();
+	    	FabbricaServizi fs = new FabbricaServizi();
+	    	Servizio s = su.creaServizioByNome(fs, nomeS);
+	    	
+	    	Double pesoS = s.getPesoS();
+	    	Double prezzoS = s.getPrezzoS();
+	    	System.out.println("Peso: " + pesoS + "\nPrezzo: " + prezzoS);
+	    	
+	    	Vagone vagone = vagoneDAO.getVagoneById(idVagone);
+	    	vagone.setPeso(vagone.getPeso()-pesoS);
+	    	vagone.setPrezzo(vagone.getPrezzo()-prezzoS);
+	    	
+	    	//vagoneDAO.updateVagone(vagone);
 	    }
 	    catch(AssociazioneServizioVagoneNonTrovataException e)
 	    {
