@@ -177,7 +177,7 @@
     <h1>Dettagli del Treno</h1>
     
     <div id="ribaltaPopup" class="confirm-popup">
-        <p>Il treno � stato ribaltato con successo!</p>
+        <p>Il treno e' stato ribaltato con successo!</p>
         <button onclick="closeRibaltaPopup()">OK</button>
     </div>
     

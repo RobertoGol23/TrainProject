@@ -41,6 +41,10 @@ public class ServizioDAO{
 	        return em.find(Servizio.class, nome);
 	    }
 
+	    public Servizio getServizioById(Long idServizio) {
+	        return em.find(Servizio.class, idServizio);
+	    }
+	    
 	    @Transactional
 	    public void updateServizio(Servizio servizio) {
 	    	em.merge(servizio);

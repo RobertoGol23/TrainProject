@@ -345,6 +345,20 @@ public class TrenoDAO {
 	}
 	
 
+	public List<Treno> getTreniByPeso(Double pesoMin, Double pesoMax, Boolean versoOrdinamento) {
+	    String jpql = "SELECT t FROM Treno t " +
+	                  "JOIN t.listaVagoni v " +
+	                  "GROUP BY t.id_treno " +
+	                  "HAVING SUM(v.peso) BETWEEN :pesoMin AND :pesoMax " +
+	                  "ORDER BY SUM(v.peso) " + (Boolean.TRUE.equals(versoOrdinamento) ? "ASC" : "DESC");
+
+	    TypedQuery<Treno> query = em.createQuery(jpql, Treno.class);
+	    query.setParameter("pesoMin", pesoMin);
+	    query.setParameter("pesoMax", pesoMax);
+
+	    return query.getResultList();
+	}
+	
 
 	public List<Treno> cercaTreni(String ordinamento, Double pesoMin, Double pesoMax,
                                 Integer lunghezzaMin, Integer lunghezzaMax,

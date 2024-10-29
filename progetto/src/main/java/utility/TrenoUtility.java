@@ -83,11 +83,11 @@ public class TrenoUtility {
 			break;
 			
 		case 2:
-			fabbrica = new FabbricaRegionalGain();
+			fabbrica = new FabbricaKargoModelz();		
 			break;
 			
 		case 3:
-			fabbrica = new FabbricaKargoModelz();
+			fabbrica = new FabbricaRegionalGain();
 			break;
 		}
 		
